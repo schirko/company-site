@@ -11,10 +11,11 @@ engines not to list it. When the name is settled, change it in `config.py`, set
 ## How it's put together
 
 ```
-FirstLightAg/
+company-site/
 ├── config.py          the company name, tagline, location, contact address, PUBLIC switch
 ├── build.py           fills in the templates and writes the finished site to docs/
 ├── templates/         the pages, with ${placeholders} for the name and the app list
+├── content/apps.json  the home page's longer words about each app (tiles and app sections)
 ├── static/            site.css, favicon.svg, and suite/ (the shared look and the app list)
 ├── docs/              the finished site: GitHub Pages serves this folder as it is
 └── tests/             checks that every page builds and no link points nowhere
@@ -28,7 +29,7 @@ are built from that same list, so an app going live is still a one-file change.
 ## Build and check it
 
 ```powershell
-cd B:\_Dev\Python\FirstLightAg
+cd B:\_Dev\Python\farm-apps\company-site
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements-dev.txt
