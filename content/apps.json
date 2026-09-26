@@ -1,0 +1,36 @@
+{
+  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu.",
+  "herd-planner": {
+    "question": "Which calves do I sell, which heifers do I keep, and how fast can my herd grow?",
+    "audience": "For cow-calf ranches",
+    "points": [
+      "Prices every animal at your own sale barn from live USDA auction reports, with a range tested on sales the model never saw",
+      "Keep or sell: weighs selling now against feeding on, and what a heifer is worth over her working life",
+      "Plans your herd size: runs 1,000 possible futures to find how many heifers to keep to reach your goal on the grass you have",
+      "Records that work at the chute, from weights to calving and health, even with no signal"
+    ],
+    "note": "Free for record keeping. The first visit can take a minute to wake up."
+  },
+  "corn-yield-predictor": {
+    "question": "What will this county's corn yield, and why?",
+    "audience": "For corn growers and advisers",
+    "points": [
+      "Predicts county corn yields from 26 seasons of USDA yields, NASA daily weather, soil ratings and irrigation",
+      "Tested the hard way: on whole districts and future years it never saw, and on Iowa after learning only from Nebraska",
+      "Maps where the model is strong and where it misses, so you know when to trust it",
+      "Shows which weather matters where: a long dry spell hurts Nebraska corn but not Iowa's"
+    ],
+    "note": "Free, no account needed. Nebraska and Iowa."
+  },
+  "farm-equipment-planner": {
+    "question": "Will this machine pay for itself on my farm?",
+    "audience": "For crop farms",
+    "points": [
+      "The true cost to own and run a machine, by the ASABE and Iowa State method",
+      "Replays your county's real falls since 2000 to price the bushels a bigger machine saves",
+      "Buy new, buy used, lease or hire custom, compared across thousands of simulated seasons",
+      "Finds the harvest bottleneck: the combine, carts, trucks, pit or dryer"
+    ],
+    "note": "Built and in testing. It opens once it has a home online."
+  }
+}

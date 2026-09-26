@@ -1,4 +1,4 @@
-/* Farm app suite: the "Farm apps" menu in each app's header. Suite version 2.
+/* Farm app suite: the "Farm Apps" menu in each app's header. Suite version 2.
    THE SAME FILE lives in Herd Planner and Farm Equipment Planner; the master copy
    is herd-planner/brand/suite.js (a test in each app fails if its copy drifts).
 
@@ -21,9 +21,9 @@
   function build(menu, list) {
     const here = menu.dataset.suiteApps;
     const base = menu.dataset.suiteBase || ".";
-    menu.appendChild(el("summary", { "aria-label": "Our farm apps" }, "Farm apps"));
+    menu.appendChild(el("summary", { "aria-label": "Our Farm Apps" }, "Farm Apps"));
     const panel = el("div", { class: "suite-apps-panel" });
-    panel.appendChild(el("p", { class: "suite-apps-title" }, "Our farm apps"));
+    panel.appendChild(el("p", { class: "suite-apps-title" }, "Our Farm Apps"));
     for (const app of list.apps) {
       const isHere = app.id === here;
       const row = app.url && !isHere ? el("a", { class: "suite-app", href: app.url }) : el("div", { class: "suite-app" });

@@ -25,6 +25,7 @@ import config
 ROOT = Path(__file__).resolve().parent
 TEMPLATES = ROOT / "templates"
 STATIC = ROOT / "static"
+CONTENT = ROOT / "content"
 OUT = ROOT / "docs"
 
 HERD_PLANNER_TERMS = "https://herd-planner.onrender.com/app/terms.html"
@@ -33,7 +34,7 @@ HERD_PLANNER_TERMS = "https://herd-planner.onrender.com/app/terms.html"
 PAGES = [
     ("index.html", "index.html", None, "Decision tools for ranchers and farmers: herd, crop and machinery decisions from your own records and public data.", None),
     ("about.html", "about.html", "About", "Who builds the apps, and how.", "about"),
-    ("methods.html", "methods.html", "How we test", "How each app's models are tested, the results, and where each one falls short.", "methods"),
+    ("methods.html", "methods.html", "How We Test", "How each app's models are tested, the results, and where each one falls short.", "methods"),
     ("privacy.html", "privacy.html", "Privacy", "How the apps handle your email and your records.", "privacy"),
     ("404.html", "404.html", "Page not found", "That page isn't here.", None),
 ]
@@ -48,15 +49,43 @@ def e(text):
     return html.escape(text, quote=True)
 
 
-def app_card(app):
-    link = (f'<a class="btn small" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"]
-            else '<span class="status">Coming soon</span>')
-    return f"""      <div class="card app-card">
-        <img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="64" height="64">
-        <h3>{e(app["name"])}</h3>
-        <p>{e(app["what"])}.</p>
-        {link}
+def load_copy():
+    """The site's longer words about each app (content/apps.json), keyed by app id."""
+    return json.loads((CONTENT / "apps.json").read_text(encoding="utf-8"))
+
+
+def app_tile(app, copy):
+    """A big tile in the opening section: the whole tile is the link, so it's easy to hit on a phone."""
+    inner = f"""<img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">
+        <span class="tile-words"><strong>{e(app["name"])}</strong><span>{e(copy["question"])}</span></span>"""
+    if app["url"]:
+        return f"""      <a class="tile" href="{e(app["url"])}">
+        {inner}
+        <span class="btn small" aria-hidden="true">Open</span>
+      </a>"""
+    return f"""      <div class="tile soon">
+        {inner}
+        <span class="status">Coming soon</span>
       </div>"""
+
+
+def app_row(app, copy, flip):
+    """One app's section: a screenshot space beside who it's for, what it does, and a button."""
+    points = "\n".join(f"          <li>{e(p)}</li>" for p in copy["points"])
+    button = (f'<a class="btn" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"]
+              else '<span class="status">Coming soon</span>')
+    return f"""    <div class="app-row{' flip' if flip else ''}" id="{e(app["id"])}">
+      <div class="placeholder shot">Screenshot of {e(app["name"])}</div>
+      <div>
+        <p class="eyebrow">{e(copy["audience"])}</p>
+        <h3>{e(app["name"])}</h3>
+        <ul class="points">
+{points}
+        </ul>
+        <p class="meta">{e(copy["note"])}</p>
+        <p>{button}</p>
+      </div>
+    </div>"""
 
 
 def app_line(app, with_status=True):
@@ -81,6 +110,7 @@ def contact_sentence():
 
 def build():
     apps = load_apps()
+    copy = load_copy()
     herd = next(a for a in apps if a["id"] == "herd-planner")
     values = {
         "name": e(config.NAME),
@@ -88,7 +118,8 @@ def build():
         "location": e(config.LOCATION),
         "year": str(config.YEAR),
         "herd_url": e(herd["url"] or "#apps"),
-        "app_cards": "\n".join(app_card(a) for a in apps),
+        "app_tiles": "\n".join(app_tile(a, copy[a["id"]]) for a in apps),
+        "app_rows": "\n".join(app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)),
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
         "contact_sentence": contact_sentence(),
@@ -109,7 +140,7 @@ def build():
             values, body=body,
             title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
             description=e(description),
-            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("apps", "about", "methods", "privacy")},
+            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("about", "methods", "privacy")},
         )
         (OUT / out_name).write_text(page, encoding="utf-8")
     # GitHub Pages runs pages through Jekyll unless this file exists; we don't need it.

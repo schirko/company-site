@@ -74,6 +74,15 @@ def test_no_personal_email_address_on_the_public_site(site):
             assert address == config.EMAIL, f"{page.name} shows {address}"
 
 
+def test_every_app_has_home_page_words():
+    """content/apps.json holds the home page's longer words about each app in the suite list."""
+    copy = build.load_copy()
+    for app in build.load_apps():
+        entry = copy.get(app["id"])
+        assert entry, f"content/apps.json has no entry for {app['id']}"
+        assert entry["question"] and entry["audience"] and entry["note"] and len(entry["points"]) >= 3, app["id"]
+
+
 def test_how_we_test_covers_every_app(site):
     """An app added to the suite list (or renamed) needs its section on the methods page."""
     page = (site / "methods.html").read_text(encoding="utf-8")

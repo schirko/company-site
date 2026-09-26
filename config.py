@@ -10,7 +10,7 @@ spells the name out.
 NAME = "Placeholder Ag"
 
 # One line under the name on the home page.
-TAGLINE = "Decision tools for ranchers and farmers"
+TAGLINE = "Decision Tools for Ranchers and Farmers"
 
 # Where the company is based (About page and footer).
 LOCATION = "Denver, Colorado"

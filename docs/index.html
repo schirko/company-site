@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Placeholder Ag: Decision tools for ranchers and farmers</title>
+  <title>Placeholder Ag: Decision Tools for Ranchers and Farmers</title>
   <meta name="description" content="Decision tools for ranchers and farmers: herd, crop and machinery decisions from your own records and public data.">
   <meta name="robots" content="noindex">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -15,9 +15,9 @@
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html">Placeholder Ag</a>
     <nav class="site-nav" aria-label="Site">
-      <a href="index.html#apps">Apps</a>
+      <a href="index.html#apps">Our Apps</a>
       <a href="about.html">About</a>
-      <a href="methods.html">How we test</a>
+      <a href="methods.html">How We Test</a>
       <a href="privacy.html">Privacy</a>
       <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
     </nav>
@@ -25,42 +25,80 @@
 </header>
 
 <main>
-<section class="hero">
+<section class="hero" id="apps">
   <div class="wrap">
-    <p class="eyebrow">Placeholder Ag</p>
-    <h1>Decision tools for ranchers and farmers</h1>
-    <p class="lede">Plain answers from your own records and public data: which calves to sell and which heifers
-      to keep, what the corn will yield, whether a machine pays for itself. Every answer shows how sure it is.</p>
-    <p class="hero-actions">
-      <a class="btn" href="https://herd-planner.onrender.com/">Try Herd Planner</a>
-      <a class="btn secondary" href="#apps">See all the apps</a>
-    </p>
+    <h1>Decision Tools for Ranchers and Farmers</h1>
+    <p class="lede">Plain answers from your own records and public data: which calves to sell, which heifers to keep
+      and how fast your herd can grow, what the corn will yield, whether a machine pays for itself.
+      Every answer shows how sure it is.</p>
+    <div class="tiles">
+      <a class="tile" href="https://herd-planner.onrender.com/">
+        <img src="suite/suite-logos/herd-planner.svg" alt="" width="56" height="56">
+        <span class="tile-words"><strong>Herd Planner</strong><span>Which calves do I sell, which heifers do I keep, and how fast can my herd grow?</span></span>
+        <span class="btn small" aria-hidden="true">Open</span>
+      </a>
+      <a class="tile" href="https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/">
+        <img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="56" height="56">
+        <span class="tile-words"><strong>Yield Predictor</strong><span>What will this county&#x27;s corn yield, and why?</span></span>
+        <span class="btn small" aria-hidden="true">Open</span>
+      </a>
+      <div class="tile soon">
+        <img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="56" height="56">
+        <span class="tile-words"><strong>Farm Equipment Planner</strong><span>Will this machine pay for itself on my farm?</span></span>
+        <span class="status">Coming soon</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="band" id="apps">
+<section class="band apps-detail">
   <div class="wrap">
-    <h2>The apps</h2>
-    <p class="section-lede">Three tools, one look, one set of promises. Each one is built around a decision
-      you actually have to make.</p>
-    <div class="app-grid">
-      <div class="card app-card">
-        <img src="suite/suite-logos/herd-planner.svg" alt="" width="64" height="64">
+    <h2>Our Farm Apps</h2>
+    <p class="section-lede">Sell or keep, grow the herd, forecast the crop, size the machinery. Each app is built
+      around a decision you actually have to make.</p>
+    <div class="app-row" id="herd-planner">
+      <div class="placeholder shot">Screenshot of Herd Planner</div>
+      <div>
+        <p class="eyebrow">For cow-calf ranches</p>
         <h3>Herd Planner</h3>
-        <p>Keep-or-sell decisions for cow-calf ranches.</p>
-        <a class="btn small" href="https://herd-planner.onrender.com/">Open Herd Planner</a>
+        <ul class="points">
+          <li>Prices every animal at your own sale barn from live USDA auction reports, with a range tested on sales the model never saw</li>
+          <li>Keep or sell: weighs selling now against feeding on, and what a heifer is worth over her working life</li>
+          <li>Plans your herd size: runs 1,000 possible futures to find how many heifers to keep to reach your goal on the grass you have</li>
+          <li>Records that work at the chute, from weights to calving and health, even with no signal</li>
+        </ul>
+        <p class="meta">Free for record keeping. The first visit can take a minute to wake up.</p>
+        <p><a class="btn" href="https://herd-planner.onrender.com/">Open Herd Planner</a></p>
       </div>
-      <div class="card app-card">
-        <img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="64" height="64">
+    </div>
+    <div class="app-row flip" id="corn-yield-predictor">
+      <div class="placeholder shot">Screenshot of Yield Predictor</div>
+      <div>
+        <p class="eyebrow">For corn growers and advisers</p>
         <h3>Yield Predictor</h3>
-        <p>County crop yields from weather, soils and irrigation.</p>
-        <a class="btn small" href="https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/">Open Yield Predictor</a>
+        <ul class="points">
+          <li>Predicts county corn yields from 26 seasons of USDA yields, NASA daily weather, soil ratings and irrigation</li>
+          <li>Tested the hard way: on whole districts and future years it never saw, and on Iowa after learning only from Nebraska</li>
+          <li>Maps where the model is strong and where it misses, so you know when to trust it</li>
+          <li>Shows which weather matters where: a long dry spell hurts Nebraska corn but not Iowa&#x27;s</li>
+        </ul>
+        <p class="meta">Free, no account needed. Nebraska and Iowa.</p>
+        <p><a class="btn" href="https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/">Open Yield Predictor</a></p>
       </div>
-      <div class="card app-card">
-        <img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="64" height="64">
+    </div>
+    <div class="app-row" id="farm-equipment-planner">
+      <div class="placeholder shot">Screenshot of Farm Equipment Planner</div>
+      <div>
+        <p class="eyebrow">For crop farms</p>
         <h3>Farm Equipment Planner</h3>
-        <p>Whether a tractor, combine or implement pays for itself.</p>
-        <span class="status">Coming soon</span>
+        <ul class="points">
+          <li>The true cost to own and run a machine, by the ASABE and Iowa State method</li>
+          <li>Replays your county&#x27;s real falls since 2000 to price the bushels a bigger machine saves</li>
+          <li>Buy new, buy used, lease or hire custom, compared across thousands of simulated seasons</li>
+          <li>Finds the harvest bottleneck: the combine, carts, trucks, pit or dryer</li>
+        </ul>
+        <p class="meta">Built and in testing. It opens once it has a home online.</p>
+        <p><span class="status">Coming soon</span></p>
       </div>
     </div>
   </div>
@@ -68,7 +106,30 @@
 
 <section>
   <div class="wrap">
-    <h2>How we build them</h2>
+    <h2 class="center">Tested Before We Trust It</h2>
+    <div class="stats">
+      <div><strong>2.5%</strong><span>typical miss pricing calves at 26 sales the model never saw</span></div>
+      <div><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></div>
+      <div><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></div>
+    </div>
+    <p class="center"><a href="methods.html">See How We Test each app</a></p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div><span class="step-num">1</span><h3>Bring your records</h3><p>A spreadsheet, a scale file, or start from scratch.</p></div>
+      <div><span class="step-num">2</span><h3>We add public data</h3><p>USDA auction prices and yields, NASA weather, USDA soils.</p></div>
+      <div><span class="step-num">3</span><h3>Get an answer with a range</h3><p>And the reasons behind it, in plain words.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Our Promises</h2>
     <div class="principles">
       <div class="card principle">
         <h3>Your records stay yours</h3>
@@ -93,29 +154,51 @@
   </div>
 </section>
 
+<section class="band">
+  <div class="wrap">
+    <div class="founder">
+      <div class="placeholder photo">Photo</div>
+      <div>
+        <h2>Built in Denver, Colorado</h2>
+        <p>Placeholder Ag is a small company building decision tools for ranchers and farmers, with a background in
+          data science. <em class="draft">(Draft: a few sentences in your own words go here.)</em></p>
+        <p><a href="about.html">More about us</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <h2>Hear When Something New Opens</h2>
+    <p class="section-lede center-block">Join the list in Herd Planner. We only send news if you ask for it.</p>
+    <p><a class="btn" href="https://herd-planner.onrender.com/">Join the list</a></p>
+  </div>
+</section>
+
 </main>
 
 <footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div>
+  <div class="footer-inner">
+    <div class="footer-brand">
       <p class="footer-name">Placeholder Ag</p>
-      <p>Decision tools for ranchers and farmers. Denver, Colorado.</p>
+      <p>Decision Tools for Ranchers and Farmers. Denver, Colorado.</p>
     </div>
-    <nav aria-label="Apps">
+    <nav aria-label="Apps" class="footer-col">
       <h2>Apps</h2>
       <a href="https://herd-planner.onrender.com/">Herd Planner</a>
       <a href="https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/">Yield Predictor</a>
       <span>Farm Equipment Planner <small>(coming soon)</small></span>
     </nav>
-    <nav aria-label="Company">
+    <nav aria-label="Company" class="footer-col">
       <h2>Company</h2>
       <a href="about.html">About</a>
-      <a href="methods.html">How we test</a>
+      <a href="methods.html">How We Test</a>
       <a href="privacy.html">Privacy</a>
 
     </nav>
   </div>
-  <div class="wrap footer-bottom">
+  <div class="footer-bottom">
     <p>&copy; 2026 Placeholder Ag. We never sell or rent your email address or your records.</p>
   </div>
 </footer>

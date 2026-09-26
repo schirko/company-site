@@ -15,9 +15,9 @@
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html">${name}</a>
     <nav class="site-nav" aria-label="Site">
-      <a href="index.html#apps"${nav_apps}>Apps</a>
+      <a href="index.html#apps">Our Apps</a>
       <a href="about.html"${nav_about}>About</a>
-      <a href="methods.html"${nav_methods}>How we test</a>
+      <a href="methods.html"${nav_methods}>How We Test</a>
       <a href="privacy.html"${nav_privacy}>Privacy</a>
       <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
     </nav>
@@ -29,24 +29,24 @@ ${body}
 </main>
 
 <footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div>
+  <div class="footer-inner">
+    <div class="footer-brand">
       <p class="footer-name">${name}</p>
       <p>${tagline}. ${location}.</p>
     </div>
-    <nav aria-label="Apps">
+    <nav aria-label="Apps" class="footer-col">
       <h2>Apps</h2>
 ${footer_apps}
     </nav>
-    <nav aria-label="Company">
+    <nav aria-label="Company" class="footer-col">
       <h2>Company</h2>
       <a href="about.html">About</a>
-      <a href="methods.html">How we test</a>
+      <a href="methods.html">How We Test</a>
       <a href="privacy.html">Privacy</a>
 ${footer_contact}
     </nav>
   </div>
-  <div class="wrap footer-bottom">
+  <div class="footer-bottom">
     <p>&copy; ${year} ${name}. We never sell or rent your email address or your records.</p>
   </div>
 </footer>
