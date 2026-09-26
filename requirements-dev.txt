@@ -1,0 +1,2 @@
+# The site itself needs nothing beyond Python. This is only for running the tests.
+pytest>=8

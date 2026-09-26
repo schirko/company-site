@@ -1,0 +1,52 @@
+/* The company site's own layout. Colors, buttons, the header bar, the footer band and
+   the Farm apps menu come from suite/suite.css, shared with the three apps. */
+* { box-sizing: border-box; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.wrap.narrow { max-width: 720px; }
+h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
+
+/* Header */
+.site-header { padding: 14px 0; }
+.header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; }
+.wordmark { font-size: 1.3rem; letter-spacing: .01em; }
+.site-nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; font-weight: 600; }
+.site-nav a[aria-current="page"] { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }
+
+/* Home */
+.hero { padding: 64px 0 56px; }
+.eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; font-weight: 700; color: var(--suite-deep-green); margin: 0 0 10px; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 16px; max-width: 18ch; }
+.lede { font-size: 1.15rem; color: var(--suite-muted); max-width: 60ch; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+section { padding: 48px 0; }
+section h2 { font-size: 1.6rem; margin: 0 0 8px; }
+.section-lede { color: var(--suite-muted); margin: 0 0 24px; max-width: 60ch; }
+.band { background: #efece4; border-top: 1px solid var(--suite-line); border-bottom: 1px solid var(--suite-line); }
+.app-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.app-card { padding: 22px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.app-card h3 { margin: 8px 0 0; font-size: 1.15rem; }
+.app-card p { margin: 0 0 12px; color: var(--suite-muted); flex: 1; }
+.btn.small { padding: 6px 12px; font-size: .9rem; }
+.status { font-size: .85rem; font-weight: 600; color: var(--suite-muted); padding: 6px 0; }
+.principles { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 20px; }
+.principle { padding: 20px; }
+.principle h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.principle p { margin: 0; color: var(--suite-muted); }
+
+/* Inner pages */
+.page { padding: 48px 0 64px; }
+.page h1 { font-size: 2.2rem; margin: 0 0 12px; }
+.page h2 { font-size: 1.3rem; margin: 32px 0 8px; }
+ul.plain { padding-left: 1.2em; }
+ul.plain li { margin-bottom: .6em; }
+.note { color: var(--suite-muted); }
+
+/* Footer */
+.site-footer { padding: 36px 0 20px; margin-top: 0; }
+.footer-grid { display: grid; gap: 24px; grid-template-columns: 2fr 1fr 1fr; }
+.footer-grid h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin: 0 0 10px; }
+.footer-grid nav a, .footer-grid nav span { display: block; padding: 3px 0; text-decoration: none; }
+.footer-name { color: #fff; font-weight: 700; font-size: 1.1rem; margin: 0 0 6px; }
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, .18); margin-top: 24px; padding-top: 14px; font-size: .85rem; }
+@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-grid > div { grid-column: 1 / -1; } }
