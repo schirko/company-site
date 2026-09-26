@@ -33,6 +33,7 @@ HERD_PLANNER_TERMS = "https://herd-planner.onrender.com/app/terms.html"
 PAGES = [
     ("index.html", "index.html", None, "Decision tools for ranchers and farmers: herd, crop and machinery decisions from your own records and public data.", None),
     ("about.html", "about.html", "About", "Who builds the apps, and how.", "about"),
+    ("methods.html", "methods.html", "How we test", "How each app's models are tested, the results, and where each one falls short.", "methods"),
     ("privacy.html", "privacy.html", "Privacy", "How the apps handle your email and your records.", "privacy"),
     ("404.html", "404.html", "Page not found", "That page isn't here.", None),
 ]
@@ -108,7 +109,7 @@ def build():
             values, body=body,
             title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
             description=e(description),
-            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("apps", "about", "privacy")},
+            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("apps", "about", "methods", "privacy")},
         )
         (OUT / out_name).write_text(page, encoding="utf-8")
     # GitHub Pages runs pages through Jekyll unless this file exists; we don't need it.

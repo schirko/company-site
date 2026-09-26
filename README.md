@@ -1,7 +1,7 @@
 # Company website
 
-The front door for the farm apps: Herd Planner, the Corn Yield Predictor and the
-Farm Equipment Planner. A few plain pages, built by a small Python script and served
+The front door for the farm apps: Herd Planner, the Yield Predictor and the
+Farm Equipment Planner. A few plain pages (home, About, How we test, Privacy), built by a small Python script and served
 free by GitHub Pages.
 
 The company name isn't chosen yet, so the site says **Placeholder Ag** and asks search

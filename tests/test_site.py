@@ -74,6 +74,14 @@ def test_no_personal_email_address_on_the_public_site(site):
             assert address == config.EMAIL, f"{page.name} shows {address}"
 
 
+def test_how_we_test_covers_every_app(site):
+    """An app added to the suite list (or renamed) needs its section on the methods page."""
+    page = (site / "methods.html").read_text(encoding="utf-8")
+    for app in json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["apps"]:
+        assert f'id="{app["id"]}"' in page, f"methods page has no section for {app['id']}"
+        assert f"<h2>{app['name']}" in page, f"methods page doesn't name {app['name']}"
+
+
 @pytest.mark.skipif(not MASTER.exists(), reason="Herd Planner isn't checked out next to this project")
 def test_suite_files_match_the_master_copies():
     for name in ("suite.css", "suite.js", "suite-apps.json"):

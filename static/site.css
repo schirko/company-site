@@ -42,6 +42,20 @@ ul.plain { padding-left: 1.2em; }
 ul.plain li { margin-bottom: .6em; }
 .note { color: var(--suite-muted); }
 
+/* How we test */
+.method-app { padding: 40px 0; }
+.method-head { display: flex; align-items: center; gap: 12px; }
+.method-head h2 { margin: 0; }
+.method-head .status { font-size: .8rem; margin-left: 6px; }
+.method-app h3 { font-size: 1.05rem; margin: 24px 0 6px; }
+.table-scroll { overflow-x: auto; margin: 12px 0; }
+table.results { width: 100%; border-collapse: collapse; background: var(--suite-surface); border: 1px solid var(--suite-line); border-radius: var(--suite-radius); font-size: .95rem; }
+table.results th, table.results td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--suite-line); }
+table.results th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--suite-muted); }
+table.results td + td, table.results th + th { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.results tbody tr:last-child td { border-bottom: 0; }
+table.results tr.ours td { font-weight: 700; background: var(--suite-gold-tint); }
+
 /* Footer */
 .site-footer { padding: 36px 0 20px; margin-top: 0; }
 .footer-grid { display: grid; gap: 24px; grid-template-columns: 2fr 1fr 1fr; }
