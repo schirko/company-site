@@ -163,3 +163,16 @@ def test_the_custom_domain_survives_every_build(site):
     if config.PUBLIC:
         assert "noindex" not in home
         assert f"Sitemap: https://{config.DOMAIN}/sitemap.xml" in (site / "robots.txt").read_text(encoding="utf-8")
+
+
+def test_every_page_shows_the_logo_with_the_company_name_as_its_text(site):
+    """The logo is a picture of the name, so its alt text must be the name (screen readers, search, a failed load)."""
+    for name in all_pages():
+        page = (site / name).read_text(encoding="utf-8")
+        assert f'<img src="brand/wordmark-dark.svg" alt="{config.NAME}"' in page, name
+        assert '<link rel="apple-touch-icon" href="brand/icon-180.png">' in page, name
+    for f in ("wordmark-dark.svg", "wordmark-light.svg", "icon.svg", "icon-180.png", "icon-512.png"):
+        assert (site / "brand" / f).exists(), f
+    # Same drawing (a file-provenance <metadata> block, if a tool added one, may differ).
+    drawing = lambda f: re.sub(r"<metadata>.*?</metadata>", "", (site / f).read_text(encoding="utf-8"), flags=re.S)
+    assert drawing("favicon.svg") == drawing("brand/icon.svg")

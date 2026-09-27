@@ -9,6 +9,10 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 .site-header { padding: 14px 0; }
 .header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; }
 .wordmark { font-size: 1.3rem; letter-spacing: .01em; }
+/* The logo (static/brand/): the C-sun and the name, drawn as shapes so it looks the same on every
+   computer. Height sets the size; the width follows. */
+.wordmark img { display: block; height: 30px; width: auto; }
+.footer-name img { display: block; height: 28px; width: auto; }
 .site-nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .site-nav > a { text-decoration: none; font-weight: 600; }
 .site-nav > a[aria-current="page"] { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }
@@ -141,6 +145,7 @@ table.results tr.ours td { font-weight: 700; background: var(--suite-gold-tint);
   .header-row { gap: 8px 16px; }
   .site-nav { display: contents; }
   .wordmark { flex: 1; }
+  .wordmark img { height: 26px; }
   .site-nav > a { font-size: .95rem; order: 2; }
 }
 
