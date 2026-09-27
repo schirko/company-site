@@ -16,6 +16,10 @@ from datetime import date
 from html import escape
 
 BLUE, BLUE_LIGHT, GREY = "#2a78d6", "#b7d3f6", "#e2e0d9"
+# Red means one thing everywhere in the panel: the downside (below the trend, a bad year, days lost
+# to rain). Blue and red are the data-viz guide's diverging pair, checked for color blindness; red
+# never appears alone, always with a down arrow or words saying what it is.
+RED, RED_LIGHT = "#e34948", "#f5bdbc"
 
 
 def e(x) -> str:
@@ -26,14 +30,15 @@ def e(x) -> str:
 
 
 def range_bar(low: float, value: float, high: float | None, lo: float, hi: float,
-              labels: tuple[str, str, str]) -> str:
-    """A bullet line: a pale band from low to high (or low to value), a dot at the value."""
+              labels: tuple[str, str, str], downside: bool = False) -> str:
+    """A bullet line: a pale band from low to high (or low to value), a dot at the value.
+    downside=True paints the band red: the stretch below the value a bad year can fall to."""
     w, h = 260, 44
     x = lambda v: 8 + (v - lo) / (hi - lo) * (w - 16)
     right = high if high is not None else value
     parts = [
         f'<line x1="8" x2="{w - 8}" y1="14" y2="14" stroke="{GREY}" stroke-width="2" stroke-linecap="round"/>',
-        f'<line x1="{x(low):.1f}" x2="{x(right):.1f}" y1="14" y2="14" stroke="{BLUE_LIGHT}" stroke-width="10" stroke-linecap="round"/>',
+        f'<line x1="{x(low):.1f}" x2="{x(right):.1f}" y1="14" y2="14" stroke="{RED_LIGHT if downside else BLUE_LIGHT}" stroke-width="10" stroke-linecap="round"/>',
         f'<circle cx="{x(value):.1f}" cy="14" r="7" fill="{BLUE}" stroke="#fff" stroke-width="2"/>',
         f'<text x="{x(low):.1f}" y="38" text-anchor="middle" class="tick">{e(labels[0])}</text>',
     ]
@@ -45,7 +50,8 @@ def range_bar(low: float, value: float, high: float | None, lo: float, hi: float
 
 
 def month_strip(index: list[float], current: int) -> str:
-    """Twelve small bars around zero (% vs trend); this month in blue, the rest grey."""
+    """Twelve small bars around zero (% vs trend): blue above the trend, red below; this month in
+    full color, the other months pale."""
     w, h, mid = 260, 70, 32
     band = (w - 8) / 12
     parts = [f'<line x1="4" x2="{w - 4}" y1="{mid}" y2="{mid}" stroke="#b9b6ad" stroke-width="1"/>']
@@ -55,7 +61,10 @@ def month_strip(index: list[float], current: int) -> str:
         x = 4 + band * m + band * 0.2
         bw = band * 0.6
         y = mid - bh if pct > 0 else mid
-        color = BLUE if m == current else "#cfd6de"
+        if pct >= 0:
+            color = BLUE if m == current else BLUE_LIGHT
+        else:
+            color = RED if m == current else RED_LIGHT
         parts.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw:.1f}" height="{max(bh, 1):.1f}" rx="2" fill="{color}"/>')
         parts.append(f'<text x="{x + bw / 2:.1f}" y="{h - 4}" text-anchor="middle" class="tick{" now" if m == current else ""}">'
                      f'{"JFMAMJJASOND"[m]}</text>')
@@ -63,14 +72,14 @@ def month_strip(index: list[float], current: int) -> str:
 
 
 def day_squares(typical: float, wet: float, total: int = 61) -> str:
-    """61 squares, one per day Oct 1 - Nov 30: dark = workable in a wet fall, light = the extra
-    workable days a typical fall adds, grey = too wet."""
+    """61 squares, one per day Oct 1 - Nov 30: dark blue = workable even in a wet fall, light blue =
+    the extra workable days a typical fall adds, red = too wet to work even in a typical fall."""
     cols, size, gap = 21, 10, 2.4
     rows = -(-total // cols)
     w, h = cols * (size + gap), rows * (size + gap)
     parts = []
     for d in range(total):
-        c = BLUE if d < round(wet) else BLUE_LIGHT if d < round(typical) else GREY
+        c = BLUE if d < round(wet) else BLUE_LIGHT if d < round(typical) else RED_LIGHT
         x, y = (d % cols) * (size + gap), (d // cols) * (size + gap)
         parts.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{size}" height="{size}" rx="2" fill="{c}"/>')
     return f'<svg class="mini days" viewBox="0 0 {w:.0f} {h:.0f}" aria-hidden="true">{"".join(parts)}</svg>'
@@ -79,11 +88,18 @@ def day_squares(typical: float, wet: float, total: int = 61) -> str:
 # --- the panel -----------------------------------------------------------------------------------
 
 
-def tile(href: str, callout: str, label: str, headline: str, chart: str, note: str, extra_class: str = "") -> str:
+def badge(text: str, down: bool) -> str:
+    """A small up or down flag beside the headline: arrow + words, so color is never the only cue."""
+    arrow = "\u25bc" if down else "\u25b2"
+    return f'<span class="badge {"down" if down else "up"}"><span aria-hidden="true">{arrow}</span> {e(text)}</span>'
+
+
+def tile(href: str, callout: str, label: str, headline: str, chart: str, note: str, extra_class: str = "",
+         flag: str = "") -> str:
     return f"""        <a class="live-tile{extra_class}" href="{e(href)}">
           <span class="callout">{e(callout)}</span>
           <span class="live-label">{e(label)}</span>
-          <span class="live-headline">{e(headline)}</span>
+          <span class="live-headline">{e(headline)}{flag}</span>
           {chart}
           <span class="live-note">{e(note)}</span>
         </a>"""
@@ -122,22 +138,26 @@ def panel(week: dict, stories: list[dict], nice_date) -> str:
         tiles.append(tile(
             "herd-planner.html#calf-season", "Oklahoma City sales, 2021-2026", f'Calves in {season["months"][m]}, vs the yearly trend',
             f"{pct:+.0f}%".replace("-", "\u2212"), month_strip(calves, m),
-            "Lowest in October and November, highest in March. Tendencies, not guarantees."))
+            "Lowest in October and November, highest in March. Tendencies, not guarantees.",
+            flag=badge("below trend" if pct < 0 else "above trend", pct < 0)))
 
     corn = cards.get("corn-yield-predictor")
     if corn:
         tiles.append(tile(
             "corn-yield-predictor.html", "USDA county yields since 2000", corn["label"], corn["headline"],
             range_bar(corn["low"], corn["value"], None, corn["low"] * 0.94, corn["value"] * 1.04,
-                      (f'{corn["low"]:.0f} low', f'{corn["value"]:.0f} trend', "")),
-            f'Trend for {where}. In 1 year in 10 it falls below {corn["low"]:.0f} bu/acre.'))
+                      (f'{corn["low"]:.0f} low', f'{corn["value"]:.0f} trend', ""), downside=True),
+            f'Trend for {where}. Red: how far a bad year (1 in 10) falls, to below {corn["low"]:.0f} bu/acre.',
+            flag=badge(f'{round(corn["value"]) - round(corn["low"])} bu in a bad year', True)))
 
     days = cards.get("farm-equipment-planner")
     if days:
         tiles.append(tile(
             "farm-equipment-planner.html", "Real falls on record, day by day", days["label"], days["headline"],
             day_squares(days["value"], days["low"]),
-            f'Dark: workable even in a wet fall ({days["low"]:.0f}). Light: extra days in a typical fall.'))
+            f'Dark blue: workable even in a wet fall ({round(days["low"])}). Light blue: extra days in a typical fall. '
+            f'Red: too wet to work.',
+            flag=badge(f'{61 - round(days["low"])} lost in a wet fall', True)))  # rounded once, so the words, squares and badge agree
 
     return f"""    <div class="live" id="this-week">
       <p class="live-head"><span class="live-dot" aria-hidden="true"></span> New every Friday &middot; week of {nice_date(week["date"])}</p>
