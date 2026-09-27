@@ -92,3 +92,42 @@ def test_the_barn_list_fits_a_phone(barns_file):
     index = (build.build() / "barns.html").read_text(encoding="utf-8")
     assert "<th>Sale barn</th><th>Last sale</th><th>550 lb steer</th>" in index
     assert '<span class="barn-town">Kearney</span>' in index
+
+
+SEASON = {"key": "calves", "label": "Steer calves, 500-600 lb", "own_months": True, "sells_months": list(range(1, 13)),
+          "best": 3, "worst": 11, "spread_pct": 11.1, "clear": True, "markets": 6,
+          "typical": [{"month": m, "index": 1 + d / 100, "low": 1 + (d - 3) / 100, "high": 1 + (d + 3) / 100}
+                      for m, d in zip(range(1, 13), (1, 2, 5, 3, 2, 2, 2, 1, -3, -4, -6, -4))],
+          "this_season": [{"month": f"{y}-{m:02d}", "ratio": 1.0} for y, m in
+                          [(2025, 10), (2025, 11), (2025, 12)] + [(2026, m) for m in range(1, 10)]]}
+
+
+def test_a_barn_page_shows_its_best_months_to_sell(barns_file):
+    body = answer(400)
+    body["barns"][0]["seasons"] = [SEASON]
+    cards.record_barns(body, date(2026, 9, 25))
+    page = (build.build() / "barn-kearney-ne-1848.html").read_text(encoding="utf-8")
+    assert "Best Months to Sell" in page and "typically bring the most in <strong>Mar</strong>" in page
+    assert "a typical Sep runs -3%" in page and "This season, last 12 months" in page
+    # The axis ends at this season's newest month, so the line runs left to right: Oct first, Sep last.
+    chart = page[page.index("Steer calves, 500-600 lb at"):]
+    assert chart.index(">Oct<") < chart.index(">Jan<") < chart.index(">Sep<")
+    other = (build.build() / "barn-lexington-ne-1849.html").read_text(encoding="utf-8")
+    assert "Best Months to Sell" not in other  # no seasons from Herd Planner: no section
+
+
+def test_a_fall_only_barn_says_it_has_no_pattern_of_its_own(barns_file):
+    body = answer(400)
+    body["barns"][0]["seasons"] = [dict(SEASON, own_months=False, sells_months=[10, 11], this_season=[])]
+    cards.record_barns(body, date(2026, 9, 25))
+    page = (build.build() / "barn-kearney-ne-1848.html").read_text(encoding="utf-8")
+    assert "mainly in Oct and Nov: too few months for a pattern of its own" in page
+    assert "compared with this year's own trend line" not in page  # no line, so no note about it
+
+
+def test_seasons_survive_a_week_when_herd_planner_sends_none(barns_file):
+    body = answer(400)
+    body["barns"][0]["seasons"] = [SEASON]
+    cards.record_barns(body, date(2026, 9, 18))
+    cards.record_barns(answer(401), date(2026, 9, 25))  # an older Herd Planner: no seasons this week
+    assert cards.load_barns()["barns"]["1848"]["seasons"][0]["best"] == 3

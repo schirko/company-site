@@ -133,6 +133,12 @@ by town, the USDA report number so two sales in one town never collide). A barn 
   with a down arrow when it fell, blue when it rose),
 - a price sheet: steers and heifers at 400 to 800 lb, $/cwt with ranges and $ a head,
 - the last 12 weeks as a chart (a dot for the price, a bar for the range 8 in 10 sales fell in),
+- **Best Months to Sell** (Herd Planner v0.21+, Milestone 16): for steer calves and heavy feeder steers, the
+  typical year (a dot per month with its 95% range: the regional pattern for the months this barn sells, trend
+  removed) and **this season** (one line: the last 12 months against this year's own trend line), with a
+  plain sentence on the best and worst month and how this season compares. Months the barn never sells are
+  greyed; a fall-only sale says it has no pattern of its own. `charts.best_months` draws it; the numbers come
+  in `seasons` from `GET /suite/barns` and only the latest is kept in `barns.json`,
 - the other barns in the same state, and how the numbers are worked out.
 
 Every Friday `cards.py refresh` asks Herd Planner's public `GET /suite/barns` and adds the week to

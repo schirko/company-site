@@ -230,3 +230,81 @@ def barn_history(points: list[tuple[str, float, float, float]]) -> str:
     last = points[-1]
     parts.append(f'<text x="{xs[-1]:.1f}" y="{f.y(last[3]) - 8:.1f}" text-anchor="end" class="value">${last[1]:,.0f}</text>')
     return svg("".join(parts), "550 lb steer price by week, with the range 8 in 10 sales fell in")
+
+
+MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def season_order(season: dict) -> list[int]:
+    """Calendar months left to right. With a this-season line, the axis ends at its newest month
+    (Oct ... Sep), so the line runs left to right without jumping back from Dec to Jan."""
+    recent = season.get("this_season") or []
+    if not recent:
+        return list(range(1, 13))
+    last = int(recent[-1]["month"][5:7])
+    return [(last + i) % 12 + 1 for i in range(12)]
+
+
+def best_months(season: dict, barn_name: str) -> str:
+    """The typical year (dot = typical level, bar = 95% range) and this season (one line) on one scale:
+    % above or below an average month. Months the barn doesn't sell stay empty, labeled in grey."""
+    order = season_order(season)
+    typical = {m["month"]: m for m in season["typical"]}
+    recent = {int(r["month"][5:7]): r for r in season.get("this_season") or []}
+    values = [(m["low"] - 1) * 100 for m in typical.values()] + [(m["high"] - 1) * 100 for m in typical.values()]
+    values += [(r["ratio"] - 1) * 100 for r in recent.values()]
+    top = max(10, 5 * -(-max(abs(v) for v in values) // 5)) if values else 10
+    f = Frame(-top, top, [t for t in range(int(-top), int(top) + 1, 5)], "%")
+    band = (f.x1 - f.x0) / 12
+    x = {m: f.x0 + band * (i + 0.5) for i, m in enumerate(order)}
+    parts = [f.grid()]
+    for m in order:
+        cls = "tick" if m in typical or m in recent else "tick faint"  # grey: no sales that month, ever or lately
+        parts.append(f'<text x="{x[m]:.1f}" y="{H - BOTTOM + 18}" text-anchor="middle" class="{cls}">{MONTH_ABBR[m - 1]}</text>')
+    for m, t in typical.items():
+        pct, lo, hi = (t["index"] - 1) * 100, (t["low"] - 1) * 100, (t["high"] - 1) * 100
+        tip = f"{MONTH_ABBR[m - 1]}, typical year: {pct:+.1f}% vs an average month (95% range {lo:+.1f}% to {hi:+.1f}%)"
+        parts.append(f'<line x1="{x[m]:.1f}" x2="{x[m]:.1f}" y1="{f.y(lo):.1f}" y2="{f.y(hi):.1f}" stroke="#86b6ef" '
+                     f'stroke-width="6" stroke-linecap="round"><title>{e(tip)}</title></line>')
+        parts.append(f'<circle cx="{x[m]:.1f}" cy="{f.y(pct):.1f}" r="4" fill="{BLUE}" stroke="#fff" stroke-width="2">'
+                     f'<title>{e(tip)}</title></circle>')
+    # This season: one line, broken where a month had no sale.
+    run: list[str] = []
+    runs = []
+    for m in order:
+        if m in recent:
+            run.append(f"{x[m]:.1f},{f.y((recent[m]['ratio'] - 1) * 100):.1f}")
+        elif run:
+            runs.append(run)
+            run = []
+    if run:
+        runs.append(run)
+    for r in runs:
+        if len(r) > 1:
+            parts.append(f'<polyline points="{" ".join(r)}" fill="none" stroke="{ORANGE}" stroke-width="2" stroke-linejoin="round"/>')
+    for m, r in recent.items():
+        pct = (r["ratio"] - 1) * 100
+        month = f"{MONTH_ABBR[m - 1]} {r['month'][:4]}"
+        parts.append(f'<circle cx="{x[m]:.1f}" cy="{f.y(pct):.1f}" r="4" fill="{ORANGE}" stroke="#fff" stroke-width="2">'
+                     f'<title>{e(month)}, this season: {pct:+.1f}% vs this year\'s trend line</title></circle>')
+    label = f"{season['label']} at {barn_name}: typical year and this season, % vs an average month"
+    names = ["Typical year (dot) with its 95% range (bar)"] + (["This season, last 12 months"] if recent else [])
+    return svg("".join(parts), label) + legend(names)
+
+
+def best_months_table(season: dict) -> str:
+    """The best-months chart as a plain table inside a 'Show the numbers' fold."""
+    typical = {m["month"]: m for m in season["typical"]}
+    recent = {int(r["month"][5:7]): r for r in season.get("this_season") or []}
+    rows = []
+    for m in season_order(season):
+        t, r = typical.get(m), recent.get(m)
+        rows.append([MONTH_ABBR[m - 1],
+                     f"{(t['index'] - 1) * 100:+.1f}%" if t else "no sales",
+                     f"{(t['low'] - 1) * 100:+.1f}% to {(t['high'] - 1) * 100:+.1f}%" if t else "",
+                     f"{(r['ratio'] - 1) * 100:+.1f}% ({MONTH_ABBR[m - 1]} {r['month'][:4]})" if r else ""])
+    head = ["Month", "Typical year", "95% range", "This season"]
+    th = "".join(f"<th>{e(h)}</th>" for h in head)
+    body = "".join("<tr>" + "".join(f"<td>{e(c)}</td>" for c in row) + "</tr>" for row in rows)
+    return (f'<details class="numbers"><summary>Show the numbers</summary><div class="table-scroll">'
+            f'<table class="results"><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div></details>')

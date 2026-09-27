@@ -192,6 +192,8 @@ def record_barns(body: dict, today: date) -> str:
         week = {"week": week_id(today), "date": today.isoformat(), "last_sale": b["last_sale"],
                 "fresh": b["fresh"], "prices": b["prices"]}
         entry["weeks"] = ([week] + [w for w in entry["weeks"] if w["week"] != week["week"]])[:KEEP_BARN_WEEKS]
+        if b.get("seasons"):  # best months to sell (Herd Planner v0.21+): only the latest is kept
+            entry["seasons"], entry["seasons_date"] = b["seasons"], today.isoformat()
     BARNS_FILE.write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
     return f"{len(body['barns'])} barns"
 

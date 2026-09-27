@@ -102,6 +102,63 @@ def history_chart(barn: dict, nice_date) -> str:
     return charts.barn_history(pts)
 
 
+def month_list(months: list[int]) -> str:
+    names = [charts.MONTH_ABBR[m - 1] for m in months]
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def season_words(season: dict, barn_name: str) -> str:
+    """One or two plain sentences for a best-months chart."""
+    best, worst = charts.MONTH_ABBR[season["best"] - 1], charts.MONTH_ABBR[season["worst"] - 1]
+    typical = {m["month"]: m["index"] for m in season["typical"]}
+    what = season["label"].split(",")[0].lower()
+    if not season["own_months"]:
+        return (f"{e(barn_name)} sells {e(what)} mainly in {month_list(season['sells_months'])}: too few months for a "
+                f"pattern of its own, so the region's typical year is shown for reference.")
+    text = (f"{e(what.capitalize())} here typically bring the most in <strong>{best}</strong> (about "
+            f"{(typical[season['best']] - 1) * 100:+.0f}% vs an average month) and the least in "
+            f"<strong>{worst}</strong> (about {(typical[season['worst']] - 1) * 100:+.0f}%).")
+    if not season["clear"]:
+        text += " That gap is within the year-to-year noise, so treat it as a lean, not a rule."
+    recent = season.get("this_season") or []
+    if recent:
+        last = recent[-1]
+        m = int(last["month"][5:7])
+        usual = typical.get(m)
+        now = (last["ratio"] - 1) * 100
+        text += (f" This season's latest month, {charts.MONTH_ABBR[m - 1]} {last['month'][:4]}, ran {now:+.0f}%"
+                 + (f"; a typical {charts.MONTH_ABBR[m - 1]} runs {(usual - 1) * 100:+.0f}%." if usual else "."))
+    return text
+
+
+def seasons_section(barn: dict) -> str:
+    """Best Months to Sell: for each weight class, the typical year and this season (Herd Planner, Milestone 16)."""
+    seasons = barn.get("seasons") or []
+    if not seasons:
+        return ""
+    blocks = []
+    for season in seasons:
+        blocks.append(f"""<h3>{e(season['label'])}</h3>
+    <p>{season_words(season, barn['name'])}</p>
+    <p class="chart-title">% above or below an average month</p>
+    {charts.best_months(season, barn['name'])}
+    {charts.best_months_table(season)}""")
+    markets = seasons[0].get("markets", 0)
+    this_season_note = ("This season: each of the last 12 months compared with this year's own trend line (the "
+                        "newest months can't be measured the typical way yet), so it is noisier. "
+                        if any(s.get("this_season") for s in seasons) else "")
+    return f"""<h2>Best Months to Sell</h2>
+    <p class="lede">Calves and heavy feeders run opposite seasons: calves usually bring the least in the fall run
+      and the most in spring; heavy feeders the most in late summer. The typical year is measured on
+      {markets} markets' USDA reports since 2021, with the market's overall rise taken out; barns don't differ
+      beyond the year-to-year noise, so each barn shows the region's pattern for the months it sells.</p>
+    {"".join(blocks)}
+    <p class="note">{this_season_note}A tendency, not a forecast: a drought or a
+      market shock can override it in any year. The best price per pound isn't always the best time to sell: a
+      calf you keep also gains weight and eats feed, which <a href="herd-planner.html">Herd Planner</a> weighs
+      for each animal.</p>"""
+
+
 def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> tuple[str, str, str]:
     """(title, description, body) for one barn's page."""
     where = place(barn)
@@ -157,6 +214,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <h2>The Last {HISTORY_WEEKS} Weeks</h2>
     <p class="chart-title">550 lb steer, $/cwt: the dot is the price, the bar the range 8 in 10 sales fell in</p>
     {history_chart(barn, nice_date)}
+    {seasons_section(barn)}
     {others_html}
     <h2>Where the Numbers Come From</h2>
     <p>{e(data.get('method', ''))}{hub_note} Medium and large frame, muscle grade 1 cattle.</p>

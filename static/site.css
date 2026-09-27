@@ -206,6 +206,7 @@ svg.chart text { font-family: inherit; }
 svg.chart .grid { stroke: #e6e4de; stroke-width: 1; }
 svg.chart .grid.zero { stroke: #b9b6ad; }
 svg.chart .tick { font-size: 13px; fill: #6d6a63; }
+svg.chart .tick.faint { fill: #b9b5ad; }  /* a month the barn holds no sales (best-months chart) */
 svg.chart .axis { font-size: 13px; fill: #52514e; }
 svg.chart .label { font-size: 13px; fill: var(--suite-ink); }
 svg.chart .value { font-size: 13px; font-weight: 700; fill: var(--suite-ink); }
