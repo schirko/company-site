@@ -46,6 +46,11 @@ a.tile:hover { border-color: var(--suite-gold-line); box-shadow: 0 4px 14px rgba
 .tile-words strong { font-size: 1.15rem; }
 .tile-words span { color: var(--suite-muted); }
 .tile .status { padding: 6px 0; }
+/* The app tiles are the products: a thick deep-green frame so they stand out from the lighter,
+   thin-bordered stat cards below them. */
+.tile { border: 3px solid var(--suite-deep-green); }
+a.tile:hover { border-color: var(--suite-gold); }
+.tile.soon { border-color: #8a9a90; }
 
 /* One section per app */
 .app-row { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; padding: 28px 0; }
