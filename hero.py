@@ -30,22 +30,27 @@ def e(x) -> str:
 
 
 def range_bar(low: float, value: float, high: float | None, lo: float, hi: float,
-              labels: tuple[str, str, str], downside: bool = False) -> str:
-    """A bullet line: a pale band from low to high (or low to value), a dot at the value.
-    downside=True paints the band red: the stretch below the value a bad year can fall to."""
-    w, h = 260, 44
+              labels: tuple[str, str, str], downside: bool = False, marker: str = "") -> str:
+    """A band and marker: a pale square band from low to high (or low to value) and a thin dark
+    line at the value, with `marker` (e.g. "this sale") written above it.
+    Deliberately no track, round ends or knob: those made the old version look like a slider
+    people wanted to drag. downside=True paints the band red: the stretch below the value a bad
+    year can fall to."""
+    w, h = 260, 56
     x = lambda v: 8 + (v - lo) / (hi - lo) * (w - 16)
     right = high if high is not None else value
     parts = [
-        f'<line x1="8" x2="{w - 8}" y1="14" y2="14" stroke="{GREY}" stroke-width="2" stroke-linecap="round"/>',
-        f'<line x1="{x(low):.1f}" x2="{x(right):.1f}" y1="14" y2="14" stroke="{RED_LIGHT if downside else BLUE_LIGHT}" stroke-width="10" stroke-linecap="round"/>',
-        f'<circle cx="{x(value):.1f}" cy="14" r="7" fill="{BLUE}" stroke="#fff" stroke-width="2"/>',
-        f'<text x="{x(low):.1f}" y="38" text-anchor="middle" class="tick">{e(labels[0])}</text>',
+        f'<rect x="{x(low):.1f}" y="20" width="{x(right) - x(low):.1f}" height="12" rx="2" '
+        f'fill="{RED_LIGHT if downside else BLUE_LIGHT}"/>',
+        f'<line x1="{x(value):.1f}" x2="{x(value):.1f}" y1="15" y2="37" class="marker"/>',
+        f'<text x="{x(low):.1f}" y="52" text-anchor="middle" class="tick">{e(labels[0])}</text>',
     ]
+    if marker:
+        parts.append(f'<text x="{x(value):.1f}" y="10" text-anchor="middle" class="tick">{e(marker)}</text>')
     if high is not None:
-        parts.append(f'<text x="{x(high):.1f}" y="38" text-anchor="middle" class="tick">{e(labels[2])}</text>')
+        parts.append(f'<text x="{x(high):.1f}" y="52" text-anchor="middle" class="tick">{e(labels[2])}</text>')
     else:
-        parts.append(f'<text x="{x(value):.1f}" y="38" text-anchor="middle" class="tick">{e(labels[1])}</text>')
+        parts.append(f'<text x="{x(value):.1f}" y="52" text-anchor="middle" class="tick">{e(labels[1])}</text>')
     return f'<svg class="mini" viewBox="0 0 {w} {h}" aria-hidden="true">{"".join(parts)}</svg>'
 
 
@@ -129,7 +134,7 @@ def herd_tile(herd: dict | None, state_name: str, barn_href=None) -> str:
         href, "8 in 10 sales land in this range", "550 lb steer, this week",
         f'{money(herd["value"])}/cwt',
         range_bar(herd["low"], herd["value"], herd["high"], herd["low"] * 0.97, herd["high"] * 1.03,
-                  (money(herd["low"]), "", money(herd["high"]))),
+                  (money(herd["low"]), "", money(herd["high"])), marker="this sale"),
         f'About {money(herd["value"] * 5.5)} a head at {herd["market"]}, sale of {sold:%b} {sold.day}.', slot="herd")
 
 

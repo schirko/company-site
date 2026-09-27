@@ -176,7 +176,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
         <p class="live-label">550 lb steer, sale of {sold:%b} {sold.day}</p>
         <p class="barn-price">{money(steer['price'])}/cwt{change_flag(barn)}</p>
         {hero.range_bar(steer['low'], steer['price'], steer['high'], steer['low'] * 0.97, steer['high'] * 1.03,
-                        (money(steer['low']), '', money(steer['high'])))}
+                        (money(steer['low']), '', money(steer['high'])), marker='this sale')}
         <p class="note">About {money(steer['price'] * WEIGHT / 100)} a head. 8 in 10 sales like it land between
           {money(steer['low'])} and {money(steer['high'])}/cwt.</p>
       </div>"""

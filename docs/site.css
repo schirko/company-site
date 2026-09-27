@@ -244,6 +244,7 @@ svg.mini { display: block; width: 100%; height: auto; margin: 4px 0 2px; }
 svg.mini.days { max-width: 260px; }
 svg.mini .tick { font-size: 11px; fill: #6d6a63; font-family: inherit; }
 svg.mini .tick.now { fill: var(--suite-ink); font-weight: 700; }
+svg.mini .marker { stroke: var(--suite-ink); stroke-width: 3; }
 .live-foot { margin: 14px 0 0; font-size: .82rem; color: var(--suite-muted); }
 .hero .slider { margin-top: 36px; }
 @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } }
