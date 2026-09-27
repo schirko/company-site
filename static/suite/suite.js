@@ -1,5 +1,5 @@
 /* Farm app suite: the "Farm Apps" menu in each app's header, and the link back to the company
-   site. Suite version 3.
+   site, and a link to the suite account. Suite version 4.
    THE SAME FILE lives in Herd Planner and Farm Equipment Planner; the master copy
    is herd-planner/brand/suite.js (a test in each app fails if its copy drifts).
 
@@ -14,7 +14,8 @@
      <a class="suite-company" data-suite-company href="<company url>">Company name</a>
    The page writes the link itself so it works without JavaScript; this script keeps its name and
    address in step with "company" in suite-apps.json, so renaming the company is a one-file change.
-   The menu also opens with a link to the company site (not on the company site itself). */
+   The menu also opens with a link to the company site (not on the company site itself) and, on the
+   right, "Your Account": the suite's account page, "account" in suite-apps.json (not on that page itself). */
 (function () {
   "use strict";
 
@@ -30,9 +31,14 @@
     const base = menu.dataset.suiteBase || ".";
     menu.appendChild(el("summary", { "aria-label": "Our Farm Apps" }, "Farm Apps"));
     const panel = el("div", { class: "suite-apps-panel" });
+    const top = el("div", { class: "suite-apps-top" });
     if (list.company && here !== "company-site") {
-      panel.appendChild(el("a", { class: "suite-apps-home", href: list.company.url }, `${list.company.name} home`));
+      top.appendChild(el("a", { class: "suite-apps-home", href: list.company.url }, `${list.company.name} home`));
     }
+    if (list.account && here !== "farm-account") {
+      top.appendChild(el("a", { class: "suite-apps-account", href: list.account.url }, list.account.name));
+    }
+    if (top.children.length) panel.appendChild(top);
     panel.appendChild(el("p", { class: "suite-apps-title" }, "Our Farm Apps"));
     for (const app of list.apps) {
       const isHere = app.id === here;

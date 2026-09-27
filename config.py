@@ -1,13 +1,12 @@
 """Everything about the company that the site prints, in one place.
 
-The company name isn't chosen yet. When it is, change NAME (and TAGLINE if you
-like), run `python build.py`, and every page updates. Nothing else in the site
-spells the name out.
+Change NAME (and TAGLINE if you like), run `python build.py`, and every page
+updates. Nothing else in the site spells the name out. The name must match
+"company" in static/suite/suite-apps.json (a test checks).
 """
 
-# The company name. "Placeholder Ag" is deliberately obvious so nobody mistakes
-# it for the real one.
-NAME = "Placeholder Ag"
+# The company name (chosen 2026-09-27; domain cornerpostlogic.com).
+NAME = "Cornerpost Logic"
 
 # One line under the name on the home page.
 TAGLINE = "Decision Tools for Ranchers and Farmers"
@@ -20,8 +19,8 @@ LOCATION = "Centennial, Colorado"
 # personal address here: the site is public.
 EMAIL = ""
 
-# While the name is a placeholder, ask search engines not to list the site.
-# Set to True when the real name and domain are in place.
+# Ask search engines not to list the site until it lives at its own domain
+# (cornerpostlogic.com). Set to True together with SITE_URL when the domain is pointed here.
 PUBLIC = False
 
 # The site's public address, ending in a slash: used for the sitemap and canonical links.

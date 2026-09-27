@@ -8,9 +8,9 @@ Every Friday the site picks a farm county and shows one real number from each ap
 550 lb steer price at the nearest sale barn, the county's trend corn yield, and its fall field days.
 Each app page keeps a table of recent weeks, so the site gets new content every week on its own.
 
-The company name isn't chosen yet, so the site says **Placeholder Ag** and asks search
-engines not to list it. When the name is settled, change it in `config.py`, set
-`PUBLIC = True`, rebuild, and push.
+The company is **Cornerpost Logic** (domain cornerpostlogic.com, bought 2026-09-27). Until the
+domain points at this site, it still lives at the github.io address and asks search engines not
+to list it. When the domain is live: set `SITE_URL` and `PUBLIC = True` in `config.py`, rebuild, and push.
 
 ## How it's put together
 
