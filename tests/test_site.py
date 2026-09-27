@@ -100,3 +100,11 @@ def test_suite_files_match_the_master_copies():
     for name in ("suite.css", "suite.js", "suite-apps.json"):
         copy = (ROOT / "static/suite" / name).read_bytes().replace(b"\r\n", b"\n")
         assert copy == (MASTER / name).read_bytes().replace(b"\r\n", b"\n"), f"{name} drifted from herd-planner/brand"
+
+
+def test_the_apps_link_back_to_this_site_by_its_own_name():
+    """Every app's header starts with the company's name, linking here ("company" in suite-apps.json).
+    When the company is named, change config.py AND herd-planner/brand/suite-apps.json, then copy it out."""
+    company = json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["company"]
+    assert company["name"] == config.NAME
+    assert company["url"] == config.SITE_URL

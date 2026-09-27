@@ -1,6 +1,7 @@
 {
-  "about": "The farm app suite: one list of apps for every app's 'Farm apps' menu. Master copy: herd-planner/brand/suite-apps.json. Set an app's url when it goes live; null shows 'Coming soon'.",
+  "about": "The farm app suite: one list of apps for every app's 'Farm apps' menu. Master copy: herd-planner/brand/suite-apps.json. Set an app's url when it goes live; null shows 'Coming soon'. 'company' is the company site every app links back to (top left and the top of this menu); change its name and url here when the company is named.",
   "version": 1,
+  "company": {"name": "Placeholder Ag", "url": "https://schirko.github.io/company-site/"},
   "apps": [
     {"id": "herd-planner", "name": "Herd Planner",
      "what": "Keep-or-sell decisions for cow-calf ranches",

@@ -199,7 +199,7 @@ details.numbers summary { cursor: pointer; color: var(--suite-link, #2a78d6); }
 @media (max-width: 900px) { .stories { grid-template-columns: 1fr; } }
 
 /* The live panel in the hero (hero.py): this week's real numbers, drawn like a small dashboard */
-.hero-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 40px; align-items: center; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 40px; align-items: start; }
 .hero-sub { color: var(--suite-muted); font-size: .95rem; max-width: 46ch; }
 .live { background: var(--suite-surface); border: 1px solid var(--suite-line); border-radius: 14px; padding: 18px 18px 14px;
   box-shadow: 0 10px 30px rgba(36, 59, 47, .12), 0 2px 6px rgba(36, 59, 47, .06); }
@@ -231,3 +231,15 @@ svg.mini .tick.now { fill: var(--suite-ink); font-weight: 700; }
 .badge { font-size: .72rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; letter-spacing: .01em; }
 .badge.down { background: #fde8e7; color: #a4262c; border: 1px solid #f5bdbc; }
 .badge.up { background: #e6f0fc; color: #1c5cab; border: 1px solid #b7d3f6; }
+
+/* Hero, left column: the promise, two ways in, and the proof (moved up from its own section) */
+.hero-words h1 { margin-top: 8px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 26px; }
+.btn.ghost { background: transparent; border: 2px solid var(--suite-deep-green); color: var(--suite-deep-green); }
+.btn.ghost:hover { background: var(--band); }
+.proof { border-top: 1px solid var(--suite-line); padding-top: 16px; }
+.proof-title { margin: 0 0 10px; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--suite-deep-green); }
+.proof-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.proof-stats strong { display: block; font-size: 1.5rem; color: var(--suite-deep-green); font-variant-numeric: tabular-nums; }
+.proof-stats span { display: block; font-size: .82rem; color: var(--suite-muted); line-height: 1.35; }
+@media (max-width: 520px) { .proof-stats { grid-template-columns: 1fr; } .proof-stats div { display: flex; gap: 12px; align-items: baseline; } .proof-stats strong { min-width: 6.5rem; white-space: nowrap; font-size: 1.3rem; } }

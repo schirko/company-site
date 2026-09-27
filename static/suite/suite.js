@@ -1,4 +1,5 @@
-/* Farm app suite: the "Farm Apps" menu in each app's header. Suite version 2.
+/* Farm app suite: the "Farm Apps" menu in each app's header, and the link back to the company
+   site. Suite version 3.
    THE SAME FILE lives in Herd Planner and Farm Equipment Planner; the master copy
    is herd-planner/brand/suite.js (a test in each app fails if its copy drifts).
 
@@ -7,7 +8,13 @@
      (Herd Planner does this; its pages are plain HTML).
    - If it is already filled in (the Equipment Planner's Django template does
      that on the server), this script only adds the closing behavior.
-   The menu is a <details> element, so it opens and closes even without JavaScript. */
+   The menu is a <details> element, so it opens and closes even without JavaScript.
+
+   The way back to the company site (top left of every header, before the app's name):
+     <a class="suite-company" data-suite-company href="<company url>">Company name</a>
+   The page writes the link itself so it works without JavaScript; this script keeps its name and
+   address in step with "company" in suite-apps.json, so renaming the company is a one-file change.
+   The menu also opens with a link to the company site (not on the company site itself). */
 (function () {
   "use strict";
 
@@ -23,6 +30,9 @@
     const base = menu.dataset.suiteBase || ".";
     menu.appendChild(el("summary", { "aria-label": "Our Farm Apps" }, "Farm Apps"));
     const panel = el("div", { class: "suite-apps-panel" });
+    if (list.company && here !== "company-site") {
+      panel.appendChild(el("a", { class: "suite-apps-home", href: list.company.url }, `${list.company.name} home`));
+    }
     panel.appendChild(el("p", { class: "suite-apps-title" }, "Our Farm Apps"));
     for (const app of list.apps) {
       const isHere = app.id === here;
@@ -46,13 +56,27 @@
     });
   }
 
+  function updateCompanyLinks(list) {
+    if (!list.company) return;
+    for (const link of document.querySelectorAll("a[data-suite-company]")) {
+      link.href = list.company.url;
+      link.textContent = list.company.name;
+    }
+  }
+
+  const menus = document.querySelectorAll("details.suite-apps");
+  if (!menus.length && document.querySelector("a[data-suite-company]")) {
+    const base = document.querySelector("a[data-suite-company]").dataset.suiteBase || ".";
+    fetch(`${base}/suite-apps.json`).then((r) => (r.ok ? r.json() : null)).then((list) => list && updateCompanyLinks(list)).catch(() => {});
+  }
+
   for (const menu of document.querySelectorAll("details.suite-apps")) {
     closeOnOutsideClickOrEscape(menu);
     if (menu.children.length) continue;               // filled in on the server
     const base = menu.dataset.suiteBase || ".";
     fetch(`${base}/suite-apps.json`)
       .then((response) => (response.ok ? response.json() : Promise.reject(response.status)))
-      .then((list) => build(menu, list))
+      .then((list) => { build(menu, list); updateCompanyLinks(list); })
       .catch(() => menu.remove());                     // no list (offline, first visit): no menu rather than a broken one
   }
 })();
