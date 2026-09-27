@@ -22,9 +22,6 @@ from pathlib import Path
 from string import Template
 
 import cards
-import barn_pages
-import charts
-import hero
 import config
 
 ROOT = Path(__file__).resolve().parent
@@ -65,7 +62,7 @@ def load_copy():
 
 
 def app_tile(app, copy):
-    """A big tile in the opening row: the whole tile is the link, so it's easy to hit on a phone."""
+    """A big tile in the opening section: the whole tile is the link, so it's easy to hit on a phone."""
     inner = f"""<img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">
         <span class="tile-words"><strong>{e(app["name"])}</strong><span>{e(copy["question"])}</span></span>"""
     if app["url"]:
@@ -76,16 +73,6 @@ def app_tile(app, copy):
     return f"""      <div class="tile soon">
         {inner}
         <span class="status">Coming soon</span>
-      </div>"""
-
-
-def dev_tile(app):
-    """An app being built (content/apps.json "in_development"): its question, an honest tag, and a way to
-    hear when it opens. Not a link to an app, and not in the Farm Apps menu until it exists."""
-    return f"""      <div class="tile dev">
-        <img src="soon/{e(app["id"])}.svg" alt="" width="56" height="56">
-        <span class="tile-words"><span class="tag">In development</span><strong>{e(app["name"])}</strong><span>{e(app["question"])}</span></span>
-        <a class="btn small ghost" href="#notify">Get notified</a>
       </div>"""
 
 
@@ -236,33 +223,6 @@ def sitemap(pages, lastmod):
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n")
 
 
-# --- "Why Use Our Apps": one real finding per story, drawn by charts.py -------------------------
-
-
-def load_stories():
-    return json.loads((CONTENT / "stories.json").read_text(encoding="utf-8"))["stories"]
-
-
-def story_block(story, apps_by_id, heading="h3", link=True):
-    app = apps_by_id[story["app"]]
-    more = (f'<p class="story-link"><a href="{APP_PAGE.format(e(app["id"]))}">More about {e(app["name"])}</a></p>'
-            if link else "")
-    return f"""      <figure class="story" id="{e(story["id"])}">
-        <p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="24" height="24"> {e(app["name"])}</p>
-        <{heading}>{e(story["title"])}</{heading}>
-        <p class="story-headline">{e(story["headline"])}</p>
-        <p class="chart-title">{e(story["chart_title"])}</p>
-        {charts.draw(story)}
-        <figcaption>
-          <p>{e(story["takeaway"])}</p>
-          <p class="note">{e(story["caution"])}</p>
-          <p class="source">Source: {e(story["source"])}</p>
-        </figcaption>
-        {charts.table(story)}
-{more}
-      </figure>"""
-
-
 def contact_sentence():
     if config.EMAIL:
         return f'Write to us at <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.'
@@ -273,11 +233,6 @@ def build():
     apps = load_apps()
     copy = load_copy()
     week = cards.current()
-    barn_data = cards.load_barns()
-    all_barns = barn_data["barns"]
-    barn_href = lambda slug: barn_pages.page_name(str(slug), all_barns[str(slug)]) if str(slug) in all_barns else None
-    stories = load_stories()
-    apps_by_id = {a["id"]: a for a in apps}
     weeks = cards.load_weeks()
     herd = next(a for a in apps if a["id"] == "herd-planner")
     values = {
@@ -286,9 +241,7 @@ def build():
         "location": e(config.LOCATION),
         "year": str(config.YEAR),
         "herd_url": e(herd["url"] or "#apps"),
-        "app_tiles": "\n".join([app_tile(a, copy[a["id"]]) for a in apps]
-                               + [dev_tile(d) for d in copy.get("in_development", [])]),
-        "account_url": e(config.ACCOUNT_URL),
+        "app_tiles": "\n".join(app_tile(a, copy[a["id"]]) for a in apps),
         "app_rows": "\n".join(app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)),
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
@@ -296,8 +249,6 @@ def build():
         "footer_apps": "\n".join(f'      <a href="{APP_PAGE.format(e(a["id"]))}">{e(a["name"])}</a>' for a in apps),
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
-        "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
-        "live_panel": hero.panel(week, stories, nice_date, barn_href),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
@@ -313,7 +264,7 @@ def build():
             title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
             description=e(description),
             canonical=e(config.SITE_URL + ("" if out_name == "index.html" else out_name)),
-            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy")},
+            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("about", "methods", "privacy")},
         )
         (OUT / out_name).write_text(page, encoding="utf-8")
 
@@ -323,30 +274,11 @@ def build():
     app_template = Template((TEMPLATES / "app.html").read_text(encoding="utf-8"))
     for app in apps:
         v = app_page_values(app, copy[app["id"]], week, weeks)
-        own = [st for st in stories if st["app"] == app["id"]]
-        v["stories"] = ("    <h2>What the Numbers Show</h2>\n" + "\n".join(
-            story_block(st, apps_by_id, heading="h3", link=False) for st in own)) if own else ""
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],
               f'{app["name"]}: {copy[app["id"]]["question"]}{lead}')
-    # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
-    corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)
-    picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},
-                             {"corn": "The Yield Predictor covers " + corn["not_covered"][:1].lower() + corn["not_covered"][1:],
-                              "days": "The Equipment Planner covers " + days["not_covered"][:1].lower() + days["not_covered"][1:]},
-                             cards.STATE_NAMES, barn_href)
-    (OUT / "panel-data.json").write_text(json.dumps(picker, separators=(",", ":")), encoding="utf-8")
-    # One page per sale barn, and the index of them all
-    for slug, barn in all_barns.items():
-        title, desc, body = barn_pages.barn_page(slug, barn, all_barns, barn_data, nice_date)
-        write(barn_pages.page_name(slug, barn), body, title, desc, "barns")
-    write("barns.html", barn_pages.index_page(all_barns, nice_date), "Sale Barn Prices",
-          "Feeder cattle prices at each sale barn Herd Planner follows, updated every Friday from USDA auction reports.",
-          "barns")
-    listed_barns = ["barns.html"] + [barn_pages.page_name(s, b) for s, b in all_barns.items()]
-
-    listed = [p[0] for p in PAGES if p[0] != "404.html"] + [APP_PAGE.format(a["id"]) for a in apps] + listed_barns
+    listed = [p[0] for p in PAGES if p[0] != "404.html"] + [APP_PAGE.format(a["id"]) for a in apps]
     (OUT / "sitemap.xml").write_text(sitemap(listed, week["date"]), encoding="utf-8")
     # GitHub Pages runs pages through Jekyll unless this file exists; we don't need it.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
@@ -360,4 +292,4 @@ def build():
 
 if __name__ == "__main__":
     out = build()
-    print(f"Built {len(PAGES) + len(load_apps()) + 1 + len(cards.load_barns()['barns'])} pages for {config.NAME} into {out}")
+    print(f"Built {len(PAGES) + len(load_apps())} pages for {config.NAME} into {out}")
