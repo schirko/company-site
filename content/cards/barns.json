@@ -100,7 +100,306 @@
    "city": "Oklahoma City",
    "state": "OK",
    "sale": "Feeder Cattle Auction",
-   "is_hub": true
+   "is_hub": true,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 6,
+       "index": 1.0235,
+       "low": 0.9854,
+       "high": 1.0616
+      },
+      {
+       "month": 7,
+       "index": 1.0211,
+       "low": 0.983,
+       "high": 1.0592
+      },
+      {
+       "month": 8,
+       "index": 1.0043,
+       "low": 0.9437,
+       "high": 1.0649
+      },
+      {
+       "month": 9,
+       "index": 0.968,
+       "low": 0.9065,
+       "high": 1.0294
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 0.9243
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.8868
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9698
+      },
+      {
+       "month": "2026-01",
+       "ratio": 1.0319
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0633
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.0668
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0788
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0643
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.0489
+      },
+      {
+       "month": "2026-07",
+       "ratio": 1.0146
+      },
+      {
+       "month": "2026-08",
+       "ratio": 0.9475
+      },
+      {
+       "month": "2026-09",
+       "ratio": 0.9233
+      }
+     ],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 5,
+       "index": 0.9583,
+       "low": 0.9181,
+       "high": 0.9985
+      },
+      {
+       "month": 6,
+       "index": 1.0314,
+       "low": 1.006,
+       "high": 1.0568
+      },
+      {
+       "month": 7,
+       "index": 1.0508,
+       "low": 1.0005,
+       "high": 1.1012
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 10,
+       "index": 1.0247,
+       "low": 0.9761,
+       "high": 1.0733
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      },
+      {
+       "month": 12,
+       "index": 0.9594,
+       "low": 0.9028,
+       "high": 1.0159
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 9.2,
+     "clear": false,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 1.0043
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.9009
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9443
+      },
+      {
+       "month": "2026-01",
+       "ratio": 0.9794
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0229
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.0039
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0487
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0383
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.0309
+      },
+      {
+       "month": "2026-07",
+       "ratio": 1.0398
+      },
+      {
+       "month": "2026-08",
+       "ratio": 0.9826
+      },
+      {
+       "month": "2026-09",
+       "ratio": 1.0073
+      }
+     ],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
   },
   "1851": {
    "weeks": [
@@ -201,7 +500,260 @@
    "city": "Burwell",
    "state": "NE",
    "sale": "Feeder Cattle Auction",
-   "is_hub": false
+   "is_hub": false,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 6,
+       "index": 1.0235,
+       "low": 0.9854,
+       "high": 1.0616
+      },
+      {
+       "month": 8,
+       "index": 1.0043,
+       "low": 0.9437,
+       "high": 1.0649
+      },
+      {
+       "month": 9,
+       "index": 0.968,
+       "low": 0.9065,
+       "high": 1.0294
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 0.9573
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.9075
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9632
+      },
+      {
+       "month": "2026-01",
+       "ratio": 1.0311
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0883
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.0683
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0184
+      },
+      {
+       "month": "2026-05",
+       "ratio": 0.9642
+      },
+      {
+       "month": "2026-06",
+       "ratio": 0.9998
+      },
+      {
+       "month": "2026-08",
+       "ratio": 1.0411
+      },
+      {
+       "month": "2026-09",
+       "ratio": 0.95
+      }
+     ],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 8,
+     "worst": 11,
+     "spread_pct": 8.3,
+     "clear": false,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 1.0367
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.8913
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9168
+      },
+      {
+       "month": "2026-01",
+       "ratio": 0.9955
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0248
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.0021
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0114
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0234
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.044
+      },
+      {
+       "month": "2026-08",
+       "ratio": 1.0541
+      },
+      {
+       "month": "2026-09",
+       "ratio": 0.9575
+      }
+     ],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
   },
   "1852": {
    "weeks": [
@@ -302,7 +854,302 @@
    "city": "Bassett",
    "state": "NE",
    "sale": "Feeder Cattle Auction",
-   "is_hub": false
+   "is_hub": false,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 6,
+       "index": 1.0235,
+       "low": 0.9854,
+       "high": 1.0616
+      },
+      {
+       "month": 7,
+       "index": 1.0211,
+       "low": 0.983,
+       "high": 1.0592
+      },
+      {
+       "month": 8,
+       "index": 1.0043,
+       "low": 0.9437,
+       "high": 1.0649
+      },
+      {
+       "month": 9,
+       "index": 0.968,
+       "low": 0.9065,
+       "high": 1.0294
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [
+      {
+       "month": "2025-09",
+       "ratio": 0.8763
+      },
+      {
+       "month": "2025-10",
+       "ratio": 1.0112
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.9285
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9888
+      },
+      {
+       "month": "2026-01",
+       "ratio": 1.0286
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0503
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0469
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0483
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.0787
+      },
+      {
+       "month": "2026-07",
+       "ratio": 0.9921
+      },
+      {
+       "month": "2026-08",
+       "ratio": 0.9208
+      }
+     ],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 5,
+       "index": 0.9583,
+       "low": 0.9181,
+       "high": 0.9985
+      },
+      {
+       "month": 6,
+       "index": 1.0314,
+       "low": 1.006,
+       "high": 1.0568
+      },
+      {
+       "month": 7,
+       "index": 1.0508,
+       "low": 1.0005,
+       "high": 1.1012
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 10,
+       "index": 1.0247,
+       "low": 0.9761,
+       "high": 1.0733
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      },
+      {
+       "month": 12,
+       "index": 0.9594,
+       "low": 0.9028,
+       "high": 1.0159
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 9.2,
+     "clear": false,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 1.0036
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.9187
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9556
+      },
+      {
+       "month": "2026-01",
+       "ratio": 0.9916
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0116
+      },
+      {
+       "month": "2026-03",
+       "ratio": 0.9428
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0272
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.036
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.0887
+      },
+      {
+       "month": "2026-07",
+       "ratio": 1.0384
+      },
+      {
+       "month": "2026-08",
+       "ratio": 0.9928
+      },
+      {
+       "month": "2026-09",
+       "ratio": 0.9972
+      }
+     ],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
   },
   "1902": {
    "weeks": [
@@ -403,7 +1250,188 @@
    "city": "La Junta",
    "state": "CO",
    "sale": "Feeder Cattle Auction (seasonal)",
-   "is_hub": false
+   "is_hub": false,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 6,
+       "index": 1.0235,
+       "low": 0.9854,
+       "high": 1.0616
+      },
+      {
+       "month": 7,
+       "index": 1.0211,
+       "low": 0.983,
+       "high": 1.0592
+      },
+      {
+       "month": 8,
+       "index": 1.0043,
+       "low": 0.9437,
+       "high": 1.0649
+      },
+      {
+       "month": 9,
+       "index": 0.968,
+       "low": 0.9065,
+       "high": 1.0294
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      10,
+      11
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 5,
+       "index": 0.9583,
+       "low": 0.9181,
+       "high": 0.9985
+      },
+      {
+       "month": 6,
+       "index": 1.0314,
+       "low": 1.006,
+       "high": 1.0568
+      },
+      {
+       "month": 7,
+       "index": 1.0508,
+       "low": 1.0005,
+       "high": 1.1012
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 10,
+       "index": 1.0247,
+       "low": 0.9761,
+       "high": 1.0733
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      },
+      {
+       "month": 12,
+       "index": 0.9594,
+       "low": 0.9028,
+       "high": 1.0159
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      10,
+      11
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 9.2,
+     "clear": false,
+     "this_season": [],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
   },
   "3653": {
    "weeks": [
@@ -504,7 +1532,245 @@
    "city": "North Platte",
    "state": "NE",
    "sale": "Feeder Cattle Auction",
-   "is_hub": false
+   "is_hub": false,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 0.974
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.8805
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9587
+      },
+      {
+       "month": "2026-01",
+       "ratio": 1.0216
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0463
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.0589
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.0618
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0201
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.054
+      },
+      {
+       "month": "2026-09",
+       "ratio": 0.9128
+      }
+     ],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 5,
+       "index": 0.9583,
+       "low": 0.9181,
+       "high": 0.9985
+      },
+      {
+       "month": 6,
+       "index": 1.0314,
+       "low": 1.006,
+       "high": 1.0568
+      },
+      {
+       "month": 7,
+       "index": 1.0508,
+       "low": 1.0005,
+       "high": 1.1012
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 10,
+       "index": 1.0247,
+       "low": 0.9761,
+       "high": 1.0733
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      },
+      {
+       "month": 12,
+       "index": 0.9594,
+       "low": 0.9028,
+       "high": 1.0159
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 9.2,
+     "clear": false,
+     "this_season": [
+      {
+       "month": "2025-12",
+       "ratio": 0.8937
+      },
+      {
+       "month": "2026-01",
+       "ratio": 0.9902
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0139
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.0208
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.0184
+      },
+      {
+       "month": "2026-09",
+       "ratio": 1.0267
+      }
+     ],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
   },
   "3801": {
    "weeks": [
@@ -605,7 +1871,587 @@
    "city": "Gordon",
    "state": "NE",
    "sale": "Feeder Cattle Special",
-   "is_hub": false
+   "is_hub": false,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 6,
+       "index": 1.0235,
+       "low": 0.9854,
+       "high": 1.0616
+      },
+      {
+       "month": 7,
+       "index": 1.0211,
+       "low": 0.983,
+       "high": 1.0592
+      },
+      {
+       "month": 8,
+       "index": 1.0043,
+       "low": 0.9437,
+       "high": 1.0649
+      },
+      {
+       "month": 9,
+       "index": 0.968,
+       "low": 0.9065,
+       "high": 1.0294
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      10,
+      11
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 5,
+       "index": 0.9583,
+       "low": 0.9181,
+       "high": 0.9985
+      },
+      {
+       "month": 6,
+       "index": 1.0314,
+       "low": 1.006,
+       "high": 1.0568
+      },
+      {
+       "month": 7,
+       "index": 1.0508,
+       "low": 1.0005,
+       "high": 1.1012
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 10,
+       "index": 1.0247,
+       "low": 0.9761,
+       "high": 1.0733
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      },
+      {
+       "month": 12,
+       "index": 0.9594,
+       "low": 0.9028,
+       "high": 1.0159
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      10
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 9.2,
+     "clear": false,
+     "this_season": [],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
+  },
+  "1830": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2026-09-23",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 495.6,
+       "low": 462.75,
+       "high": 528.42
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 440.53,
+       "low": 411.32,
+       "high": 469.7
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 419.23,
+       "low": 391.44,
+       "high": 446.99
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 398.97,
+       "low": 372.52,
+       "high": 425.39
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 366.5,
+       "low": 342.2,
+       "high": 390.77
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 340.29,
+       "low": 317.73,
+       "high": 362.82
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 447.8,
+       "low": 418.12,
+       "high": 477.45
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 400.56,
+       "low": 374.01,
+       "high": 427.08
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 382.89,
+       "low": 357.5,
+       "high": 408.24
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 365.99,
+       "low": 341.73,
+       "high": 390.23
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 331.41,
+       "low": 309.44,
+       "high": 353.35
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 307.03,
+       "low": 286.67,
+       "high": 327.35
+      }
+     ]
+    }
+   ],
+   "name": "Southern Oklahoma Livestock",
+   "city": "Ada",
+   "state": "OK",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": false,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.997,
+       "low": 0.963,
+       "high": 1.031
+      },
+      {
+       "month": 2,
+       "index": 1.0162,
+       "low": 0.9728,
+       "high": 1.0596
+      },
+      {
+       "month": 3,
+       "index": 1.0463,
+       "low": 1.0107,
+       "high": 1.0818
+      },
+      {
+       "month": 4,
+       "index": 1.0345,
+       "low": 1.0003,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0054,
+       "low": 0.9755,
+       "high": 1.0354
+      },
+      {
+       "month": 6,
+       "index": 1.0235,
+       "low": 0.9854,
+       "high": 1.0616
+      },
+      {
+       "month": 7,
+       "index": 1.0211,
+       "low": 0.983,
+       "high": 1.0592
+      },
+      {
+       "month": 8,
+       "index": 1.0043,
+       "low": 0.9437,
+       "high": 1.0649
+      },
+      {
+       "month": 9,
+       "index": 0.968,
+       "low": 0.9065,
+       "high": 1.0294
+      },
+      {
+       "month": 10,
+       "index": 0.9695,
+       "low": 0.9168,
+       "high": 1.0223
+      },
+      {
+       "month": 11,
+       "index": 0.9403,
+       "low": 0.9211,
+       "high": 0.9596
+      },
+      {
+       "month": 12,
+       "index": 0.9739,
+       "low": 0.9466,
+       "high": 1.0012
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 10.6,
+     "clear": true,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 0.9171
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.8867
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.95
+      },
+      {
+       "month": "2026-01",
+       "ratio": 0.9739
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.1175
+      },
+      {
+       "month": "2026-03",
+       "ratio": 1.1082
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.1306
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0823
+      },
+      {
+       "month": "2026-06",
+       "ratio": 1.0095
+      },
+      {
+       "month": "2026-07",
+       "ratio": 1.005
+      },
+      {
+       "month": "2026-08",
+       "ratio": 0.9407
+      },
+      {
+       "month": "2026-09",
+       "ratio": 0.9141
+      }
+     ],
+     "markets": 5
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9728,
+       "low": 0.932,
+       "high": 1.0135
+      },
+      {
+       "month": 2,
+       "index": 0.9776,
+       "low": 0.9283,
+       "high": 1.0268
+      },
+      {
+       "month": 3,
+       "index": 0.9744,
+       "low": 0.9374,
+       "high": 1.0114
+      },
+      {
+       "month": 4,
+       "index": 0.9897,
+       "low": 0.9703,
+       "high": 1.0091
+      },
+      {
+       "month": 5,
+       "index": 0.9583,
+       "low": 0.9181,
+       "high": 0.9985
+      },
+      {
+       "month": 6,
+       "index": 1.0314,
+       "low": 1.006,
+       "high": 1.0568
+      },
+      {
+       "month": 7,
+       "index": 1.0508,
+       "low": 1.0005,
+       "high": 1.1012
+      },
+      {
+       "month": 8,
+       "index": 1.0496,
+       "low": 0.99,
+       "high": 1.1092
+      },
+      {
+       "month": 9,
+       "index": 1.0444,
+       "low": 0.9776,
+       "high": 1.1111
+      },
+      {
+       "month": 10,
+       "index": 1.0247,
+       "low": 0.9761,
+       "high": 1.0733
+      },
+      {
+       "month": 11,
+       "index": 0.9669,
+       "low": 0.9423,
+       "high": 0.9916
+      },
+      {
+       "month": 12,
+       "index": 0.9594,
+       "low": 0.9028,
+       "high": 1.0159
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 9.2,
+     "clear": false,
+     "this_season": [
+      {
+       "month": "2025-10",
+       "ratio": 0.9787
+      },
+      {
+       "month": "2025-11",
+       "ratio": 0.8874
+      },
+      {
+       "month": "2025-12",
+       "ratio": 0.9866
+      },
+      {
+       "month": "2026-01",
+       "ratio": 0.9715
+      },
+      {
+       "month": "2026-02",
+       "ratio": 1.0492
+      },
+      {
+       "month": "2026-03",
+       "ratio": 0.9809
+      },
+      {
+       "month": "2026-04",
+       "ratio": 1.075
+      },
+      {
+       "month": "2026-05",
+       "ratio": 1.0495
+      },
+      {
+       "month": "2026-06",
+       "ratio": 0.9954
+      },
+      {
+       "month": "2026-07",
+       "ratio": 1.0371
+      },
+      {
+       "month": "2026-08",
+       "ratio": 0.9914
+      },
+      {
+       "month": "2026-09",
+       "ratio": 1.0032
+      }
+     ],
+     "markets": 5
+    }
+   ],
+   "seasons_date": "2026-09-27"
   }
  },
  "source": "USDA AMS MyMarketNews auction reports",
