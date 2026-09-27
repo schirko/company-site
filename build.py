@@ -15,11 +15,13 @@ nothing to install. GitHub Pages then serves the docs/ folder as it is.
 """
 
 import html
+from datetime import date
 import json
 import shutil
 from pathlib import Path
 from string import Template
 
+import cards
 import config
 
 ROOT = Path(__file__).resolve().parent
@@ -38,6 +40,11 @@ PAGES = [
     ("privacy.html", "privacy.html", "Privacy", "How the apps handle your email and your records.", "privacy"),
     ("404.html", "404.html", "Page not found", "That page isn't here.", None),
 ]
+
+
+# Each app's own page on this site (built from templates/app.html), named by app id.
+APP_PAGE = "{}.html"
+HISTORY_WEEKS = 12  # weeks listed on each app page
 
 
 def load_apps():
@@ -83,7 +90,7 @@ def app_row(app, copy, flip):
 {points}
         </ul>
         <p class="meta">{e(copy["note"])}</p>
-        <p>{button}</p>
+        <p>{button} <a class="more" href="{APP_PAGE.format(e(app["id"]))}">This week and how it works</a></p>
       </div>
     </div>"""
 
@@ -102,6 +109,120 @@ def terms_line(app):
     return f"      <li>{e(app['name'])}: its terms will be published when it opens.</li>"
 
 
+# --- The weekly stat cards (cards.py picks the place and keeps the numbers) ----------------------
+
+
+def nice_date(iso):
+    d = date.fromisoformat(iso)
+    return f"{d:%b} {d.day}, {d.year}"
+
+
+def stat_card(app, card, week, link=True):
+    """One number with its meaning and its source. On the home page the whole card links to the
+    app's page on this site."""
+    if card:
+        foot = f"Source: {e(card['source'])}"  # the sale date is already in the detail
+        inner = f"""<span class="stat-label">{e(card["label"])}</span>
+        <span class="stat-headline">{e(card["headline"])}</span>
+        <span class="stat-detail">{e(card["detail"])}</span>
+        <span class="stat-source">{foot}</span>"""
+    else:
+        inner = f"""<span class="stat-label">550 lb steer, this week</span>
+        <span class="stat-detail">No fresh sale-barn price for {e(week["place"]["state_name"])} this week.
+          Prices update every Friday.</span>"""
+    if link:
+        return f"""      <a class="stat-card" href="{APP_PAGE.format(e(app["id"]))}">
+        <span class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="28" height="28"> {e(app["name"])}</span>
+        {inner}
+      </a>"""
+    return f"""      <div class="stat-card">
+        {inner}
+      </div>"""
+
+
+def history_table(app_id, weeks):
+    """Recent weeks for one app: the place and its number, newest first."""
+    rows = []
+    for w in weeks:
+        c = w["cards"].get(app_id)
+        if not c:
+            continue
+        when = nice_date(w["date"])
+        where = f'{e(w["place"]["county"])}, {e(w["place"]["state"])}'
+        if app_id == cards.HERD:
+            cells = [when, e(c["market"]), f'${c["value"]:,.0f}/cwt', f'${c["low"]:,.0f} to ${c["high"]:,.0f}']
+        elif app_id == cards.CORN:
+            cells = [when, where, f'{c["value"]:.0f} bu/acre', f'{c["low"]:.0f}']
+        else:
+            cells = [when, where, f'{c["value"]:.0f} days', f'{c["low"]:.0f} days']
+        rows.append("          <tr>" + "".join(f"<td>{x}</td>" for x in cells) + "</tr>")
+        if len(rows) == HISTORY_WEEKS:
+            break
+    heads = {cards.HERD: ("Week of", "Sale barn", "550 lb steer", "8 in 10 sales"),
+             cards.CORN: ("Week of", "County", "Trend yield", "1-in-10 low"),
+             cards.EQUIP: ("Week of", "County", "Typical fall", "Wet fall (1 in 10)")}[app_id]
+    if not rows:
+        return '    <p class="note">The first week is on its way.</p>'
+    head = "".join(f"<th>{h}</th>" for h in heads)
+    return f"""    <div class="table-scroll">
+      <table class="results history">
+        <thead><tr>{head}</tr></thead>
+        <tbody>
+{chr(10).join(rows)}
+        </tbody>
+      </table>
+    </div>"""
+
+
+APP_METHOD = {
+    cards.HERD: ("Herd Planner fits a price model to USDA auction reports from the sale barn nearest the "
+                 "week's county that sold in the last three weeks (its own state first, then neighbors; "
+                 "otherwise Oklahoma City, the deepest weekly feeder sale). The range comes from testing the "
+                 "model on sales it never saw: 8 in 10 real sales landed inside it."),
+    cards.CORN: ("A straight-line trend through the county's USDA corn yields since 2000 says what a normal "
+                 "year looks like now. The low end is the 10th percentile of each year's yield relative to its "
+                 "trend: 1 year in 10 does worse. It's the county's recent normal and its downside, not a "
+                 "forecast of this season."),
+    cards.EQUIP: ("A day counts as workable when it had under 2.5 mm of rain and under 12.5 mm over the two "
+                  "days before, the same rule the Equipment Planner uses to price harvest delays. We count "
+                  "those days from October 1 to November 30 in every fall since 2000: the typical fall is the "
+                  "median, the wet fall the 10th percentile. It counts rain only, not snow or frozen ground."),
+}
+APP_SOURCE = {
+    cards.HERD: "USDA AMS Market News auction reports",
+    cards.CORN: "USDA NASS county corn yields, all practices, 2000 on",
+    cards.EQUIP: "NASA POWER daily rainfall, 2000 on",
+}
+HISTORY_NOTE = {
+    cards.HERD: "Prices are what the model said that week, at the barn nearest that county.",
+    cards.CORN: "These are each county's trend yields, so they change once a year, not week to week.",
+    cards.EQUIP: "These come from 26 falls of weather, so a county's numbers change only once a year.",
+}
+
+
+def app_page_values(app, copy, week, weeks):
+    place = week["place"]
+    return {
+        "app_id": e(app["id"]), "app_name": e(app["name"]), "question": e(copy["question"]),
+        "audience": e(copy["audience"]), "note": e(copy["note"]),
+        "points": "\n".join(f"          <li>{e(p)}</li>" for p in copy["points"]),
+        "open_button": (f'<a class="btn" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"]
+                        else '<span class="status">Coming soon</span>'),
+        "place": e(f'{place["county"]}, {place["state_name"]}'),
+        "card": stat_card(app, week["cards"].get(app["id"]), week, link=False),
+        "history": history_table(app["id"], weeks),
+        "history_note": e(HISTORY_NOTE[app["id"]]),
+        "method": e(APP_METHOD[app["id"]]), "source": e(APP_SOURCE[app["id"]]),
+    }
+
+
+def sitemap(pages, lastmod):
+    urls = "\n".join(f"  <url><loc>{e(config.SITE_URL + ('' if p == 'index.html' else p))}</loc>"
+                     f"<lastmod>{lastmod}</lastmod></url>" for p in pages)
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n")
+
+
 def contact_sentence():
     if config.EMAIL:
         return f'Write to us at <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.'
@@ -111,6 +232,8 @@ def contact_sentence():
 def build():
     apps = load_apps()
     copy = load_copy()
+    week = cards.current()
+    weeks = cards.load_weeks()
     herd = next(a for a in apps if a["id"] == "herd-planner")
     values = {
         "name": e(config.NAME),
@@ -123,9 +246,10 @@ def build():
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
         "contact_sentence": contact_sentence(),
-        "footer_apps": "\n".join(
-            f'      <a href="{e(a["url"])}">{e(a["name"])}</a>' if a["url"]
-            else f'      <span>{e(a["name"])} <small>(coming soon)</small></span>' for a in apps),
+        "footer_apps": "\n".join(f'      <a href="{APP_PAGE.format(e(a["id"]))}">{e(a["name"])}</a>' for a in apps),
+        "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
+        "week_date": nice_date(week["date"]),
+        "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
     }
@@ -134,22 +258,38 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(STATIC, OUT)
-    for out_name, template, title, description, current in PAGES:
-        body = Template((TEMPLATES / template).read_text(encoding="utf-8")).substitute(values)
+    def write(out_name, body, title, description, current=None):
         page = layout.substitute(
             values, body=body,
             title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
             description=e(description),
+            canonical=e(config.SITE_URL + ("" if out_name == "index.html" else out_name)),
             **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("about", "methods", "privacy")},
         )
         (OUT / out_name).write_text(page, encoding="utf-8")
+
+    for out_name, template, title, description, current in PAGES:
+        body = Template((TEMPLATES / template).read_text(encoding="utf-8")).substitute(values)
+        write(out_name, body, title, description, current)
+    app_template = Template((TEMPLATES / "app.html").read_text(encoding="utf-8"))
+    for app in apps:
+        v = app_page_values(app, copy[app["id"]], week, weeks)
+        card = week["cards"].get(app["id"])
+        lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
+        write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],
+              f'{app["name"]}: {copy[app["id"]]["question"]}{lead}')
+    listed = [p[0] for p in PAGES if p[0] != "404.html"] + [APP_PAGE.format(a["id"]) for a in apps]
+    (OUT / "sitemap.xml").write_text(sitemap(listed, week["date"]), encoding="utf-8")
     # GitHub Pages runs pages through Jekyll unless this file exists; we don't need it.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
-    if not config.PUBLIC:
-        (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
+    if config.PUBLIC:
+        robots = f"User-agent: *\nAllow: /\nSitemap: {config.SITE_URL}sitemap.xml\n"
+    else:
+        robots = "User-agent: *\nDisallow: /\n"
+    (OUT / "robots.txt").write_text(robots, encoding="utf-8")
     return OUT
 
 
 if __name__ == "__main__":
     out = build()
-    print(f"Built {len(PAGES)} pages for {config.NAME} into {out}")
+    print(f"Built {len(PAGES) + len(load_apps())} pages for {config.NAME} into {out}")

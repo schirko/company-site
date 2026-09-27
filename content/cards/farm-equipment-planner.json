@@ -1,0 +1,983 @@
+{
+ "app": "farm-equipment-planner",
+ "cards": {
+  "19013": {
+   "detail": "Black Hawk County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2002, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.5,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2002
+  },
+  "19153": {
+   "detail": "Polk County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19169": {
+   "detail": "Story County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19193": {
+   "detail": "Woodbury County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2000, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2000
+  },
+  "31001": {
+   "detail": "Adams County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31003": {
+   "detail": "Antelope County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2018, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2018
+  },
+  "31005": {
+   "detail": "Arthur County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2009, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "55 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.5,
+   "unit": "days",
+   "value": 55.0,
+   "wettest_year": 2009
+  },
+  "31007": {
+   "detail": "Banner County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 51. Wettest: 2013, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2013
+  },
+  "31009": {
+   "detail": "Blaine County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2000, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "53 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 53.0,
+   "wettest_year": 2000
+  },
+  "31011": {
+   "detail": "Boone County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 51.5,
+   "wettest_year": 2008
+  },
+  "31013": {
+   "detail": "Box Butte County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 53. Wettest: 2013, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 53.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2013
+  },
+  "31015": {
+   "detail": "Boyd County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 52.5,
+   "wettest_year": 2008
+  },
+  "31017": {
+   "detail": "Brown County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2015, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 50.0,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2015
+  },
+  "31019": {
+   "detail": "Buffalo County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2008
+  },
+  "31021": {
+   "detail": "Burt County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2008
+  },
+  "31023": {
+   "detail": "Butler County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2024, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2024
+  },
+  "31025": {
+   "detail": "Cass County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2007
+  },
+  "31027": {
+   "detail": "Cedar County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2009, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 51.5,
+   "wettest_year": 2009
+  },
+  "31029": {
+   "detail": "Chase County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2004, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 50.0,
+   "unit": "days",
+   "value": 56.5,
+   "wettest_year": 2004
+  },
+  "31031": {
+   "detail": "Cherry County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2013, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "55 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.5,
+   "unit": "days",
+   "value": 55.0,
+   "wettest_year": 2013
+  },
+  "31033": {
+   "detail": "Cheyenne County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2000, with 52. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 52.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2000
+  },
+  "31035": {
+   "detail": "Clay County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 46. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2007
+  },
+  "31037": {
+   "detail": "Colfax County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2007
+  },
+  "31039": {
+   "detail": "Cuming County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2007
+  },
+  "31041": {
+   "detail": "Custer County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2009, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.5,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2009
+  },
+  "31043": {
+   "detail": "Dakota County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2000, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2000
+  },
+  "31045": {
+   "detail": "Dawes County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 53. Wettest: 2013, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 53.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2013
+  },
+  "31047": {
+   "detail": "Dawson County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 47. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.5,
+   "unit": "days",
+   "value": 53.5,
+   "wettest_year": 2008
+  },
+  "31049": {
+   "detail": "Deuel County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 51. Wettest: 2009, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2009
+  },
+  "31051": {
+   "detail": "Dixon County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 45. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.0,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2008
+  },
+  "31053": {
+   "detail": "Dodge County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2007
+  },
+  "31055": {
+   "detail": "Douglas County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2008
+  },
+  "31057": {
+   "detail": "Dundy County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 51. Wettest: 2004, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "57 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.0,
+   "unit": "days",
+   "value": 57.0,
+   "wettest_year": 2004
+  },
+  "31059": {
+   "detail": "Fillmore County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2007
+  },
+  "31061": {
+   "detail": "Franklin County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2000, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2000
+  },
+  "31063": {
+   "detail": "Frontier County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 47. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "55 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.5,
+   "unit": "days",
+   "value": 55.0,
+   "wettest_year": 2008
+  },
+  "31065": {
+   "detail": "Furnas County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2008
+  },
+  "31067": {
+   "detail": "Gage County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2024, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2024
+  },
+  "31069": {
+   "detail": "Garden County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2009, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 52.0,
+   "unit": "days",
+   "value": 55.5,
+   "wettest_year": 2009
+  },
+  "31071": {
+   "detail": "Garfield County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2018, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2018
+  },
+  "31073": {
+   "detail": "Gosper County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 49. Wettest: 2008, with 46. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 49.0,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2008
+  },
+  "31075": {
+   "detail": "Grant County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2009, with 51. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 52.0,
+   "unit": "days",
+   "value": 54.5,
+   "wettest_year": 2009
+  },
+  "31077": {
+   "detail": "Greeley County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31079": {
+   "detail": "Hall County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31081": {
+   "detail": "Hamilton County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31083": {
+   "detail": "Harlan County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "53 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 53.0,
+   "wettest_year": 2008
+  },
+  "31085": {
+   "detail": "Hayes County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2009, with 47. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.5,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2009
+  },
+  "31087": {
+   "detail": "Hitchcock County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 49. Wettest: 2000, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 49.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2000
+  },
+  "31089": {
+   "detail": "Holt County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2000, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2000
+  },
+  "31091": {
+   "detail": "Hooker County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2008, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "55 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 52.5,
+   "unit": "days",
+   "value": 55.0,
+   "wettest_year": 2008
+  },
+  "31093": {
+   "detail": "Howard County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31095": {
+   "detail": "Jefferson County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2009
+  },
+  "31097": {
+   "detail": "Johnson County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2008
+  },
+  "31099": {
+   "detail": "Kearney County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31101": {
+   "detail": "Keith County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 51. Wettest: 2009, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2009
+  },
+  "31103": {
+   "detail": "Keya Paha County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2015, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 50.0,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2015
+  },
+  "31105": {
+   "detail": "Kimball County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 53. Wettest: 2009, with 51. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 53.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2009
+  },
+  "31107": {
+   "detail": "Knox County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2007
+  },
+  "31109": {
+   "detail": "Lancaster County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2024, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2024
+  },
+  "31111": {
+   "detail": "Lincoln County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2008, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 49.5,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2008
+  },
+  "31113": {
+   "detail": "Logan County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2009, with 47. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 50.5,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2009
+  },
+  "31115": {
+   "detail": "Loup County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2008
+  },
+  "31117": {
+   "detail": "McPherson County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 51. Wettest: 2009, with 48. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.0,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2009
+  },
+  "31119": {
+   "detail": "Madison County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2009, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2009
+  },
+  "31121": {
+   "detail": "Merrick County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31123": {
+   "detail": "Morrill County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2009, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "55 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 52.5,
+   "unit": "days",
+   "value": 55.0,
+   "wettest_year": 2009
+  },
+  "31125": {
+   "detail": "Nance County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 51.5,
+   "wettest_year": 2008
+  },
+  "31127": {
+   "detail": "Nemaha County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 45. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.0,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2009
+  },
+  "31129": {
+   "detail": "Nuckolls County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2001, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2001
+  },
+  "31131": {
+   "detail": "Otoe County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2008
+  },
+  "31133": {
+   "detail": "Pawnee County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.0,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2009
+  },
+  "31135": {
+   "detail": "Perkins County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 51. Wettest: 2009, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 51.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2009
+  },
+  "31137": {
+   "detail": "Phelps County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 49. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "53 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 49.0,
+   "unit": "days",
+   "value": 53.0,
+   "wettest_year": 2008
+  },
+  "31139": {
+   "detail": "Pierce County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2009, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 51.5,
+   "wettest_year": 2009
+  },
+  "31141": {
+   "detail": "Platte County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2007, with 47. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.5,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2007
+  },
+  "31143": {
+   "detail": "Polk County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 46. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2007
+  },
+  "31145": {
+   "detail": "Red Willow County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 49.5,
+   "unit": "days",
+   "value": 54.0,
+   "wettest_year": 2008
+  },
+  "31147": {
+   "detail": "Richardson County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2009
+  },
+  "31149": {
+   "detail": "Rock County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 47. Wettest: 2000, with 46. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 47.0,
+   "unit": "days",
+   "value": 52.5,
+   "wettest_year": 2000
+  },
+  "31151": {
+   "detail": "Saline County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2024, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2024
+  },
+  "31153": {
+   "detail": "Sarpy County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2007
+  },
+  "31155": {
+   "detail": "Saunders County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2024, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2024
+  },
+  "31157": {
+   "detail": "Scotts Bluff County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 53. Wettest: 2013, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 53.0,
+   "unit": "days",
+   "value": 56.0,
+   "wettest_year": 2013
+  },
+  "31159": {
+   "detail": "Seward County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2024, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2024
+  },
+  "31161": {
+   "detail": "Sheridan County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 53. Wettest: 2009, with 50. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "55 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 53.0,
+   "unit": "days",
+   "value": 55.0,
+   "wettest_year": 2009
+  },
+  "31163": {
+   "detail": "Sherman County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 48.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31165": {
+   "detail": "Sioux County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2013, with 49. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "56 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 52.5,
+   "unit": "days",
+   "value": 56.5,
+   "wettest_year": 2013
+  },
+  "31167": {
+   "detail": "Stanton County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2007
+  },
+  "31169": {
+   "detail": "Thayer County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2000, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 51.5,
+   "wettest_year": 2000
+  },
+  "31171": {
+   "detail": "Thomas County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 50. Wettest: 2015, with 47. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "54 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 50.0,
+   "unit": "days",
+   "value": 54.5,
+   "wettest_year": 2015
+  },
+  "31173": {
+   "detail": "Thurston County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2008
+  },
+  "31175": {
+   "detail": "Valley County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2008
+  },
+  "31177": {
+   "detail": "Washington County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2008
+  },
+  "31179": {
+   "detail": "Wayne County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "51 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 51.0,
+   "wettest_year": 2007
+  },
+  "31181": {
+   "detail": "Webster County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2000, with 45. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2000
+  },
+  "31183": {
+   "detail": "Wheeler County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2018, with 44. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.0,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2018
+  },
+  "31185": {
+   "detail": "York County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2007, with 46. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 46.5,
+   "unit": "days",
+   "value": 50.5,
+   "wettest_year": 2007
+  }
+ },
+ "format": 1,
+ "link": null,
+ "made": "2026-09-26",
+ "method": "Workable day = under 2.5 mm of rain that day and under 12.5 mm over the two days before. Typical = median fall; wet = 10th percentile.",
+ "not_covered": "Counties the Yield Predictor has weather for (Nebraska and some of Iowa) today.",
+ "rule": "rain-2.5mm/12.5mm-2d",
+ "skipped": {},
+ "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)"
+}

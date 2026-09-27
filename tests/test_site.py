@@ -31,15 +31,19 @@ class Links(HTMLParser):
                 self.found.append(attrs[key])
 
 
+def all_pages():
+    return [p[0] for p in build.PAGES] + [build.APP_PAGE.format(a["id"]) for a in build.load_apps()]
+
+
 def test_every_page_is_built_with_the_company_name(site):
-    for name, *_ in build.PAGES:
+    for name in all_pages():
         page = (site / name).read_text(encoding="utf-8")
         assert config.NAME in page, name
         assert "${" not in page, f"{name} has an unfilled placeholder"
 
 
 def test_no_internal_link_is_broken(site):
-    for name, *_ in build.PAGES:
+    for name in all_pages():
         parser = Links()
         parser.feed((site / name).read_text(encoding="utf-8"))
         for link in parser.found:
@@ -61,7 +65,7 @@ def test_every_app_in_the_suite_list_is_on_the_home_page(site):
 def test_search_engines_are_kept_out_while_the_name_is_a_placeholder(site):
     home = (site / "index.html").read_text(encoding="utf-8")
     if config.PUBLIC:
-        assert 'name="robots"' not in home and not (site / "robots.txt").exists()
+        assert 'name="robots"' not in home and "Sitemap:" in (site / "robots.txt").read_text(encoding="utf-8")
     else:
         assert '<meta name="robots" content="noindex">' in home
         assert "Disallow: /" in (site / "robots.txt").read_text(encoding="utf-8")

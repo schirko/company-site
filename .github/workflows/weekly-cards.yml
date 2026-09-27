@@ -1,0 +1,43 @@
+# Every Friday: pick this week's farm county, ask Herd Planner for this week's steer price,
+# rebuild the site with the new numbers, check it, and publish it (GitHub Pages serves docs/).
+# Free: public repositories get GitHub Actions minutes at no cost.
+# Run it by hand any time: GitHub > Actions > Weekly stat cards > Run workflow.
+name: Weekly stat cards
+
+on:
+  schedule:
+    - cron: "17 13 * * 5"  # Fridays 13:17 UTC = 7:17 am in Denver (6:17 am in winter)
+  workflow_dispatch:
+
+permissions:
+  contents: write  # to commit the new week
+
+concurrency:
+  group: weekly-cards
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+      # Tests first: they build into a scratch folder, so they never leave test numbers in docs/.
+      - run: pytest
+      - run: python cards.py refresh
+      - run: python build.py
+      - name: Publish the new week
+        run: |
+          git config user.name "weekly-cards bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/cards docs
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+          else
+            git commit -m "Weekly stat cards: $(date -u +%G-W%V)"
+            git push
+          fi

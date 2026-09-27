@@ -1,0 +1,35 @@
+<section class="page app-page">
+  <div class="wrap">
+    <div class="app-title">
+      <img src="suite/suite-logos/${app_id}.svg" alt="" width="64" height="64">
+      <div>
+        <p class="eyebrow">${audience}</p>
+        <h1>${app_name}</h1>
+        <p class="lede">${question}</p>
+      </div>
+    </div>
+
+    <div class="app-page-grid">
+      <div>
+        <h2>What It Does</h2>
+        <ul class="points">
+${points}
+        </ul>
+        <p class="meta">${note}</p>
+        <p>${open_button}</p>
+      </div>
+      <div>
+        <h2>This Week: ${place}</h2>
+${card}
+      </div>
+    </div>
+
+    <h2>Recent Weeks</h2>
+    <p class="section-lede">Each Friday we pick a farm county and add a line here. ${history_note}</p>
+${history}
+
+    <h2>Where the Number Comes From</h2>
+    <p>${method}</p>
+    <p class="meta">Source: ${source}. <a href="methods.html#${app_id}">How we test ${app_name}</a>.</p>
+  </div>
+</section>

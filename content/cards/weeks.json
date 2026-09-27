@@ -1,0 +1,49 @@
+{
+ "format": 1,
+ "weeks": [
+  {
+   "week": "2026-W39",
+   "date": "2026-09-27",
+   "place": {
+    "fips": "31063",
+    "state": "NE",
+    "county": "Frontier County",
+    "state_name": "Nebraska"
+   },
+   "cards": {
+    "corn-yield-predictor": {
+     "label": "Trend corn yield, 2026",
+     "headline": "146 bu/acre",
+     "detail": "Frontier County, NE yields since 2000 rise about 0.9 bu/acre a year. In 1 year in 10 the county falls below 128.",
+     "value": 146.3,
+     "low": 127.7,
+     "unit": "bu/acre",
+     "source": "USDA NASS county corn yields (all practices), 2000 on",
+     "method": "Straight-line trend through the county's yields; the low end is the 10th percentile of each year's yield relative to its trend. County averages, not a forecast of this season."
+    },
+    "farm-equipment-planner": {
+     "label": "Fall field days, Oct 1 to Nov 30",
+     "headline": "55 of 61 days",
+     "detail": "Frontier County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 47. Counts rain only, not snow or frozen ground.",
+     "value": 55.0,
+     "low": 48.5,
+     "unit": "days",
+     "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)",
+     "method": "Workable day = under 2.5 mm of rain that day and under 12.5 mm over the two days before. Typical = median fall; wet = 10th percentile."
+    },
+    "herd-planner": {
+     "label": "550 lb steer, this week",
+     "headline": "$408/cwt",
+     "detail": "About $2,242 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Sep 21). 8 in 10 sales land between $390 and $425/cwt.",
+     "value": 407.62,
+     "low": 389.5,
+     "high": 424.87,
+     "unit": "$/cwt",
+     "as_of": "2026-09-21",
+     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "source": "USDA AMS MyMarketNews auction reports"
+    }
+   }
+  }
+ ]
+}

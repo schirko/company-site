@@ -123,3 +123,40 @@ table.results tr.ours td { font-weight: 700; background: var(--suite-gold-tint);
    the measure stays here, matching this site's own .wrap so the footer lines up
    with the pages above it. */
 :root { --suite-measure: 1080px; }
+
+/* This week's stat cards (cards.py picks the county; build.py writes the numbers into the page) */
+.this-week { padding-top: 8px; }
+.stat-cards { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
+.stat-card { display: flex; flex-direction: column; gap: 6px; padding: 18px; color: var(--suite-ink); text-decoration: none;
+  background: var(--suite-surface); border: 1px solid var(--suite-line); border-radius: var(--suite-radius); }
+a.stat-card:hover { border-color: var(--suite-gold-line); box-shadow: 0 4px 14px rgba(0, 0, 0, .08); }
+.stat-app { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: .95rem; }
+.stat-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--suite-deep-green); margin-top: 4px; }
+.stat-headline { font-size: 2rem; font-weight: 700; line-height: 1.1; color: var(--suite-deep-green); font-variant-numeric: tabular-nums; }
+.stat-detail { font-size: .95rem; }
+.stat-source { font-size: .8rem; color: var(--suite-muted); margin-top: auto; padding-top: 6px; }
+a.more { margin-left: 12px; white-space: nowrap; }
+
+/* An app's own page */
+.app-title { display: flex; align-items: center; gap: 18px; }
+.app-title img { flex: none; }
+.app-title h1 { margin: 0 0 4px; }
+.app-title .lede { margin: 0; }
+.app-page-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; align-items: start; }
+.app-page-grid .stat-card { background: var(--band); }
+
+@media (max-width: 760px) {
+  .stat-cards, .app-page-grid { grid-template-columns: 1fr; }
+  .app-page-grid { gap: 0; }
+  .app-title { align-items: flex-start; }
+  .app-title img { width: 48px; height: 48px; }
+  a.more { display: inline-block; margin: 10px 0 0; }
+}
+/* Recent weeks: the date never breaks; the barn or county name wraps and reads left to right. */
+table.history td:first-child { white-space: nowrap; }
+table.history td:nth-child(2), table.history th:nth-child(2) { text-align: left; white-space: normal; }
+@media (max-width: 600px) {
+  table.history { font-size: .85rem; }
+  table.history th, table.history td { padding: 6px 8px; }
+  table.history td + td, table.history th { white-space: normal; }
+}

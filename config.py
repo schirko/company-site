@@ -24,5 +24,9 @@ EMAIL = ""
 # Set to True when the real name and domain are in place.
 PUBLIC = False
 
+# The site's public address, ending in a slash: used for the sitemap and canonical links.
+# Change it when the site moves to the company domain.
+SITE_URL = "https://schirko.github.io/company-site/"
+
 # The year in the copyright line.
 YEAR = 2026
