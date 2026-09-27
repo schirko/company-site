@@ -150,3 +150,16 @@ def test_styles_and_scripts_get_a_new_address_when_they_change(site):
             tag = hashlib.sha256((build.STATIC / name).read_bytes()).hexdigest()[:10]
             assert f'"{name}?v={tag}"' in text, (page, name)
     assert '"slider.js?v=' in (site / "index.html").read_text(encoding="utf-8")
+
+
+def test_the_custom_domain_survives_every_build(site):
+    """GitHub Pages serves cornerpostlogic.com only while docs/CNAME names it; build.py empties docs/ each time."""
+    import config
+
+    assert (site / "CNAME").read_text(encoding="utf-8").strip() == config.DOMAIN
+    assert config.SITE_URL == f"https://{config.DOMAIN}/"
+    home = (site / "index.html").read_text(encoding="utf-8")
+    assert f'<link rel="canonical" href="https://{config.DOMAIN}/">' in home
+    if config.PUBLIC:
+        assert "noindex" not in home
+        assert f"Sitemap: https://{config.DOMAIN}/sitemap.xml" in (site / "robots.txt").read_text(encoding="utf-8")

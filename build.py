@@ -363,6 +363,10 @@ def build():
     (OUT / "sitemap.xml").write_text(sitemap(listed, week["date"]), encoding="utf-8")
     # GitHub Pages runs pages through Jekyll unless this file exists; we don't need it.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
+    # The custom domain. GitHub adds docs/CNAME when the domain is saved in Settings > Pages, but this
+    # build empties docs/ every time (the Friday job too), so the build writes it back itself.
+    if getattr(config, "DOMAIN", None):
+        (OUT / "CNAME").write_text(config.DOMAIN + "\n", encoding="utf-8")
     if config.PUBLIC:
         robots = f"User-agent: *\nAllow: /\nSitemap: {config.SITE_URL}sitemap.xml\n"
     else:

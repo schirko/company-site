@@ -8,9 +8,15 @@ Every Friday the site picks a farm county and shows one real number from each ap
 550 lb steer price at the nearest sale barn, the county's trend corn yield, and its fall field days.
 Each app page keeps a table of recent weeks, so the site gets new content every week on its own.
 
-The company is **Cornerpost Logic** (domain cornerpostlogic.com, bought 2026-09-27). Until the
-domain points at this site, it still lives at the github.io address and asks search engines not
-to list it. When the domain is live: set `SITE_URL` and `PUBLIC = True` in `config.py`, rebuild, and push.
+The company is **Cornerpost Logic**, at **https://cornerpostlogic.com/** (bought at Namecheap
+2026-09-27; GitHub Pages custom domain). `DOMAIN` in `config.py` is written to `docs/CNAME` on every
+build, because GitHub Pages only serves the domain while that file names it (and `build.py` empties
+`docs/` each time). The old github.io address redirects here. Not launched yet: `PUBLIC = False` keeps search
+engines out ("noindex" on every page, a disallow-all robots.txt). Set it to True at launch.
+
+DNS at Namecheap (Advanced DNS): four A records for `@` (185.199.108.153, .109.153, .110.153,
+.111.153), four AAAA records for `@` (2606:50c0:8000::153 to 2606:50c0:8003::153), and a CNAME
+`www` -> `schirko.github.io`. No wildcard records.
 
 ## How it's put together
 

@@ -19,13 +19,18 @@ LOCATION = "Centennial, Colorado"
 # personal address here: the site is public.
 EMAIL = ""
 
-# Ask search engines not to list the site until it lives at its own domain
-# (cornerpostlogic.com). Set to True together with SITE_URL when the domain is pointed here.
+# Search engines. False (for now, Scott's choice, 2026-09-27): every page says "noindex" and robots.txt
+# disallows everything, so the site isn't listed or found by searching, though anyone given the
+# address can still open it (GitHub Pages can't require a password). True invites search engines
+# in (robots.txt points them at sitemap.xml) at launch.
 PUBLIC = False
 
+# The site's own domain (GitHub Pages "custom domain"). build.py writes it to docs/CNAME on
+# every build: GitHub Pages reads that file, and without it the site falls back to github.io.
+DOMAIN = "cornerpostlogic.com"
+
 # The site's public address, ending in a slash: used for the sitemap and canonical links.
-# Change it when the site moves to the company domain.
-SITE_URL = "https://schirko.github.io/company-site/"
+SITE_URL = f"https://{DOMAIN}/"
 
 # Where "Sign In" in the menu goes: the suite's account service (farm-account), where each
 # person's home page shows every app with their county's numbers. Change it with the domain.
