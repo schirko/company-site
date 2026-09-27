@@ -1,5 +1,5 @@
 {
-  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu.",
+  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens.",
   "herd-planner": {
     "question": "Which calves do I sell, which heifers do I keep, and how fast can my herd grow?",
     "audience": "For cow-calf ranches",
@@ -32,5 +32,17 @@
       "Finds the harvest bottleneck: the combine, carts, trucks, pit or dryer"
     ],
     "note": "Built and in testing. It opens once it has a home online."
-  }
+  },
+  "in_development": [
+    {
+      "id": "grazing-planner",
+      "name": "Grazing Planner",
+      "question": "How many head can this pasture carry this season, and when should I move them?"
+    },
+    {
+      "id": "soybean-yield-predictor",
+      "name": "Soybean Yield Predictor",
+      "question": "What will this county's soybeans yield, and why?"
+    }
+  ]
 }

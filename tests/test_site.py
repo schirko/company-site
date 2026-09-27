@@ -108,3 +108,33 @@ def test_the_apps_link_back_to_this_site_by_its_own_name():
     company = json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["company"]
     assert company["name"] == config.NAME
     assert company["url"] == config.SITE_URL
+
+
+def test_sign_in_is_in_every_page_menu(site):
+    for name in all_pages():
+        page = (site / name).read_text(encoding="utf-8")
+        nav = page[page.index('<nav class="site-nav"'):page.index("</nav>")]
+        assert f'href="{config.ACCOUNT_URL}">Sign In</a>' in nav, name
+        assert ">Our Farm Apps</a>" in nav, name
+
+
+def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
+    """A tile on the home page (tag, Get notified), but no app page, no Farm Apps menu entry, no footer link."""
+    copy = json.loads((ROOT / "content/apps.json").read_text(encoding="utf-8"))
+    suite_ids = {a["id"] for a in build.load_apps()}
+    home = (site / "index.html").read_text(encoding="utf-8")
+    assert copy["in_development"], "no apps in development listed"
+    for app in copy["in_development"]:
+        assert app["id"] not in suite_ids, f"{app['id']} is live: remove it from in_development"
+        assert (site / "soon" / f"{app['id']}.svg").exists()
+        tile = home[home.index(f'soon/{app["id"]}.svg'):]
+        tile = tile[:tile.index("</div>")]
+        assert "In development" in tile and 'href="#notify"' in tile and app["name"] in tile
+        assert not (site / build.APP_PAGE.format(app["id"])).exists()
+    assert 'id="notify"' in home
+    assert len(re.findall(r'class="tile[ "]', home)) == len(suite_ids) + len(copy["in_development"])
+
+
+def test_the_location_is_centennial(site):
+    assert config.LOCATION == "Centennial, Colorado"
+    assert "Built in Centennial, Colorado" in (site / "index.html").read_text(encoding="utf-8")

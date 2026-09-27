@@ -16,20 +16,24 @@ engines not to list it. When the name is settled, change it in `config.py`, set
 
 ```
 company-site/
-├── config.py          the company name, tagline, location, contact address, PUBLIC switch, SITE_URL
+├── config.py          the company name, tagline, location, contact address, PUBLIC switch, SITE_URL,
+│                      ACCOUNT_URL (where "Sign In" in the menu goes: farm-account)
 ├── build.py           fills in the templates and writes the finished site to docs/ (plus sitemap.xml)
 ├── cards.py           the weekly stat cards: this week's county, the steer price, the history
 ├── charts.py          draws the "Why Use Our Apps" charts as SVG, in plain Python
 ├── hero.py            the home page's live panel: this week's numbers as a small dashboard
 ├── barn_pages.py      one page per sale barn, and the Barn Prices index
 ├── static/panel.js    "See your county": swaps the panel's tiles to a visitor's county
+├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
 ├── templates/         the pages, with ${placeholders} for the name and the app list
-├── content/apps.json  the home page's longer words about each app (tiles and app sections)
+├── content/apps.json  the home page's longer words about each app (tiles and app sections), and
+│                      "in_development": apps being built (a tile with Get notified, nothing else)
 ├── content/stories.json  the "Why Use Our Apps" findings: numbers, words and sources
 ├── content/cards/     the county card files from the Yield Predictor and Equipment Planner,
 │                      and weeks.json (every week shown so far, newest first)
 ├── .github/workflows/ weekly-cards.yml: the Friday refresh
-├── static/            site.css, favicon.svg, and suite/ (the shared look and the app list)
+├── static/            site.css, favicon.svg, soon/ (logos of apps in development), and suite/
+│                      (the shared look and the app list)
 ├── docs/              the finished site: GitHub Pages serves this folder as it is
 └── tests/             checks that every page builds and no link points nowhere
 ```
@@ -129,6 +133,21 @@ Every Friday `cards.py refresh` asks Herd Planner's public `GET /suite/barns` an
 `content/cards/barns.json` (two years kept per barn). A barn that hasn't sold in three weeks keeps its page
 but says so instead of showing an old price. The live panel's steer tile links to the barn its price came
 from. "Barn Prices" is in the site's menu, and every barn page is in `sitemap.xml`.
+
+## The app tiles row
+
+Under the live panel, one tile per app: the three in the suite list (`static/suite/suite-apps.json`),
+then the apps being built (`"in_development"` in `content/apps.json`). The row scrolls sideways and snaps
+to each tile: three show at a time on a wide screen with a peek of the next, arrow buttons appear when
+there's more (`static/slider.js`), and phones swipe. It never moves by itself: auto-rotating carousels
+are skipped by most visitors and hard to use.
+
+An app in development gets a dashed tile, an **In development** tag, its question, and **Get notified**,
+which jumps to "Hear When Something New Opens" (Herd Planner's waitlist). It has no app page, no Farm Apps
+menu entry and no footer link until it exists. Its logo goes in `static/soon/<id>.svg` (the suite's logo
+style: a colored circle, a cream drawing, a gold accent). When it opens: add it to the master
+`herd-planner/brand/suite-apps.json`, copy that out, write its entry in `apps.json`, and remove it from
+`"in_development"` (a test fails if an app is in both).
 
 ## Why Use Our Apps
 

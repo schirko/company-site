@@ -22,8 +22,12 @@
       </div>
 ${live_panel}
     </div>
-    <div class="tiles" id="tiles">
+    <div class="slider" id="tiles" data-slider>
+      <div class="tiles" role="region" aria-label="Our farm apps" tabindex="0">
 ${app_tiles}
+      </div>
+      <button class="slide-btn prev" type="button" aria-label="Previous apps" hidden>&#8249;</button>
+      <button class="slide-btn next" type="button" aria-label="More apps" hidden>&#8250;</button>
     </div>
   </div>
 </section>
@@ -100,10 +104,11 @@ ${app_rows}
   </div>
 </section>
 
-<section>
+<section id="notify">
   <div class="wrap center">
     <h2>Hear When Something New Opens</h2>
     <p class="section-lede center-block">Join the list in Herd Planner. We only send news if you ask for it.</p>
     <p><a class="btn" href="${herd_url}">Join the list</a></p>
   </div>
 </section>
+<script src="slider.js" defer></script>

@@ -65,7 +65,7 @@ def load_copy():
 
 
 def app_tile(app, copy):
-    """A big tile in the opening section: the whole tile is the link, so it's easy to hit on a phone."""
+    """A big tile in the opening row: the whole tile is the link, so it's easy to hit on a phone."""
     inner = f"""<img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">
         <span class="tile-words"><strong>{e(app["name"])}</strong><span>{e(copy["question"])}</span></span>"""
     if app["url"]:
@@ -76,6 +76,16 @@ def app_tile(app, copy):
     return f"""      <div class="tile soon">
         {inner}
         <span class="status">Coming soon</span>
+      </div>"""
+
+
+def dev_tile(app):
+    """An app being built (content/apps.json "in_development"): its question, an honest tag, and a way to
+    hear when it opens. Not a link to an app, and not in the Farm Apps menu until it exists."""
+    return f"""      <div class="tile dev">
+        <img src="soon/{e(app["id"])}.svg" alt="" width="56" height="56">
+        <span class="tile-words"><span class="tag">In development</span><strong>{e(app["name"])}</strong><span>{e(app["question"])}</span></span>
+        <a class="btn small ghost" href="#notify">Get notified</a>
       </div>"""
 
 
@@ -276,7 +286,9 @@ def build():
         "location": e(config.LOCATION),
         "year": str(config.YEAR),
         "herd_url": e(herd["url"] or "#apps"),
-        "app_tiles": "\n".join(app_tile(a, copy[a["id"]]) for a in apps),
+        "app_tiles": "\n".join([app_tile(a, copy[a["id"]]) for a in apps]
+                               + [dev_tile(d) for d in copy.get("in_development", [])]),
+        "account_url": e(config.ACCOUNT_URL),
         "app_rows": "\n".join(app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)),
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
