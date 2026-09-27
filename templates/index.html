@@ -1,22 +1,29 @@
 <section class="hero" id="apps">
   <div class="wrap">
-    <h1>${tagline}</h1>
-    <p class="lede">Plain answers from your own records and public data: which calves to sell, which heifers to keep
-      and how fast your herd can grow, what the corn will yield, whether a machine pays for itself.
-      Every answer shows how sure it is.</p>
+    <div class="hero-grid">
+      <div class="hero-words">
+        <h1>${tagline}</h1>
+        <p class="lede">Plain answers from your own records and public data: which calves to sell, which heifers to keep
+          and how fast your herd can grow, what the corn will yield, whether a machine pays for itself.
+          Every answer shows how sure it is.</p>
+        <p class="hero-sub">The numbers in this week's panel are real: this week's output from our apps for one
+          farm county, new every Friday.</p>
+      </div>
+${live_panel}
+    </div>
     <div class="tiles">
 ${app_tiles}
     </div>
   </div>
 </section>
 
-<section class="this-week" id="this-week">
+<section class="why" id="why">
   <div class="wrap">
-    <h2>This Week: ${week_place}</h2>
-    <p class="section-lede">Every Friday we pick a farm county and show one real number from each app.
-      Week of ${week_date}.</p>
-    <div class="stat-cards">
-${week_cards}
+    <h2>Why Use Our Apps</h2>
+    <p class="section-lede">Real findings from the work behind each app, each with its source and its limits.
+      These are the kinds of answers the apps give for your own herd and fields.</p>
+    <div class="stories">
+${stories}
     </div>
   </div>
 </section>

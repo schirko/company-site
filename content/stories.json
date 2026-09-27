@@ -1,0 +1,175 @@
+{
+ "about": "The 'Why Use Our Apps' stories: one real finding each, drawn as a chart by charts.py, in the order the home page shows them. Every number is copied from the app's own notebook or README, named in 'source'; never add a number without one. 'app' is an app id from static/suite/suite-apps.json; each app page shows its own stories.",
+ "stories": [
+  {
+   "id": "calf-season",
+   "app": "herd-planner",
+   "title": "When You Sell Calves Matters",
+   "headline": "500-600 lb calves bring about 6% less than the trend in October and November, and about 5% more in March. Heavy feeders run the other way.",
+   "chart": "seasonal",
+   "chart_title": "How far each month's price runs above or below the trend (%)",
+   "months": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+   ],
+   "series": [
+    {
+     "name": "500-600 lb steers (calves)",
+     "index": [
+      1.011,
+      1.025,
+      1.049,
+      1.033,
+      1.004,
+      1.022,
+      1.016,
+      1.015,
+      0.959,
+      0.94,
+      0.944,
+      0.98
+     ]
+    },
+    {
+     "name": "800-900 lb steers (feeders)",
+     "index": [
+      0.977,
+      0.984,
+      0.972,
+      0.964,
+      0.963,
+      1.019,
+      1.051,
+      1.046,
+      1.05,
+      1.038,
+      0.97,
+      0.968
+     ]
+    }
+   ],
+   "takeaway": "Most calves are weaned in the fall, so a wave of supply meets the fall market. Holding calves into winter or spring can mean selling into a stronger month, if the extra feed and gain pay for themselves. Herd Planner weighs exactly that for each animal.",
+   "caution": "Each month has only 4 or 5 years behind it, in a strongly rising market. Read these as tendencies, not guarantees.",
+   "source": "USDA AMS auction reports, Oklahoma National Stockyards, 2021-2026; seasonal index by ratio to a centered 12-month moving average (Herd Planner notebook m4)."
+  },
+  {
+   "id": "heifers-to-keep",
+   "app": "herd-planner",
+   "title": "How Many Heifers to Keep",
+   "headline": "To grow a 40-cow herd to 60 head in five years, keeping 80% of the heifer calves is a coin flip. Keeping 90% gets there in 81 of 100 futures.",
+   "chart": "keep_rate",
+   "chart_title": "Futures (of 100) in which the herd reaches 60 head by 2031, by share of heifer calves kept",
+   "keep_pct": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100
+   ],
+   "reach_pct": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.3,
+    10.8,
+    51.9,
+    81.4,
+    96.8
+   ],
+   "takeaway": "Even keeping every heifer, a herd grows only about 9 cows per 100 a year, starting two years later. Growth also costs cash now: keeping all of them averages about $1,700 below break-even in each of the first three years. Herd Planner runs 1,000 possible futures of prices, weather and biology to show both sides.",
+   "caution": "A simulated 40-cow herd at 2026 prices, with the keep-rate fixed for every year. A real rancher adjusts each fall.",
+   "source": "1,000 simulated futures per keep-rate: breeding, calf survival and deaths drawn at random, good and bad years, and prices as a random walk at the measured 15% a year volatility (Herd Planner notebook m7)."
+  },
+  {
+   "id": "what-explains-yield",
+   "app": "corn-yield-predictor",
+   "title": "What Explains a County's Corn Yield",
+   "headline": "In Nebraska, adding each county's share of irrigated corn lifted the model's score from 0.40 to 0.60. Soils, elevation, crop rotation and spring weather together added about 0.05 more.",
+   "chart": "ladder",
+   "chart_title": "Model score on counties it never saw (R\u00b2, 1.0 is perfect), adding one kind of information at a time",
+   "steps": [
+    "Weather only",
+    "+ Irrigated share",
+    "+ Soil rating",
+    "+ Elevation",
+    "+ Corn-soybean rotation",
+    "+ Spring weather"
+   ],
+   "r2": [
+    0.395,
+    0.601,
+    0.623,
+    0.634,
+    0.64,
+    0.655
+   ],
+   "takeaway": "Irrigation isn't published as a county number, so the Yield Predictor rebuilds it from USDA acreage reports. It mattered more than any model tuning, because it came from knowing how Nebraska farms. In Iowa, which barely irrigates, corn-soybean rotation plays that role.",
+   "caution": "Scored on whole agricultural districts held out from training, 2,002 Nebraska county-years, 2000-2025. A county average, not a single farm.",
+   "source": "USDA NASS county yields and acreage, NASA POWER weather, USDA soil ratings; spatial R\u00b2 from leave-district-out validation (Yield Predictor README, Headline Result 2)."
+  },
+  {
+   "id": "own-or-hire",
+   "app": "farm-equipment-planner",
+   "title": "Own a Combine or Hire One?",
+   "headline": "On 1,200 acres of corn, hiring custom harvest is the cheaper choice every time if the crew arrives within 12 days. Past about 16 days, owning a used combine starts to win.",
+   "chart": "hire_wait",
+   "chart_title": "Futures (%) in which custom hire is cheaper than owning a used combine, by how many days later the crew arrives",
+   "delay_days": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28
+   ],
+   "custom_cheapest_pct": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    96.3,
+    62.3,
+    15.9,
+    1.5,
+    0,
+    0,
+    0,
+    0
+   ],
+   "takeaway": "Without any wait, custom hire beats owning at every farm size one combine can cover. What makes owning pay is timeliness: harvesting when the crop is ready, before the wet weeks cost you yield. The Equipment Planner replays your county's real falls to price that wait.",
+   "caution": "Hall County, Nebraska; 210 bu corn at $4.80, 5-year horizon, used combine $430,000, custom rate $46.05 an acre. Taxes are left out.",
+   "source": "Falls 2000-2025 replayed with NASA POWER daily rainfall, USDA NASS county yields, and corn price volatility 0.15 (USDA RMA); 1,000 simulated 5-year futures per delay (Equipment Planner notebook m7)."
+  }
+ ]
+}

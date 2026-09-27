@@ -116,7 +116,7 @@ def test_pages_show_the_week(weeks_file):
 def test_a_week_without_a_price_says_so(weeks_file):
     cards.refresh(FRIDAY, fetch=no_price)
     home = (build.build() / "index.html").read_text(encoding="utf-8")
-    assert "No fresh sale-barn price" in home
+    assert "No fresh price" in home and "No sale barn near" in home
 
 
 def test_sitemap_lists_every_page(weeks_file):

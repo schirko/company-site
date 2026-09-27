@@ -22,6 +22,8 @@ from pathlib import Path
 from string import Template
 
 import cards
+import charts
+import hero
 import config
 
 ROOT = Path(__file__).resolve().parent
@@ -223,6 +225,33 @@ def sitemap(pages, lastmod):
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n")
 
 
+# --- "Why Use Our Apps": one real finding per story, drawn by charts.py -------------------------
+
+
+def load_stories():
+    return json.loads((CONTENT / "stories.json").read_text(encoding="utf-8"))["stories"]
+
+
+def story_block(story, apps_by_id, heading="h3", link=True):
+    app = apps_by_id[story["app"]]
+    more = (f'<p class="story-link"><a href="{APP_PAGE.format(e(app["id"]))}">More about {e(app["name"])}</a></p>'
+            if link else "")
+    return f"""      <figure class="story" id="{e(story["id"])}">
+        <p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="24" height="24"> {e(app["name"])}</p>
+        <{heading}>{e(story["title"])}</{heading}>
+        <p class="story-headline">{e(story["headline"])}</p>
+        <p class="chart-title">{e(story["chart_title"])}</p>
+        {charts.draw(story)}
+        <figcaption>
+          <p>{e(story["takeaway"])}</p>
+          <p class="note">{e(story["caution"])}</p>
+          <p class="source">Source: {e(story["source"])}</p>
+        </figcaption>
+        {charts.table(story)}
+{more}
+      </figure>"""
+
+
 def contact_sentence():
     if config.EMAIL:
         return f'Write to us at <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.'
@@ -233,6 +262,8 @@ def build():
     apps = load_apps()
     copy = load_copy()
     week = cards.current()
+    stories = load_stories()
+    apps_by_id = {a["id"]: a for a in apps}
     weeks = cards.load_weeks()
     herd = next(a for a in apps if a["id"] == "herd-planner")
     values = {
@@ -249,6 +280,8 @@ def build():
         "footer_apps": "\n".join(f'      <a href="{APP_PAGE.format(e(a["id"]))}">{e(a["name"])}</a>' for a in apps),
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
+        "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
+        "live_panel": hero.panel(week, stories, nice_date),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
@@ -274,6 +307,9 @@ def build():
     app_template = Template((TEMPLATES / "app.html").read_text(encoding="utf-8"))
     for app in apps:
         v = app_page_values(app, copy[app["id"]], week, weeks)
+        own = [st for st in stories if st["app"] == app["id"]]
+        v["stories"] = ("    <h2>What the Numbers Show</h2>\n" + "\n".join(
+            story_block(st, apps_by_id, heading="h3", link=False) for st in own)) if own else ""
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],

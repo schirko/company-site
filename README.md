@@ -19,8 +19,11 @@ company-site/
 ├── config.py          the company name, tagline, location, contact address, PUBLIC switch, SITE_URL
 ├── build.py           fills in the templates and writes the finished site to docs/ (plus sitemap.xml)
 ├── cards.py           the weekly stat cards: this week's county, the steer price, the history
+├── charts.py          draws the "Why Use Our Apps" charts as SVG, in plain Python
+├── hero.py            the home page's live panel: this week's numbers as a small dashboard
 ├── templates/         the pages, with ${placeholders} for the name and the app list
 ├── content/apps.json  the home page's longer words about each app (tiles and app sections)
+├── content/stories.json  the "Why Use Our Apps" findings: numbers, words and sources
 ├── content/cards/     the county card files from the Yield Predictor and Equipment Planner,
 │                      and weeks.json (every week shown so far, newest first)
 ├── .github/workflows/ weekly-cards.yml: the Friday refresh
@@ -47,6 +50,60 @@ python -m http.server 8080 --directory docs
 ```
 
 Then open http://127.0.0.1:8080 in a browser.
+
+## The live panel (top of the home page)
+
+Instead of a screenshot of an app, the top of the home page shows the apps' real output for this
+week's county, rebuilt every Friday: the 550 lb steer price and its range, how calves usually price
+this month against the trend, the county's trend corn yield, and its fall field days (61 day squares).
+`hero.py` draws it from the same week `cards.py` saved. Each tile's gold callout says what stands
+behind the number, so it must stay literally true: change the callout if the number's source changes.
+
+### What the panel is called
+
+A **KPI panel** (dashboard panel) of four **stat tiles**, each with a **microchart** and a
+**callout**. The microcharts: a **bullet chart** (steer price and corn yield: a band for the range,
+a dot for the value), a **sparkbar** (calves by month, a word-sized bar chart) and a **unit chart**
+or **waffle chart** (the 61 day squares, one mark per day).
+
+### What changes, and when
+
+| Tile | Changes | Why |
+| --- | --- | --- |
+| Steer price | Weekly | Fresh price from Herd Planner each Friday, at the barn nearest the new county |
+| Calves this month | Monthly | The highlighted month and its % move with the calendar |
+| Corn yield | Weekly | A new county each week |
+| Field days | Weekly | A new county each week |
+| Heading ("This Week: ... County") | Weekly | Rotates through 88 counties |
+
+Each app page's Recent Weeks table gains a row weekly. The "Why Use Our Apps" charts stay put until
+a story is added or changed.
+
+**What can stop it quietly:**
+
+1. **No real prices online.** Herd Planner needs its automatic price updates running. With no price
+   from the last three weeks, or no answer within about 4 minutes, the steer tile says "No fresh
+   price" and the other three still update.
+2. **GitHub pauses scheduled jobs after 60 days of no repository activity.** The job's own weekly
+   commits should count, and GitHub emails before pausing. Look for a green check on Fridays.
+3. **The county numbers themselves change once a year**, when you re-export them after new USDA
+   yields. The weekly change comes from the rotating county.
+
+**A quick Friday check:** open the site, or look for the commit "Weekly stat cards: 2026-W40"
+(and so on) in the repository's history.
+
+## Why Use Our Apps
+
+A home page section (and a "What the Numbers Show" section on each app page) with one real finding
+per chart: when calves sell best, how many heifers to keep, what explains a county's corn yield,
+and when owning a combine beats hiring. Each lives in `content/stories.json` with its numbers,
+words, limits and source; `charts.py` draws it as an SVG that `build.py` writes into the page.
+
+- **Every number comes from the app's own notebook or README**, named in `source`. A test fails
+  if a story has no source, no caution, or belongs to an app that isn't in the suite list.
+- **Add a story:** add an entry to `stories.json`. A new chart shape needs a new function in
+  `charts.py` and a line in its `KINDS` table.
+- Hovering a bar or point shows its value; **Show the numbers** opens the same numbers as a table.
 
 ## The weekly stat cards
 
