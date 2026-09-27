@@ -295,6 +295,15 @@ table.sheet small { color: var(--suite-muted); font-weight: normal; }
 table.barns-table td + td, table.barns-table th + th { text-align: left; }
 table.barns-table td:last-child, table.barns-table th:last-child { text-align: right; }
 .barn-list { columns: 2; column-gap: 32px; }
+/* Barn Prices list: the town sits under the barn's name, so three columns fit a phone without scrolling. */
+.barn-town { display: block; font-size: .85rem; color: var(--suite-muted); }
+table.barns-table th { white-space: normal; }
+@media (min-width: 761px) { table.barns-table { table-layout: fixed; } table.barns-table th:first-child { width: 50%; } }  /* same columns in every state's table */
+table.barns-table td .note { white-space: normal; }
+@media (max-width: 480px) {
+  table.barns-table th, table.barns-table td { padding: 8px 7px; }
+  table.barns-table { font-size: .88rem; }
+}
 @media (max-width: 760px) { .barn-grid { grid-template-columns: 1fr; } .barn-list { columns: 1; } .barn-price { font-size: 1.8rem; } }
 .barn-page svg.chart { max-width: 680px; }
 @media (max-width: 520px) {

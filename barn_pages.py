@@ -177,14 +177,15 @@ def index_page(all_barns: dict, nice_date) -> str:
         for slug, barn in sorted(by_state[state], key=lambda sb: sb[1].get("city") or sb[1]["name"]):
             week = current(barn)
             p = price_at(week, "Steers", WEIGHT) if week else None
-            price = f"{money(p['price'])}/cwt" if p else '<span class="note">no sale in 3 weeks</span>'
+            price = f"{money(p['price'])}/cwt" if p else '<span class="note">no recent sale</span>'
             latest = (barn.get("weeks") or [None])[0]
             sold = nice_date(latest["last_sale"]) if latest else "&ndash;"
-            rows.append(f'<tr><td><a href="{page_name(slug, barn)}">{e(barn["name"])}</a></td>'
-                        f'<td>{e(barn.get("city") or "")}</td><td>{sold}</td><td>{price}</td></tr>')
+            town = f'<span class="barn-town">{e(barn["city"])}</span>' if barn.get("city") else ""
+            rows.append(f'<tr><td><a href="{page_name(slug, barn)}">{e(barn["name"])}</a>{town}</td>'
+                        f'<td>{sold}</td><td>{price}</td></tr>')
         sections.append(f"""    <h2>{e(STATE_NAMES.get(state, state))}</h2>
     <div class="table-scroll"><table class="results barns-table">
-      <thead><tr><th>Sale barn</th><th>Town</th><th>Last sale</th><th>550 lb steer</th></tr></thead>
+      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer</th></tr></thead>
       <tbody>{"".join(rows)}</tbody></table></div>""")
     body = "\n".join(sections) if sections else '    <p class="note">The first prices arrive with Friday\'s update.</p>'
     return f"""<section class="page">

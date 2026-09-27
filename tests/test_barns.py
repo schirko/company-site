@@ -84,3 +84,11 @@ def test_the_steer_tile_links_to_the_barn_page(barns_file):
 def test_no_barns_yet_still_builds_an_index(barns_file):
     site = build.build()
     assert "first prices arrive" in (site / "barns.html").read_text(encoding="utf-8")
+
+
+def test_the_barn_list_fits_a_phone(barns_file):
+    """Three columns (the town sits under the barn's name), so the price never hides off the right edge."""
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    index = (build.build() / "barns.html").read_text(encoding="utf-8")
+    assert "<th>Sale barn</th><th>Last sale</th><th>550 lb steer</th>" in index
+    assert '<span class="barn-town">Kearney</span>' in index
