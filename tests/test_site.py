@@ -32,7 +32,7 @@ class Links(HTMLParser):
 
 
 def all_pages():
-    return [p[0] for p in build.PAGES] + [build.APP_PAGE.format(a["id"]) for a in build.load_apps()]
+    return [p[0] for p in build.PAGES] + [build.APP_PAGE.format(a["id"]) for a in build.load_apps()] + ["barns.html"]
 
 
 def test_every_page_is_built_with_the_company_name(site):
@@ -49,7 +49,7 @@ def test_no_internal_link_is_broken(site):
         for link in parser.found:
             if re.match(r"^(https?:|mailto:|#)", link):
                 continue
-            target = site / link.split("#")[0]
+            target = site / link.split("#")[0].split("?")[0]  # ?v= marks a file version
             assert target.exists(), f"{name} links to {link}, which isn't in docs/"
 
 
@@ -100,3 +100,53 @@ def test_suite_files_match_the_master_copies():
     for name in ("suite.css", "suite.js", "suite-apps.json"):
         copy = (ROOT / "static/suite" / name).read_bytes().replace(b"\r\n", b"\n")
         assert copy == (MASTER / name).read_bytes().replace(b"\r\n", b"\n"), f"{name} drifted from herd-planner/brand"
+
+
+def test_the_apps_link_back_to_this_site_by_its_own_name():
+    """Every app's header starts with the company's name, linking here ("company" in suite-apps.json).
+    When the company is named, change config.py AND herd-planner/brand/suite-apps.json, then copy it out."""
+    company = json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["company"]
+    assert company["name"] == config.NAME
+    assert company["url"] == config.SITE_URL
+
+
+def test_sign_in_is_in_every_page_menu(site):
+    for name in all_pages():
+        page = (site / name).read_text(encoding="utf-8")
+        nav = page[page.index('<nav class="site-nav"'):page.index("</nav>")]
+        assert f'href="{config.ACCOUNT_URL}">Sign In</a>' in nav, name
+        assert ">Our Farm Apps</a>" in nav, name
+
+
+def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
+    """A tile on the home page (tag, Get notified), but no app page, no Farm Apps menu entry, no footer link."""
+    copy = json.loads((ROOT / "content/apps.json").read_text(encoding="utf-8"))
+    suite_ids = {a["id"] for a in build.load_apps()}
+    home = (site / "index.html").read_text(encoding="utf-8")
+    assert copy["in_development"], "no apps in development listed"
+    for app in copy["in_development"]:
+        assert app["id"] not in suite_ids, f"{app['id']} is live: remove it from in_development"
+        assert (site / "soon" / f"{app['id']}.svg").exists()
+        tile = home[home.index(f'soon/{app["id"]}.svg'):]
+        tile = tile[:tile.index("</div>")]
+        assert "In development" in tile and 'href="#notify"' in tile and app["name"] in tile
+        assert not (site / build.APP_PAGE.format(app["id"])).exists()
+    assert 'id="notify"' in home
+    assert len(re.findall(r'class="tile[ "]', home)) == len(suite_ids) + len(copy["in_development"])
+
+
+def test_the_location_is_centennial(site):
+    assert config.LOCATION == "Centennial, Colorado"
+    assert "Built in Centennial, Colorado" in (site / "index.html").read_text(encoding="utf-8")
+
+
+def test_styles_and_scripts_get_a_new_address_when_they_change(site):
+    """A browser that kept last week's site.css would draw new pages with old styles."""
+    import hashlib
+
+    for page in ("index.html", "barns.html"):
+        text = (site / page).read_text(encoding="utf-8")
+        for name in ("suite/suite.css", "site.css", "suite/suite.js"):
+            tag = hashlib.sha256((build.STATIC / name).read_bytes()).hexdigest()[:10]
+            assert f'"{name}?v={tag}"' in text, (page, name)
+    assert '"slider.js?v=' in (site / "index.html").read_text(encoding="utf-8")

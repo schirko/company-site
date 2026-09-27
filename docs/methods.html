@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How We Test | Placeholder Ag</title>
+  <meta name="description" content="How each app&#x27;s models are tested, the results, and where each one falls short.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://schirko.github.io/company-site/methods.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="suite/suite.css?v=1a88a90f75">
+  <link rel="stylesheet" href="site.css?v=24c261fe4d">
+</head>
+<body>
+<header class="suite-bar site-header">
+  <div class="wrap header-row">
+    <a class="suite-name wordmark" href="index.html">Placeholder Ag</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="index.html#tiles">Our Farm Apps</a>
+      <a href="barns.html">Barn Prices</a>
+      <a href="about.html">About</a>
+      <a href="methods.html" aria-current="page">How We Test</a>
+      <a href="privacy.html">Privacy</a>
+      <a class="nav-signin" href="https://farm-account.onrender.com/app/#signin">Sign In</a>
+      <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="page">
+  <div class="wrap narrow">
+    <h1>How We Test the Apps</h1>
+    <p class="lede">A model that looks good on the data it learned from proves very little. Here is how each app
+      is checked before we trust it, the actual results, and where each one still falls short.</p>
+
+    <h2>The rules every app follows</h2>
+    <ul class="plain">
+      <li><strong>Test on data the model hasn't seen.</strong> Prices are tested forward in time: fit on past
+        sales, predict the next one, compare with what really happened. Yields are tested on whole regions and
+        whole years the model never saw.</li>
+      <li><strong>Beat something simple.</strong> Every model is compared with the rule of thumb it replaces,
+        such as last week's price or the average yield. If it can't beat that, it doesn't ship.</li>
+      <li><strong>Ranges come from real misses.</strong> An "80% range" means that in testing, 8 in 10 real
+        answers landed inside it.</li>
+      <li><strong>Say what fails.</strong> Each app lists the cases it gets wrong, and why.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band method-app" id="herd-planner">
+  <div class="wrap narrow">
+    <div class="method-head">
+      <img src="suite/suite-logos/herd-planner.svg" alt="" width="48" height="48">
+      <h2>Herd Planner</h2>
+    </div>
+    <p><strong>The question:</strong> what is each animal worth at today's sale barn, and should I keep or sell it?</p>
+
+    <h3>Calf prices, tested on 26 sales it never saw</h3>
+    <p>For each of 26 weekly auctions, the price model learned only from the sales before it, then priced every lot.
+      Its "typical miss" (the median error) is compared with the usual shortcut: look up what similar cattle brought
+      at the last sale.</p>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th scope="col">Method</th><th scope="col">Typical miss</th><th scope="col">Animals it can price</th></tr></thead>
+        <tbody>
+          <tr><td>Last-sale lookup</td><td>2.85%</td><td>82%</td></tr>
+          <tr class="ours"><td>Herd Planner's price model</td><td>2.52%</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>In the same test, 80% of real prices landed between 4.1% below and 4.7% above the model's estimate: about
+      &plusmn;$100 on a $2,200 calf. That is the range the app shows.</p>
+
+    <h3>Your own sale barn</h3>
+    <p>Most barns report too rarely to model on their own, so the app starts from Oklahoma City's prices and adds
+      each barn's usual premium or discount. On five barns, that cut the typical miss from 6.5&ndash;7.5% (Oklahoma City
+      prices alone) to 2.7&ndash;4.3%. Each barn's range comes from its own backtest.</p>
+
+    <h3>Catching typos in weights</h3>
+    <p>Graded on 33,000 simulated weights with known mistakes planted in them, the weight check caught 77% of big
+      typos, and 97% of the weights it flagged really were wrong: about one false alarm per 2,000 good weights.
+      The textbook method (mean and standard deviation) caught only 24%, because one big typo hides the others.</p>
+
+    <h3>Keep or sell</h3>
+    <p>The heifer keep-or-sell math reproduces a published University of Arkansas worked example. The herd growth
+      planner runs 1,000 possible futures for each keep-rate, with prices moving by the 15% a year measured in five
+      years of USDA auction data.</p>
+
+    <h3>Where it falls short</h3>
+    <ul class="plain">
+      <li>The biggest source of error is the whole market moving between one sale and the next, which no model
+        of past sales can see coming.</li>
+      <li>In a falling market it prices a little high more often than a little low.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="method-app" id="corn-yield-predictor">
+  <div class="wrap narrow">
+    <div class="method-head">
+      <img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="48" height="48">
+      <h2>Yield Predictor</h2>
+    </div>
+    <p><strong>The question:</strong> what will a county's corn yield be, given its weather, soils and irrigation?</p>
+    <p>Scores below are R&sup2;: 1 is perfect, 0 is no better than guessing the average yield, and below 0 is
+      worse than guessing.</p>
+
+    <h3>How you test changes the answer</h3>
+    <p>The same model, scored three ways on Nebraska counties from 2000 to 2025:</p>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th scope="col">Test</th><th scope="col">Gradient boosting</th><th scope="col">Detrended boosting</th></tr></thead>
+        <tbody>
+          <tr><td>Random counties held out</td><td>0.57</td><td>0.54</td></tr>
+          <tr><td>Whole districts held out</td><td>0.40</td><td>0.31</td></tr>
+          <tr><td>Trained to 2018, tested on 2019 on</td><td>&minus;0.42</td><td>&minus;0.05</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Holding out random counties flatters the model, because neighboring counties in the same year are near
+      copies of each other. And the model that won the easy tests failed worst on future years: tree models can't
+      predict a yield higher than any they've seen, and yields keep rising. Fitting the long-run trend first, then
+      modelling the rest, brought the future-years score back to about zero.</p>
+    <p>Those are weather-only scores. Adding the share of acres irrigated (worked out from USDA acreage figures, since
+      it isn't published) lifted the district score by 0.27, more than any amount of model tuning. With irrigation,
+      soils, elevation, crop rotation and spring weather, the future-years score reached about 0.5.</p>
+
+    <h3>Does it work in a state it has never seen?</h3>
+    <p>Trained on Nebraska only, then applied cold to Iowa's counties:</p>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th scope="col">Predicting Iowa with&hellip;</th><th scope="col">R&sup2;</th></tr></thead>
+        <tbody>
+          <tr><td>Nebraska's average yield (the floor)</td><td>&minus;0.26</td></tr>
+          <tr class="ours"><td>The Nebraska-trained model</td><td>0.51</td></tr>
+          <tr><td>A model trained on Iowa itself (the ceiling)</td><td>0.70</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>It got 80% of the way from floor to ceiling. On counties it hasn't seen, a typical miss is about
+      14 bushels an acre in Nebraska and 10 in Iowa.</p>
+
+    <h3>Where it falls short</h3>
+    <ul class="plain">
+      <li>The misses form a map, not random noise: it overpredicts the sandy, high west of Nebraska and underpredicts
+        the northeast, in every year.</li>
+      <li>It has no wind data, so the August 2020 derecho is its clearest single failure.</li>
+      <li>In Iowa, the link between spring weather and yield held until 2018 and then stopped holding. The app keeps
+        those features and reports the change rather than hiding it.</li>
+      <li>It explains past seasons. It has never been tested for predicting a season while it's still growing.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band method-app" id="farm-equipment-planner">
+  <div class="wrap narrow">
+    <div class="method-head">
+      <img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="48" height="48">
+      <h2>Farm Equipment Planner <small class="status">Coming soon</small></h2>
+    </div>
+    <p><strong>The question:</strong> does a tractor, combine or implement pay for itself on my farm?</p>
+    <p>Most of this app is established farm economics, so its first test is matching the published sources:</p>
+    <ul class="plain">
+      <li><strong>Machine size:</strong> the acres-per-hour formula matches all 64 rows of Iowa State University's
+        field capacity table.</li>
+      <li><strong>Cost to own:</strong> follows the ASABE and Iowa State machinery cost method.</li>
+      <li><strong>Harvest delays:</strong> each county's real falls from 2000 on are replayed day by day, using the same
+        workable-day rule as the Yield Predictor (checked: 0 of 104 county-years differ).</li>
+      <li><strong>Resale value:</strong> tested first on practice sales with known answers planted in them. It recovered
+        them (11.5% a year lost to age, against 12% planted), and its 80% range held about 80% of new sales. It stays
+        closed until auction companies and dealers have shared at least 50 real sales from two or more companies.</li>
+    </ul>
+
+    <h3>Where it falls short</h3>
+    <ul class="plain">
+      <li>The workable-day rule only sees rain, not snow or frozen ground, so late-fall answers are the least reliable.</li>
+      <li>About 25 years of weather can't show a one-in-50-year disaster.</li>
+      <li>County yields are averages; a single farm's yields swing more than its county's.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page">
+  <div class="wrap narrow">
+    <h2>Where the data comes from</h2>
+    <p>Auction prices from USDA Market News; county yields and acreage from USDA NASS; weather from NASA POWER;
+      soils from USDA's Soil Data Access; elevation from USGS. All of it is public. None of these agencies endorses
+      the apps, and any error in the analysis is ours.</p>
+    <p class="note">The apps are decision aids, not financial, agronomic or insurance advice. Each app's own terms
+      say more.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-name">Placeholder Ag</p>
+      <p>Decision Tools for Ranchers and Farmers. Centennial, Colorado.</p>
+    </div>
+    <nav aria-label="Apps" class="footer-col">
+      <h2>Apps</h2>
+      <a href="herd-planner.html">Herd Planner</a>
+      <a href="corn-yield-predictor.html">Yield Predictor</a>
+      <a href="farm-equipment-planner.html">Farm Equipment Planner</a>
+    </nav>
+    <nav aria-label="Company" class="footer-col">
+      <h2>Company</h2>
+      <a href="about.html">About</a>
+      <a href="methods.html">How We Test</a>
+      <a href="privacy.html">Privacy</a>
+
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Placeholder Ag. We never sell or rent your email address or your records.</p>
+  </div>
+</footer>
+<script src="suite/suite.js?v=e02d94a2ae" defer></script>
+</body>
+</html>
