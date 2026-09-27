@@ -22,6 +22,7 @@ from pathlib import Path
 from string import Template
 
 import cards
+import barn_pages
 import charts
 import hero
 import config
@@ -262,6 +263,9 @@ def build():
     apps = load_apps()
     copy = load_copy()
     week = cards.current()
+    barn_data = cards.load_barns()
+    all_barns = barn_data["barns"]
+    barn_href = lambda slug: barn_pages.page_name(str(slug), all_barns[str(slug)]) if str(slug) in all_barns else None
     stories = load_stories()
     apps_by_id = {a["id"]: a for a in apps}
     weeks = cards.load_weeks()
@@ -281,7 +285,7 @@ def build():
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
         "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
-        "live_panel": hero.panel(week, stories, nice_date),
+        "live_panel": hero.panel(week, stories, nice_date, barn_href),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
@@ -297,7 +301,7 @@ def build():
             title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
             description=e(description),
             canonical=e(config.SITE_URL + ("" if out_name == "index.html" else out_name)),
-            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("about", "methods", "privacy")},
+            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy")},
         )
         (OUT / out_name).write_text(page, encoding="utf-8")
 
@@ -314,7 +318,23 @@ def build():
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],
               f'{app["name"]}: {copy[app["id"]]["question"]}{lead}')
-    listed = [p[0] for p in PAGES if p[0] != "404.html"] + [APP_PAGE.format(a["id"]) for a in apps]
+    # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
+    corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)
+    picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},
+                             {"corn": "The Yield Predictor covers " + corn["not_covered"][:1].lower() + corn["not_covered"][1:],
+                              "days": "The Equipment Planner covers " + days["not_covered"][:1].lower() + days["not_covered"][1:]},
+                             cards.STATE_NAMES, barn_href)
+    (OUT / "panel-data.json").write_text(json.dumps(picker, separators=(",", ":")), encoding="utf-8")
+    # One page per sale barn, and the index of them all
+    for slug, barn in all_barns.items():
+        title, desc, body = barn_pages.barn_page(slug, barn, all_barns, barn_data, nice_date)
+        write(barn_pages.page_name(slug, barn), body, title, desc, "barns")
+    write("barns.html", barn_pages.index_page(all_barns, nice_date), "Sale Barn Prices",
+          "Feeder cattle prices at each sale barn Herd Planner follows, updated every Friday from USDA auction reports.",
+          "barns")
+    listed_barns = ["barns.html"] + [barn_pages.page_name(s, b) for s, b in all_barns.items()]
+
+    listed = [p[0] for p in PAGES if p[0] != "404.html"] + [APP_PAGE.format(a["id"]) for a in apps] + listed_barns
     (OUT / "sitemap.xml").write_text(sitemap(listed, week["date"]), encoding="utf-8")
     # GitHub Pages runs pages through Jekyll unless this file exists; we don't need it.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
@@ -328,4 +348,4 @@ def build():
 
 if __name__ == "__main__":
     out = build()
-    print(f"Built {len(PAGES) + len(load_apps())} pages for {config.NAME} into {out}")
+    print(f"Built {len(PAGES) + len(load_apps()) + 1 + len(cards.load_barns()['barns'])} pages for {config.NAME} into {out}")

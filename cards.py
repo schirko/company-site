@@ -40,6 +40,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 CARDS = ROOT / "content" / "cards"
 WEEKS = CARDS / "weeks.json"
+BARNS_FILE = CARDS / "barns.json"  # every sale barn's weekly price sheet, newest week first
 HERD, CORN, EQUIP = "herd-planner", "corn-yield-predictor", "farm-equipment-planner"
 STATIC_APPS = (CORN, EQUIP)
 SIBLINGS = {  # where each app's exported card file lives, next to this project
@@ -113,6 +114,15 @@ def _get(url: str) -> tuple[int, dict]:
 def fetch_herd(state: str, wait=time.sleep) -> tuple[dict | None, str]:
     """(card, note). Tries while Render wakes the app; never returns sample prices."""
     url = f"{HERD_PLANNER_URL.rstrip('/')}/suite/summary?" + urllib.parse.urlencode({"state": state})
+    return _ask(url, wait)
+
+
+def fetch_barns(wait=time.sleep) -> tuple[dict | None, str]:
+    """(every barn's price sheet, note) from Herd Planner's GET /suite/barns."""
+    return _ask(f"{HERD_PLANNER_URL.rstrip('/')}/suite/barns", wait)
+
+
+def _ask(url: str, wait) -> tuple[dict | None, str]:
     last = ""
     for attempt in range(WAKE_TRIES):
         try:
@@ -129,7 +139,7 @@ def fetch_herd(state: str, wait=time.sleep) -> tuple[dict | None, str]:
                 break
         if attempt + 1 < WAKE_TRIES:
             wait(WAKE_WAIT)
-    return None, f"Herd Planner didn't give a price: {last}"
+    return None, f"Herd Planner didn't answer with prices: {last}"
 
 
 # --- the weeks file -----------------------------------------------------------------------------
@@ -154,20 +164,56 @@ def static_card(app_id: str, fips: str) -> dict | None:
 
 
 def herd_card(body: dict) -> dict:
-    return {k: body[k] for k in ("label", "headline", "detail", "value", "low", "high", "unit", "as_of",
+    card = {k: body[k] for k in ("label", "headline", "detail", "value", "low", "high", "unit", "as_of",
                                  "market", "source")}
+    card["market_slug"] = body.get("market_slug")  # links the tile to that barn's page
+    return card
 
 
-def refresh(today: date | None = None, fetch=fetch_herd) -> tuple[dict, list[str]]:
+# --- the sale barns' weekly price sheets ------------------------------------------------------------
+
+KEEP_BARN_WEEKS = 104  # two years per barn; the pages chart the last 12
+
+
+def load_barns() -> dict:
+    if BARNS_FILE.exists():
+        return json.loads(BARNS_FILE.read_text(encoding="utf-8"))
+    return {"format": 1, "barns": {}}
+
+
+def record_barns(body: dict, today: date) -> str:
+    """Add this week's sheet for every barn in Herd Planner's answer. A barn keeps its history even
+    in weeks it doesn't sell; a re-run in the same week replaces that week."""
+    data = load_barns()
+    data["source"], data["method"] = body["source"], body["method"]
+    for b in body["barns"]:
+        entry = data["barns"].setdefault(str(b["slug"]), {"weeks": []})
+        entry.update({k: b[k] for k in ("name", "city", "state", "sale", "is_hub")})
+        week = {"week": week_id(today), "date": today.isoformat(), "last_sale": b["last_sale"],
+                "fresh": b["fresh"], "prices": b["prices"]}
+        entry["weeks"] = ([week] + [w for w in entry["weeks"] if w["week"] != week["week"]])[:KEEP_BARN_WEEKS]
+    BARNS_FILE.write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
+    return f"{len(body['barns'])} barns"
+
+
+def refresh(today: date | None = None, fetch=fetch_herd, barns=None) -> tuple[dict, list[str]]:
     """Record this week (replacing it if refresh already ran this week). Returns (week, notes)."""
     today = today or datetime.now(timezone.utc).date()
     notes = copy_from_siblings()
     place = place_for(today)
     cards = {app: static_card(app, place["fips"]) for app in STATIC_APPS}
-    body, note = fetch(place["state"])
-    notes.append(f"{HERD}: {note}")
-    cards[HERD] = herd_card(body) if body else None
-    week = {"week": week_id(today), "date": today.isoformat(), "place": place, "cards": cards}
+    # The steer price for every state the county picker offers (the nearest barn differs by state).
+    # The week's own county comes first, so Herd Planner is already awake for the others.
+    herd_by_state = {}
+    for state in [place["state"]] + [s for s in STATE_NAMES if s != place["state"]]:
+        body, note = fetch(state)
+        notes.append(f"{HERD} ({state}): {note}")
+        herd_by_state[state] = herd_card(body) if body else None
+    cards[HERD] = herd_by_state[place["state"]]
+    body, note = (barns or fetch_barns)()  # Herd Planner is awake by now
+    notes.append(f"barn pages: {record_barns(body, today) if body else note}")
+    week = {"week": week_id(today), "date": today.isoformat(), "place": place, "cards": cards,
+            "herd_by_state": herd_by_state}
     weeks = [w for w in load_weeks() if w["week"] != week["week"]]
     save_weeks([week] + weeks)
     return week, notes
@@ -187,10 +233,31 @@ def current(today: date | None = None) -> dict:
         place = place_for(today)
         week = {"week": week_id(today), "date": today.isoformat(), "place": place,
                 "cards": {**{a: static_card(a, place["fips"]) for a in STATIC_APPS}, HERD: None}}
-    herd = week["cards"].get(HERD)
-    if herd and (today - date.fromisoformat(herd["as_of"])).days > FRESH_DAYS:
+    stale = lambda c: c and (today - date.fromisoformat(c["as_of"])).days > FRESH_DAYS
+    if stale(week["cards"].get(HERD)):
         week["cards"][HERD] = None
+    by_state = week.get("herd_by_state") or {week["place"]["state"]: week["cards"].get(HERD)}
+    week["herd_by_state"] = {st: (None if stale(c) else c) for st, c in by_state.items()}
     return week
+
+
+# --- every county the picker offers ------------------------------------------------------------
+
+
+def county_name(fips: str) -> str:
+    """ "Hall County" from whichever county file has the county (their detail lines start with it)."""
+    for app in STATIC_APPS:
+        card = load_static(app)["cards"].get(fips)
+        if card:
+            return card["detail"].split(",")[0]
+    return f"County {fips}"
+
+
+def all_counties() -> list[dict]:
+    """Every county either county app covers, sorted by state then name: the picker's list."""
+    fips = set(load_static(CORN)["cards"]) | set(load_static(EQUIP)["cards"])
+    rows = [{"fips": f, "state": STATE_OF_FIPS[f[:2]], "name": county_name(f)} for f in fips if f[:2] in STATE_OF_FIPS]
+    return sorted(rows, key=lambda r: (r["state"], r["name"]))
 
 
 def main(argv: list[str]) -> int:

@@ -21,6 +21,8 @@ company-site/
 ├── cards.py           the weekly stat cards: this week's county, the steer price, the history
 ├── charts.py          draws the "Why Use Our Apps" charts as SVG, in plain Python
 ├── hero.py            the home page's live panel: this week's numbers as a small dashboard
+├── barn_pages.py      one page per sale barn, and the Barn Prices index
+├── static/panel.js    "See your county": swaps the panel's tiles to a visitor's county
 ├── templates/         the pages, with ${placeholders} for the name and the app list
 ├── content/apps.json  the home page's longer words about each app (tiles and app sections)
 ├── content/stories.json  the "Why Use Our Apps" findings: numbers, words and sources
@@ -59,6 +61,25 @@ this month against the trend, the county's trend corn yield, and its fall field 
 `hero.py` draws it from the same week `cards.py` saved. Each tile's gold callout says what stands
 behind the number, so it must stay literally true: change the callout if the number's source changes.
 
+### "See your county"
+
+A **See your county** button in the panel lets a visitor pick their state and county; the steer
+price, corn and field-day tiles switch to that county (the calves tile is the same everywhere). The
+choice is kept in their own browser, so their next visit opens on their county, with **Change county**
+and **County of the week** to switch back. Nothing is sent anywhere: no account, no location lookup.
+
+- **How:** `build.py` writes `docs/panel-data.json`: every county's tiles, drawn in advance by the same
+  `hero.py` functions as the page, so a picked county looks exactly like the county of the week.
+  `static/panel.js` loads it only when someone uses the picker (or has used it before).
+- **Which counties:** all 191 that either the Yield Predictor or the Equipment Planner covers
+  (Nebraska and Iowa). A county only one app covers says so in the other tile.
+- **The steer price by state:** the Friday job asks Herd Planner once per state (`herd_by_state` in
+  `weeks.json`); the nearest barn with fresh sales differs by state. Iowa has no neighbor barns in
+  Herd Planner yet, so Iowa shows Oklahoma City, and says so.
+- **Search engines and first visits** always get the county of the week: the picker only changes what
+  a returning visitor sees in their own browser.
+- The file is about 470 KB but GitHub Pages sends it compressed (about 15 KB); a test keeps it under 700 KB.
+
 ### What the panel is called
 
 A **KPI panel** (dashboard panel) of four **stat tiles**, each with a **microchart** and a
@@ -91,6 +112,23 @@ a story is added or changed.
 
 **A quick Friday check:** open the site, or look for the commit "Weekly stat cards: 2026-W40"
 (and so on) in the repository's history.
+
+## Barn Prices: one page per sale barn
+
+`barns.html` lists every sale barn Herd Planner follows, by state, with this week's 550 lb steer price;
+each barn has its own page (`barn-kearney-ne-1848.html`: the town in the address because people search
+by town, the USDA report number so two sales in one town never collide). A barn page shows:
+
+- this week's 550 lb steer price and range, and the change from last week at the same barn (a red flag
+  with a down arrow when it fell, blue when it rose),
+- a price sheet: steers and heifers at 400 to 800 lb, $/cwt with ranges and $ a head,
+- the last 12 weeks as a chart (a dot for the price, a bar for the range 8 in 10 sales fell in),
+- the other barns in the same state, and how the numbers are worked out.
+
+Every Friday `cards.py refresh` asks Herd Planner's public `GET /suite/barns` and adds the week to
+`content/cards/barns.json` (two years kept per barn). A barn that hasn't sold in three weeks keeps its page
+but says so instead of showing an old price. The live panel's steer tile links to the barn its price came
+from. "Barn Prices" is in the site's menu, and every barn page is in `sitemap.xml`.
 
 ## Why Use Our Apps
 

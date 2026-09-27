@@ -22,6 +22,8 @@ def weeks_file(tmp_path, monkeypatch):
     """A scratch weeks.json, and no copying from sibling projects, so tests never touch the real files."""
     monkeypatch.setattr(cards, "WEEKS", tmp_path / "weeks.json")
     monkeypatch.setattr(cards, "copy_from_siblings", lambda: [])
+    monkeypatch.setattr(cards, "fetch_barns", lambda: (None, "not asked in tests"))
+    monkeypatch.setattr(cards, "BARNS_FILE", tmp_path / "barns.json")
     monkeypatch.setattr(build, "OUT", tmp_path / "docs")  # never leave test numbers in the real docs/
     return tmp_path / "weeks.json"
 
@@ -53,7 +55,7 @@ def test_the_place_stays_put_all_week():
 def test_refresh_records_the_week_and_replaces_a_rerun(weeks_file):
     week, notes = cards.refresh(FRIDAY, fetch=got_price)
     assert week["week"] == "2026-W39" and week["cards"]["herd-planner"]["headline"] == "$395/cwt"
-    assert "is_sample" not in week["cards"]["herd-planner"] and "herd-planner: ok" in notes
+    assert "is_sample" not in week["cards"]["herd-planner"] and any(n.startswith("herd-planner (") and n.endswith("ok") for n in notes)
     cards.refresh(FRIDAY, fetch=no_price)  # run again the same week
     weeks = cards.load_weeks()
     assert len(weeks) == 1 and weeks[0]["cards"]["herd-planner"] is None
@@ -105,7 +107,7 @@ def test_pages_show_the_week(weeks_file):
     site = build.build()
     week = cards.load_weeks()[0]
     home = (site / "index.html").read_text(encoding="utf-8")
-    assert f'This Week: {week["place"]["county"]}' in home and "$395/cwt" in home
+    assert f'<span class="live-where">{week["place"]["county"]}' in home and "$395/cwt" in home
     herd = (site / "herd-planner.html").read_text(encoding="utf-8")
     assert "Huss Livestock Market" in herd and "$370 to $420" in herd
     corn = (site / "corn-yield-predictor.html").read_text(encoding="utf-8")

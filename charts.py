@@ -202,3 +202,31 @@ def table(story: dict) -> str:
     body = "".join("<tr>" + "".join(f"<td>{e(c)}</td>" for c in r) + "</tr>" for r in rows)
     return (f'<details class="numbers"><summary>Show the numbers</summary><div class="table-scroll">'
             f'<table class="results"><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div></details>')
+
+
+def barn_history(points: list[tuple[str, float, float, float]]) -> str:
+    """One barn's 550 lb steer price, week by week: a dot for the price, a whisker for the range 8 in
+    10 sales fell in, and a thin line joining the dots. The same barn every week, so the weeks compare."""
+    f = None
+    lows, highs = [p[2] for p in points], [p[3] for p in points]
+    lo, hi = min(lows), max(highs)
+    pad = (hi - lo) * 0.15 or 10
+    lo, hi = lo - pad, hi + pad
+    step = 10 if hi - lo < 80 else 25 if hi - lo < 200 else 50
+    ticks = [t for t in range(int(lo // step * step), int(hi) + step, step) if lo <= t <= hi]
+    f = Frame(lo, hi, ticks)
+    n = len(points)
+    xs = [f.x0 + 20 + i * (f.x1 - f.x0 - 40) / max(n - 1, 1) for i in range(n)]
+    parts = [f.grid()]
+    line = " ".join(f"{x:.1f},{f.y(p[1]):.1f}" for x, p in zip(xs, points))
+    parts.append(f'<polyline points="{line}" fill="none" stroke="{BLUE}" stroke-width="2" stroke-linejoin="round" opacity=".5"/>')
+    for i, (x, (when, price, low, high)) in enumerate(zip(xs, points)):
+        parts.append(f'<line x1="{x:.1f}" x2="{x:.1f}" y1="{f.y(low):.1f}" y2="{f.y(high):.1f}" stroke="#86b6ef" stroke-width="3" stroke-linecap="round"/>')
+        parts.append(f'<circle cx="{x:.1f}" cy="{f.y(price):.1f}" r="5" fill="{BLUE}" stroke="#fff" stroke-width="2">'
+                     f'<title>{e(when)}: ${price:,.0f}/cwt (8 in 10 sales ${low:,.0f} to ${high:,.0f})</title></circle>')
+        step_lbl = -(-n // 5)
+        if i == n - 1 or (i % step_lbl == 0 and n - 1 - i >= step_lbl):  # ~5 date labels, the latest always, never crowded
+            parts.append(f'<text x="{x:.1f}" y="{H - BOTTOM + 18}" text-anchor="middle" class="tick">{e(when)}</text>')
+    last = points[-1]
+    parts.append(f'<text x="{xs[-1]:.1f}" y="{f.y(last[3]) - 8:.1f}" text-anchor="end" class="value">${last[1]:,.0f}</text>')
+    return svg("".join(parts), "550 lb steer price by week, with the range 8 in 10 sales fell in")

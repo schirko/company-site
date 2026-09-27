@@ -32,7 +32,7 @@ class Links(HTMLParser):
 
 
 def all_pages():
-    return [p[0] for p in build.PAGES] + [build.APP_PAGE.format(a["id"]) for a in build.load_apps()]
+    return [p[0] for p in build.PAGES] + [build.APP_PAGE.format(a["id"]) for a in build.load_apps()] + ["barns.html"]
 
 
 def test_every_page_is_built_with_the_company_name(site):
