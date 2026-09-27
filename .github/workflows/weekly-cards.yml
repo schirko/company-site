@@ -21,23 +21,37 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      # The branch as it is right now, not the commit the run started from: so "Re-run" works too.
       - uses: actions/checkout@v5.0.0
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v6.0.0
         with:
           python-version: "3.12"
       - run: pip install -r requirements-dev.txt
       # Tests first: they build into a scratch folder, so they never leave test numbers in docs/.
       - run: pytest
-      - run: python cards.py refresh
-      - run: python build.py
-      - name: Publish the new week
+      # If someone pushes while this runs (you pushing site changes, say), the push is refused.
+      # Then start again from the newest commit: fetch it, redo the week, try again (up to 3 times).
+      # Safe to repeat: cards.py replaces this week's numbers instead of adding a second copy.
+      - name: Refresh, build and publish the new week
         run: |
           git config user.name "weekly-cards bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/cards docs
-          if git diff --cached --quiet; then
-            echo "Nothing changed."
-          else
+          for attempt in 1 2 3; do
+            python cards.py refresh
+            python build.py
+            git add content/cards docs
+            if git diff --cached --quiet; then
+              echo "Nothing changed."
+              exit 0
+            fi
             git commit -m "Weekly stat cards: $(date -u +%G-W%V)"
-            git push
-          fi
+            if git push; then
+              exit 0
+            fi
+            echo "Someone pushed while this ran. Starting again from the newest commit (try $attempt of 3)."
+            git fetch origin "${{ github.ref_name }}"
+            git reset --hard "origin/${{ github.ref_name }}"
+          done
+          exit 1
