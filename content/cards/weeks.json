@@ -33,31 +33,31 @@
     },
     "herd-planner": {
      "label": "550 lb steer, this week",
-     "headline": "$408/cwt",
-     "detail": "About $2,242 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Sep 21). 8 in 10 sales land between $390 and $425/cwt.",
-     "value": 407.62,
-     "low": 389.5,
-     "high": 424.87,
+     "headline": "$463/cwt",
+     "detail": "About $2,544 a head at Bassett Livestock Auction, Bassett NE (sale of Sep 16). 8 in 10 sales land between $442 and $487/cwt.",
+     "value": 462.52,
+     "low": 442.39,
+     "high": 486.82,
      "unit": "$/cwt",
-     "as_of": "2026-09-21",
-     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "as_of": "2026-09-16",
+     "market": "Bassett Livestock Auction, Bassett NE",
      "source": "USDA AMS MyMarketNews auction reports",
-     "market_slug": 1280
+     "market_slug": 1852
     }
    },
    "herd_by_state": {
     "NE": {
      "label": "550 lb steer, this week",
-     "headline": "$408/cwt",
-     "detail": "About $2,242 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Sep 21). 8 in 10 sales land between $390 and $425/cwt.",
-     "value": 407.62,
-     "low": 389.5,
-     "high": 424.87,
+     "headline": "$463/cwt",
+     "detail": "About $2,544 a head at Bassett Livestock Auction, Bassett NE (sale of Sep 16). 8 in 10 sales land between $442 and $487/cwt.",
+     "value": 462.52,
+     "low": 442.39,
+     "high": 486.82,
      "unit": "$/cwt",
-     "as_of": "2026-09-21",
-     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "as_of": "2026-09-16",
+     "market": "Bassett Livestock Auction, Bassett NE",
      "source": "USDA AMS MyMarketNews auction reports",
-     "market_slug": 1280
+     "market_slug": 1852
     },
     "IA": {
      "label": "550 lb steer, this week",

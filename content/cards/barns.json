@@ -101,6 +101,511 @@
    "state": "OK",
    "sale": "Feeder Cattle Auction",
    "is_hub": true
+  },
+  "1851": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2026-09-25",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 532.39,
+       "low": 506.7,
+       "high": 560.12
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 461.87,
+       "low": 439.58,
+       "high": 485.92
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 441.17,
+       "low": 419.88,
+       "high": 464.14
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 421.4,
+       "low": 401.06,
+       "high": 443.34
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 381.47,
+       "low": 363.06,
+       "high": 401.34
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 358.61,
+       "low": 341.31,
+       "high": 377.29
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 464.19,
+       "low": 441.79,
+       "high": 488.36
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 418.65,
+       "low": 398.45,
+       "high": 440.45
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 402.51,
+       "low": 383.09,
+       "high": 423.47
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 387.0,
+       "low": 368.32,
+       "high": 407.15
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 352.06,
+       "low": 335.07,
+       "high": 370.4
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 325.48,
+       "low": 309.78,
+       "high": 342.43
+      }
+     ]
+    }
+   ],
+   "name": "Burwell Livestock Market",
+   "city": "Burwell",
+   "state": "NE",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": false
+  },
+  "1852": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2026-09-16",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 547.2,
+       "low": 523.39,
+       "high": 575.94
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 482.73,
+       "low": 461.72,
+       "high": 508.09
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 462.52,
+       "low": 442.39,
+       "high": 486.82
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 443.16,
+       "low": 423.87,
+       "high": 466.43
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 402.98,
+       "low": 385.44,
+       "high": 424.14
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 364.08,
+       "low": 348.23,
+       "high": 383.2
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 470.82,
+       "low": 450.33,
+       "high": 495.55
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 444.81,
+       "low": 425.46,
+       "high": 468.18
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 423.07,
+       "low": 404.66,
+       "high": 445.29
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 402.39,
+       "low": 384.88,
+       "high": 423.53
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 361.02,
+       "low": 345.31,
+       "high": 379.98
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 330.16,
+       "low": 315.79,
+       "high": 347.5
+      }
+     ]
+    }
+   ],
+   "name": "Bassett Livestock Auction",
+   "city": "Bassett",
+   "state": "NE",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": false
+  },
+  "1902": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2025-11-17",
+     "fresh": false,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 515.08,
+       "low": 477.94,
+       "high": 557.81
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 433.94,
+       "low": 402.65,
+       "high": 469.94
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 408.46,
+       "low": 379.01,
+       "high": 442.35
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 384.48,
+       "low": 356.76,
+       "high": 416.37
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 338.0,
+       "low": 313.63,
+       "high": 366.03
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 308.56,
+       "low": 286.32,
+       "high": 334.16
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 449.09,
+       "low": 416.71,
+       "high": 486.35
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 393.33,
+       "low": 364.97,
+       "high": 425.96
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 372.67,
+       "low": 345.8,
+       "high": 403.58
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 353.09,
+       "low": 327.64,
+       "high": 382.38
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 311.94,
+       "low": 289.45,
+       "high": 337.82
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 280.06,
+       "low": 259.86,
+       "high": 303.29
+      }
+     ]
+    }
+   ],
+   "name": "Winter Livestock Inc.",
+   "city": "La Junta",
+   "state": "CO",
+   "sale": "Feeder Cattle Auction (seasonal)",
+   "is_hub": false
+  },
+  "3653": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2026-09-22",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 530.68,
+       "low": 507.83,
+       "high": 558.49
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 458.18,
+       "low": 438.45,
+       "high": 482.19
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 436.6,
+       "low": 417.8,
+       "high": 459.48
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 416.04,
+       "low": 398.12,
+       "high": 437.84
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 374.81,
+       "low": 358.67,
+       "high": 394.46
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 350.67,
+       "low": 335.57,
+       "high": 369.05
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 462.69,
+       "low": 442.77,
+       "high": 486.94
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 415.31,
+       "low": 397.42,
+       "high": 437.07
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 398.34,
+       "low": 381.19,
+       "high": 419.22
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 382.07,
+       "low": 365.62,
+       "high": 402.1
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 345.92,
+       "low": 331.02,
+       "high": 364.05
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 318.27,
+       "low": 304.57,
+       "high": 334.95
+      }
+     ]
+    }
+   ],
+   "name": "North Platte Stockyards",
+   "city": "North Platte",
+   "state": "NE",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": false
+  },
+  "3801": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2024-11-02",
+     "fresh": false,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 538.3,
+       "low": 529.24,
+       "high": 562.66
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 459.76,
+       "low": 452.03,
+       "high": 480.57
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 435.74,
+       "low": 428.42,
+       "high": 455.46
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 412.98,
+       "low": 406.04,
+       "high": 431.67
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 368.06,
+       "low": 361.87,
+       "high": 384.72
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 340.65,
+       "low": 334.92,
+       "high": 356.07
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 469.34,
+       "low": 461.44,
+       "high": 490.58
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 416.74,
+       "low": 409.73,
+       "high": 435.6
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 397.56,
+       "low": 390.88,
+       "high": 415.55
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 379.27,
+       "low": 372.89,
+       "high": 396.43
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 339.69,
+       "low": 333.98,
+       "high": 355.06
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 309.18,
+       "low": 303.98,
+       "high": 323.17
+      }
+     ]
+    }
+   ],
+   "name": "Gordon Livestock Market",
+   "city": "Gordon",
+   "state": "NE",
+   "sale": "Feeder Cattle Special",
+   "is_hub": false
   }
  },
  "source": "USDA AMS MyMarketNews auction reports",
