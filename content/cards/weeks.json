@@ -41,7 +41,36 @@
      "unit": "$/cwt",
      "as_of": "2026-09-21",
      "market": "Oklahoma National Stockyards, Oklahoma City OK",
-     "source": "USDA AMS MyMarketNews auction reports"
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1280
+    }
+   },
+   "herd_by_state": {
+    "NE": {
+     "label": "550 lb steer, this week",
+     "headline": "$408/cwt",
+     "detail": "About $2,242 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Sep 21). 8 in 10 sales land between $390 and $425/cwt.",
+     "value": 407.62,
+     "low": 389.5,
+     "high": 424.87,
+     "unit": "$/cwt",
+     "as_of": "2026-09-21",
+     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1280
+    },
+    "IA": {
+     "label": "550 lb steer, this week",
+     "headline": "$408/cwt",
+     "detail": "About $2,242 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Sep 21). 8 in 10 sales land between $390 and $425/cwt.",
+     "value": 407.62,
+     "low": 389.5,
+     "high": 424.87,
+     "unit": "$/cwt",
+     "as_of": "2026-09-21",
+     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1280
     }
    }
   }

@@ -1,0 +1,108 @@
+{
+ "format": 1,
+ "barns": {
+  "1280": {
+   "weeks": [
+    {
+     "week": "2026-W39",
+     "date": "2026-09-27",
+     "last_sale": "2026-09-21",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 486.8,
+       "low": 465.17,
+       "high": 507.4
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 425.26,
+       "low": 406.36,
+       "high": 443.26
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 407.62,
+       "low": 389.5,
+       "high": 424.87
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 390.7,
+       "low": 373.34,
+       "high": 407.24
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 356.15,
+       "low": 340.32,
+       "high": 371.22
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 337.14,
+       "low": 322.16,
+       "high": 351.41
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 424.44,
+       "low": 405.58,
+       "high": 442.4
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 385.47,
+       "low": 368.34,
+       "high": 401.78
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 371.9,
+       "low": 355.37,
+       "high": 387.64
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 358.81,
+       "low": 342.86,
+       "high": 373.99
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 328.69,
+       "low": 314.09,
+       "high": 342.6
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 306.0,
+       "low": 292.4,
+       "high": 318.94
+      }
+     ]
+    }
+   ],
+   "name": "Oklahoma National Stockyards",
+   "city": "Oklahoma City",
+   "state": "OK",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": true
+  }
+ },
+ "source": "USDA AMS MyMarketNews auction reports",
+ "method": "Herd Planner's price model: the hub market (Oklahoma City) plus each barn's own measured difference from it; the range is where 8 in 10 real sales fell when the model was tested on sales it never saw."
+}
