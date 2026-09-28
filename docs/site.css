@@ -194,6 +194,10 @@ table.history td:nth-child(2), table.history th:nth-child(2) { text-align: left;
 
 /* "Why Use Our Apps": one finding per card, with its chart (charts.py draws the SVG) */
 .why { border-top: 1px solid var(--suite-line); }
+/* The app tiles row ends the hero: less space below it and above Why Use Our Apps, so the
+   two read as neighbors rather than a gap (was about 100 px; now about 50 px). */
+.hero:has(.slider) { padding-bottom: 18px; }
+.hero + .why { padding-top: 32px; }
 .stories { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .story { margin: 0; padding: 20px; background: var(--suite-surface); border: 1px solid var(--suite-line);
   border-radius: var(--suite-radius); display: flex; flex-direction: column; }
