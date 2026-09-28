@@ -10,12 +10,12 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=4ee9b49e4b">
-  <link rel="stylesheet" href="site.css?v=76c0b546bc">
+  <link rel="stylesheet" href="site.css?v=1d5df35ffa">
 </head>
 <body>
 <header class="suite-bar site-header">
   <div class="wrap header-row">
-    <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="230" height="36"></a>
+    <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="234" height="36"></a>
     <nav class="site-nav" aria-label="Site">
       <a href="index.html#our-apps">Our Farm Apps</a>
       <a href="barns.html">Barn Prices</a>
@@ -46,6 +46,44 @@
         answers landed inside it.</li>
       <li><strong>Say what fails.</strong> Each app lists the cases it gets wrong, and why.</li>
     </ul>
+  </div>
+</section>
+
+<section class="honest" id="honest-ranges">
+  <div class="wrap narrow">
+    <h2>Honest Ranges</h2>
+    <p class="lede">Every answer comes with a range, and the range is checked against reality instead of just
+      claimed.</p>
+    <p>Here's an example from Herd Planner's price forecast (September 2026): <em>"In December, 550 lb steers at
+      Oklahoma City: about $405/cwt, likely between $365 and $470."</em> That's an 80% range. It should hold the
+      real price about 8 times in 10.</p>
+
+    <h3>How a Range Is Made</h3>
+    <p>We replay the last few years. At each past month, the app forecasts using only what was known then, and we
+      write down how far off it was. The range comes from those real misses, not from a textbook formula that
+      assumes prices behave nicely.</p>
+
+    <h3>How It's Checked</h3>
+    <p>We count how often the real price actually landed inside. If an "80%" range only caught 6 in 10, it was
+      overconfident, and we widen it and say so. The app does this on its own: after a miss, the next range gets a
+      little wider; after a hit, a little narrower. When cattle prices fell sharply in 2026, the ranges widened
+      instead of pretending to know.</p>
+
+    <h3>Our Record So Far</h3>
+    <p>Herd Planner's three-month forecast for 550 lb steers, replayed over the last three years:</p>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th>Sale barn</th><th>1 month out</th><th>2 months out</th><th>3 months out</th></tr></thead>
+        <tbody>
+          <tr><td>Oklahoma City</td><td>83%</td><td>76%</td><td>78%</td></tr>
+          <tr><td>OKC West, El Reno</td><td>85%</td><td>76%</td><td>75%</td></tr>
+          <tr><td>Joplin</td><td>85%</td><td>82%</td><td>81%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">How often the 80% range really held the price. Close to 80, but not perfect, and we'd rather
+      show that than claim it. Further out, the range is wider: about $20/cwt either way one month out, about
+      $50 three months out. Source: Herd Planner notebook m17 (USDA auction reports, 2021-2026).</p>
   </div>
 </section>
 
@@ -198,7 +236,7 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <p class="footer-name"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="179" height="28"></p>
+      <p class="footer-name"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="182" height="28"></p>
       <p>Decision Tools for Ranchers and Farmers. Centennial, Colorado.</p>
     </div>
     <nav aria-label="Apps" class="footer-col">

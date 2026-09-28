@@ -325,3 +325,7 @@ table.barns-table td .note { white-space: normal; }
 /* "Sign In" in the menu: the suite account, set apart from the page links. */
 .site-nav .nav-signin { border: 2px solid var(--suite-gold); border-radius: 8px; padding: 4px 12px; color: #fff; }
 .site-nav .nav-signin:hover { background: var(--suite-gold); color: var(--suite-deep-green); }
+
+/* How We Test: the Honest Ranges section (what an 80% range means, and its record) */
+.honest { padding: 8px 0 36px; }
+.honest h3 { font-size: 1.05rem; margin: 22px 0 6px; }
