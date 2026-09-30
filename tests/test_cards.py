@@ -23,6 +23,7 @@ def weeks_file(tmp_path, monkeypatch):
     monkeypatch.setattr(cards, "WEEKS", tmp_path / "weeks.json")
     monkeypatch.setattr(cards, "copy_from_siblings", lambda: [])
     monkeypatch.setattr(cards, "fetch_barns", lambda: (None, "not asked in tests"))
+    monkeypatch.setattr(cards, "fetch_grass", lambda fips: (None, "not asked in tests"))
     monkeypatch.setattr(cards, "BARNS_FILE", tmp_path / "barns.json")
     monkeypatch.setattr(build, "OUT", tmp_path / "docs")  # never leave test numbers in the real docs/
     return tmp_path / "weeks.json"
@@ -137,3 +138,46 @@ def test_the_shipped_card_files_are_readable():
         for w in cards.load_weeks():
             herd = w["cards"].get("herd-planner")
             assert herd is None or "sample" not in herd["source"].lower()
+
+
+# --- the Grazing Planner's grass card ------------------------------------------------------------
+
+SEASON = {"season": 2026, "as_of": "2026-09-28", "counties": [{"fips": "31063", "name": "Frontier"}],
+          "kinds": ["native range", "tame pasture"], "animals": ["cow with calf, 1,000 lb"]}
+PLAN = {"season": 2026, "as_of": "aug1", "as_of_words": "August 1", "county": "Frontier",
+        "grass": {"forecast": True, "point": -0.081, "low": -0.144, "high": -0.0267, "normal_lb": 2071.6,
+                  "lb": 1903.8, "lb_low": 1773.2, "lb_high": 2016.3}}
+
+
+def test_the_grass_card_asks_the_grazing_planner_for_the_county(monkeypatch):
+    calls = []
+
+    def get(url, body=None):
+        calls.append((url, body))
+        return (200, SEASON) if url.endswith("/api/season") else (200, PLAN)
+    monkeypatch.setattr(cards, "_get", get)
+    card, note = cards.fetch_grass("31063", wait=lambda s: None)
+    assert note == "ok"
+    assert card["headline"] == "8% below normal" and card["value"] == -0.081
+    assert "1,904 lb an acre" in card["detail"] and "normal 2,072" in card["detail"]
+    assert calls[1][1]["fips"] == "31063" and calls[1][1]["kind"] == "native range"
+
+
+def test_an_iowa_county_gets_no_grass_card_and_no_second_question(monkeypatch):
+    calls = []
+    monkeypatch.setattr(cards, "_get", lambda url, body=None: calls.append(url) or (200, SEASON))
+    card, note = cards.fetch_grass("19153", wait=lambda s: None)
+    assert card is None and "doesn't cover" in note and len(calls) == 1
+
+
+def test_grass_words_say_about_normal_near_zero():
+    assert cards.grass_words(-0.081) == "8% below normal"
+    assert cards.grass_words(0.052) == "5% above normal"
+    assert cards.grass_words(0.015) == "About normal"
+
+
+def test_refresh_saves_the_grass_card_with_the_week(weeks_file):
+    grass = lambda fips: (cards.grass_card(PLAN, SEASON), "ok")
+    week, notes = cards.refresh(FRIDAY, fetch=got_price, grass=grass)
+    assert week["cards"]["grazing-planner"]["headline"] == "8% below normal"
+    assert "grazing-planner: ok" in notes

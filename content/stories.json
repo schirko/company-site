@@ -170,6 +170,41 @@
    "takeaway": "Without any wait, custom hire beats owning at every farm size one combine can cover. What makes owning pay is timeliness: harvesting when the crop is ready, before the wet weeks cost you yield. The Equipment Planner replays your county's real falls to price that wait.",
    "caution": "Hall County, Nebraska; 210 bu corn at $4.80, 5-year horizon, used combine $430,000, custom rate $46.05 an acre. Taxes are left out.",
    "source": "Falls 2000-2025 replayed with NASA POWER daily rainfall, USDA NASS county yields, and corn price volatility 0.15 (USDA RMA); 1,000 simulated 5-year futures per delay (Equipment Planner notebook m7)."
+  },
+  {
+   "id": "grass-forecast-skill",
+   "app": "grazing-planner",
+   "title": "When a Grass Forecast Is Worth Using",
+   "headline": "Before June, nothing forecasts a Nebraska county's season of grass better than assuming a normal year. By July 1, with the grass already grown, the typical miss drops from 11.5% to 6.3%.",
+   "chart": "skill_by_date",
+   "chart_title": "Forecast skill for a county's season of grass, by the date it's made (0 = no better than assuming a normal year, 1 = perfect)",
+   "dates": [
+    "Apr 1",
+    "May 1",
+    "Jun 1",
+    "Jun 15",
+    "Jul 1",
+    "Aug 1"
+   ],
+   "skill": [
+    null,
+    null,
+    0.32,
+    0.47,
+    0.7,
+    0.83
+   ],
+   "typical_miss_pct": [
+    12.3,
+    11.7,
+    9.4,
+    8.3,
+    6.3,
+    4.7
+   ],
+   "takeaway": "Winter and spring moisture set the season up, but the strongest clue is the grass that has already grown. So the Grazing Planner says \"too early to tell\" before June, and plans the keep, move or sell checks for July 1 and August 1, when the forecast has earned its keep.",
+   "caution": "Each season was forecast only from the seasons before it, 2011-2025, on county averages of satellite estimates, not a single pasture. In the big years it gets the direction right but the size too small: 2022 ended 20% below normal; the June 15 forecast said 11% below.",
+   "source": "Rangeland Analysis Platform (USDA ARS) county forage production and NASA POWER weather; next-season tests 2011-2025, weather plus grass grown so far (Grazing Planner README, Results: Forecasting This Season's Grass)."
   }
  ]
 }

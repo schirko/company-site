@@ -1,5 +1,5 @@
 {
-  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens.",
+  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens. \"price_from\" is the lowest monthly plan price, shown on the tiles only when config.SHOW_PRICES is True (after billing exists). \"shot_alt\" describes the app's computer and phone pictures (static/shots/<id>-computer.jpg and -phone.jpg) for people who can't see them.",
   "herd-planner": {
     "question": "Which calves do I sell, which heifers do I keep, and how fast can my herd grow?",
     "audience": "For cow-calf ranches",
@@ -9,18 +9,22 @@
       "Plans your herd size: runs 1,000 possible futures to find how many heifers to keep to reach your goal on the grass you have",
       "Records that work at the chute, from weights to calving and health, even with no signal"
     ],
-    "note": "Free for record keeping. The first visit can take a minute to wake up."
+    "note": "Free for record keeping. The first visit can take a minute to wake up.",
+    "price_from": "$12",
+    "shot_alt": "Herd Planner on a computer and a phone, showing a demo ranch's answer: keeping a 367 lb steer calf for 120 days is worth about $204 more than selling today, with the costs of keeping and what each length of keeping is worth."
   },
   "corn-yield-predictor": {
-    "question": "What will this county's corn yield, and why?",
-    "audience": "For corn growers and advisers",
+    "question": "What will this county's corn and soybeans yield, and why?",
+    "audience": "For corn and soybean growers and advisers",
     "points": [
-      "Predicts county corn yields from 26 seasons of USDA yields, NASA daily weather, soil ratings and irrigation",
+      "Predicts county corn and soybean yields from 26 seasons of USDA yields, NASA daily weather, soil ratings and irrigation",
       "Tested the hard way: on whole districts and future years it never saw, and on Iowa after learning only from Nebraska",
       "Maps where the model is strong and where it misses, so you know when to trust it",
-      "Shows which weather matters where: a long dry spell hurts Nebraska corn but not Iowa's"
+      "Shows which weather matters for which crop, and where: August rain decides soybeans, and a long dry spell hurts Nebraska corn but not Iowa's"
     ],
-    "note": "Free, no account needed. Nebraska and Iowa."
+    "note": "Free, no account needed. Corn and soybeans, Nebraska and Iowa.",
+    "price_from": "$10",
+    "shot_alt": "Yield Predictor on a computer, showing a map of average corn yield by Nebraska county, 2000 to 2025, and on a phone, Hall County's yield history, actual against predicted, with the 80% range around each prediction."
   },
   "farm-equipment-planner": {
     "question": "Will this machine pay for itself on my farm?",
@@ -31,18 +35,22 @@
       "Buy new, buy used, lease or hire custom, compared across thousands of simulated seasons",
       "Finds the harvest bottleneck: the combine, carts, trucks, pit or dryer"
     ],
-    "note": "Built and in testing. It opens once it has a home online."
+    "note": "Invite only while we test it: sign up with a Cornerpost invite code. The first visit can take a minute to wake up.",
+    "price_from": "$10",
+    "shot_alt": "Farm Equipment Planner on a computer and a phone, comparing ways to get a combine for 1,200 acres of corn in Hall County, Nebraska: hiring custom harvesting costs the least, about $64.58 an acre a year."
   },
-  "in_development": [
-    {
-      "id": "grazing-planner",
-      "name": "Grazing Planner",
-      "question": "How many head can this pasture carry this season, and when should I move them?"
-    },
-    {
-      "id": "soybean-yield-predictor",
-      "name": "Soybean Yield Predictor",
-      "question": "What will this county's soybeans yield, and why?"
-    }
-  ]
+  "grazing-planner": {
+    "question": "How much grass will my pasture grow this season, and how many head can it carry?",
+    "audience": "For ranches and anyone renting out grass",
+    "points": [
+      "Forecasts this season's grass for every Nebraska county from satellite estimates and the weather so far, with an 80% range",
+      "Head that can graze May to October with enough grass 9 years in 10, and the chance your own herd runs short",
+      "Green-up date in spring, and a July 1 and August 1 check: keep, move or sell",
+      "Tested season by season on 2011-2025, and against Grass-Cast, the public forecast from USDA and partners"
+    ],
+    "note": "Free, no sign-in. Nebraska counties for now; drawing your own pasture comes later.",
+    "price_from": "$9",
+    "shot_alt": "Grazing Planner on a computer and a phone, showing the August 1 check for 120 pairs on 2,000 acres of Frontier County, Nebraska native range: keep your 120 pairs; this year's grass is 8% below normal."
+  },
+  "in_development": []
 }

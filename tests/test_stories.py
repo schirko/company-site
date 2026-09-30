@@ -42,6 +42,8 @@ def test_series_line_up():
             assert len(s["keep_pct"]) == len(s["reach_pct"])
         if s["chart"] == "ladder":
             assert len(s["steps"]) == len(s["r2"])
+        if s["chart"] == "skill_by_date":
+            assert len(s["dates"]) == len(s["skill"]) == len(s["typical_miss_pct"])
         if s["chart"] == "hire_wait":
             assert len(s["delay_days"]) == len(s["custom_cheapest_pct"])
 

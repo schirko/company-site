@@ -43,6 +43,19 @@
      "market": "Bassett Livestock Auction, Bassett NE",
      "source": "USDA AMS MyMarketNews auction reports",
      "market_slug": 1852
+    },
+    "grazing-planner": {
+     "label": "Grass this season, 2026",
+     "headline": "8% below normal",
+     "detail": "Frontier County, NE grassland: about 1,904 lb an acre this season against a normal 2,072 (forecast as of August 1). 8 in 10: 1,773 to 2,016.",
+     "value": -0.081,
+     "low": -0.144,
+     "high": -0.0267,
+     "unit": "share vs normal",
+     "as_of": "2026-09-28",
+     "season": 2026,
+     "source": "Rangeland Analysis Platform (USDA Agricultural Research Service) and NASA POWER weather, via the Grazing Planner",
+     "method": "The Grazing Planner's own answer for the county's grassland on its latest check date: grass grown so far plus the forecast for the rest of the season, against the county's average over the 10 seasons before. The range is where 8 in 10 seasons landed around forecasts made on the same date."
     }
    },
    "herd_by_state": {

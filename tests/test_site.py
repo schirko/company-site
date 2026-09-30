@@ -115,7 +115,7 @@ def test_sign_in_is_in_every_page_menu(site):
         page = (site / name).read_text(encoding="utf-8")
         nav = page[page.index('<nav class="site-nav"'):page.index("</nav>")]
         assert f'href="{config.ACCOUNT_URL}">Sign In</a>' in nav, name
-        assert ">Our Farm Apps</a>" in nav, name
+        assert "<summary>Our Farm Apps</summary>" in nav, name
 
 
 def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
@@ -123,7 +123,6 @@ def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
     copy = json.loads((ROOT / "content/apps.json").read_text(encoding="utf-8"))
     suite_ids = {a["id"] for a in build.load_apps()}
     home = (site / "index.html").read_text(encoding="utf-8")
-    assert copy["in_development"], "no apps in development listed"
     for app in copy["in_development"]:
         assert app["id"] not in suite_ids, f"{app['id']} is live: remove it from in_development"
         assert (site / "soon" / f"{app['id']}.svg").exists()
@@ -176,3 +175,26 @@ def test_every_page_shows_the_logo_with_the_company_name_as_its_text(site):
     # Same drawing (a file-provenance <metadata> block, if a tool added one, may differ).
     drawing = lambda f: re.sub(r"<metadata>.*?</metadata>", "", (site / f).read_text(encoding="utf-8"), flags=re.S)
     assert drawing("favicon.svg") == drawing("brand/icon.svg")
+
+
+def test_the_farm_apps_menu_sorts_every_app_by_operation(site):
+    """The header's Our Farm Apps menu (option C, 2026-09-30): each live app in exactly one group, linking to its
+    page with its logo and one line; then the free tools, How We Test and Your Account."""
+    grouped = [i for _, _, ids in build.OPERATIONS for i in ids]
+    live = {a["id"]: a for a in build.load_apps()}
+    assert sorted(grouped) == sorted(live), "every live app needs one line in build.OPERATIONS"
+    page = (site / "index.html").read_text(encoding="utf-8")
+    menu = page[page.index("<details class=\"mega\""):page.index("</details>", page.index("<details class=\"mega\""))]
+    for app_id, app in live.items():
+        assert f'href="{build.APP_PAGE.format(app_id)}"' in menu and build.e(app["name"]) in menu and build.e(app["what"]) in menu
+        assert f'suite-logos/{app_id}.svg' in menu
+    for href in ('href="barns.html"', 'href="index.html#this-week"', 'href="methods.html"', f'href="{config.ACCOUNT_URL}"'):
+        assert href in menu, href
+    assert 'id="this-week"' in page   # the county panel the menu points at
+    assert 'src="menu.js?v=' in page
+
+
+def test_an_app_page_marks_the_menu_as_where_you_are(site):
+    page = (site / build.APP_PAGE.format("herd-planner")).read_text(encoding="utf-8")
+    assert '<div class="mega-wrap" data-current>' in page
+    assert '<div class="mega-wrap" data-current>' not in (site / "about.html").read_text(encoding="utf-8")

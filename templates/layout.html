@@ -17,13 +17,11 @@
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="${name}" width="234" height="36"></a>
     <nav class="site-nav" aria-label="Site">
-      <a href="index.html#our-apps">Our Farm Apps</a>
+      <div class="mega-wrap"${nav_apps}>${mega_menu}</div>
       <a href="barns.html"${nav_barns}>Barn Prices</a>
       <a href="about.html"${nav_about}>About</a>
       <a href="methods.html"${nav_methods}>How We Test</a>
-      <a href="privacy.html"${nav_privacy}>Privacy</a>
       <a class="nav-signin" href="${account_url}">Sign In</a>
-      <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
     </nav>
   </div>
 </header>
@@ -55,5 +53,6 @@ ${footer_contact}
   </div>
 </footer>
 <script src="suite/suite.js" defer></script>
+<script src="menu.js" defer></script>
 </body>
 </html>

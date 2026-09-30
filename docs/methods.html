@@ -10,20 +10,42 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=1d5df35ffa">
+  <link rel="stylesheet" href="site.css?v=5c26de575a">
 </head>
 <body>
 <header class="suite-bar site-header">
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="234" height="36"></a>
     <nav class="site-nav" aria-label="Site">
-      <a href="index.html#our-apps">Our Farm Apps</a>
+      <div class="mega-wrap"><details class="mega" data-mega>
+      <summary>Our Farm Apps</summary>
+      <div class="mega-panel">
+        <div class="mega-op">
+          <p class="mega-op-title">For ranches</p>
+          <p class="mega-op-lead">Cattle and grass</p>
+          <a class="mega-app" href="herd-planner.html"><img src="suite/suite-logos/herd-planner.svg" alt="" width="40" height="40"><span><b>Herd Planner</b><small>Keep-or-sell decisions for cow-calf ranches</small></span></a>
+          <a class="mega-app" href="grazing-planner.html"><img src="suite/suite-logos/grazing-planner.svg" alt="" width="40" height="40"><span><b>Grazing Planner</b><small>This season&#x27;s grass and how many head a pasture can carry</small></span></a>
+        </div>
+        <div class="mega-op">
+          <p class="mega-op-title">For farms</p>
+          <p class="mega-op-lead">Crops and machines</p>
+          <a class="mega-app" href="corn-yield-predictor.html"><img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="40" height="40"><span><b>Yield Predictor</b><small>County crop yields from weather, soils and irrigation</small></span></a>
+          <a class="mega-app" href="farm-equipment-planner.html"><img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="40" height="40"><span><b>Farm Equipment Planner</b><small>Whether a tractor, combine or implement pays for itself</small></span></a>
+        </div>
+        <div class="mega-more">
+          <div><p class="mega-head">Free for everyone</p>
+          <a href="barns.html">Barn Prices<small>This week&#8217;s feeder prices at your barn</small></a>
+          <a href="index.html#this-week">This week in your county<small>Steer price, trend yield, grass, field days</small></a></div>
+          <div><p class="mega-head">Why trust it</p>
+          <a href="methods.html">How We Test<small>Real results, and where we fell short</small></a></div>
+        </div>
+        <p class="mega-foot"><span>One account for every app.</span><a href="https://farm-account.onrender.com/app/#signin">Your Account &#8594;</a></p>
+      </div>
+    </details></div>
       <a href="barns.html">Barn Prices</a>
       <a href="about.html">About</a>
       <a href="methods.html" aria-current="page">How We Test</a>
-      <a href="privacy.html">Privacy</a>
       <a class="nav-signin" href="https://farm-account.onrender.com/app/#signin">Sign In</a>
-      <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
     </nav>
   </div>
 </header>
@@ -192,11 +214,63 @@
   </div>
 </section>
 
-<section class="band method-app" id="farm-equipment-planner">
+<section class="band method-app" id="grazing-planner">
+  <div class="wrap narrow">
+    <div class="method-head">
+      <img src="suite/suite-logos/grazing-planner.svg" alt="" width="48" height="48">
+      <h2>Grazing Planner</h2>
+    </div>
+    <p><strong>The question:</strong> how much grass will a pasture grow this season, and how many head can it carry?</p>
+    <p>Every Nebraska county's season from 2011 to 2025 was forecast using only the seasons before it, the way the app
+      would have seen it at the time. Skill compares with always assuming a normal year: 0 is no better, 1 is perfect.</p>
+
+    <h3>How early can the season be forecast?</h3>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th scope="col">Forecast made on</th><th scope="col">Typical miss</th><th scope="col">Skill</th></tr></thead>
+        <tbody>
+          <tr><td>Assume a normal year (any date)</td><td>11.5%</td><td>0</td></tr>
+          <tr><td>April 1</td><td>12.3%</td><td>none</td></tr>
+          <tr><td>May 1</td><td>11.7%</td><td>none</td></tr>
+          <tr class="ours"><td>June 1</td><td>9.4%</td><td>0.32</td></tr>
+          <tr class="ours"><td>June 15</td><td>8.3%</td><td>0.47</td></tr>
+          <tr class="ours"><td>July 1</td><td>6.3%</td><td>0.70</td></tr>
+          <tr class="ours"><td>August 1</td><td>4.7%</td><td>0.83</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Before June nothing beats "a normal year", so the app says it's too early to tell. The 80% ranges held 77 to
+      87% of the time from June 1 on.</p>
+
+    <h3>Against Grass-Cast</h3>
+    <p>Grass-Cast is the public grassland forecast from USDA and partners. Rerun on the same dates for the 40 counties
+      it covers, 2017 to 2025, ours scored higher from mid-June on: July 1, 0.69 against 0.36; August 1, 0.86 against
+      0.31. On June 1 the edge was small and not certain. One caution: both were graded against the satellite estimate
+      our model learns from, which favors ours.</p>
+
+    <h3>Does "enough grass 9 years in 10" hold?</h3>
+    <p>Every county and season 2011 to 2025, stocked the way the app advises and checked against the grass that really
+      grew. Stocking for a normal year ran short 48% of the time. The app's 9-in-10 head count ran short 10% of the time
+      in June and 9% by July 1, for about 12% fewer head than a normal year. Turning out 90% of a normal year and
+      checking again on July 1 (sell, or add when there's room) ran short 9% of the time and grazed 91% of a normal year.</p>
+
+    <h3>Where it falls short</h3>
+    <ul class="plain">
+      <li>It forecasts a county average from satellite estimates, not your pasture. Walk your pasture.</li>
+      <li>In the big years it gets the direction right but the size too small: 2022 ended 20% below normal statewide;
+        the June 15 forecast said 11% below.</li>
+      <li>A bad season hits most of the state at once: even stocking for 9 years in 10, a third
+        or more of Nebraska ran short together in 1 or 2 of the 15 seasons tested.</li>
+      <li>The satellite data runs about two weeks behind, so a July 1 check knows the grass through about mid-June.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="method-app" id="farm-equipment-planner">
   <div class="wrap narrow">
     <div class="method-head">
       <img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="48" height="48">
-      <h2>Farm Equipment Planner <small class="status">Coming soon</small></h2>
+      <h2>Farm Equipment Planner</h2>
     </div>
     <p><strong>The question:</strong> does a tractor, combine or implement pay for itself on my farm?</p>
     <p>Most of this app is established farm economics, so its first test is matching the published sources:</p>
@@ -224,6 +298,7 @@
   <div class="wrap narrow">
     <h2>Where the data comes from</h2>
     <p>Auction prices from USDA Market News; county yields and acreage from USDA NASS; weather from NASA POWER;
+      grassland forage from the Rangeland Analysis Platform (USDA Agricultural Research Service and partners);
       soils from USDA's Soil Data Access; elevation from USGS. All of it is public. None of these agencies endorses
       the apps, and any error in the analysis is ours.</p>
     <p class="note">The apps are decision aids, not financial, agronomic or insurance advice. Each app's own terms
@@ -243,6 +318,7 @@
       <h2>Apps</h2>
       <a href="herd-planner.html">Herd Planner</a>
       <a href="corn-yield-predictor.html">Yield Predictor</a>
+      <a href="grazing-planner.html">Grazing Planner</a>
       <a href="farm-equipment-planner.html">Farm Equipment Planner</a>
     </nav>
     <nav aria-label="Company" class="footer-col">
@@ -258,5 +334,6 @@
   </div>
 </footer>
 <script src="suite/suite.js?v=4f93f0703c" defer></script>
+<script src="menu.js?v=b1a8319430" defer></script>
 </body>
 </html>

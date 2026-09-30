@@ -31,6 +31,7 @@ company-site/
 ├── barn_pages.py      one page per sale barn, and the Barn Prices index
 ├── static/panel.js    "See your county": swaps the panel's tiles to a visitor's county
 ├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
+├── static/menu.js     the header's Our Farm Apps menu: closes on a click elsewhere, Escape or a chosen link
 ├── templates/         the pages, with ${placeholders} for the name and the app list
 ├── content/apps.json  the home page's longer words about each app (tiles and app sections), and
 │                      "in_development": apps being built (a tile with Get notified, nothing else)
@@ -48,6 +49,18 @@ company-site/
 `herd-planner/brand/`: `suite.css` (the shared look), `suite.js` (the Farm apps menu)
 and `suite-apps.json` (the list of apps). The home page's app cards and the footer
 are built from that same list, so an app going live is still a one-file change.
+
+**The header's Our Farm Apps menu** (2026-09-30, option C of three mockups in `notes/mega-menu-mockups-2026-09-30.png`,
+after Tractor Zoom's Solutions menu): a panel sorted by operation, **For ranches** (Herd Planner, Grazing Planner)
+and **For farms** (Yield Predictor, Farm Equipment Planner), each app with its logo, its one line from
+`suite-apps.json` and a link to its page here; then **Free for everyone** (Barn Prices, This week in your county),
+**Why trust it** (How We Test), and a strip linking to Your Account. `build.mega_menu()` draws it; which group an
+app belongs to is `OPERATIONS` in `build.py`, and a test fails if a live app isn't in exactly one group, so a new
+app needs a line there too. It's a `<details>` element, so it opens without JavaScript; on an app's page its title is
+underlined like the other current links. The header is now Our Farm Apps, Barn Prices, About, How We Test and
+Sign In: Privacy moved to the footer only, and the separate Farm Apps grid menu is gone from this site (this menu
+does its job; the apps keep theirs). Tablets put the free tools under the two operations; phones show one
+scrolling column.
 
 ## Build and check it
 
@@ -148,11 +161,17 @@ from. "Barn Prices" is in the site's menu, and every barn page is in `sitemap.xm
 
 ## The app tiles row
 
-Under the live panel, one tile per app: the three in the suite list (`static/suite/suite-apps.json`),
+Under the live panel, one tile per app: every app in the suite list (`static/suite/suite-apps.json`),
 then the apps being built (`"in_development"` in `content/apps.json`). The row scrolls sideways and snaps
 to each tile: three show at a time on a wide screen with a peek of the next, arrow buttons appear when
 there's more (`static/slider.js`), and phones swipe. It never moves by itself: auto-rotating carousels
 are skipped by most visitors and hard to use.
+
+When an app opens (the Grazing Planner, 2026-09-28): add it to `herd-planner/brand/suite-apps.json` and copy
+that to every app and here, move its words from `"in_development"` to its own entry in `content/apps.json`,
+copy its logo into `static/suite/suite-logos/`, give it a story (`content/stories.json`) and a section on
+How We Test (`templates/methods.html`). The tests list anything missing. Apps without a card in the Friday
+job (`build.WEEKLY`) get an app page with "This Season" instead of "This Week" and "Recent Weeks".
 
 An app in development gets a dashed tile, an **In development** tag, its question, and **Get notified**,
 which jumps to "Hear When Something New Opens" (Herd Planner's waitlist). It has no app page, no Farm Apps
@@ -160,6 +179,26 @@ menu entry and no footer link until it exists. Its logo goes in `static/soon/<id
 style: a colored circle, a cream drawing, a gold accent). When it opens: add it to the master
 `herd-planner/brand/suite-apps.json`, copy that out, write its entry in `apps.json`, and remove it from
 `"in_development"` (a test fails if an app is in both).
+
+**What each tile shows (chosen 2026-09-30, mockups in `notes/tile-mockups-2026-09-29.png`).** Top right, this
+week's number from the app for the county of the week (`build.tile_stat`, from the same cards as the live
+panel): Herd Planner the 550 lb steer price and its barn, the Yield Predictor the county's trend corn yield,
+the Grazing Planner this season's grass against normal (red with a down arrow only when it's below), the
+Equipment Planner fall field days. A week without a number (a stale steer price, an Iowa county for the
+Grazing Planner) leaves the corner empty. Bottom right, "Free to try"; "Plan from $X/mo" joins it once
+`SHOW_PRICES = True` in `config.py` (after billing exists), using `"price_from"` in `content/apps.json`.
+
+## Each app on a computer and a phone (Our Farm Apps)
+
+Each app's row shows the app on a computer, its own header joined straight to a real answer, with the same
+answer on a phone in front (chosen 2026-09-30; mockups in `notes/shot-mockups-*.png`). The pictures are
+`static/shots/<app id>-computer.jpg` (1100 px wide) and `-phone.jpg` (360 px wide); `"shot_alt"` in
+`content/apps.json` describes them for screen readers. An app without both pictures keeps the plain
+placeholder. The first set (2026-09-30) was taken from each app running with real data: Herd Planner's demo
+ranch (keep or sell a steer calf), the Grazing Planner's Aug 1 check (Frontier County, 2,000 acres, 120
+pairs), the Yield Predictor's map and Hall County, the Equipment Planner's buy, lease or hire for Hall
+County. Retake them when an app's look changes: desktop at 1000 x 750, phone at 390 wide, both at 2x,
+then shrink to those widths as JPEG (quality about 84). A test keeps the set under 900 KB.
 
 ## Why Use Our Apps
 
@@ -189,6 +228,9 @@ GitHub, start every work session with `git pull` (see **Git in this project** be
 - **New yields or weather:** export the cards in those projects (`python scripts\export_suite_card.py`
   in crop-yield-predictor, `python -m calculators.suite_card` in farm-equipment-planner), then here
   `python cards.py refresh` copies the new files into `content/cards/`. Commit and push them.
+- **The Grazing Planner's grass** (for the app tile): `refresh` asks its public `/api/season` and
+  `/api/plan` for the county (Nebraska only), the same answer anyone gets on its page. It sleeps on
+  Render's free plan too, so it gets the same wait. An Iowa county has no grass card that week.
 - A number shown for a week is saved in `content/cards/weeks.json` and never changes afterwards.
 
 Search engines only see this once `PUBLIC = True` in `config.py` (it switches off `noindex` and points

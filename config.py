@@ -36,5 +36,9 @@ SITE_URL = f"https://{DOMAIN}/"
 # person's home page shows every app with their county's numbers. Change it with the domain.
 ACCOUNT_URL = "https://farm-account.onrender.com/app/#signin"
 
+# Plan prices on the home page's app tiles ("Plan from $12/mo", from "price_from" in content/apps.json).
+# False until billing exists (the pilot shows no prices); the tiles then just say "Free to try".
+SHOW_PRICES = False
+
 # The year in the copyright line.
 YEAR = 2026

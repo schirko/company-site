@@ -10,20 +10,42 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=1d5df35ffa">
+  <link rel="stylesheet" href="site.css?v=5c26de575a">
 </head>
 <body>
 <header class="suite-bar site-header">
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="234" height="36"></a>
     <nav class="site-nav" aria-label="Site">
-      <a href="index.html#our-apps">Our Farm Apps</a>
+      <div class="mega-wrap"><details class="mega" data-mega>
+      <summary>Our Farm Apps</summary>
+      <div class="mega-panel">
+        <div class="mega-op">
+          <p class="mega-op-title">For ranches</p>
+          <p class="mega-op-lead">Cattle and grass</p>
+          <a class="mega-app" href="herd-planner.html"><img src="suite/suite-logos/herd-planner.svg" alt="" width="40" height="40"><span><b>Herd Planner</b><small>Keep-or-sell decisions for cow-calf ranches</small></span></a>
+          <a class="mega-app" href="grazing-planner.html"><img src="suite/suite-logos/grazing-planner.svg" alt="" width="40" height="40"><span><b>Grazing Planner</b><small>This season&#x27;s grass and how many head a pasture can carry</small></span></a>
+        </div>
+        <div class="mega-op">
+          <p class="mega-op-title">For farms</p>
+          <p class="mega-op-lead">Crops and machines</p>
+          <a class="mega-app" href="corn-yield-predictor.html"><img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="40" height="40"><span><b>Yield Predictor</b><small>County crop yields from weather, soils and irrigation</small></span></a>
+          <a class="mega-app" href="farm-equipment-planner.html"><img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="40" height="40"><span><b>Farm Equipment Planner</b><small>Whether a tractor, combine or implement pays for itself</small></span></a>
+        </div>
+        <div class="mega-more">
+          <div><p class="mega-head">Free for everyone</p>
+          <a href="barns.html">Barn Prices<small>This week&#8217;s feeder prices at your barn</small></a>
+          <a href="index.html#this-week">This week in your county<small>Steer price, trend yield, grass, field days</small></a></div>
+          <div><p class="mega-head">Why trust it</p>
+          <a href="methods.html">How We Test<small>Real results, and where we fell short</small></a></div>
+        </div>
+        <p class="mega-foot"><span>One account for every app.</span><a href="https://farm-account.onrender.com/app/#signin">Your Account &#8594;</a></p>
+      </div>
+    </details></div>
       <a href="barns.html">Barn Prices</a>
       <a href="about.html">About</a>
       <a href="methods.html">How We Test</a>
-      <a href="privacy.html" aria-current="page">Privacy</a>
       <a class="nav-signin" href="https://farm-account.onrender.com/app/#signin">Sign In</a>
-      <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
     </nav>
   </div>
 </header>
@@ -48,7 +70,8 @@
     <ul class="plain">
       <li>Herd Planner: <a href="https://herd-planner.onrender.com/app/terms.html">terms of use and privacy</a>.</li>
       <li>Yield Predictor: no account and nothing personal collected; its disclaimer is on every page.</li>
-      <li>Farm Equipment Planner: its terms will be published when it opens.</li>
+      <li>Grazing Planner: no account and nothing personal collected; its disclaimer is on every page.</li>
+      <li>Farm Equipment Planner: no account and nothing personal collected; its disclaimer is on every page.</li>
     </ul>
     <p>This website itself sets no cookies and runs no tracking or advertising scripts.</p>
     <p class="note">To reach us, use the Tell us button in Herd Planner. It comes straight to us.</p>
@@ -67,6 +90,7 @@
       <h2>Apps</h2>
       <a href="herd-planner.html">Herd Planner</a>
       <a href="corn-yield-predictor.html">Yield Predictor</a>
+      <a href="grazing-planner.html">Grazing Planner</a>
       <a href="farm-equipment-planner.html">Farm Equipment Planner</a>
     </nav>
     <nav aria-label="Company" class="footer-col">
@@ -82,5 +106,6 @@
   </div>
 </footer>
 <script src="suite/suite.js?v=4f93f0703c" defer></script>
+<script src="menu.js?v=b1a8319430" defer></script>
 </body>
 </html>

@@ -10,20 +10,42 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=1d5df35ffa">
+  <link rel="stylesheet" href="site.css?v=5c26de575a">
 </head>
 <body>
 <header class="suite-bar site-header">
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="234" height="36"></a>
     <nav class="site-nav" aria-label="Site">
-      <a href="index.html#our-apps">Our Farm Apps</a>
+      <div class="mega-wrap"><details class="mega" data-mega>
+      <summary>Our Farm Apps</summary>
+      <div class="mega-panel">
+        <div class="mega-op">
+          <p class="mega-op-title">For ranches</p>
+          <p class="mega-op-lead">Cattle and grass</p>
+          <a class="mega-app" href="herd-planner.html"><img src="suite/suite-logos/herd-planner.svg" alt="" width="40" height="40"><span><b>Herd Planner</b><small>Keep-or-sell decisions for cow-calf ranches</small></span></a>
+          <a class="mega-app" href="grazing-planner.html"><img src="suite/suite-logos/grazing-planner.svg" alt="" width="40" height="40"><span><b>Grazing Planner</b><small>This season&#x27;s grass and how many head a pasture can carry</small></span></a>
+        </div>
+        <div class="mega-op">
+          <p class="mega-op-title">For farms</p>
+          <p class="mega-op-lead">Crops and machines</p>
+          <a class="mega-app" href="corn-yield-predictor.html"><img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="40" height="40"><span><b>Yield Predictor</b><small>County crop yields from weather, soils and irrigation</small></span></a>
+          <a class="mega-app" href="farm-equipment-planner.html"><img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="40" height="40"><span><b>Farm Equipment Planner</b><small>Whether a tractor, combine or implement pays for itself</small></span></a>
+        </div>
+        <div class="mega-more">
+          <div><p class="mega-head">Free for everyone</p>
+          <a href="barns.html">Barn Prices<small>This week&#8217;s feeder prices at your barn</small></a>
+          <a href="index.html#this-week">This week in your county<small>Steer price, trend yield, grass, field days</small></a></div>
+          <div><p class="mega-head">Why trust it</p>
+          <a href="methods.html">How We Test<small>Real results, and where we fell short</small></a></div>
+        </div>
+        <p class="mega-foot"><span>One account for every app.</span><a href="https://farm-account.onrender.com/app/#signin">Your Account &#8594;</a></p>
+      </div>
+    </details></div>
       <a href="barns.html">Barn Prices</a>
       <a href="about.html">About</a>
       <a href="methods.html">How We Test</a>
-      <a href="privacy.html">Privacy</a>
       <a class="nav-signin" href="https://farm-account.onrender.com/app/#signin">Sign In</a>
-      <details class="suite-apps" data-suite-apps="company-site" data-suite-base="suite"></details>
     </nav>
   </div>
 </header>
@@ -101,30 +123,25 @@
     <div class="slider" id="tiles" data-slider>
       <div class="tiles" role="region" aria-label="Our farm apps" tabindex="0">
       <a class="tile" href="https://herd-planner.onrender.com/">
-        <img src="suite/suite-logos/herd-planner.svg" alt="" width="56" height="56">
+        <span class="tile-top"><img src="suite/suite-logos/herd-planner.svg" alt="" width="56" height="56"><span class="tile-stat" title="About $2,544 a head at Bassett Livestock Auction, Bassett NE (sale of Sep 16). 8 in 10 sales land between $442 and $487/cwt."><span class="tile-number"><b class="">$463</b>/cwt</span><small>550 lb steer, Bassett NE</small></span></span>
         <span class="tile-words"><strong>Herd Planner</strong><span>Which calves do I sell, which heifers do I keep, and how fast can my herd grow?</span></span>
-        <span class="btn small" aria-hidden="true">Open</span>
+        <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try</span></span>
       </a>
       <a class="tile" href="https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/">
-        <img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="56" height="56">
-        <span class="tile-words"><strong>Yield Predictor</strong><span>What will this county&#x27;s corn yield, and why?</span></span>
-        <span class="btn small" aria-hidden="true">Open</span>
+        <span class="tile-top"><img src="suite/suite-logos/corn-yield-predictor.svg" alt="" width="56" height="56"><span class="tile-stat" title="Frontier County, NE yields since 2000 rise about 0.9 bu/acre a year. In 1 year in 10 the county falls below 128."><span class="tile-number"><b class="">146</b> bu/ac</span><small>Frontier Co. trend corn</small></span></span>
+        <span class="tile-words"><strong>Yield Predictor</strong><span>What will this county&#x27;s corn and soybeans yield, and why?</span></span>
+        <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try</span></span>
       </a>
-      <div class="tile soon">
-        <img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="56" height="56">
+      <a class="tile" href="https://grazing-planner.onrender.com/">
+        <span class="tile-top"><img src="suite/suite-logos/grazing-planner.svg" alt="" width="56" height="56"><span class="tile-stat" title="Frontier County, NE grassland: about 1,904 lb an acre this season against a normal 2,072 (forecast as of August 1). 8 in 10: 1,773 to 2,016."><span class="tile-number"><b class="down">▼ 8%</b> below normal</span><small>Frontier Co. grass, 2026</small></span></span>
+        <span class="tile-words"><strong>Grazing Planner</strong><span>How much grass will my pasture grow this season, and how many head can it carry?</span></span>
+        <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try</span></span>
+      </a>
+      <a class="tile" href="https://farm-equipment-planner.onrender.com/">
+        <span class="tile-top"><img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="56" height="56"><span class="tile-stat" title="Frontier County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 47. Counts rain only, not snow or frozen ground."><span class="tile-number"><b class="">55</b> of 61 days</span><small>Frontier Co. fall field days</small></span></span>
         <span class="tile-words"><strong>Farm Equipment Planner</strong><span>Will this machine pay for itself on my farm?</span></span>
-        <span class="status">Coming soon</span>
-      </div>
-      <div class="tile dev">
-        <img src="soon/grazing-planner.svg" alt="" width="56" height="56">
-        <span class="tile-words"><span class="tag">In development</span><strong>Grazing Planner</strong><span>How many head can this pasture carry this season, and when should I move them?</span></span>
-        <a class="btn small ghost" href="#notify">Get notified</a>
-      </div>
-      <div class="tile dev">
-        <img src="soon/soybean-yield-predictor.svg" alt="" width="56" height="56">
-        <span class="tile-words"><span class="tag">In development</span><strong>Soybean Yield Predictor</strong><span>What will this county&#x27;s soybeans yield, and why?</span></span>
-        <a class="btn small ghost" href="#notify">Get notified</a>
-      </div>
+        <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try</span></span>
+      </a>
       </div>
       <button class="slide-btn prev" type="button" aria-label="Previous apps" hidden>&#8249;</button>
       <button class="slide-btn next" type="button" aria-label="More apps" hidden>&#8250;</button>
@@ -194,6 +211,20 @@
         <details class="numbers"><summary>Show the numbers</summary><div class="table-scroll"><table class="results"><thead><tr><th>Days the crew arrives later</th><th>Custom hire cheaper in</th></tr></thead><tbody><tr><td>0</td><td>100%</td></tr><tr><td>2</td><td>100%</td></tr><tr><td>4</td><td>100%</td></tr><tr><td>6</td><td>100%</td></tr><tr><td>8</td><td>100%</td></tr><tr><td>10</td><td>100%</td></tr><tr><td>12</td><td>100%</td></tr><tr><td>14</td><td>96.3%</td></tr><tr><td>16</td><td>62.3%</td></tr><tr><td>18</td><td>15.9%</td></tr><tr><td>20</td><td>1.5%</td></tr><tr><td>22</td><td>0%</td></tr><tr><td>24</td><td>0%</td></tr><tr><td>26</td><td>0%</td></tr><tr><td>28</td><td>0%</td></tr></tbody></table></div></details>
 <p class="story-link"><a href="farm-equipment-planner.html">More about Farm Equipment Planner</a></p>
       </figure>
+      <figure class="story" id="grass-forecast-skill">
+        <p class="stat-app"><img src="suite/suite-logos/grazing-planner.svg" alt="" width="24" height="24"> Grazing Planner</p>
+        <h3>When a Grass Forecast Is Worth Using</h3>
+        <p class="story-headline">Before June, nothing forecasts a Nebraska county&#x27;s season of grass better than assuming a normal year. By July 1, with the grass already grown, the typical miss drops from 11.5% to 6.3%.</p>
+        <p class="chart-title">Forecast skill for a county&#x27;s season of grass, by the date it&#x27;s made (0 = no better than assuming a normal year, 1 = perfect)</p>
+        <svg class="chart" viewBox="0 0 480 280" role="img" aria-label="Forecast skill for a county&#x27;s season of grass, by the date it&#x27;s made (0 = no better than assuming a normal year, 1 = perfect)" preserveAspectRatio="xMidYMid meet"><line x1="44" x2="468" y1="240.0" y2="240.0" class="grid zero"/><text x="36" y="244.0" text-anchor="end" class="tick">0</text><line x1="44" x2="468" y1="185.5" y2="185.5" class="grid"/><text x="36" y="189.5" text-anchor="end" class="tick">0.25</text><line x1="44" x2="468" y1="131.0" y2="131.0" class="grid"/><text x="36" y="135.0" text-anchor="end" class="tick">0.5</text><line x1="44" x2="468" y1="76.5" y2="76.5" class="grid"/><text x="36" y="80.5" text-anchor="end" class="tick">0.75</text><line x1="44" x2="468" y1="22.0" y2="22.0" class="grid"/><text x="36" y="26.0" text-anchor="end" class="tick">1</text><text x="79.3" y="234.0" text-anchor="middle" class="value">none</text><title>Apr 1: no better than assuming a normal year</title><text x="79.3" y="258" text-anchor="middle" class="tick">Apr 1</text><text x="150.0" y="234.0" text-anchor="middle" class="value">none</text><title>May 1: no better than assuming a normal year</title><text x="150.0" y="258" text-anchor="middle" class="tick">May 1</text><path d="M206.7,240.0 V174.2 Q206.7,170.2 210.7,170.2 H230.7 Q234.7,170.2 234.7,174.2 V240.0 Z" fill="#2a78d6"><title>Jun 1: skill 0.32</title></path><text x="220.7" y="164.2" text-anchor="middle" class="value">0.32</text><text x="220.7" y="258" text-anchor="middle" class="tick">Jun 1</text><path d="M277.3,240.0 V141.5 Q277.3,137.5 281.3,137.5 H301.3 Q305.3,137.5 305.3,141.5 V240.0 Z" fill="#2a78d6"><title>Jun 15: skill 0.47</title></path><text x="291.3" y="131.5" text-anchor="middle" class="value">0.47</text><text x="291.3" y="258" text-anchor="middle" class="tick">Jun 15</text><path d="M348.0,240.0 V91.4 Q348.0,87.4 352.0,87.4 H372.0 Q376.0,87.4 376.0,91.4 V240.0 Z" fill="#2a78d6"><title>Jul 1: skill 0.70</title></path><text x="362.0" y="81.4" text-anchor="middle" class="value">0.70</text><text x="362.0" y="258" text-anchor="middle" class="tick">Jul 1</text><path d="M418.7,240.0 V63.1 Q418.7,59.1 422.7,59.1 H442.7 Q446.7,59.1 446.7,63.1 V240.0 Z" fill="#2a78d6"><title>Aug 1: skill 0.83</title></path><text x="432.7" y="53.1" text-anchor="middle" class="value">0.83</text><text x="432.7" y="258" text-anchor="middle" class="tick">Aug 1</text><text x="256.0" y="276" text-anchor="middle" class="axis">Date the forecast is made</text></svg>
+        <figcaption>
+          <p>Winter and spring moisture set the season up, but the strongest clue is the grass that has already grown. So the Grazing Planner says &quot;too early to tell&quot; before June, and plans the keep, move or sell checks for July 1 and August 1, when the forecast has earned its keep.</p>
+          <p class="note">Each season was forecast only from the seasons before it, 2011-2025, on county averages of satellite estimates, not a single pasture. In the big years it gets the direction right but the size too small: 2022 ended 20% below normal; the June 15 forecast said 11% below.</p>
+          <p class="source">Source: Rangeland Analysis Platform (USDA ARS) county forage production and NASA POWER weather; next-season tests 2011-2025, weather plus grass grown so far (Grazing Planner README, Results: Forecasting This Season&#x27;s Grass).</p>
+        </figcaption>
+        <details class="numbers"><summary>Show the numbers</summary><div class="table-scroll"><table class="results"><thead><tr><th>Forecast made on</th><th>Skill (0 = normal, 1 = perfect)</th><th>Typical miss, % of normal</th></tr></thead><tbody><tr><td>Apr 1</td><td>none</td><td>12.3%</td></tr><tr><td>May 1</td><td>none</td><td>11.7%</td></tr><tr><td>Jun 1</td><td>0.32</td><td>9.4%</td></tr><tr><td>Jun 15</td><td>0.47</td><td>8.3%</td></tr><tr><td>Jul 1</td><td>0.70</td><td>6.3%</td></tr><tr><td>Aug 1</td><td>0.83</td><td>4.7%</td></tr></tbody></table></div></details>
+<p class="story-link"><a href="grazing-planner.html">More about Grazing Planner</a></p>
+      </figure>
     </div>
   </div>
 </section>
@@ -204,7 +235,11 @@
     <p class="section-lede">Sell or keep, grow the herd, forecast the crop, size the machinery. Each app is built
       around a decision you actually have to make.</p>
     <div class="app-row" id="herd-planner">
-      <div class="placeholder shot">Screenshot of Herd Planner</div>
+      <figure class="shot showcase">
+        <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>herd-planner.onrender.com</span></div>
+          <img src="shots/herd-planner-computer.jpg" alt="Herd Planner on a computer and a phone, showing a demo ranch&#x27;s answer: keeping a 367 lb steer calf for 120 days is worth about $204 more than selling today, with the costs of keeping and what each length of keeping is worth." width="1100" height="825" loading="lazy"></div>
+        <div class="phone"><img src="shots/herd-planner-phone.jpg" alt="" loading="lazy"></div>
+      </figure>
       <div>
         <p class="eyebrow">For cow-calf ranches</p>
         <h3>Herd Planner</h3>
@@ -219,22 +254,49 @@
       </div>
     </div>
     <div class="app-row flip" id="corn-yield-predictor">
-      <div class="placeholder shot">Screenshot of Yield Predictor</div>
+      <figure class="shot showcase">
+        <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app</span></div>
+          <img src="shots/corn-yield-predictor-computer.jpg" alt="Yield Predictor on a computer, showing a map of average corn yield by Nebraska county, 2000 to 2025, and on a phone, Hall County&#x27;s yield history, actual against predicted, with the 80% range around each prediction." width="1100" height="825" loading="lazy"></div>
+        <div class="phone"><img src="shots/corn-yield-predictor-phone.jpg" alt="" loading="lazy"></div>
+      </figure>
       <div>
-        <p class="eyebrow">For corn growers and advisers</p>
+        <p class="eyebrow">For corn and soybean growers and advisers</p>
         <h3>Yield Predictor</h3>
         <ul class="points">
-          <li>Predicts county corn yields from 26 seasons of USDA yields, NASA daily weather, soil ratings and irrigation</li>
+          <li>Predicts county corn and soybean yields from 26 seasons of USDA yields, NASA daily weather, soil ratings and irrigation</li>
           <li>Tested the hard way: on whole districts and future years it never saw, and on Iowa after learning only from Nebraska</li>
           <li>Maps where the model is strong and where it misses, so you know when to trust it</li>
-          <li>Shows which weather matters where: a long dry spell hurts Nebraska corn but not Iowa&#x27;s</li>
+          <li>Shows which weather matters for which crop, and where: August rain decides soybeans, and a long dry spell hurts Nebraska corn but not Iowa&#x27;s</li>
         </ul>
-        <p class="meta">Free, no account needed. Nebraska and Iowa.</p>
+        <p class="meta">Free, no account needed. Corn and soybeans, Nebraska and Iowa.</p>
         <p><a class="btn" href="https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/">Open Yield Predictor</a> <a class="more" href="corn-yield-predictor.html">This week and how it works</a></p>
       </div>
     </div>
-    <div class="app-row" id="farm-equipment-planner">
-      <div class="placeholder shot">Screenshot of Farm Equipment Planner</div>
+    <div class="app-row" id="grazing-planner">
+      <figure class="shot showcase">
+        <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>grazing-planner.onrender.com</span></div>
+          <img src="shots/grazing-planner-computer.jpg" alt="Grazing Planner on a computer and a phone, showing the August 1 check for 120 pairs on 2,000 acres of Frontier County, Nebraska native range: keep your 120 pairs; this year&#x27;s grass is 8% below normal." width="1100" height="825" loading="lazy"></div>
+        <div class="phone"><img src="shots/grazing-planner-phone.jpg" alt="" loading="lazy"></div>
+      </figure>
+      <div>
+        <p class="eyebrow">For ranches and anyone renting out grass</p>
+        <h3>Grazing Planner</h3>
+        <ul class="points">
+          <li>Forecasts this season&#x27;s grass for every Nebraska county from satellite estimates and the weather so far, with an 80% range</li>
+          <li>Head that can graze May to October with enough grass 9 years in 10, and the chance your own herd runs short</li>
+          <li>Green-up date in spring, and a July 1 and August 1 check: keep, move or sell</li>
+          <li>Tested season by season on 2011-2025, and against Grass-Cast, the public forecast from USDA and partners</li>
+        </ul>
+        <p class="meta">Free, no sign-in. Nebraska counties for now; drawing your own pasture comes later.</p>
+        <p><a class="btn" href="https://grazing-planner.onrender.com/">Open Grazing Planner</a> <a class="more" href="grazing-planner.html">This week and how it works</a></p>
+      </div>
+    </div>
+    <div class="app-row flip" id="farm-equipment-planner">
+      <figure class="shot showcase">
+        <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>farm-equipment-planner.onrender.com</span></div>
+          <img src="shots/farm-equipment-planner-computer.jpg" alt="Farm Equipment Planner on a computer and a phone, comparing ways to get a combine for 1,200 acres of corn in Hall County, Nebraska: hiring custom harvesting costs the least, about $64.58 an acre a year." width="1100" height="825" loading="lazy"></div>
+        <div class="phone"><img src="shots/farm-equipment-planner-phone.jpg" alt="" loading="lazy"></div>
+      </figure>
       <div>
         <p class="eyebrow">For crop farms</p>
         <h3>Farm Equipment Planner</h3>
@@ -244,8 +306,8 @@
           <li>Buy new, buy used, lease or hire custom, compared across thousands of simulated seasons</li>
           <li>Finds the harvest bottleneck: the combine, carts, trucks, pit or dryer</li>
         </ul>
-        <p class="meta">Built and in testing. It opens once it has a home online.</p>
-        <p><span class="status">Coming soon</span> <a class="more" href="farm-equipment-planner.html">This week and how it works</a></p>
+        <p class="meta">Invite only while we test it: sign up with a Cornerpost invite code. The first visit can take a minute to wake up.</p>
+        <p><a class="btn" href="https://farm-equipment-planner.onrender.com/">Open Farm Equipment Planner</a> <a class="more" href="farm-equipment-planner.html">This week and how it works</a></p>
       </div>
     </div>
   </div>
@@ -324,6 +386,7 @@
       <h2>Apps</h2>
       <a href="herd-planner.html">Herd Planner</a>
       <a href="corn-yield-predictor.html">Yield Predictor</a>
+      <a href="grazing-planner.html">Grazing Planner</a>
       <a href="farm-equipment-planner.html">Farm Equipment Planner</a>
     </nav>
     <nav aria-label="Company" class="footer-col">
@@ -339,5 +402,6 @@
   </div>
 </footer>
 <script src="suite/suite.js?v=4f93f0703c" defer></script>
+<script src="menu.js?v=b1a8319430" defer></script>
 </body>
 </html>

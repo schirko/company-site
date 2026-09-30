@@ -7,7 +7,7 @@ by hand on every page and drift apart:
 
 - the company name, which isn't chosen yet (it lives in config.py), and
 - the list of apps, which already lives in static/suite/suite-apps.json, the same
-  file the three apps' "Farm apps" menus read.
+  file the apps' "Farm apps" menus read.
 
 So pages are written once in templates/ with ${placeholders}, and this script fills
 them in. It uses only Python's standard library (string.Template), so there is
@@ -19,6 +19,7 @@ import html
 from datetime import date
 import json
 import shutil
+import urllib.parse
 from pathlib import Path
 from string import Template
 
@@ -31,6 +32,7 @@ import config
 ROOT = Path(__file__).resolve().parent
 TEMPLATES = ROOT / "templates"
 STATIC = ROOT / "static"
+SHOTS = STATIC / "shots"  # each app on a computer and a phone (app_shot)
 CONTENT = ROOT / "content"
 OUT = ROOT / "docs"
 
@@ -48,6 +50,13 @@ PAGES = [
 
 # Each app's own page on this site (built from templates/app.html), named by app id.
 APP_PAGE = "{}.html"
+
+# The Our Farm Apps menu in the header (chosen 2026-09-30, option C): apps sorted by operation, then the free
+# tools and How We Test. Every live app must be in exactly one group (a test checks), so a new app needs a line here.
+OPERATIONS = [
+    ("For ranches", "Cattle and grass", ["herd-planner", "grazing-planner"]),
+    ("For farms", "Crops and machines", ["corn-yield-predictor", "farm-equipment-planner"]),
+]
 HISTORY_WEEKS = 12  # weeks listed on each app page
 
 
@@ -60,23 +69,98 @@ def e(text):
     return html.escape(text, quote=True)
 
 
+def mega_menu(apps) -> str:
+    """The header's Our Farm Apps menu: a <details> element (opens without JavaScript; static/menu.js closes it on
+    a click elsewhere, Escape or a chosen link). Each app links to its page here, with its logo and one line."""
+    by_id = {a["id"]: a for a in apps}
+
+    def app_link(a):
+        return (f'          <a class="mega-app" href="{APP_PAGE.format(e(a["id"]))}">'
+                f'<img src="suite/suite-logos/{e(a["id"])}.svg" alt="" width="40" height="40">'
+                f'<span><b>{e(a["name"])}</b><small>{e(a["what"])}</small></span></a>')
+    groups = []
+    for title, lead, ids in OPERATIONS:
+        links = "\n".join(app_link(by_id[i]) for i in ids if i in by_id)
+        if links:
+            groups.append(f'        <div class="mega-op">\n          <p class="mega-op-title">{e(title)}</p>\n'
+                          f'          <p class="mega-op-lead">{e(lead)}</p>\n{links}\n        </div>')
+    return "\n".join([
+        '<details class="mega" data-mega>',
+        '      <summary>Our Farm Apps</summary>',
+        '      <div class="mega-panel">',
+        *groups,
+        '        <div class="mega-more">',
+        '          <div><p class="mega-head">Free for everyone</p>',
+        '          <a href="barns.html">Barn Prices<small>This week&#8217;s feeder prices at your barn</small></a>',
+        '          <a href="index.html#this-week">This week in your county<small>Steer price, trend yield, grass, field days</small></a></div>',
+        '          <div><p class="mega-head">Why trust it</p>',
+        '          <a href="methods.html">How We Test<small>Real results, and where we fell short</small></a></div>',
+        '        </div>',
+        f'        <p class="mega-foot"><span>One account for every app.</span><a href="{e(config.ACCOUNT_URL)}">Your Account &#8594;</a></p>',
+        '      </div>',
+        '    </details>'])
+
+
 def load_copy():
     """The site's longer words about each app (content/apps.json), keyed by app id."""
     return json.loads((CONTENT / "apps.json").read_text(encoding="utf-8"))
 
 
-def app_tile(app, copy):
-    """A big tile in the opening row: the whole tile is the link, so it's easy to hit on a phone."""
-    inner = f"""<img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">
+def short_county(week) -> str:
+    """ "Frontier County" -> "Frontier Co." for the small line under a tile's number."""
+    return week["place"]["county"].replace(" County", " Co.")
+
+
+def tile_stat(app_id, week):
+    """(number, unit, small line, tone) for an app tile's top right corner: this week's number from the county
+    of the week (the same cards the live panel and app pages use), or None when there isn't one this week
+    (a stale steer price, or an Iowa county for the Grazing Planner)."""
+    card = week["cards"].get(app_id)
+    if not card:
+        return None
+    where = short_county(week)
+    if app_id == cards.HERD:
+        barn = card["market"].rsplit(",", 1)[-1].strip()  # "Bassett Livestock Auction, Bassett NE" -> "Bassett NE"
+        return f'${card["value"]:,.0f}', "/cwt", f"550 lb steer, {barn}", ""
+    if app_id == cards.CORN:
+        return f'{card["value"]:,.0f}', " bu/ac", f"{where} trend corn", ""
+    if app_id == cards.EQUIP:
+        return f'{card["value"]:,.0f}', " of 61 days", f"{where} fall field days", ""
+    if app_id == cards.GRAZE:
+        pct = round(abs(card["value"]) * 100)
+        small = f'{where} grass, {card.get("season", "")}'.rstrip(", ")
+        if pct <= 2:
+            return "About", " normal", small, ""
+        if card["value"] < 0:  # red means the downside, always with an arrow and words
+            return f"\u25bc {pct}%", " below normal", small, "down"
+        return f"\u25b2 {pct}%", " above normal", small, ""
+    return None
+
+
+def app_tile(app, copy, week):
+    """A big tile in the opening row: the whole tile is the link, so it's easy to hit on a phone. Top right:
+    this week's number from the app (tile_stat); bottom right: free to try, and the starting price once
+    billing exists (config.SHOW_PRICES)."""
+    stat = tile_stat(app["id"], week)
+    stat_html = ""
+    if stat:
+        number, unit, small, tone = stat
+        detail = week["cards"][app["id"]]["detail"]
+        stat_html = (f'<span class="tile-stat" title="{e(detail)}"><span class="tile-number">'
+                     f'<b class="{tone}">{e(number)}</b>{e(unit)}</span><small>{e(small)}</small></span>')
+    inner = f"""<span class="tile-top"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">{stat_html}</span>
         <span class="tile-words"><strong>{e(app["name"])}</strong><span>{e(copy["question"])}</span></span>"""
+    price = (f'<br>Plan from <b>{e(copy["price_from"])}/mo</b>' if config.SHOW_PRICES and copy.get("price_from") else "")
     if app["url"]:
         return f"""      <a class="tile" href="{e(app["url"])}">
         {inner}
-        <span class="btn small" aria-hidden="true">Open</span>
+        <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try{price}</span></span>
       </a>"""
+    later = (f'<span class="tile-price">Plan from <b>{e(copy["price_from"])}/mo</b></span>'
+             if config.SHOW_PRICES and copy.get("price_from") else "")
     return f"""      <div class="tile soon">
         {inner}
-        <span class="status">Coming soon</span>
+        <span class="tile-bottom"><span class="status">Coming soon</span>{later}</span>
       </div>"""
 
 
@@ -90,13 +174,28 @@ def dev_tile(app):
       </div>"""
 
 
+def app_shot(app, copy):
+    """The app on a computer (its real header joined to a real answer) with the same answer on a phone in
+    front: static/shots/<id>-computer.jpg and -phone.jpg, taken from the running app. Until an app has
+    both pictures it keeps the plain placeholder."""
+    computer, phone = SHOTS / f'{app["id"]}-computer.jpg', SHOTS / f'{app["id"]}-phone.jpg'
+    if not (computer.exists() and phone.exists()):
+        return f'<div class="placeholder shot">Screenshot of {e(app["name"])}</div>'
+    where = urllib.parse.urlsplit(app["url"]).netloc if app["url"] else "Coming soon"
+    return f"""<figure class="shot showcase">
+        <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>{e(where)}</span></div>
+          <img src="shots/{e(app["id"])}-computer.jpg" alt="{e(copy["shot_alt"])}" width="1100" height="825" loading="lazy"></div>
+        <div class="phone"><img src="shots/{e(app["id"])}-phone.jpg" alt="" loading="lazy"></div>
+      </figure>"""
+
+
 def app_row(app, copy, flip):
     """One app's section: a screenshot space beside who it's for, what it does, and a button."""
     points = "\n".join(f"          <li>{e(p)}</li>" for p in copy["points"])
     button = (f'<a class="btn" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"]
               else '<span class="status">Coming soon</span>')
     return f"""    <div class="app-row{' flip' if flip else ''}" id="{e(app["id"])}">
-      <div class="placeholder shot">Screenshot of {e(app["name"])}</div>
+      {app_shot(app, copy)}
       <div>
         <p class="eyebrow">{e(copy["audience"])}</p>
         <h3>{e(app["name"])}</h3>
@@ -188,6 +287,10 @@ def history_table(app_id, weeks):
     </div>"""
 
 
+# The apps with a card in the Friday county-of-the-week job (cards.py). Others (the Grazing Planner, so
+# far) have an app page without "This Week" and "Recent Weeks".
+WEEKLY = (cards.HERD, cards.CORN, cards.EQUIP)
+
 APP_METHOD = {
     cards.HERD: ("Herd Planner fits a price model to USDA auction reports from the sale barn nearest the "
                  "week's county that sold in the last three weeks (its own state first, then neighbors; "
@@ -201,11 +304,18 @@ APP_METHOD = {
                   "days before, the same rule the Equipment Planner uses to price harvest delays. We count "
                   "those days from October 1 to November 30 in every fall since 2000: the typical fall is the "
                   "median, the wet fall the 10th percentile. It counts rain only, not snow or frozen ground."),
+    "grazing-planner": ("Each county's grass is the Rangeland Analysis Platform's satellite estimate of forage grown on "
+                        "its grassland (cropland masked out). \"Normal\" is the county's average over the 10 seasons "
+                        "before. The forecast learns from every earlier season how the weather so far, and the grass "
+                        "already grown, relate to how the season ends; its range comes from how far off it was in "
+                        "those seasons. Head counts use the standard animal-unit-month arithmetic with a 25% harvest "
+                        "on native range."),
 }
 APP_SOURCE = {
     cards.HERD: "USDA AMS Market News auction reports",
     cards.CORN: "USDA NASS county corn yields, all practices, 2000 on",
     cards.EQUIP: "NASA POWER daily rainfall, 2000 on",
+    "grazing-planner": "Rangeland Analysis Platform (USDA Agricultural Research Service), NASA POWER weather",
 }
 HISTORY_NOTE = {
     cards.HERD: "Prices are what the model said that week, at the barn nearest that county.",
@@ -214,18 +324,33 @@ HISTORY_NOTE = {
 }
 
 
-def app_page_values(app, copy, week, weeks):
+def week_blocks(app, week, weeks):
+    """This Week and Recent Weeks for an app in the Friday job; for other apps, how to get this season's
+    numbers from the app itself."""
+    if app["id"] not in WEEKLY:
+        link = (f'<a href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"] else e(app["name"]))
+        return (f"""        <h2>This Season</h2>
+        <p>Pick your county in the app: {link}. The forecasts update every Monday from April to November,
+          as new satellite and weather data come in.</p>""", "")
     place = week["place"]
+    card = stat_card(app, week["cards"].get(app["id"]), week, link=False)
+    history = history_table(app["id"], weeks)
+    return (f"""        <h2>This Week: {e(f'{place["county"]}, {place["state_name"]}')}</h2>
+{card}""", f"""    <h2>Recent Weeks</h2>
+    <p class="section-lede">Each Friday we pick a farm county and add a line here. {e(HISTORY_NOTE[app["id"]])}</p>
+{history}
+""")
+
+
+def app_page_values(app, copy, week, weeks):
+    week_block, history_block = week_blocks(app, week, weeks)
     return {
         "app_id": e(app["id"]), "app_name": e(app["name"]), "question": e(copy["question"]),
         "audience": e(copy["audience"]), "note": e(copy["note"]),
         "points": "\n".join(f"          <li>{e(p)}</li>" for p in copy["points"]),
         "open_button": (f'<a class="btn" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"]
                         else '<span class="status">Coming soon</span>'),
-        "place": e(f'{place["county"]}, {place["state_name"]}'),
-        "card": stat_card(app, week["cards"].get(app["id"]), week, link=False),
-        "history": history_table(app["id"], weeks),
-        "history_note": e(HISTORY_NOTE[app["id"]]),
+        "week_block": week_block, "history_block": history_block,
         "method": e(APP_METHOD[app["id"]]), "source": e(APP_SOURCE[app["id"]]),
     }
 
@@ -270,7 +395,7 @@ def contact_sentence():
     return "To reach us, use the Tell us button in Herd Planner. It comes straight to us."
 
 
-VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js")
+VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js")
 
 
 def versioned(page: str) -> str:
@@ -299,19 +424,20 @@ def build():
         "location": e(config.LOCATION),
         "year": str(config.YEAR),
         "herd_url": e(herd["url"] or "#apps"),
-        "app_tiles": "\n".join([app_tile(a, copy[a["id"]]) for a in apps]
+        "app_tiles": "\n".join([app_tile(a, copy[a["id"]], week) for a in apps]
                                + [dev_tile(d) for d in copy.get("in_development", [])]),
         "account_url": e(config.ACCOUNT_URL),
         "app_rows": "\n".join(app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)),
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
         "contact_sentence": contact_sentence(),
+        "mega_menu": mega_menu(apps),
         "footer_apps": "\n".join(f'      <a href="{APP_PAGE.format(e(a["id"]))}">{e(a["name"])}</a>' for a in apps),
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
         "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
         "live_panel": hero.panel(week, stories, nice_date, barn_href),
-        "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps),
+        "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps if a["id"] in WEEKLY),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
     }
@@ -327,6 +453,7 @@ def build():
             description=e(description),
             canonical=e(config.SITE_URL + ("" if out_name == "index.html" else out_name)),
             **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy")},
+            nav_apps=(' data-current' if current == "apps" else ""),
         )
         (OUT / out_name).write_text(versioned(page), encoding="utf-8")
 
@@ -342,7 +469,7 @@ def build():
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],
-              f'{app["name"]}: {copy[app["id"]]["question"]}{lead}')
+              f'{app["name"]}: {copy[app["id"]]["question"]}{lead}', "apps")
     # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
     corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)
     picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},

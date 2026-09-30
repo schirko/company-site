@@ -14,6 +14,9 @@ Where the numbers come from:
 * Herd Planner: this week's 550 lb steer price, asked live from its public GET /suite/summary.
   It sleeps on Render's free plan, so `refresh` waits for it to wake (up to about 4 minutes).
   Sample prices are never published.
+* Grazing Planner: this season's grass against normal for the county (Nebraska counties only),
+  asked live from its public GET /api/season and POST /api/plan (the same answer anyone gets on
+  its page). Also on Render's free plan, so it gets the same wait. Shown on the home page's app tile.
 
 Each week is saved in content/cards/weeks.json (newest first) with a copy of every card, so a
 number on the site never changes after the week it was shown, and the app pages can list past weeks.
@@ -41,13 +44,14 @@ ROOT = Path(__file__).resolve().parent
 CARDS = ROOT / "content" / "cards"
 WEEKS = CARDS / "weeks.json"
 BARNS_FILE = CARDS / "barns.json"  # every sale barn's weekly price sheet, newest week first
-HERD, CORN, EQUIP = "herd-planner", "corn-yield-predictor", "farm-equipment-planner"
+HERD, CORN, EQUIP, GRAZE = "herd-planner", "corn-yield-predictor", "farm-equipment-planner", "grazing-planner"
 STATIC_APPS = (CORN, EQUIP)
 SIBLINGS = {  # where each app's exported card file lives, next to this project
     CORN: ROOT.parent / "crop-yield-predictor" / "data" / "processed" / "suite_card.json",
     EQUIP: ROOT.parent / "farm-equipment-planner" / "regional" / "data" / "suite_card.json",
 }
 HERD_PLANNER_URL = os.getenv("HERD_PLANNER_URL", "https://herd-planner.onrender.com")
+GRAZING_PLANNER_URL = os.getenv("GRAZING_PLANNER_URL", "https://grazing-planner.onrender.com")
 WAKE_TRIES, WAKE_WAIT, TIMEOUT = 8, 30, 30  # seconds: Render's free plan takes up to a minute to wake
 FRESH_DAYS = 21  # an older steer price isn't "this week" and isn't shown
 KEEP_WEEKS = 520  # ten years of history; the pages show the latest few
@@ -101,9 +105,13 @@ def place_for(day: date) -> dict:
 # --- Herd Planner -------------------------------------------------------------------------------
 
 
-def _get(url: str) -> tuple[int, dict]:
-    """One HTTP GET returning (status, JSON). Tests replace this."""
-    req = urllib.request.Request(url, headers={"User-Agent": "company-site weekly cards"})
+def _get(url: str, body: dict | None = None) -> tuple[int, dict]:
+    """One HTTP GET (or a POST of JSON when `body` is given) returning (status, JSON). Tests replace this."""
+    headers = {"User-Agent": "company-site weekly cards"}
+    data = None
+    if body is not None:
+        data, headers["Content-Type"] = json.dumps(body).encode("utf-8"), "application/json"
+    req = urllib.request.Request(url, data=data, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
             return r.status, json.loads(r.read().decode("utf-8"))
@@ -122,24 +130,64 @@ def fetch_barns(wait=time.sleep) -> tuple[dict | None, str]:
     return _ask(f"{HERD_PLANNER_URL.rstrip('/')}/suite/barns", wait)
 
 
-def _ask(url: str, wait) -> tuple[dict | None, str]:
+def _ask(url: str, wait, app: str = "Herd Planner", body: dict | None = None) -> tuple[dict | None, str]:
     last = ""
     for attempt in range(WAKE_TRIES):
         try:
-            status, body = _get(url)
+            status, answer = _get(url, body) if body is not None else _get(url)
         except (OSError, ValueError) as err:  # timeouts, refused connections, a half-awake server
-            status, body, last = 0, {}, f"no answer ({err.__class__.__name__})"
+            status, answer, last = 0, {}, f"no answer ({err.__class__.__name__})"
         if status == 200:
-            if body.get("is_sample"):
+            if answer.get("is_sample"):
                 return None, "Herd Planner only has sample prices; not published"
-            return body, "ok"
+            return answer, "ok"
         if status:
             last = f"HTTP {status}"
             if status in (404, 409, 422):  # a real answer: waiting won't change it
                 break
         if attempt + 1 < WAKE_TRIES:
             wait(WAKE_WAIT)
-    return None, f"Herd Planner didn't answer with prices: {last}"
+    return None, f"{app} didn't answer: {last}"
+
+
+# --- Grazing Planner ----------------------------------------------------------------------------
+
+GRASS_SOURCE = "Rangeland Analysis Platform (USDA Agricultural Research Service) and NASA POWER weather, via the Grazing Planner"
+GRASS_METHOD = ("The Grazing Planner's own answer for the county's grassland on its latest check date: grass grown so far "
+                "plus the forecast for the rest of the season, against the county's average over the 10 seasons before. "
+                "The range is where 8 in 10 seasons landed around forecasts made on the same date.")
+
+
+def fetch_grass(fips: str, wait=time.sleep) -> tuple[dict | None, str]:
+    """(card, note): this season's grass against normal for a county, from the Grazing Planner.
+    Only Nebraska counties are covered; others get (None, reason) without asking twice."""
+    base = GRAZING_PLANNER_URL.rstrip("/")
+    season, note = _ask(f"{base}/api/season", wait, app="Grazing Planner")
+    if not season:
+        return None, note
+    if fips not in {c["fips"] for c in season.get("counties", [])}:
+        return None, "the Grazing Planner doesn't cover this county"
+    ask = {"fips": fips, "acres": 1000, "kind": season["kinds"][0], "animal": season["animals"][0], "head": 1}
+    answer, note = _ask(f"{base}/api/plan", wait, app="Grazing Planner", body=ask)
+    return (grass_card(answer, season) if answer else None), note
+
+
+def grass_words(point: float) -> str:
+    """-0.081 -> "8% below normal"; within 2% either way is "about normal"."""
+    pct = round(abs(point) * 100)
+    if pct <= 2:
+        return "About normal"
+    return f"{pct}% {'below' if point < 0 else 'above'} normal"
+
+
+def grass_card(answer: dict, season: dict) -> dict:
+    g = answer["grass"]
+    when = f"forecast as of {answer['as_of_words']}" if g.get("forecast") else "the season as measured"
+    return {"label": f"Grass this season, {answer['season']}", "headline": grass_words(g["point"]),
+            "detail": (f"{answer['county']} County, NE grassland: about {g['lb']:,.0f} lb an acre this season against a "
+                       f"normal {g['normal_lb']:,.0f} ({when}). 8 in 10: {g['lb_low']:,.0f} to {g['lb_high']:,.0f}."),
+            "value": g["point"], "low": g["low"], "high": g["high"], "unit": "share vs normal",
+            "as_of": season["as_of"], "season": answer["season"], "source": GRASS_SOURCE, "method": GRASS_METHOD}
 
 
 # --- the weeks file -----------------------------------------------------------------------------
@@ -198,7 +246,7 @@ def record_barns(body: dict, today: date) -> str:
     return f"{len(body['barns'])} barns"
 
 
-def refresh(today: date | None = None, fetch=fetch_herd, barns=None) -> tuple[dict, list[str]]:
+def refresh(today: date | None = None, fetch=fetch_herd, barns=None, grass=None) -> tuple[dict, list[str]]:
     """Record this week (replacing it if refresh already ran this week). Returns (week, notes)."""
     today = today or datetime.now(timezone.utc).date()
     notes = copy_from_siblings()
@@ -212,6 +260,9 @@ def refresh(today: date | None = None, fetch=fetch_herd, barns=None) -> tuple[di
         notes.append(f"{HERD} ({state}): {note}")
         herd_by_state[state] = herd_card(body) if body else None
     cards[HERD] = herd_by_state[place["state"]]
+    card, note = (grass or fetch_grass)(place["fips"])
+    notes.append(f"{GRAZE}: {note}")
+    cards[GRAZE] = card
     body, note = (barns or fetch_barns)()  # Herd Planner is awake by now
     notes.append(f"barn pages: {record_barns(body, today) if body else note}")
     week = {"week": week_id(today), "date": today.isoformat(), "place": place, "cards": cards,

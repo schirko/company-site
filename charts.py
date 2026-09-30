@@ -175,7 +175,33 @@ def hire_wait(s: dict) -> str:
     return svg("".join(parts), s["chart_title"])
 
 
-KINDS = {"seasonal": seasonal, "keep_rate": keep_rate, "ladder": ladder, "hire_wait": hire_wait}
+def skill_by_date(s: dict) -> str:
+    """Columns: forecast skill (0 = no better than assuming a normal year, 1 = perfect) by forecast
+    date. A date with no skill gets no column, just the word "none" on the baseline."""
+    f = Frame(0, 1, [])
+    n = len(s["dates"])
+    band = (f.x1 - f.x0) / n
+    bw = min(28, band - 14)
+    parts = []
+    for t in (0, 0.25, 0.5, 0.75, 1):
+        y = f.y(t)
+        parts.append(f'<line x1="{f.x0}" x2="{f.x1}" y1="{y:.1f}" y2="{y:.1f}" class="grid{" zero" if t == 0 else ""}"/>')
+        parts.append(f'<text x="{f.x0 - 8}" y="{y + 4:.1f}" text-anchor="end" class="tick">{t:g}</text>')
+    for i, (d, v) in enumerate(zip(s["dates"], s["skill"])):
+        cx = f.x0 + band * (i + 0.5)
+        if v is None:
+            parts.append(f'<text x="{cx:.1f}" y="{f.y(0) - 6:.1f}" text-anchor="middle" class="value">none</text>'
+                         f'<title>{e(d)}: no better than assuming a normal year</title>')
+        else:
+            parts.append(bar(cx - bw / 2, bw, f.y(0), f.y(v), BLUE, f"{d}: skill {v:.2f}"))
+            parts.append(f'<text x="{cx:.1f}" y="{f.y(v) - 6:.1f}" text-anchor="middle" class="value">{v:.2f}</text>')
+        parts.append(f'<text x="{cx:.1f}" y="{H - BOTTOM + 18}" text-anchor="middle" class="tick">{e(d)}</text>')
+    parts.append(f'<text x="{(f.x0 + f.x1) / 2:.1f}" y="{H - 4}" text-anchor="middle" class="axis">Date the forecast is made</text>')
+    return svg("".join(parts), s["chart_title"])
+
+
+KINDS = {"seasonal": seasonal, "keep_rate": keep_rate, "ladder": ladder, "hire_wait": hire_wait,
+         "skill_by_date": skill_by_date}
 
 
 def draw(story: dict) -> str:
@@ -195,6 +221,10 @@ def table(story: dict) -> str:
     elif k == "ladder":
         head = ["Information added", "Score (R²)"]
         rows = [[a, f"{b:.3f}"] for a, b in zip(story["steps"], story["r2"])]
+    elif k == "skill_by_date":
+        head = ["Forecast made on", "Skill (0 = normal, 1 = perfect)", "Typical miss, % of normal"]
+        rows = [[d, "none" if v is None else f"{v:.2f}", f"{m:.1f}%"]
+                for d, v, m in zip(story["dates"], story["skill"], story["typical_miss_pct"])]
     else:
         head = ["Days the crew arrives later", "Custom hire cheaper in"]
         rows = [[str(a), f"{b:g}%"] for a, b in zip(story["delay_days"], story["custom_cheapest_pct"])]

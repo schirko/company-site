@@ -10,8 +10,11 @@
     {"id": "corn-yield-predictor", "name": "Yield Predictor",
      "what": "County crop yields from weather, soils and irrigation",
      "url": "https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app/"},
+    {"id": "grazing-planner", "name": "Grazing Planner",
+     "what": "This season's grass and how many head a pasture can carry",
+     "url": "https://grazing-planner.onrender.com/"},
     {"id": "farm-equipment-planner", "name": "Farm Equipment Planner",
      "what": "Whether a tractor, combine or implement pays for itself",
-     "url": null}
+     "url": "https://farm-equipment-planner.onrender.com/"}
   ]
 }

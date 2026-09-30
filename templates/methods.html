@@ -18,6 +18,44 @@
   </div>
 </section>
 
+<section class="honest" id="honest-ranges">
+  <div class="wrap narrow">
+    <h2>Honest Ranges</h2>
+    <p class="lede">Every answer comes with a range, and the range is checked against reality instead of just
+      claimed.</p>
+    <p>Here's an example from Herd Planner's price forecast (September 2026): <em>"In December, 550 lb steers at
+      Oklahoma City: about $$405/cwt, likely between $$365 and $$470."</em> That's an 80% range. It should hold the
+      real price about 8 times in 10.</p>
+
+    <h3>How a Range Is Made</h3>
+    <p>We replay the last few years. At each past month, the app forecasts using only what was known then, and we
+      write down how far off it was. The range comes from those real misses, not from a textbook formula that
+      assumes prices behave nicely.</p>
+
+    <h3>How It's Checked</h3>
+    <p>We count how often the real price actually landed inside. If an "80%" range only caught 6 in 10, it was
+      overconfident, and we widen it and say so. The app does this on its own: after a miss, the next range gets a
+      little wider; after a hit, a little narrower. When cattle prices fell sharply in 2026, the ranges widened
+      instead of pretending to know.</p>
+
+    <h3>Our Record So Far</h3>
+    <p>Herd Planner's three-month forecast for 550 lb steers, replayed over the last three years:</p>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th>Sale barn</th><th>1 month out</th><th>2 months out</th><th>3 months out</th></tr></thead>
+        <tbody>
+          <tr><td>Oklahoma City</td><td>83%</td><td>76%</td><td>78%</td></tr>
+          <tr><td>OKC West, El Reno</td><td>85%</td><td>76%</td><td>75%</td></tr>
+          <tr><td>Joplin</td><td>85%</td><td>82%</td><td>81%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">How often the 80% range really held the price. Close to 80, but not perfect, and we'd rather
+      show that than claim it. Further out, the range is wider: about $$20/cwt either way one month out, about
+      $$50 three months out. Source: Herd Planner notebook m17 (USDA auction reports, 2021-2026).</p>
+  </div>
+</section>
+
 <section class="band method-app" id="herd-planner">
   <div class="wrap narrow">
     <div class="method-head">
@@ -123,11 +161,63 @@
   </div>
 </section>
 
-<section class="band method-app" id="farm-equipment-planner">
+<section class="band method-app" id="grazing-planner">
+  <div class="wrap narrow">
+    <div class="method-head">
+      <img src="suite/suite-logos/grazing-planner.svg" alt="" width="48" height="48">
+      <h2>Grazing Planner</h2>
+    </div>
+    <p><strong>The question:</strong> how much grass will a pasture grow this season, and how many head can it carry?</p>
+    <p>Every Nebraska county's season from 2011 to 2025 was forecast using only the seasons before it, the way the app
+      would have seen it at the time. Skill compares with always assuming a normal year: 0 is no better, 1 is perfect.</p>
+
+    <h3>How early can the season be forecast?</h3>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th scope="col">Forecast made on</th><th scope="col">Typical miss</th><th scope="col">Skill</th></tr></thead>
+        <tbody>
+          <tr><td>Assume a normal year (any date)</td><td>11.5%</td><td>0</td></tr>
+          <tr><td>April 1</td><td>12.3%</td><td>none</td></tr>
+          <tr><td>May 1</td><td>11.7%</td><td>none</td></tr>
+          <tr class="ours"><td>June 1</td><td>9.4%</td><td>0.32</td></tr>
+          <tr class="ours"><td>June 15</td><td>8.3%</td><td>0.47</td></tr>
+          <tr class="ours"><td>July 1</td><td>6.3%</td><td>0.70</td></tr>
+          <tr class="ours"><td>August 1</td><td>4.7%</td><td>0.83</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Before June nothing beats "a normal year", so the app says it's too early to tell. The 80% ranges held 77 to
+      87% of the time from June 1 on.</p>
+
+    <h3>Against Grass-Cast</h3>
+    <p>Grass-Cast is the public grassland forecast from USDA and partners. Rerun on the same dates for the 40 counties
+      it covers, 2017 to 2025, ours scored higher from mid-June on: July 1, 0.69 against 0.36; August 1, 0.86 against
+      0.31. On June 1 the edge was small and not certain. One caution: both were graded against the satellite estimate
+      our model learns from, which favors ours.</p>
+
+    <h3>Does "enough grass 9 years in 10" hold?</h3>
+    <p>Every county and season 2011 to 2025, stocked the way the app advises and checked against the grass that really
+      grew. Stocking for a normal year ran short 48% of the time. The app's 9-in-10 head count ran short 10% of the time
+      in June and 9% by July 1, for about 12% fewer head than a normal year. Turning out 90% of a normal year and
+      checking again on July 1 (sell, or add when there's room) ran short 9% of the time and grazed 91% of a normal year.</p>
+
+    <h3>Where it falls short</h3>
+    <ul class="plain">
+      <li>It forecasts a county average from satellite estimates, not your pasture. Walk your pasture.</li>
+      <li>In the big years it gets the direction right but the size too small: 2022 ended 20% below normal statewide;
+        the June 15 forecast said 11% below.</li>
+      <li>A bad season hits most of the state at once: even stocking for 9 years in 10, a third
+        or more of Nebraska ran short together in 1 or 2 of the 15 seasons tested.</li>
+      <li>The satellite data runs about two weeks behind, so a July 1 check knows the grass through about mid-June.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="method-app" id="farm-equipment-planner">
   <div class="wrap narrow">
     <div class="method-head">
       <img src="suite/suite-logos/farm-equipment-planner.svg" alt="" width="48" height="48">
-      <h2>Farm Equipment Planner <small class="status">Coming soon</small></h2>
+      <h2>Farm Equipment Planner</h2>
     </div>
     <p><strong>The question:</strong> does a tractor, combine or implement pay for itself on my farm?</p>
     <p>Most of this app is established farm economics, so its first test is matching the published sources:</p>
@@ -155,6 +245,7 @@
   <div class="wrap narrow">
     <h2>Where the data comes from</h2>
     <p>Auction prices from USDA Market News; county yields and acreage from USDA NASS; weather from NASA POWER;
+      grassland forage from the Rangeland Analysis Platform (USDA Agricultural Research Service and partners);
       soils from USDA's Soil Data Access; elevation from USGS. All of it is public. None of these agencies endorses
       the apps, and any error in the analysis is ours.</p>
     <p class="note">The apps are decision aids, not financial, agronomic or insurance advice. Each app's own terms

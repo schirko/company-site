@@ -17,6 +17,57 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 .site-nav > a { text-decoration: none; font-weight: 600; }
 .site-nav > a[aria-current="page"] { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }
 
+/* Our Farm Apps menu (chosen 2026-09-30, option C): apps sorted by operation, the free tools, How We Test.
+   A <details> element; static/menu.js closes it on a click elsewhere, Escape or a chosen link. */
+.site-header { position: relative; }
+.mega > summary { list-style: none; cursor: pointer; font-weight: 600; color: rgba(255, 255, 255, .88);
+  display: inline-flex; align-items: center; gap: 7px; }
+.mega > summary::-webkit-details-marker { display: none; }
+.mega > summary::after { content: ""; width: 6px; height: 6px; margin-top: -3px; border: solid currentColor;
+  border-width: 0 2px 2px 0; transform: rotate(45deg); transition: transform .15s; }   /* a small down arrow */
+.mega[open] > summary::after { transform: rotate(-135deg); margin-top: 3px; }
+.mega > summary:hover, .mega[open] > summary { color: #fff; }
+.mega > summary:focus-visible { outline: 2px solid var(--suite-gold); outline-offset: 3px; border-radius: 2px; }
+.mega-wrap[data-current] .mega > summary { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }   /* on an app's page */
+.mega-panel { position: absolute; z-index: 60; top: calc(100% - 4px); left: 50%; transform: translateX(-50%);
+  width: min(1040px, calc(100vw - 32px)); box-sizing: border-box; padding: 22px 26px 16px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px 24px;
+  background: #fff; color: var(--suite-ink); border-radius: 14px; box-shadow: 0 14px 40px rgba(0, 0, 0, .18); }
+/* !important on the colors: suite.css makes every link in the green header white (.suite-bar a:not(...)), which
+   would hide these on the white panel. Scoped to the panel, so nothing else changes. */
+.mega-panel a { text-decoration: none; color: var(--suite-ink) !important; }
+.mega-op { background: #faf8f2; border-radius: 12px; padding: 16px; }
+.mega-op-title { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--suite-ink); }
+.mega-op-lead { margin: 0 0 10px; font-size: .86rem; color: var(--suite-muted); }
+.mega-panel a.mega-app { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: 0 -8px 2px;
+  border-radius: 10px; color: var(--suite-ink); }
+.mega-panel a.mega-app:hover, .mega-panel a.mega-app:focus-visible { background: var(--suite-gold-tint); }
+.mega-app img { flex: none; width: 40px; height: 40px; }
+.mega-app b { display: block; font-size: 1rem; }
+.mega-panel small { display: block; font-size: .84rem; font-weight: 400; color: var(--suite-muted); line-height: 1.35; }
+.mega-head { margin: 4px 0 8px; font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--suite-muted); }
+.mega-head + a { margin-top: 0; }
+.mega-more > div + div { margin-top: 18px; }
+.mega-panel .mega-more a { display: block; padding: 6px 0; font-weight: 700; color: var(--suite-ink); }
+.mega-panel .mega-more a:hover { color: var(--suite-deep-green) !important; text-decoration: underline; }
+.mega-foot { grid-column: 1 / -1; margin: 4px 0 0; padding-top: 12px; border-top: 1px solid var(--suite-line);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; font-size: .9rem; color: var(--suite-muted); }
+.mega-panel .mega-foot a { font-weight: 700; color: var(--suite-deep-green) !important; }
+/* Tablets: the free tools go under the two operations. Phones: one column, the height of the screen, scrolling. */
+@media (max-width: 860px) {
+  .mega-panel { grid-template-columns: 1fr 1fr; }
+  .mega-more { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+  .mega-more > div + div { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  .mega-panel { left: 8px; right: 8px; width: auto; transform: none; top: 100%; grid-template-columns: 1fr;
+    padding: 14px 14px 12px; gap: 12px; max-height: calc(100vh - 120px); overflow-y: auto; }
+  .mega-more { display: block; }
+  .mega-more > div + div { margin-top: 14px; }
+  .mega > summary { font-size: .95rem; }
+  .site-nav > .mega-wrap { order: 2; }
+}
+
 /* Look 2, "Suite, lighter": the website keeps the suite's green header and footer, gold buttons
    and logos, but on a white page. Only the suite's variables are changed here; suite.css itself
    stays identical to the master copy the apps share. */
@@ -70,6 +121,18 @@ a.tile:hover { border-color: var(--suite-gold-line); box-shadow: 0 4px 14px rgba
 .tile-words strong { font-size: 1.15rem; }
 .tile-words span { color: var(--suite-muted); }
 .tile .status { padding: 6px 0; }
+/* Top right: this week's number from the app, for the county of the week. Bottom right: free to try (and the
+   starting price once billing exists). Red only for the downside, always with an arrow and words. */
+.tile-top, .tile-bottom { display: flex; justify-content: space-between; gap: 10px; width: 100%; }
+.tile-top { align-items: flex-start; }
+.tile-bottom { align-items: center; margin-top: auto; }
+.tile-stat { text-align: right; line-height: 1.15; min-width: 0; }
+.tile-number { display: block; font-size: .8rem; color: var(--suite-muted); white-space: nowrap; }
+.tile-number b { font-size: 1.35rem; color: var(--suite-deep-green); }
+.tile-number b.down { color: #b54a1c; }
+.tile-stat small { display: block; font-size: .75rem; color: var(--suite-muted); margin-top: 2px; }
+.tile-price { text-align: right; font-size: .82rem; line-height: 1.3; color: var(--suite-muted); }
+.tile-price b { color: var(--suite-ink); }
 /* The app tiles are the products: a thick deep-green frame so they stand out from the lighter,
    thin-bordered stat cards below them. */
 .tile { border: 3px solid var(--suite-deep-green); }
@@ -81,6 +144,19 @@ a.tile:hover { border-color: var(--suite-gold); }
 .app-row.flip > .shot { order: 2; }
 .app-row h3 { font-size: 1.4rem; margin: 0 0 8px; }
 .shot { aspect-ratio: 4 / 3; }
+/* Each app on a computer (its header joined to a real answer) with the phone in front, lower right.
+   Chosen 2026-09-30 from the mockups in notes/ (shot-mockups-phone-up). */
+.showcase { position: relative; margin: 0; }
+.showcase .browser { position: absolute; left: 0; top: 0; width: 92%; height: 90%; display: flex; flex-direction: column;
+  border-radius: 10px; overflow: hidden; border: 1px solid #cfd6d1; background: #fff; box-shadow: 0 10px 28px rgba(36, 59, 47, .16); }
+.showcase .bar { display: flex; align-items: center; gap: 6px; padding: 8px 10px; background: #e8ece9; border-bottom: 1px solid #d6dcd8; }
+.showcase .bar i { width: 9px; height: 9px; border-radius: 50%; background: #c3cbc6; }
+.showcase .bar span { margin-left: 10px; flex: 1; min-width: 0; background: #fff; border-radius: 6px; font-size: .72rem;
+  color: var(--suite-muted); padding: 3px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.showcase .browser img { display: block; width: 100%; height: auto; flex: 1; min-height: 0; object-fit: cover; object-position: top; }
+.showcase .phone { position: absolute; right: 0; bottom: 8%; width: 25%; aspect-ratio: 9 / 19; border: 6px solid #1f2a24;
+  border-radius: 20px; background: #fff; overflow: hidden; box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
+.showcase .phone img { display: block; width: 100%; height: auto; }
 ul.points { padding-left: 1.2em; margin: 0 0 10px; }
 ul.points li { margin-bottom: .45em; }
 .meta { color: var(--suite-muted); font-size: .9rem; }
@@ -106,6 +182,7 @@ ul.points li { margin-bottom: .45em; }
   .tiles { gap: 10px; }
   .tiles > .tile { flex-basis: 78%; padding: 16px; }
   .tile img { width: 44px; height: 44px; }
+  .tile-number b { font-size: 1.2rem; }
   .tile-words strong { font-size: 1.05rem; }
   .tile-words span { font-size: .9rem; }
   .slide-btn { display: none; }  /* phones swipe; the peek of the next tile shows there's more */
