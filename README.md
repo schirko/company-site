@@ -51,8 +51,8 @@ and `suite-apps.json` (the list of apps). The home page's app cards and the foot
 are built from that same list, so an app going live is still a one-file change.
 
 **The header's Our Farm Apps menu** (2026-09-30, option C of three mockups in `notes/mega-menu-mockups-2026-09-30.png`,
-after Tractor Zoom's Solutions menu): a panel sorted by operation, **For ranches** (Herd Planner, Grazing Planner)
-and **For farms** (Yield Predictor, Farm Equipment Planner), each app with its logo, its one line from
+after Tractor Zoom's Solutions menu): a panel sorted by operation, **For Ranches** (Herd Planner, Grazing Planner)
+and **For Farms** (Yield Predictor, Farm Equipment Planner), each app with its logo, its one line from
 `suite-apps.json` and a link to its page here; then **Free for everyone** (Barn Prices, This week in your county),
 **Why trust it** (How We Test), and a strip linking to Your Account. `build.mega_menu()` draws it; which group an
 app belongs to is `OPERATIONS` in `build.py`, and a test fails if a live app isn't in exactly one group, so a new

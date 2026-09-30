@@ -54,8 +54,8 @@ APP_PAGE = "{}.html"
 # The Our Farm Apps menu in the header (chosen 2026-09-30, option C): apps sorted by operation, then the free
 # tools and How We Test. Every live app must be in exactly one group (a test checks), so a new app needs a line here.
 OPERATIONS = [
-    ("For ranches", "Cattle and grass", ["herd-planner", "grazing-planner"]),
-    ("For farms", "Crops and machines", ["corn-yield-predictor", "farm-equipment-planner"]),
+    ("For Ranches", "Cattle and grass", ["herd-planner", "grazing-planner"]),
+    ("For Farms", "Crops and machines", ["corn-yield-predictor", "farm-equipment-planner"]),
 ]
 HISTORY_WEEKS = 12  # weeks listed on each app page
 
