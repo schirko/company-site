@@ -9,7 +9,7 @@
       "Plans your herd size: runs 1,000 possible futures to find how many heifers to keep to reach your goal on the grass you have",
       "Records that work at the chute, from weights to calving and health, even with no signal"
     ],
-    "note": "Free for record keeping. The first visit can take a minute to wake up.",
+    "note": "Keep your herd records and see your barn's prices. The first visit can take a minute to wake up.",
     "price_from": "$12",
     "shot_alt": "Herd Planner on a computer and a phone, showing a demo ranch's answer: keeping a 367 lb steer calf for 120 days is worth about $204 more than selling today, with the costs of keeping and what each length of keeping is worth."
   },
@@ -22,7 +22,7 @@
       "Maps where the model is strong and where it misses, so you know when to trust it",
       "Shows which weather matters for which crop, and where: August rain decides soybeans, and a long dry spell hurts Nebraska corn but not Iowa's"
     ],
-    "note": "Free, no account needed. Corn and soybeans, Nebraska and Iowa.",
+    "note": "No account needed. Corn and soybeans, Nebraska and Iowa.",
     "price_from": "$10",
     "shot_alt": "Yield Predictor on a computer, showing a map of average corn yield by Nebraska county, 2000 to 2025, and on a phone, Hall County's yield history, actual against predicted, with the 80% range around each prediction."
   },
@@ -48,7 +48,7 @@
       "Green-up date in spring, and a July 1 and August 1 check: keep, move or sell",
       "Tested season by season on 2011-2025, and against Grass-Cast, the public forecast from USDA and partners"
     ],
-    "note": "Free, no sign-in. Nebraska counties for now; drawing your own pasture comes later.",
+    "note": "No sign-in needed to try it. Nebraska counties for now; drawing your own pasture comes later.",
     "price_from": "$9",
     "shot_alt": "Grazing Planner on a computer and a phone, showing the August 1 check for 120 pairs on 2,000 acres of Frontier County, Nebraska native range: keep your 120 pairs; this year's grass is 8% below normal."
   },
