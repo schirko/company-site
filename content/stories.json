@@ -60,7 +60,8 @@
    ],
    "takeaway": "Most calves are weaned in the fall, so a wave of supply meets the fall market. Holding calves into winter or spring can mean selling into a stronger month, if the extra feed and gain pay for themselves. Herd Planner weighs exactly that for each animal.",
    "caution": "Each month has only 4 or 5 years behind it, in a strongly rising market. Read these as tendencies, not guarantees.",
-   "source": "USDA AMS auction reports, Oklahoma National Stockyards, 2021-2026; seasonal index by ratio to a centered 12-month moving average (Herd Planner notebook m4)."
+   "source": "USDA AMS auction reports, Oklahoma National Stockyards, 2021-2026; seasonal index by ratio to a centered 12-month moving average (Herd Planner notebook m4).",
+   "how_to_read": "Each bar is one month. Above 0, that month usually pays more than the price trend; below 0, less. Blue is calves (500-600 lb), orange heavy feeders (800-900 lb)."
   },
   {
    "id": "heifers-to-keep",
@@ -97,7 +98,8 @@
    ],
    "takeaway": "Even keeping every heifer, a herd grows only about 9 cows per 100 a year, starting two years later. Growth also costs cash now: keeping all of them averages about $1,700 below break-even in each of the first three years. Herd Planner runs 1,000 possible futures of prices, weather and biology to show both sides.",
    "caution": "A simulated 40-cow herd at 2026 prices, with the keep-rate fixed for every year. A real rancher adjusts each fall.",
-   "source": "1,000 simulated futures per keep-rate: breeding, calf survival and deaths drawn at random, good and bad years, and prices as a random walk at the measured 15% a year volatility (Herd Planner notebook m7)."
+   "source": "1,000 simulated futures per keep-rate: breeding, calf survival and deaths drawn at random, good and bad years, and prices as a random walk at the measured 15% a year volatility (Herd Planner notebook m7).",
+   "how_to_read": "Each bar is a share of heifer calves kept every fall. Its height is how many of 100 simulated futures grow the herd to 60 head by 2031."
   },
   {
    "id": "what-explains-yield",
@@ -124,7 +126,8 @@
    ],
    "takeaway": "Irrigation isn't published as a county number, so the Yield Predictor rebuilds it from USDA acreage reports. It mattered more than any model tuning, because it came from knowing how Nebraska farms. In Iowa, which barely irrigates, corn-soybean rotation plays that role.",
    "caution": "Scored on whole agricultural districts held out from training, 2,002 Nebraska county-years, 2000-2025. A county average, not a single farm.",
-   "source": "USDA NASS county yields and acreage, NASA POWER weather, USDA soil ratings; spatial R\u00b2 from leave-district-out validation (Yield Predictor README, Headline Result 2)."
+   "source": "USDA NASS county yields and acreage, NASA POWER weather, USDA soil ratings; spatial R\u00b2 from leave-district-out validation (Yield Predictor README, Headline Result 2).",
+   "how_to_read": "Each bar adds one more kind of information to the model. Its length is the score on counties the model never saw: 0 is no better than guessing the average yield, 1.0 would be perfect."
   },
   {
    "id": "own-or-hire",
@@ -169,7 +172,8 @@
    ],
    "takeaway": "Without any wait, custom hire beats owning at every farm size one combine can cover. What makes owning pay is timeliness: harvesting when the crop is ready, before the wet weeks cost you yield. The Equipment Planner replays your county's real falls to price that wait.",
    "caution": "Hall County, Nebraska; 210 bu corn at $4.80, 5-year horizon, used combine $430,000, custom rate $46.05 an acre. Taxes are left out.",
-   "source": "Falls 2000-2025 replayed with NASA POWER daily rainfall, USDA NASS county yields, and corn price volatility 0.15 (USDA RMA); 1,000 simulated 5-year futures per delay (Equipment Planner notebook m7)."
+   "source": "Falls 2000-2025 replayed with NASA POWER daily rainfall, USDA NASS county yields, and corn price volatility 0.15 (USDA RMA); 1,000 simulated 5-year futures per delay (Equipment Planner notebook m7).",
+   "how_to_read": "Each bar is how many days after you could start that the custom crew arrives. Its height is the share of simulated futures in which hiring is still cheaper than owning a used combine."
   },
   {
    "id": "grass-forecast-skill",
@@ -204,7 +208,8 @@
    ],
    "takeaway": "Winter and spring moisture set the season up, but the strongest clue is the grass that has already grown. So the Grazing Planner says \"too early to tell\" before June, and plans the keep, move or sell checks for July 1 and August 1, when the forecast has earned its keep.",
    "caution": "Each season was forecast only from the seasons before it, 2011-2025, on county averages of satellite estimates, not a single pasture. In the big years it gets the direction right but the size too small: 2022 ended 20% below normal; the June 15 forecast said 11% below.",
-   "source": "Rangeland Analysis Platform (USDA ARS) county forage production and NASA POWER weather; next-season tests 2011-2025, weather plus grass grown so far (Grazing Planner README, Results: Forecasting This Season's Grass)."
+   "source": "Rangeland Analysis Platform (USDA ARS) county forage production and NASA POWER weather; next-season tests 2011-2025, weather plus grass grown so far (Grazing Planner README, Results: Forecasting This Season's Grass).",
+   "how_to_read": "Each column is a date the forecast is made. 0 means no better than assuming a normal year, 1 would be perfect. The later in the season, the more grass has already grown and the better the forecast."
   }
  ]
 }

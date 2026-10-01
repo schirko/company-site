@@ -324,7 +324,44 @@ HISTORY_NOTE = {
 }
 
 
-def week_blocks(app, week, weeks):
+def herd_week_card(card, week, barn, href):
+    """Herd Planner's This Week card (option C, Scott 2026-09-30): the 550 lb steer price at the barn with its 8-in-10
+    band, then "sell now or wait?": that barn's steer-calf months against an average month, this month marked.
+    Falls back to the plain stat card when there's no price or no season pattern."""
+    season = next((x for x in (barn or {}).get("seasons") or [] if x.get("key") == "calves"), None)
+    if not card or not season:
+        return None
+    sold = date.fromisoformat(card["as_of"])
+    m = date.fromisoformat(week["date"]).month
+    typical = {t["month"]: t["index"] for t in season["typical"]}
+    index = [typical.get(i, 1.0) for i in range(1, 13)]
+    pct = lambda month: (typical[month] - 1) * 100
+    def words(month):
+        v = pct(month)
+        return "about the same as an average month" if abs(v) < 1 else f"about {abs(v):.0f}% {'above' if v > 0 else 'below'} an average month"
+    best, worst = charts.MONTH_NAMES[season["best"] - 1], charts.MONTH_NAMES[season["worst"] - 1]
+    now = charts.MONTH_NAMES[m - 1]
+    band = hero.range_bar(card["low"], card["value"], card["high"], card["low"] * 0.97, card["high"] * 1.03,
+                          (hero.money(card["low"]), "", hero.money(card["high"])), marker="this sale")
+    lean = "" if season.get("clear", True) else " (a lean, not a rule: the gap is within the year-to-year noise)"
+    link = f'<a class="week-link" href="{e(href)}">See {e(barn["name"])}&#8217;s full price sheet</a>' if href else ""
+    return f"""      <div class="stat-card week-card">
+        <span class="stat-label">550 lb steer &middot; {e(card["market"])} &middot; sale of {sold:%b} {sold.day}</span>
+        <span class="week-price">{hero.money(card["value"])}<small>/cwt</small></span>
+        <span class="week-sub">about <b>{hero.money(card["value"] * 5.5)}</b> a head &middot; 8 in 10 sales {hero.money(card["low"])} to {hero.money(card["high"])}</span>
+        {band}
+        <div class="week-split">
+          <span class="stat-label">Sell now or wait? Steer calves by month</span>
+          {hero.month_strip(index, m - 1)}
+          <span class="stat-detail"><b>Now ({now}):</b> {words(m)}. <b>{best}</b> typically runs {words(season["best"])},
+            <b>{worst}</b> {words(season["worst"])}{lean}. Waiting also means feed and gain: Herd Planner weighs both for each calf.</span>
+        </div>
+        <span class="stat-source">Source: {e(card["source"])}; the months from USDA reports since 2021, with the market&#8217;s rise taken out.</span>
+        {link}
+      </div>"""
+
+
+def week_blocks(app, week, weeks, barns=None, barn_href=None):
     """This Week and Recent Weeks for an app in the Friday job; for other apps, how to get this season's
     numbers from the app itself."""
     if app["id"] not in WEEKLY:
@@ -333,7 +370,12 @@ def week_blocks(app, week, weeks):
         <p>Pick your county in the app: {link}. The forecasts update every Monday from April to November,
           as new satellite and weather data come in.</p>""", "")
     place = week["place"]
-    card = stat_card(app, week["cards"].get(app["id"]), week, link=False)
+    raw = week["cards"].get(app["id"])
+    card = None
+    if app["id"] == cards.HERD and raw and barns:
+        slug = str(raw.get("market_slug", ""))
+        card = herd_week_card(raw, week, barns.get(slug), barn_href(slug) if barn_href else None)
+    card = card or stat_card(app, raw, week, link=False)
     history = history_table(app["id"], weeks)
     return (f"""        <h2>This Week: {e(f'{place["county"]}, {place["state_name"]}')}</h2>
 {card}""", f"""    <h2>Recent Weeks</h2>
@@ -342,8 +384,8 @@ def week_blocks(app, week, weeks):
 """)
 
 
-def app_page_values(app, copy, week, weeks):
-    week_block, history_block = week_blocks(app, week, weeks)
+def app_page_values(app, copy, week, weeks, barns=None, barn_href=None):
+    week_block, history_block = week_blocks(app, week, weeks, barns, barn_href)
     return {
         "app_id": e(app["id"]), "app_name": e(app["name"]), "question": e(copy["question"]),
         "audience": e(copy["audience"]), "note": e(copy["note"]),
@@ -369,7 +411,7 @@ def load_stories():
     return json.loads((CONTENT / "stories.json").read_text(encoding="utf-8"))["stories"]
 
 
-def story_block(story, apps_by_id, heading="h3", link=True):
+def story_block(story, apps_by_id, heading="h3", link=True, how=False):
     app = apps_by_id[story["app"]]
     more = (f'<p class="story-link"><a href="{APP_PAGE.format(e(app["id"]))}">More about {e(app["name"])}</a></p>'
             if link else "")
@@ -378,6 +420,7 @@ def story_block(story, apps_by_id, heading="h3", link=True):
         <{heading}>{e(story["title"])}</{heading}>
         <p class="story-headline">{e(story["headline"])}</p>
         <p class="chart-title">{e(story["chart_title"])}</p>
+        {f'<p class="how-to-read"><strong>How to read it:</strong> {e(story["how_to_read"])}</p>' if how and story.get("how_to_read") else ""}
         {charts.draw(story)}
         <figcaption>
           <p>{e(story["takeaway"])}</p>
@@ -462,10 +505,14 @@ def build():
         write(out_name, body, title, description, current)
     app_template = Template((TEMPLATES / "app.html").read_text(encoding="utf-8"))
     for app in apps:
-        v = app_page_values(app, copy[app["id"]], week, weeks)
+        v = app_page_values(app, copy[app["id"]], week, weeks, all_barns, barn_href)
         own = [st for st in stories if st["app"] == app["id"]]
-        v["stories"] = ("    <h2>What the Numbers Show</h2>\n" + "\n".join(
-            story_block(st, apps_by_id, heading="h3", link=False) for st in own)) if own else ""
+        # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
+        # read it" line on each chart (stories.json "how_to_read").
+        v["stories"] = (f"""    <h2>What the Numbers Show</h2>
+    <p class="section-lede">{"Findings from the work behind " + e(app["name"]) + ", each with its source and its limits." if len(own) > 1 else "A finding from the work behind " + e(app["name"]) + ", with its source and its limits."}</p>
+    <div class="stories-compact{' pair' if len(own) > 1 else ''}">
+""" + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True) for st in own) + "\n    </div>") if own else ""
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],

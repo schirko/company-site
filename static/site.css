@@ -406,3 +406,22 @@ table.barns-table td .note { white-space: normal; }
 /* How We Test: the Honest Ranges section (what an 80% range means, and its record) */
 .honest { padding: 8px 0 36px; }
 .honest h3 { font-size: 1.05rem; margin: 22px 0 6px; }
+
+/* App pages (2026-09-30, Scott: "jazz up This Week"; "everything below is way too big") ---------------------- */
+/* Herd Planner's This Week: the price, its band, then sell now or wait */
+.week-card { background: #fff !important; border: 1px solid var(--suite-line); border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, .06); }
+.week-card .week-price { font-size: 2.6rem; font-weight: 800; line-height: 1; color: var(--suite-deep-green, #243b2f); }
+.week-card .week-price small { font-size: 1rem; font-weight: 600; color: var(--suite-muted); }
+.week-card .week-sub { color: var(--suite-ink); }
+.week-card .week-split { border-top: 1px solid var(--suite-line); margin-top: 8px; padding-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+.week-card svg.mini { max-width: 320px; }
+.week-card .week-link { font-weight: 600; }
+/* What the Numbers Show: smaller charts, side by side, each with How to read it */
+.stories-compact { display: grid; gap: 18px; align-items: start; margin-bottom: 8px; }
+.stories-compact.pair { grid-template-columns: 1fr 1fr; }
+.stories-compact:not(.pair) .story { max-width: 640px; }
+.stories-compact .story { margin: 0; }
+.stories-compact .story-headline { font-size: .98rem; }
+.stories-compact figcaption p { font-size: .9rem; }
+.how-to-read { font-size: .88rem; background: var(--band, #f3f6f3); border-radius: 6px; padding: 7px 10px; margin: 4px 0 8px; }
+@media (max-width: 760px) { .stories-compact.pair { grid-template-columns: 1fr; } }

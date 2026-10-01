@@ -56,3 +56,31 @@ def test_home_shows_every_story_and_app_pages_show_their_own(site):
         assert title in home
         page = (site / build.APP_PAGE.format(s["app"])).read_text(encoding="utf-8")
         assert title in page and "What the Numbers Show" in page
+
+
+def test_every_story_says_how_to_read_its_chart():
+    """Scott (2026-09-30): the charts on the app pages were too big and unexplained."""
+    for s in build.load_stories():
+        assert len(s.get("how_to_read", "")) > 40, s["id"]
+
+
+def test_app_pages_show_their_charts_small_and_explained(site):
+    for app in build.load_apps():
+        page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        own = [s for s in build.load_stories() if s["app"] == app["id"]]
+        assert 'class="stories-compact' in page
+        assert page.count('class="how-to-read"') == len(own)
+        if len(own) > 1:
+            assert 'class="stories-compact pair"' in page
+
+
+def test_herd_planners_this_week_card_has_the_price_and_the_months(site):
+    page = (site / "herd-planner.html").read_text(encoding="utf-8")
+    week = build.cards.current()
+    card = week["cards"].get("herd-planner")
+    if not card:
+        pytest.skip("no fresh steer price this week")
+    assert 'class="stat-card week-card"' in page
+    assert f'${card["value"]:,.0f}<small>/cwt</small>' in page
+    assert "Sell now or wait?" in page and "<b>Now (" in page
+    assert "full price sheet" in page          # links to the barn's own page

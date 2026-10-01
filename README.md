@@ -200,6 +200,22 @@ pairs), the Yield Predictor's map and Hall County, the Equipment Planner's buy, 
 County. Retake them when an app's look changes: desktop at 1000 x 750, phone at 390 wide, both at 2x,
 then shrink to those widths as JPEG (quality about 84). A test keeps the set under 900 KB.
 
+## The app pages: This Week and What the Numbers Show (2026-09-30)
+
+- **Herd Planner's This Week** (`build.herd_week_card`, option C of three mockups in `notes/hp-week-A/B/C.png`):
+  the 550 lb steer price at the week's barn with its 8-in-10 band (`hero.range_bar`), about what a head brings,
+  then **Sell now or wait?**: that barn's steer-calf months against an average month (`hero.month_strip`, this
+  month dark), in words: now, the best month and the worst ("Now (September): about 3% below an average month.
+  March typically runs about 5% above..."), from the barn's own `seasons` in `content/cards/barns.json`. It links to
+  the barn's page. With no fresh price or no season pattern, the plain stat card shows instead.
+- **What the Numbers Show** on every app page: a one-line intro, the charts in a compact grid (two side by side
+  when an app has two, one at most 640 px wide otherwise, stacked on phones), and a **How to read it** line on each
+  chart (`how_to_read` in `content/stories.json`; a test requires one for every story). Scott: the charts were
+  "way too big" and unexplained. The home page's Why Use Our Apps is unchanged.
+- **Photos** (Scott wants ranch and sale-barn pictures): only licensed ones (Unsplash or Pexels licenses, public
+  domain USDA/NRCS, paid stock, or your own or a ranch's with written OK); Scott picks and downloads them into
+  `notes/photos/` with where each came from, then they're sized and built in.
+
 ## Why Use Our Apps
 
 A home page section (and a "What the Numbers Show" section on each app page) with one real finding

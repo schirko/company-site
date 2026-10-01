@@ -263,6 +263,8 @@ def barn_history(points: list[tuple[str, float, float, float]]) -> str:
 
 
 MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+               "November", "December"]
 
 
 def season_order(season: dict) -> list[int]:
