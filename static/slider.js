@@ -1,5 +1,5 @@
-// The app tiles row on the home page: a row you can swipe or scroll sideways, snapping to each tile,
-// with arrow buttons for a mouse. Not an auto-rotating carousel: it only moves when the visitor moves it.
+// A row you can swipe or scroll sideways, snapping to each card, with arrow buttons for a mouse: the app tiles on
+// the home page, and This Week on the Herd Planner page (which also gets dots, data-dots, saying which card shows). Not an auto-rotating carousel: it only moves when the visitor moves it.
 // Without JavaScript the row still scrolls; the arrows just stay hidden.
 "use strict";
 (function () {
@@ -8,12 +8,18 @@
     const prev = slider.querySelector(".slide-btn.prev");
     const next = slider.querySelector(".slide-btn.next");
     const step = () => {
-      const tile = row.querySelector(".tile");
+      const tile = row.firstElementChild;
       const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
       return tile ? tile.getBoundingClientRect().width + gap : row.clientWidth;
     };
+    const dots = slider.hasAttribute("data-dots") ? slider.querySelector(".slide-dots") : null;
+    if (dots) dots.replaceChildren(...[...row.children].map(() => document.createElement("span")));
     const update = () => {
       const max = row.scrollWidth - row.clientWidth;
+      if (dots) {
+        const at = Math.round(row.scrollLeft / Math.max(1, step()));
+        [...dots.children].forEach((d, i) => d.classList.toggle("on", i === at));
+      }
       const fits = max <= 2;
       prev.hidden = fits || row.scrollLeft <= 2;
       next.hidden = fits || row.scrollLeft >= max - 2;

@@ -84,3 +84,14 @@ def test_herd_planners_this_week_card_has_the_price_and_the_months(site):
     assert f'${card["value"]:,.0f}<small>/cwt</small>' in page
     assert "Sell now or wait?" in page and "<b>Now (" in page
     assert "full price sheet" in page          # links to the barn's own page
+
+
+def test_herd_planners_this_week_is_a_slider_of_two_cards(site):
+    """Scott (2026-09-30): This Week as a slider: the price + sell now or wait, then the barn's whole price sheet."""
+    page = (site / "herd-planner.html").read_text(encoding="utf-8")
+    if 'class="stat-card week-card"' not in page:
+        pytest.skip("no fresh steer price this week")
+    assert 'class="slider week-slider" data-slider data-dots' in page
+    assert page.count('class="week-slide"') == 2
+    assert "The whole price sheet" in page and "<summary>Show the numbers</summary>" in page
+    assert 'src="slider.js?v=' in page

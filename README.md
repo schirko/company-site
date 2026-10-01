@@ -208,6 +208,11 @@ then shrink to those widths as JPEG (quality about 84). A test keeps the set und
   month dark), in words: now, the best month and the worst ("Now (September): about 3% below an average month.
   March typically runs about 5% above..."), from the barn's own `seasons` in `content/cards/barns.json`. It links to
   the barn's page. With no fresh price or no season pattern, the plain stat card shows instead.
+  **A slider** (Scott, same day): the card above is slide 1, and slide 2 is **the barn's whole price sheet** (steers and
+  heifers, 400 to 800 lb: a dot at the price and a pale 8-in-10 band, on a shared $ scale rather than bars from a
+  cut-off axis; "Show the numbers" has the table). Swipe, or the arrows under the card, with dots for which card is
+  showing (`slider.js`, shared with the home page's tiles; `data-dots`). A photo card can join as a slide once there
+  are licensed photos.
 - **What the Numbers Show** on every app page: a one-line intro, the charts in a compact grid (two side by side
   when an app has two, one at most 640 px wide otherwise, stacked on phones), and a **How to read it** line on each
   chart (`how_to_read` in `content/stories.json`; a test requires one for every story). Scott: the charts were

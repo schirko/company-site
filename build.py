@@ -361,6 +361,73 @@ def herd_week_card(card, week, barn, href):
       </div>"""
 
 
+def price_sheet_svg(prices) -> str:
+    """Steers and heifers, 400 to 800 lb, at one barn this week: a pale band for where 8 in 10 sales land and a dot
+    at the model's price, 550 lb steers in full color. Dots on a shared $ scale, not bars from a cut-off axis
+    (bars that start at $300 would make a $400 calf look twice a $350 one)."""
+    w, row, left, right = 320, 22, 64, 52
+    lo = min(p["low"] for p in prices) - 10
+    hi = max(p["high"] for p in prices) + 10
+    x = lambda v: left + (v - lo) / (hi - lo) * (w - left - right)
+    out, y = [], 0
+    for cls in ("Steers", "Heifers"):
+        rows = sorted((p for p in prices if p["animal_class"] == cls), key=lambda p: p["weight_lb"])
+        if not rows:
+            continue
+        y += 16
+        out.append(f'<text x="0" y="{y}" class="tick strong">{cls}</text>')
+        for p in rows:
+            y += row
+            key = cls == "Steers" and p["weight_lb"] == 550
+            out.append(f'<text x="0" y="{y + 4}" class="tick">{p["weight_lb"]} lb</text>')
+            out.append(f'<rect x="{x(p["low"]):.1f}" y="{y - 4}" width="{x(p["high"]) - x(p["low"]):.1f}" height="8" rx="2" '
+                       f'fill="{hero.BLUE_LIGHT}"/>')
+            out.append(f'<circle cx="{x(p["price"]):.1f}" cy="{y}" r="{5 if key else 4}" fill="{hero.BLUE if key else "#5e5c57"}"/>')
+            out.append(f'<text x="{w}" y="{y + 4}" text-anchor="end" class="tick{" strong" if key else ""}">'
+                       f'{hero.money(p["price"])}</text>')
+        y += 6
+    return f'<svg class="mini sheet" viewBox="0 0 {w} {y + 4}" aria-hidden="true">{"".join(out)}</svg>'
+
+
+def price_sheet_card(barn, href):
+    """Slide 2 of Herd Planner's This Week: the barn's whole price sheet this week, with a table for screen readers."""
+    last = (barn or {}).get("weeks", [])[-1:] or None
+    if not last or not last[0].get("prices") or not last[0].get("fresh", True):
+        return None
+    wk = last[0]
+    sold = date.fromisoformat(wk["last_sale"]) if wk.get("last_sale") else None
+    rows = "".join(f'<tr><td>{e(p["animal_class"])}</td><td>{p["weight_lb"]} lb</td><td>{hero.money(p["price"])}</td>'
+                   f'<td>{hero.money(p["low"])} to {hero.money(p["high"])}</td></tr>' for p in wk["prices"])
+    link = f'<a class="week-link" href="{e(href)}">Open {e(barn["name"])}&#8217;s page</a>' if href else ""
+    return f"""      <div class="stat-card week-card">
+        <span class="stat-label">The whole price sheet &middot; {e(barn["name"])}{f" &middot; sale of {sold:%b} {sold.day}" if sold else ""} &middot; $/cwt</span>
+        {price_sheet_svg(wk["prices"])}
+        <span class="stat-detail">Dots: the price for that weight. Pale bands: where 8 in 10 sales land. Lighter calves bring more a
+          pound; heifers run under steers of the same weight.</span>
+        <details class="sheet-numbers"><summary>Show the numbers</summary>
+          <table><thead><tr><th>Class</th><th>Weight</th><th>Price</th><th>8 in 10 sales</th></tr></thead><tbody>{rows}</tbody></table>
+        </details>
+        {link}
+      </div>"""
+
+
+def week_slider(slides: list[str]) -> str:
+    """This Week's cards side by side in a row you swipe or step through with arrows (slider.js), with dots that say
+    which card is showing. One card: no slider at all."""
+    if len(slides) == 1:
+        return slides[0]
+    items = "\n".join(f'        <div class="week-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} of {len(slides)}">\n{s}\n        </div>'
+                      for i, s in enumerate(slides))
+    return f"""      <div class="slider week-slider" data-slider data-dots>
+        <div class="tiles" role="region" aria-label="This week, card by card" tabindex="0">
+{items}
+        </div>
+        <button class="slide-btn prev" type="button" aria-label="Previous card" hidden>&#8249;</button>
+        <button class="slide-btn next" type="button" aria-label="Next card" hidden>&#8250;</button>
+        <div class="slide-dots" aria-hidden="true"></div>
+      </div>"""
+
+
 def week_blocks(app, week, weeks, barns=None, barn_href=None):
     """This Week and Recent Weeks for an app in the Friday job; for other apps, how to get this season's
     numbers from the app itself."""
@@ -374,7 +441,9 @@ def week_blocks(app, week, weeks, barns=None, barn_href=None):
     card = None
     if app["id"] == cards.HERD and raw and barns:
         slug = str(raw.get("market_slug", ""))
-        card = herd_week_card(raw, week, barns.get(slug), barn_href(slug) if barn_href else None)
+        href = barn_href(slug) if barn_href else None
+        slides = [c for c in (herd_week_card(raw, week, barns.get(slug), href), price_sheet_card(barns.get(slug), href)) if c]
+        card = week_slider(slides) if slides else None
     card = card or stat_card(app, raw, week, link=False)
     history = history_table(app["id"], weeks)
     return (f"""        <h2>This Week: {e(f'{place["county"]}, {place["state_name"]}')}</h2>

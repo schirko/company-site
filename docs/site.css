@@ -425,3 +425,24 @@ table.barns-table td .note { white-space: normal; }
 .stories-compact figcaption p { font-size: .9rem; }
 .how-to-read { font-size: .88rem; background: var(--band, #f3f6f3); border-radius: 6px; padding: 7px 10px; margin: 4px 0 8px; }
 @media (max-width: 760px) { .stories-compact.pair { grid-template-columns: 1fr; } }
+/* This Week as a slider (Herd Planner page): one card at a time, arrows and swipe, dots for where you are */
+.week-slider { margin-top: 0; }
+.week-slider .tiles { gap: 14px; padding-bottom: 4px; }
+.week-slider .tiles > .week-slide { flex: 0 0 100%; scroll-snap-align: start; display: flex; }
+.week-slider .week-slide > .stat-card { flex: 1; }
+/* the arrows sit under the card, either side of the dots, so they never cover the numbers */
+.week-slider { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; row-gap: 8px; }
+.week-slider .tiles { grid-column: 1 / -1; grid-row: 1; }
+.week-slider .slide-btn { position: static; grid-row: 2; width: 36px; height: 36px; }
+.week-slider .slide-btn.prev { grid-column: 1; }
+.week-slider .slide-btn.next { grid-column: 3; justify-self: end; }
+.week-slider .slide-dots { grid-column: 2; grid-row: 2; }
+@media (max-width: 760px) { .week-slider .slide-btn { display: inline-block; } .week-slider .slide-btn[hidden] { display: none; } }
+.slide-dots { display: flex; justify-content: center; gap: 8px; }
+.slide-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--suite-line); }
+.slide-dots span.on { background: var(--suite-deep-green, #243b2f); }
+svg.mini.sheet { max-width: 340px; }
+svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
+.sheet-numbers summary { cursor: pointer; font-size: .88rem; color: var(--suite-link, #2a78d6); }
+.sheet-numbers table { font-size: .85rem; border-collapse: collapse; margin-top: 6px; }
+.sheet-numbers th, .sheet-numbers td { text-align: left; padding: 2px 12px 2px 0; border-bottom: 1px solid var(--suite-line); }
