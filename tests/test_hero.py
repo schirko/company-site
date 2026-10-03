@@ -77,3 +77,80 @@ def test_picker_starts_hidden_so_the_page_works_without_javascript():
 
 def build_panel():
     return hero.panel(WEEK, [SEASON], lambda iso: iso)
+
+
+# --- the pins on the home page's photo ("numbers on the land") ---------------------------------
+
+GRASS = {"label": "Grass this season, 2026", "headline": "8% below normal", "value": -0.081, "low": -0.144,
+         "high": -0.0267, "season": 2026}
+HERD = {"value": 462.52, "low": 442.39, "high": 487.0, "as_of": "2026-09-16", "market_slug": "bassett-ne-1852",
+        "market": "Bassett Livestock Auction, Bassett NE"}
+
+
+def week_with(**cards):
+    return {**WEEK, "cards": {**WEEK["cards"], **cards}}
+
+
+def test_the_pins_are_three_named_slots_the_county_picker_can_swap():
+    html = hero.pins(WEEK)
+    assert re.findall(r'data-pin="(\w+)"', html) == ["herd", "land", "corn"]
+    assert 'id="pins"' in html and '<span class="pins-where">Frontier County, Nebraska</span>' in html
+
+
+def test_the_pins_show_the_same_numbers_as_the_panel_below_them():
+    week = week_with(**{"herd-planner": HERD})
+    pins, panel = hero.pins(week), hero.panel(week, [SEASON], lambda iso: iso)
+    assert "$463<small>/cwt</small>" in pins and "$463/cwt" in panel
+    assert "8 in 10 sales $442 to $487" in pins and "Bassett NE" in pins
+    assert "146<small> bu/acre</small>" in pins and "146 bu/acre" in panel
+    assert "128 in a bad year" in pins and "below 128 bu/acre" in panel
+    assert "55<small> of 61 days</small>" in pins and "48 in a wet fall" in pins   # round(48.5) as the panel rounds it
+    assert "workable even in a wet fall (48)" in panel
+
+
+def test_the_steer_pin_links_to_the_barn_its_price_came_from():
+    html = hero.pins(week_with(**{"herd-planner": HERD}), lambda slug: f"barn-{slug}.html")
+    assert 'href="barn-bassett-ne-1852.html" data-pin="herd"' in html
+
+
+def test_a_pin_with_no_price_says_so_instead_of_showing_an_old_one():
+    html = hero.pins(WEEK)
+    assert "No fresh price" in html and 'class="pin quiet"' in html and "$" not in html
+
+
+def test_the_middle_pin_is_grass_when_the_week_has_it_and_field_days_when_not():
+    grass = hero.pins(week_with(**{"grazing-planner": GRASS}))
+    assert "Grass this season" in grass and "Fall field days" not in grass
+    assert 'href="grazing-planner.html" data-pin="land"' in grass
+    days = hero.pins(week_with(**{"grazing-planner": None}))
+    assert "Fall field days" in days and "Grass this season" not in days
+
+
+def test_red_on_a_pin_always_comes_with_an_arrow_and_words():
+    short = hero.grass_pin(GRASS, "Frontier County")
+    assert '<span class="down" aria-hidden="true">▼</span> 8%<small> below normal</small>' in short
+    good = hero.grass_pin({**GRASS, "value": 0.12}, "Frontier County")
+    assert 'class="down"' not in good and "12%<small> above normal</small>" in good
+    assert "About normal" in hero.grass_pin({**GRASS, "value": -0.01}, "Frontier County")
+
+
+def test_picker_data_carries_every_countys_pins(tmp_path, monkeypatch):
+    import json
+
+    import build
+    import cards
+
+    monkeypatch.setattr(build, "OUT", tmp_path / "docs")
+    site = build.build()
+    data = json.loads((site / "panel-data.json").read_text(encoding="utf-8"))
+    assert data["format"] == 2 and set(data["herd_pin"]) == set(cards.STATE_NAMES)
+    assert all(pin.startswith('<a class="pin') and 'data-pin="herd"' in pin for pin in data["herd_pin"].values())
+    for county in data["counties"].values():
+        assert 'data-pin="land"' in county["pins"]["land"] and 'data-pin="corn"' in county["pins"]["corn"]
+    # A picked county's pins carry that county's own numbers, the same ones as its tiles.
+    hall = data["counties"]["31079"]
+    bushels = re.search(r"(\d+) bu/acre", hall["corn"]).group(1)
+    assert f"{bushels}<small> bu/acre</small>" in hall["pins"]["corn"]
+    page = (site / "index.html").read_text(encoding="utf-8")
+    script = (site / "panel.js").read_text(encoding="utf-8")
+    assert 'id="pins"' in page and 'getElementById("pins")' in script and "data.herd_pin" in script

@@ -507,6 +507,21 @@ def contact_sentence():
     return "To reach us, use the Tell us button in Herd Planner. It comes straight to us."
 
 
+def hero_photo() -> tuple[str, str, str]:
+    """(class, style attribute, credit line) for the top of the home page. The photo's address carries a short
+    hash, like the stylesheets', so a replaced photo is never shown from a browser's old copy. A photo without
+    a credit line stops the build: the credit is a condition of using it."""
+    name = getattr(config, "HERO_PHOTO", "")
+    if not name or not (STATIC / name).exists():
+        return "", "", ""
+    credit = getattr(config, "HERO_CREDIT", "").strip()
+    if not credit:
+        raise SystemExit(f"config.HERO_CREDIT is empty: {name} can't go on the site without its credit line.")
+    tag = hashlib.sha256((STATIC / name).read_bytes()).hexdigest()[:10]
+    return (" has-photo", f' style="background-image: url({e(name)}?v={tag})"',
+            f'  <p class="photo-credit">{e(credit)}</p>')
+
+
 VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js")
 
 
@@ -549,6 +564,8 @@ def build():
         "week_date": nice_date(week["date"]),
         "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
         "live_panel": hero.panel(week, stories, nice_date, barn_href),
+        "pins": hero.pins(week, barn_href),
+        **dict(zip(("hero_class", "hero_style", "hero_credit"), hero_photo())),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps if a["id"] in WEEKLY),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',

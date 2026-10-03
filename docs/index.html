@@ -10,7 +10,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=cc658efe18">
+  <link rel="stylesheet" href="site.css?v=8ea73ac3c4">
 </head>
 <body>
 <header class="suite-bar site-header">
@@ -51,7 +51,9 @@
 </header>
 
 <main>
-<section class="hero" id="apps">
+<!-- The top of the page (option C, "numbers on the land", chosen 2026-10-03): a photo of cattle on open range
+     with three of this week's real numbers pinned on it (hero.pins), then the full panel in a row on white. -->
+<section class="hero has-photo" id="apps" style="background-image: url(photos/hero.jpg?v=ea836fc07e)">
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-words">
@@ -63,16 +65,20 @@
           <a class="btn" href="#our-apps">See the apps</a>
           <a class="btn ghost" href="methods.html">How we test</a>
         </p>
-        <div class="proof">
-          <p class="proof-title">Tested before we trust it</p>
-          <div class="proof-stats">
-            <div><strong>2.5%</strong><span>typical miss pricing calves at 26 sales the model never saw</span></div>
-            <div><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></div>
-            <div><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></div>
-          </div>
-        </div>
-        <p class="hero-sub">The panel shows our apps' real output for one farm county, new every Friday.</p>
       </div>
+      <div class="pins" id="pins" role="group" aria-label="This week's numbers">
+        <a class="pin" href="barn-bassett-ne-1852.html" data-pin="herd"><span class="pin-label">550 lb steer, this week</span><span class="pin-fig">$456<small>/cwt</small></span><span class="pin-note">Bassett NE · 8 in 10 sales $436 to $480</span></a>
+        <a class="pin" href="grazing-planner.html" data-pin="land"><span class="pin-label">Grass this season</span><span class="pin-fig"><span class="down" aria-hidden="true">▼</span> 7%<small> below normal</small></span><span class="pin-note">Lincoln County, 2026</span></a>
+        <a class="pin" href="corn-yield-predictor.html" data-pin="corn"><span class="pin-label">Trend corn yield, 2026</span><span class="pin-fig">188<small> bu/acre</small></span><span class="pin-note">171 in a bad year (1 in 10)</span></a>
+        <p class="pins-foot"><span class="live-dot" aria-hidden="true"></span> Real numbers this week: <span class="pins-where">Lincoln County, Nebraska</span></p>
+      </div>
+    </div>
+  </div>
+  <p class="photo-credit">Photo courtesy of USDA ARS</p>
+</section>
+
+<section class="week">
+  <div class="wrap">
     <div class="live" id="this-week" data-week-place="Lincoln County, Nebraska">
       <div class="live-top">
         <p class="live-head"><span class="live-dot" aria-hidden="true"></span> New every Friday &middot; week of Oct 2, 2026</p>
@@ -118,8 +124,20 @@
       <p class="live-foot">One farm county each week, real numbers from each app.
         <a href="methods.html">How we test them</a></p>
     </div>
-    <script src="panel.js?v=d37b4175b5" defer></script>
+    <script src="panel.js?v=e0d2af04a9" defer></script>
+    <div class="proof">
+      <p class="proof-title">Tested before we trust it</p>
+      <div class="proof-stats">
+        <div><strong>2.5%</strong><span>typical miss pricing calves at 26 sales the model never saw</span></div>
+        <div><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></div>
+        <div><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></div>
+      </div>
     </div>
+  </div>
+</section>
+
+<section class="tiles-band">
+  <div class="wrap">
     <div class="slider" id="tiles" data-slider>
       <div class="tiles" role="region" aria-label="Our farm apps" tabindex="0">
       <a class="tile" href="https://herd-planner.onrender.com/">

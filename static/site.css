@@ -74,8 +74,17 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 :root { --suite-bg: #ffffff; --band: #f3f6f3; }
 
 /* Home */
-.hero { padding: 28px 0 44px; }  /* 28 px under the header (was 48): the headline starts close to the top */
-.hero h1 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); margin: 0 0 12px; }
+/* The top of the home page (option C, 2026-10-03): a photo of cattle on open range, darkened on the left so the
+   headline reads, with three of this week's numbers pinned on it. The photo comes from config.HERO_PHOTO as an
+   inline background-image (build.hero_photo); with no photo the band is plain deep green and still works. */
+.hero { position: relative; padding: 46px 0 56px; background: #1c2a22 center 46% / cover no-repeat; color: #fff; }
+.hero.has-photo::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(16, 28, 22, .88) 0%, rgba(16, 28, 22, .66) 44%, rgba(16, 28, 22, .22) 100%); }
+.hero .wrap { position: relative; }
+.hero h1 { font-size: clamp(1.8rem, 3.8vw, 2.7rem); margin: 0 0 12px; color: #fff; }
+.hero .lede { color: #eef2ee; }
+.photo-credit { position: absolute; right: 12px; bottom: 8px; margin: 0; padding: 1px 7px; border-radius: 4px; font-size: .72rem;
+  color: #fff; background: rgba(16, 28, 22, .55); }
 .lede { font-size: 1.1rem; color: var(--suite-muted); max-width: 62ch; }
 section { padding: 48px 0; }
 section h2 { font-size: 1.6rem; margin: 0 0 8px; }
@@ -273,8 +282,8 @@ table.history td:nth-child(2), table.history th:nth-child(2) { text-align: left;
 .why { border-top: 1px solid var(--suite-line); }
 /* The app tiles row ends the hero: less space below it and above Why Use Our Apps, so the
    two read as neighbors rather than a gap (was about 100 px; now about 50 px). */
-.hero:has(.slider) { padding-bottom: 18px; }
-.hero + .why { padding-top: 32px; }
+.tiles-band { padding: 26px 0 18px; }
+.tiles-band + .why { padding-top: 32px; }
 .stories { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .story { margin: 0; padding: 20px; background: var(--suite-surface); border: 1px solid var(--suite-line);
   border-radius: var(--suite-radius); display: flex; flex-direction: column; }
@@ -307,8 +316,40 @@ details.numbers summary { cursor: pointer; color: var(--suite-link, #2a78d6); }
 @media (max-width: 900px) { .stories { grid-template-columns: 1fr; } }
 
 /* The live panel in the hero (hero.py): this week's real numbers, drawn like a small dashboard */
-.hero-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 40px; align-items: start; }
-.hero-sub { color: var(--suite-muted); font-size: .95rem; max-width: 46ch; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+
+/* The pins (hero.pins): three live figures set on the photo like survey markers, each a link to its app or barn.
+   White cards, so the numbers read whatever is behind them; the gold edge, stem and dot are decoration. */
+.pins { position: relative; min-height: 388px; }
+.pin { position: absolute; display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; min-width: 190px; text-decoration: none;
+  color: var(--suite-ink); background: rgba(255, 255, 255, .96); border-radius: 10px; border-left: 4px solid var(--suite-gold);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .35); }
+.pin::after { content: ""; position: absolute; left: 22px; bottom: -34px; width: 2px; height: 34px; background: rgba(255, 255, 255, .85); }
+.pin::before { content: ""; position: absolute; left: 17px; bottom: -44px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--suite-gold); border: 2px solid #fff; box-shadow: 0 0 0 4px rgba(224, 172, 69, .28); }
+a.pin:hover { background: #fff; box-shadow: 0 12px 30px rgba(0, 0, 0, .45); }
+.pin-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--suite-deep-green); }
+.pin-fig { font-size: 1.7rem; font-weight: 700; line-height: 1.1; color: var(--suite-deep-green); font-variant-numeric: tabular-nums; }
+.pin-fig small { font-size: .85rem; font-weight: 600; }
+.pin-fig .down { color: #a4262c; font-size: 1.2rem; }   /* red = the downside, always with the arrow and "below normal" */
+.pin.quiet .pin-fig { font-size: 1.15rem; color: var(--suite-muted); }
+.pin-note { font-size: .78rem; color: var(--suite-muted); }
+.pin[data-pin="herd"] { top: 0; right: 4%; }
+/* The steer pin's stem hangs from its right side, clear of the middle pin (which is wide when it shows field days) */
+.pin[data-pin="herd"]::after { left: auto; right: 40px; }
+.pin[data-pin="herd"]::before { left: auto; right: 35px; }
+.pin[data-pin="land"] { top: 112px; left: 2%; }
+.pin[data-pin="corn"] { top: 206px; right: 12%; }
+.pins-foot { position: absolute; left: 2%; bottom: 0; margin: 0; padding: 4px 12px; border-radius: 14px;
+  font-size: .8rem; font-weight: 700; color: #fff; background: rgba(16, 28, 22, .62); }
+.pins-foot .live-dot { display: inline-block; margin-right: 6px; vertical-align: 1px; }
+
+/* Under the photo: the whole panel in a row, then the proof */
+.week { padding: 26px 0 8px; }
+.week .live { background: transparent; border: 0; border-radius: 0; padding: 0; box-shadow: none; }
+.week .live-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.week .proof { margin-top: 24px; }
+.week .proof-stats { max-width: 860px; }
 .live { background: var(--suite-surface); border: 1px solid var(--suite-line); border-radius: 14px; padding: 18px 18px 14px;
   box-shadow: 0 10px 30px rgba(36, 59, 47, .12), 0 2px 6px rgba(36, 59, 47, .06); }
 .live h2 { font-size: 1.15rem; margin: 2px 0 18px; }
@@ -332,9 +373,18 @@ svg.mini .tick { font-size: 11px; fill: #6d6a63; font-family: inherit; }
 svg.mini .tick.now { fill: var(--suite-ink); font-weight: 700; }
 svg.mini .marker { stroke: var(--suite-ink); stroke-width: 3; }
 .live-foot { margin: 14px 0 0; font-size: .82rem; color: var(--suite-muted); }
-.hero .slider { margin-top: 36px; }
-@media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } }
-@media (max-width: 520px) { .live-grid { grid-template-columns: 1fr; } .live { padding: 16px 12px 12px; } }
+@media (max-width: 980px) {
+  .hero { padding: 30px 0 40px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 20px; }
+  /* No room to scatter them: the pins stack under the headline, without stems */
+  .pins { min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .pin, .pin[data-pin] { position: static; min-width: 0; }
+  .pin::before, .pin::after { display: none; }
+  .pins-foot { position: static; grid-column: 1 / -1; justify-self: start; }
+  .week .live-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) { .pins { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .live-grid, .week .live-grid { grid-template-columns: 1fr; } .live { padding: 16px 12px 12px; } }
 /* Up/down flags beside a live tile's number. Red = the downside, always with an arrow and words. */
 .live-headline { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; }
 .badge { font-size: .72rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; letter-spacing: .01em; }
@@ -346,6 +396,9 @@ svg.mini .marker { stroke: var(--suite-ink); stroke-width: 3; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 26px; }
 .btn.ghost { background: transparent; border: 2px solid var(--suite-deep-green); color: var(--suite-deep-green); }
 .btn.ghost:hover { background: var(--band); }
+.hero .btn.ghost { border-color: #fff; color: #fff; }
+.hero .btn.ghost:hover { background: rgba(255, 255, 255, .14); }
+.hero .hero-actions { margin-bottom: 0; }
 .proof { border-top: 1px solid var(--suite-line); padding-top: 16px; }
 .proof-title { margin: 0 0 10px; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--suite-deep-green); }
 .proof-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }

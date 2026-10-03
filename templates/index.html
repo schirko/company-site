@@ -1,4 +1,6 @@
-<section class="hero" id="apps">
+<!-- The top of the page (option C, "numbers on the land", chosen 2026-10-03): a photo of cattle on open range
+     with three of this week's real numbers pinned on it (hero.pins), then the full panel in a row on white. -->
+<section class="hero${hero_class}" id="apps"${hero_style}>
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-words">
@@ -10,18 +12,29 @@
           <a class="btn" href="#our-apps">See the apps</a>
           <a class="btn ghost" href="methods.html">How we test</a>
         </p>
-        <div class="proof">
-          <p class="proof-title">Tested before we trust it</p>
-          <div class="proof-stats">
-            <div><strong>2.5%</strong><span>typical miss pricing calves at 26 sales the model never saw</span></div>
-            <div><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></div>
-            <div><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></div>
-          </div>
-        </div>
-        <p class="hero-sub">The panel shows our apps' real output for one farm county, new every Friday.</p>
       </div>
-${live_panel}
+${pins}
     </div>
+  </div>
+${hero_credit}
+</section>
+
+<section class="week">
+  <div class="wrap">
+${live_panel}
+    <div class="proof">
+      <p class="proof-title">Tested before we trust it</p>
+      <div class="proof-stats">
+        <div><strong>2.5%</strong><span>typical miss pricing calves at 26 sales the model never saw</span></div>
+        <div><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></div>
+        <div><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tiles-band">
+  <div class="wrap">
     <div class="slider" id="tiles" data-slider>
       <div class="tiles" role="region" aria-label="Our farm apps" tabindex="0">
 ${app_tiles}

@@ -173,6 +173,79 @@ def days_tile(days: dict | None, where: str, not_covered: str = "") -> str:
         flag=badge(f'{61 - round(days["low"])} lost in a wet fall', True), slot="days")  # rounded once, so words, squares and badge agree
 
 
+# --- the pins: three of this week's numbers set on the home page's photo --------------------------
+#
+# The top of the home page is a photo of cattle on open range with three live figures pinned on it
+# (option C of the 2026-10-03 mockups: "numbers on the land"). The photo says agriculture and
+# livestock; the pins say metrics, and they are the same real numbers as the panel below, drawn from
+# the same cards. Each pin is named by its slot (herd, land, corn) so the county picker can swap it.
+
+
+def pin(slot: str, href: str, label: str, figure: str, note: str, quiet: bool = False) -> str:
+    """`figure` is HTML (a number with a small unit, or an arrow and words); everything else is text."""
+    return (f'        <a class="pin{" quiet" if quiet else ""}" href="{e(href)}" data-pin="{e(slot)}">'
+            f'<span class="pin-label">{e(label)}</span><span class="pin-fig">{figure}</span>'
+            f'<span class="pin-note">{e(note)}</span></a>')
+
+
+def herd_pin(herd: dict | None, state_name: str, barn_href=None) -> str:
+    if not herd:
+        return pin("herd", "herd-planner.html", "550 lb steer, this week", "No fresh price",
+                   f"No sale barn near {state_name} reported in three weeks", quiet=True)
+    href = (barn_href(herd.get("market_slug")) if barn_href and herd.get("market_slug") else None) or "herd-planner.html"
+    barn = herd["market"].rsplit(",", 1)[-1].strip()  # "Bassett Livestock Auction, Bassett NE" -> "Bassett NE"
+    return pin("herd", href, "550 lb steer, this week", f'{e(money(herd["value"]))}<small>/cwt</small>',
+               f'{barn} \u00b7 8 in 10 sales {money(herd["low"])} to {money(herd["high"])}')
+
+
+def grass_pin(grass: dict, county: str) -> str:
+    """Grass against normal, from the Grazing Planner (Nebraska weeks only). Red is the downside and never
+    comes alone: an arrow and the words "below normal" go with it."""
+    pct = round(abs(grass["value"]) * 100)
+    if pct <= 2:
+        figure = "About normal"
+    elif grass["value"] < 0:
+        figure = f'<span class="down" aria-hidden="true">\u25bc</span> {pct}%<small> below normal</small>'
+    else:
+        figure = f'<span aria-hidden="true">\u25b2</span> {pct}%<small> above normal</small>'
+    return pin("land", "grazing-planner.html", "Grass this season", figure, f'{county}, {grass.get("season", "")}'.rstrip(", "))
+
+
+def days_pin(days: dict | None, county: str) -> str:
+    if not days:
+        return pin("land", "farm-equipment-planner.html", "Fall field days, Oct 1 to Nov 30", "Not covered yet",
+                   f"No weather yet for {county}", quiet=True)
+    return pin("land", "farm-equipment-planner.html", "Fall field days, Oct 1 to Nov 30",
+               f'{round(days["value"])}<small> of 61 days</small>', f'{round(days["low"])} in a wet fall (1 in 10)')
+
+
+def corn_pin(corn: dict | None, county: str) -> str:
+    if not corn:
+        return pin("corn", "corn-yield-predictor.html", "Trend corn yield", "Not covered yet",
+                   f"No corn numbers for {county} yet", quiet=True)
+    return pin("corn", "corn-yield-predictor.html", corn["label"], f'{corn["value"]:.0f}<small> bu/acre</small>',
+               f'{corn["low"]:.0f} in a bad year (1 in 10)')
+
+
+def land_pin(cards: dict, county: str) -> str:
+    """The middle pin: this season's grass when the Grazing Planner covers the week's county, otherwise fall
+    field days (which every county the Equipment Planner covers has)."""
+    grass = cards.get("grazing-planner")
+    return grass_pin(grass, county) if grass else days_pin(cards.get("farm-equipment-planner"), county)
+
+
+def pins(week: dict, barn_href=None) -> str:
+    place, cards = week["place"], week["cards"]
+    where = f'{place["county"]}, {place["state_name"]}'
+    rows = [herd_pin(cards.get("herd-planner"), place["state_name"], barn_href),
+            land_pin(cards, place["county"]),
+            corn_pin(cards.get("corn-yield-predictor"), place["county"])]
+    return f"""      <div class="pins" id="pins" role="group" aria-label="This week's numbers">
+{chr(10).join(rows)}
+        <p class="pins-foot"><span class="live-dot" aria-hidden="true"></span> Real numbers this week: <span class="pins-where">{e(where)}</span></p>
+      </div>"""
+
+
 PICKER = """      <form class="live-pick" id="live-pick" hidden>
         <label>State <select name="state"></select></label>
         <label>County <select name="county"></select></label>
@@ -215,9 +288,12 @@ def panel_data(week: dict, counties: list[dict], static_cards: dict, not_covered
     so a picked county looks exactly like the county of the week. build.py writes it to
     docs/panel-data.json; panel.js reads it only when a visitor asks for their county."""
     by_state = week.get("herd_by_state") or {}
-    out = {"format": 1, "week": week["week"], "default": week["place"]["fips"],
+    out = {"format": 2, "week": week["week"], "default": week["place"]["fips"],
            "states": {code: state_names[code] for code in sorted({c["state"] for c in counties})},
            "herd": {code: herd_tile(by_state.get(code), state_names[code], barn_href) for code in state_names},
+           # The pins on the photo follow the picked county too (format 2). Grass is only known for the county of
+           # the week, so a picked county's middle pin is its fall field days.
+           "herd_pin": {code: herd_pin(by_state.get(code), state_names[code], barn_href).strip() for code in state_names},
            "counties": {}}
     for c in counties:
         where = f'{c["name"]}, {state_names[c["state"]]}'
@@ -225,5 +301,7 @@ def panel_data(week: dict, counties: list[dict], static_cards: dict, not_covered
             "name": c["name"], "state": c["state"],
             "corn": corn_tile(static_cards["corn"].get(c["fips"]), where, not_covered["corn"]),
             "days": days_tile(static_cards["days"].get(c["fips"]), where, not_covered["days"]),
+            "pins": {"land": days_pin(static_cards["days"].get(c["fips"]), c["name"]).strip(),
+                     "corn": corn_pin(static_cards["corn"].get(c["fips"]), c["name"]).strip()},
         }
     return out

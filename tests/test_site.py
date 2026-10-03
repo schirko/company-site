@@ -198,3 +198,36 @@ def test_an_app_page_marks_the_menu_as_where_you_are(site):
     page = (site / build.APP_PAGE.format("herd-planner")).read_text(encoding="utf-8")
     assert '<div class="mega-wrap" data-current>' in page
     assert '<div class="mega-wrap" data-current>' not in (site / "about.html").read_text(encoding="utf-8")
+
+
+# --- the photo behind the home page's headline ---------------------------------------------------
+
+
+def test_the_home_page_photo_carries_its_credit_line(site):
+    page = (site / "index.html").read_text(encoding="utf-8")
+    hero = page[page.index('<section class="hero'):page.index("</section>", page.index('<section class="hero'))]
+    address = re.search(r'background-image: url\((photos/[\w.-]+)\?v=[0-9a-f]{10}\)', hero)
+    assert address and (site / address.group(1)).exists()
+    assert f'<p class="photo-credit">{config.HERO_CREDIT}</p>' in hero and config.HERO_CREDIT.strip()
+    # Sized for the web: a phone on a slow connection still gets the headline quickly.
+    assert (site / address.group(1)).stat().st_size < 450_000
+
+
+def test_a_photo_without_a_credit_line_stops_the_build(monkeypatch):
+    monkeypatch.setattr(config, "HERO_CREDIT", "  ")
+    with pytest.raises(SystemExit, match="credit"):
+        build.hero_photo()
+
+
+def test_the_home_page_works_with_no_photo(monkeypatch):
+    monkeypatch.setattr(config, "HERO_PHOTO", "")
+    assert build.hero_photo() == ("", "", "")
+    monkeypatch.setattr(config, "HERO_PHOTO", "photos/not-there.jpg")   # named but not downloaded yet
+    assert build.hero_photo() == ("", "", "")
+
+
+def test_the_headline_and_this_weeks_numbers_sit_on_the_photo_and_the_panel_follows(site):
+    page = (site / "index.html").read_text(encoding="utf-8")
+    hero_at, week_at, tiles_at = (page.index(mark) for mark in ('<section class="hero', '<section class="week"', '<section class="tiles-band"'))
+    assert hero_at < page.index("<h1>") < page.index('id="pins"') < week_at < page.index('id="this-week"') < tiles_at
+    assert page.count("<h1>") == 1

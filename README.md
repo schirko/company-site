@@ -27,9 +27,9 @@ company-site/
 ├── build.py           fills in the templates and writes the finished site to docs/ (plus sitemap.xml)
 ├── cards.py           the weekly stat cards: this week's county, the steer price, the history
 ├── charts.py          draws the "Why Use Our Apps" charts as SVG, in plain Python
-├── hero.py            the home page's live panel: this week's numbers as a small dashboard
+├── hero.py            the home page's live numbers: three pins on the photo, and the panel under it
 ├── barn_pages.py      one page per sale barn, and the Barn Prices index
-├── static/panel.js    "See your county": swaps the panel's tiles to a visitor's county
+├── static/panel.js    "See your county": swaps the pins and the panel's tiles to a visitor's county
 ├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
 ├── static/menu.js     the header's Our Farm Apps menu: closes on a click elsewhere, Escape or a chosen link
 ├── templates/         the pages, with ${placeholders} for the name and the app list
@@ -39,8 +39,9 @@ company-site/
 ├── content/cards/     the county card files from the Yield Predictor and Equipment Planner,
 │                      and weeks.json (every week shown so far, newest first)
 ├── .github/workflows/ weekly-cards.yml: the Friday refresh
-├── static/            site.css, favicon.svg, soon/ (logos of apps in development), and suite/
-│                      (the shared look and the app list)
+├── static/            site.css, favicon.svg, soon/ (logos of apps in development), photos/hero.jpg
+│                      (the photo behind the home page's headline) and suite/ (the shared look and
+│                      the app list)
 ├── docs/              the finished site: GitHub Pages serves this folder as it is
 └── tests/             checks that every page builds and no link points nowhere
 ```
@@ -76,11 +77,34 @@ python -m http.server 8080 --directory docs
 
 Then open http://127.0.0.1:8080 in a browser.
 
-## The live panel (top of the home page)
+## The top of the home page: numbers on the land
 
-Instead of a screenshot of an app, the top of the home page shows the apps' real output for this
-week's county, rebuilt every Friday: the 550 lb steer price and its range, how calves usually price
-this month against the trend, the county's trend corn yield, and its fall field days (61 day squares).
+The site should say two things at a glance: agriculture and livestock, and metrics (Scott, 2026-10-03;
+he chose this layout, option C, from three mockups saved in `notes/`). So the headline sits on a photo
+of cattle on open range, and three of this week's real numbers are pinned on the photo like survey
+markers: the 550 lb steer price at the week's barn, this season's grass against normal (or the county's
+fall field days in a week the Grazing Planner doesn't cover), and the county's trend corn yield. Each
+pin links to its app or barn page. On tablets the pins sit in a row under the headline; on phones they stack.
+
+- **The pins** are drawn by `hero.pins` from the same week `cards.py` saved, so they always match the
+  panel below them (a test checks). Red means the downside and never comes alone: a down arrow and the
+  words "below normal" go with it. A week with no fresh price says so in the pin.
+- **The photo** is `static/photos/hero.jpg`, named in `config.py` (`HERO_PHOTO`) with its credit line
+  (`HERO_CREDIT`), which is printed in the photo's corner. The build stops if a photo has no credit
+  line, and with no photo file the band is plain deep green and the page still works. A dark wash over
+  the left of the photo keeps the white headline readable whatever the picture.
+- **Changing the photo:** Scott picks it (see Photos below) and saves the original in `notes/photos/`.
+  Size a copy to about 2,000 px wide and under 400 KB, save it as `static/photos/hero.jpg`, update
+  `HERO_CREDIT` if the source changed, then `python build.py`. The photo's address carries a short
+  hash, so nobody keeps seeing the old one. The subject should sit right of center: the headline covers
+  the left half on a computer.
+
+## The live panel (under the photo)
+
+Instead of a screenshot of an app, the home page shows the apps' real output for this week's county,
+rebuilt every Friday: the 550 lb steer price and its range, how calves usually price this month
+against the trend, the county's trend corn yield, and its fall field days (61 day squares), four tiles
+in a row under the photo, then the "Tested before we trust it" numbers.
 `hero.py` draws it from the same week `cards.py` saved. Each tile's gold callout says what stands
 behind the number, so it must stay literally true: change the callout if the number's source changes.
 
@@ -90,6 +114,9 @@ A **See your county** button in the panel lets a visitor pick their state and co
 price, corn and field-day tiles switch to that county (the calves tile is the same everywhere). The
 choice is kept in their own browser, so their next visit opens on their county, with **Change county**
 and **County of the week** to switch back. Nothing is sent anywhere: no account, no location lookup.
+The three pins on the photo switch with it (`herd_pin` per state and `pins` per county in
+`panel-data.json`, format 2). Grass against normal is only known for the county of the week, so a
+picked county's middle pin shows its fall field days.
 
 - **How:** `build.py` writes `docs/panel-data.json`: every county's tiles, drawn in advance by the same
   `hero.py` functions as the page, so a picked county looks exactly like the county of the week.
@@ -219,7 +246,9 @@ then shrink to those widths as JPEG (quality about 84). A test keeps the set und
   "way too big" and unexplained. The home page's Why Use Our Apps is unchanged.
 - **Photos** (Scott wants ranch and sale-barn pictures): only licensed ones (Unsplash or Pexels licenses, public
   domain USDA/NRCS, paid stock, or your own or a ranch's with written OK); Scott picks and downloads them into
-  `notes/photos/` with where each came from, then they're sized and built in.
+  `notes/photos/` with where each came from, then they're sized and built in. USDA ARS photos ask for the
+  credit "Photo courtesy of USDA ARS" (or with the photographer's name), and nothing on the page may suggest
+  USDA endorses the apps. The first one in use is the home page's photo (see "The top of the home page").
 
 ## Why Use Our Apps
 

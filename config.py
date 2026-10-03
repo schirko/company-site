@@ -40,5 +40,12 @@ ACCOUNT_URL = "https://farm-account.onrender.com/app/#signin"
 # False until billing exists (the pilot shows no prices); the tiles then just say "Free to try".
 SHOW_PRICES = False
 
+# The photo behind the home page's headline: a file under static/ (about 2,000 px wide, under 400 KB), and its
+# credit line, which is printed on the photo. Scott picks the photos; nothing goes on the site unless he has
+# chosen it and its license allows it. USDA ARS photos ask for "Photo courtesy of USDA ARS" (or with the
+# photographer's name), and nothing may imply USDA endorses the apps. No file there: a plain green band.
+HERO_PHOTO = "photos/hero.jpg"
+HERO_CREDIT = "Photo courtesy of USDA ARS"
+
 # The year in the copyright line.
 YEAR = 2026

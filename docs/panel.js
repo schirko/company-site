@@ -3,7 +3,7 @@
    The page itself always shows the county of the week (that's what search engines and first-time
    visitors see). When someone picks a county, this script loads panel-data.json (every county's
    tiles, drawn in advance by build.py with the same code as the page) and swaps three tiles and the
-   heading. The choice is kept in this browser only (localStorage), so the next visit opens on their
+   heading, plus the three figures pinned on the photo at the top of the page. The choice is kept in this browser only (localStorage), so the next visit opens on their
    county. Nothing is sent anywhere; there is no account and no location lookup.
 
    Without JavaScript the picker stays hidden and the page works as before. */
@@ -25,6 +25,12 @@
     if (tile) original[slot] = tile.outerHTML;
   }
   const originalWhere = where.textContent;
+  // The three figures pinned on the photo follow the picked county too (the home page only).
+  const pins = document.getElementById("pins");
+  const pinsWhere = pins && pins.querySelector(".pins-where");
+  const originalPins = {};
+  if (pins) for (const pin of pins.querySelectorAll("[data-pin]")) originalPins[pin.dataset.pin] = pin.outerHTML;
+  const originalPinsWhere = pinsWhere ? pinsWhere.textContent : "";
   let data = null;
 
   // localStorage can be missing or refuse (private windows, blocked site data): never let that break the page.
@@ -44,6 +50,14 @@
     tile.replaceWith(holder.firstElementChild);
   }
 
+  function swapPin(slot, html) {
+    const pin = pins && pins.querySelector(`[data-pin="${slot}"]`);
+    if (!pin || !html) return;
+    const holder = document.createElement("div");
+    holder.innerHTML = html.trim();
+    pin.replaceWith(holder.firstElementChild);
+  }
+
   function fillStates() {
     stateSelect.replaceChildren(...Object.entries(data.states).map(([code, name]) => new Option(name, code)));
   }
@@ -61,6 +75,10 @@
     swap("herd", data.herd[c.state]);
     swap("corn", c.corn);
     swap("days", c.days);
+    swapPin("herd", (data.herd_pin || {})[c.state]);
+    swapPin("land", (c.pins || {}).land);
+    swapPin("corn", (c.pins || {}).corn);
+    if (pinsWhere) pinsWhere.textContent = `${c.name}, ${data.states[c.state]}`;
     title.textContent = "Your County";
     where.textContent = `${c.name}, ${data.states[c.state]}`;
     panel.classList.add("is-yours");
@@ -69,6 +87,8 @@
 
   function reset() {
     for (const [slot, html] of Object.entries(original)) swap(slot, html);
+    for (const [slot, html] of Object.entries(originalPins)) swapPin(slot, html);
+    if (pinsWhere) pinsWhere.textContent = originalPinsWhere;
     title.textContent = "This Week";
     where.textContent = originalWhere;
     panel.classList.remove("is-yours");
