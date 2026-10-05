@@ -368,3 +368,13 @@ def test_apps_without_a_page_block_keep_the_shorter_page(site):
             continue
         page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
         assert 'class="lp-' not in page and "<h2>What It Does</h2>" in page and f'<h1>{build.e(app["name"])}</h1>' in page
+
+
+@pytest.mark.skipif(not MASTER.exists(), reason="Herd Planner isn't checked out next to this project")
+def test_herd_planners_page_opens_with_the_apps_own_headline():
+    """Scott, 2026-10-05, of the app's welcome ("Know what your cattle are worth: what to sell, what to keep"):
+    "I like that." So this site's Herd Planner page opens with the same words as the app a visitor lands in
+    next. If the app's headline changes, change "headline" in content/apps.json to match."""
+    welcome = (MASTER.parent / "src" / "herd_planner" / "web" / "index.html").read_text(encoding="utf-8")
+    headline = build.load_copy()["herd-planner"]["page"]["headline"]
+    assert f">{build.e(headline)}<" in welcome

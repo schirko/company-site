@@ -237,7 +237,8 @@ is something helpful in getting customers." He chose layout A, "the report first
 `build.full_page_values` turns the block into the page's parts and `templates/app_full.html` lays them out.
 An app without the block keeps `templates/app.html`. Top to bottom:
 
-1. **The headline** (`headline`, `sub`), two buttons (into the app, and down to the sample) and one line of
+1. **The headline** (`headline`, `sub`; Herd Planner's is the app's own welcome headline, word for word,
+   which Scott liked best, and a test holds the two together), two buttons (into the app, and down to the sample) and one line of
    small print (`offer`), beside the app on a computer and a phone (`build.app_shot`). The small print
    must say how a visitor really gets in: while Herd Planner online is invite-only
    (`HERD_PLANNER_OPEN_SIGNUP=0`) it says so and points at the waitlist; change it the day sign-up opens. The app's name sits
