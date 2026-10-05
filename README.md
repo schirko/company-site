@@ -32,9 +32,11 @@ company-site/
 ├── static/panel.js    "See your county": swaps the pins and the panel's tiles to a visitor's county
 ├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
 ├── static/menu.js     the header's Our Farm Apps menu: closes on a click elsewhere, Escape or a chosen link
-├── templates/         the pages, with ${placeholders} for the name and the app list
-├── content/apps.json  the home page's longer words about each app (tiles and app sections), and
-│                      "in_development": apps being built (a tile with Get notified, nothing else)
+├── templates/         the pages, with ${placeholders} for the name and the app list. An app's own page is
+│                      app.html, or app_full.html when the app has a "page" block in apps.json
+├── content/apps.json  the home page's longer words about each app (tiles and app sections), "page" for
+│                      an app's fuller page, and "in_development": apps being built (a tile with Get
+│                      notified, nothing else)
 ├── content/stories.json  the "Why Use Our Apps" findings: numbers, words and sources
 ├── content/cards/     the county card files from the Yield Predictor and Equipment Planner,
 │                      and weeks.json (every week shown so far, newest first)
@@ -212,7 +214,7 @@ week's number from the app for the county of the week (`build.tile_stat`, from t
 panel): Herd Planner the 550 lb steer price and its barn, the Yield Predictor the county's trend corn yield,
 the Grazing Planner this season's grass against normal (red with a down arrow only when it's below), the
 Equipment Planner fall field days. A week without a number (a stale steer price, an Iowa county for the
-Grazing Planner) leaves the corner empty. Bottom right, "Free to try"; "Plan from $X/mo" joins it once
+Grazing Planner) leaves the corner empty. Bottom right, "Free to try"; "From $X/mo" joins it once
 `SHOW_PRICES = True` in `config.py` (after billing exists), using `"price_from"` in `content/apps.json`.
 
 ## Each app on a computer and a phone (Our Farm Apps)
@@ -226,6 +228,41 @@ ranch (keep or sell a steer calf), the Grazing Planner's Aug 1 check (Frontier C
 pairs), the Yield Predictor's map and Hall County, the Equipment Planner's buy, lease or hire for Hall
 County. Retake them when an app's look changes: desktop at 1000 x 750, phone at 390 wide, both at 2x,
 then shrink to those widths as JPEG (quality about 84). A test keeps the set under 900 KB.
+
+## The fuller app page (Herd Planner first, 2026-10-05)
+
+Scott: "I feel like we need more comprehensive landing page for each product. Showing cutoff lending reports
+is something helpful in getting customers." He chose layout A, "the report first", from three mockups
+(`notes/herd-planner-page-layouts-*.png`). An app gets it by having a `"page"` block in `content/apps.json`;
+`build.full_page_values` turns the block into the page's parts and `templates/app_full.html` lays them out.
+An app without the block keeps `templates/app.html`. Top to bottom:
+
+1. **The headline** (`headline`, `sub`), two buttons (into the app, and down to the sample) and one line of
+   small print (`offer`), beside the app on a computer and a phone (`build.app_shot`). The small print
+   must say how a visitor really gets in: while Herd Planner online is invite-only
+   (`HERD_PLANNER_OPEN_SIGNUP=0`) it says so and points at the waitlist; change it the day sign-up opens. The app's name sits
+   above the headline; the headline is the page's one `<h1>`.
+2. **The sample, cut off** (`sample`): for Herd Planner the first page of the lender report for a made-up
+   ranch, `static/shots/herd-planner-lender-report.png`, copied from the app's own sample picture
+   (`herd-planner/src/herd_planner/web/shots/lender-report-sample.png`). The styles cut it off with a fade
+   (`.lp-paper`: a height limit and `overflow: hidden`); on a phone the paper keeps a readable size and runs
+   off the right edge too. It is never blurred and never invented: the pricing plan's rule is to say what a
+   subscriber would see, not to fake a result. The caption says the cattle are made up and that the report
+   is not an appraisal. Retake the picture when the app's report changes.
+3. **What You Get** (`free`, `subscription`, `trial`): two lists side by side. Every line must match what
+   the app really leaves open and what it locks; check it against Herd Planner's Help ("Trials and the
+   Subscription") whenever either changes.
+4. **How It Works** (`steps`): the app's own five steps.
+5. Then what the page had before: this week's card (with a few words on the left that it is free on this
+   site every week), What the Numbers Show, Recent Weeks, and Where the Number Comes From.
+
+Rules the tests hold (`tests/test_site.py`, "the fuller app page"): the order above; one `<h1>`; the sample
+picture exists, stays under 150 KB, and its caption says what it is; **no price anywhere in the new parts**
+while `SHOW_PRICES` is False; the paid level is a **subscription**, never "the plan"; the two lists share no
+line; a missing sample picture stops the build; and apps without a `"page"` block are untouched.
+
+To give another app the same page: write its `"page"` block (leave out `sample`, the two lists or `steps`
+and that part is skipped), add its sample picture if it has one, and run the tests.
 
 ## The app pages: This Week and What the Numbers Show (2026-09-30)
 

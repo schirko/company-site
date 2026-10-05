@@ -48,7 +48,8 @@ PAGES = [
 ]
 
 
-# Each app's own page on this site (built from templates/app.html), named by app id.
+# Each app's own page on this site, named by app id: templates/app.html, or templates/app_full.html for an
+# app whose entry in content/apps.json has a "page" block (the fuller page; see full_page_values).
 APP_PAGE = "{}.html"
 
 # The Our Farm Apps menu in the header (chosen 2026-09-30, option C): apps sorted by operation, then the free
@@ -150,13 +151,13 @@ def app_tile(app, copy, week):
                      f'<b class="{tone}">{e(number)}</b>{e(unit)}</span><small>{e(small)}</small></span>')
     inner = f"""<span class="tile-top"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">{stat_html}</span>
         <span class="tile-words"><strong>{e(app["name"])}</strong><span>{e(copy["question"])}</span></span>"""
-    price = (f'<br>Plan from <b>{e(copy["price_from"])}/mo</b>' if config.SHOW_PRICES and copy.get("price_from") else "")
+    price = (f'<br>From <b>{e(copy["price_from"])}/mo</b>' if config.SHOW_PRICES and copy.get("price_from") else "")
     if app["url"]:
         return f"""      <a class="tile" href="{e(app["url"])}">
         {inner}
         <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try{price}</span></span>
       </a>"""
-    later = (f'<span class="tile-price">Plan from <b>{e(copy["price_from"])}/mo</b></span>'
+    later = (f'<span class="tile-price">From <b>{e(copy["price_from"])}/mo</b></span>'
              if config.SHOW_PRICES and copy.get("price_from") else "")
     return f"""      <div class="tile soon">
         {inner}
@@ -466,6 +467,79 @@ def app_page_values(app, copy, week, weeks, barns=None, barn_href=None):
     }
 
 
+def full_page_values(app, copy):
+    """The fuller page's own parts (templates/app_full.html), from the app's "page" block in content/apps.json:
+    the headline, the sample cut off partway, what is free and what comes with a subscription, and the steps.
+    Chosen by Scott from three mockups, 2026-10-05 (layout A, "the report first"). The words are all in
+    apps.json, so another app gets the same page by filling in its own block; parts it leaves out are skipped.
+
+    Two rules the page keeps (tests hold both): it shows no price until billing exists (config.SHOW_PRICES),
+    and the sample is a real page from the app with made-up cattle, cut off and labeled, never a blurred fake."""
+    page = copy["page"]
+
+    def items(lines, pad="          "):
+        return "\n".join(f"{pad}<li>{e(line)}</li>" for line in lines)
+
+    sample, band, button = page.get("sample"), "", ""
+    if sample:
+        if not (STATIC / sample["image"]).exists():
+            raise SystemExit(f'{app["id"]}: the sample picture static/{sample["image"]} is missing.')
+        button = f'<a class="btn ghost" href="#{e(sample["id"])}">{e(sample["button"])}</a>'
+        band = f"""    <div class="lp-band" id="{e(sample["id"])}">
+      <div class="lp-band-top">
+        <div>
+          <span class="lp-tag">{e(sample["tag"])}</span>
+          <h2>{e(sample["title"])}</h2>
+          <p>{e(sample["lead"])}</p>
+        </div>
+        <ul>
+{items(sample["points"])}
+        </ul>
+      </div>
+      <figure class="lp-peek">
+        <div class="lp-paper"><img src="{e(sample["image"])}" alt="{e(sample["alt"])}" width="{int(sample["width"])}" height="{int(sample["height"])}" loading="lazy">
+          <p class="lp-more">{e(sample["more"])}</p></div>
+        <figcaption>{e(sample["caption"])}</figcaption>
+      </figure>
+    </div>"""
+    free = ""
+    if page.get("free") and page.get("subscription"):
+        lead, rest = page["trial"]
+        free = f"""    <div class="lp-band" id="what-you-get">
+      <h2>{e(page["free_title"])}</h2>
+      <div class="lp-two">
+        <div class="lp-col">
+          <h3>Free</h3>
+          <p class="lp-when">{e(page["free_note"])}</p>
+          <ul>
+{items(page["free"], "            ")}
+          </ul>
+        </div>
+        <div class="lp-col lp-sub-col">
+          <h3>With a Subscription</h3>
+          <p class="lp-when">{e(page["subscription_note"])}</p>
+          <ul>
+{items(page["subscription"], "            ")}
+          </ul>
+        </div>
+      </div>
+      <p class="lp-trial"><strong>{e(lead)}</strong> {e(rest)}</p>
+    </div>"""
+    steps = ""
+    if page.get("steps"):
+        rows = "\n".join(f"      <li><b>{e(title)}</b><span>{e(words)}</span></li>" for title, words in page["steps"])
+        steps = f"""    <h2>How It Works</h2>
+    <ol class="lp-steps">
+{rows}
+    </ol>"""
+    return {
+        "headline": e(page["headline"]), "sub": e(page["sub"]), "offer": e(page["offer"]),
+        "sample_button": button, "sample_band": band, "free_band": free, "steps_block": steps,
+        "shot": app_shot(app, copy),
+        "weekly_title": e(page["weekly_title"]), "weekly_text": e(page["weekly_text"]), "weekly_note": e(page["weekly_note"]),
+    }
+
+
 def sitemap(pages, lastmod):
     urls = "\n".join(f"  <url><loc>{e(config.SITE_URL + ('' if p == 'index.html' else p))}</loc>"
                      f"<lastmod>{lastmod}</lastmod></url>" for p in pages)
@@ -482,7 +556,10 @@ def load_stories():
 
 def story_block(story, apps_by_id, heading="h3", link=True, how=False):
     app = apps_by_id[story["app"]]
-    more = (f'<p class="story-link"><a href="{APP_PAGE.format(e(app["id"]))}">More about {e(app["name"])}</a></p>'
+    # On the home page each finding leads two ways: to the app it came from, and to how that app is tested
+    # (methods.html has a section per app, named by the app's id).
+    more = (f'<p class="story-link"><a href="{APP_PAGE.format(e(app["id"]))}">More about {e(app["name"])}</a>'
+            f' <span aria-hidden="true">&middot;</span> <a href="methods.html#{e(app["id"])}">How we test it</a></p>'
             if link else "")
     return f"""      <figure class="story" id="{e(story["id"])}">
         <p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="24" height="24"> {e(app["name"])}</p>
@@ -590,8 +667,12 @@ def build():
         body = Template((TEMPLATES / template).read_text(encoding="utf-8")).substitute(values)
         write(out_name, body, title, description, current)
     app_template = Template((TEMPLATES / "app.html").read_text(encoding="utf-8"))
+    full_template = Template((TEMPLATES / "app_full.html").read_text(encoding="utf-8"))
     for app in apps:
         v = app_page_values(app, copy[app["id"]], week, weeks, all_barns, barn_href)
+        full = "page" in copy[app["id"]]
+        if full:
+            v.update(full_page_values(app, copy[app["id"]]))
         own = [st for st in stories if st["app"] == app["id"]]
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
         # read it" line on each chart (stories.json "how_to_read").
@@ -601,7 +682,7 @@ def build():
 """ + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True) for st in own) + "\n    </div>") if own else ""
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
-        write(APP_PAGE.format(app["id"]), app_template.substitute(values, **v), app["name"],
+        write(APP_PAGE.format(app["id"]), (full_template if full else app_template).substitute(values, **v), app["name"],
               f'{app["name"]}: {copy[app["id"]]["question"]}{lead}', "apps")
     # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
     corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)

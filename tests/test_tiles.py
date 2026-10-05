@@ -42,10 +42,12 @@ def test_the_steer_price_names_its_barn():
 
 def test_no_prices_until_billing_exists(monkeypatch):
     monkeypatch.setattr(config, "SHOW_PRICES", False)
-    assert "Plan from" not in build.app_tile(APP, COPY, week()) + build.app_tile(SOON, COPY, week())
+    assert "/mo" not in build.app_tile(APP, COPY, week()) + build.app_tile(SOON, COPY, week())
     assert "Free to try" in build.app_tile(APP, COPY, week())
     monkeypatch.setattr(config, "SHOW_PRICES", True)
-    assert "Plan from <b>$9/mo</b>" in build.app_tile(APP, COPY, week())
+    tile = build.app_tile(APP, COPY, week())
+    assert "From <b>$9/mo</b>" in tile
+    assert "Plan from" not in tile   # the paid level is a subscription, never "the plan" (Scott, 2026-10-04)
     soon = build.app_tile(SOON, COPY, week())
     assert "Coming soon" in soon and "Free to try" not in soon  # nothing to try yet
 

@@ -11,7 +11,10 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 .wordmark { font-size: 1.3rem; letter-spacing: .01em; }
 /* The logo (static/brand/): the C-sun and the name, drawn as shapes so it looks the same on every
    computer. Height sets the size; the width follows. */
-.wordmark img { display: block; height: 36px; width: auto; }
+.wordmark img { display: block; height: 52px; width: auto; }   /* Scott's pick (2026-10-03): it was 36 and "seemed to be hiding" */
+/* A window narrower than a full computer screen (a tablet, a half-width window) keeps the earlier size, so the
+   name and the menu still share one line down to the width they did before. Phones have their own rule below. */
+@media (max-width: 959px) { .wordmark img { height: 36px; } }
 .footer-name img { display: block; height: 28px; width: auto; }
 .site-nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .site-nav > a { text-decoration: none; font-weight: 600; }
@@ -404,7 +407,10 @@ svg.mini .marker { stroke: var(--suite-ink); stroke-width: 3; }
 .proof-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .proof-stats strong { display: block; font-size: 1.5rem; color: var(--suite-deep-green); font-variant-numeric: tabular-nums; }
 .proof-stats span { display: block; font-size: .82rem; color: var(--suite-muted); line-height: 1.35; }
-@media (max-width: 520px) { .proof-stats { grid-template-columns: 1fr; } .proof-stats div { display: flex; gap: 12px; align-items: baseline; } .proof-stats strong { min-width: 6.5rem; white-space: nowrap; font-size: 1.3rem; } }
+/* Each figure leads to where it is explained on How We Test */
+.proof-stats a { display: block; color: inherit; text-decoration: none; border-radius: 6px; }
+.proof-stats a:hover strong, .proof-stats a:focus-visible strong { text-decoration: underline; }
+@media (max-width: 520px) { .proof-stats { grid-template-columns: 1fr; } .proof-stats a { display: flex; gap: 12px; align-items: baseline; } .proof-stats strong { min-width: 6.5rem; white-space: nowrap; font-size: 1.3rem; } }
 
 /* "See your county" (panel.js): a small button in the panel's top line and a one-row form */
 .live-top { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; }
@@ -499,3 +505,56 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .sheet-numbers summary { cursor: pointer; font-size: .88rem; color: var(--suite-link, #2a78d6); }
 .sheet-numbers table { font-size: .85rem; border-collapse: collapse; margin-top: 6px; }
 .sheet-numbers th, .sheet-numbers td { text-align: left; padding: 2px 12px 2px 0; border-bottom: 1px solid var(--suite-line); }
+/* The fuller app page (templates/app_full.html; layout A, chosen by Scott 2026-10-05): a headline, the sample
+   cut off partway, what is free and what comes with a subscription, the steps, then the weekly card. */
+.lp-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; margin-bottom: 8px; }
+.lp-hero h1 { margin: 0 0 10px; }
+.lp-id { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+.lp-id img { width: 48px; height: 48px; }
+.lp-id .eyebrow { margin: 0; }
+.lp-name { font-weight: 700; font-size: 1.05rem; margin: 0; }
+.lp-sub { color: var(--suite-muted); max-width: 46ch; margin: 0 0 18px; font-size: 1.05rem; }
+.lp-cta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 10px; }
+.lp-fine { font-size: .9rem; color: var(--suite-muted); margin: 0; max-width: 46ch; }
+.lp-band { background: var(--band); border: 1px solid var(--suite-line); border-radius: 12px; padding: 26px 28px; margin: 34px 0; scroll-margin-top: 16px; }
+.lp-band h2 { margin-top: 0; }
+.lp-band-top { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; margin-bottom: 20px; }
+.lp-band-top h2 { margin: 6px 0 8px; }
+.lp-band-top p { margin: 0 0 8px; }
+.lp-band-top ul, .lp-col ul { margin: 0; padding-left: 1.15em; }
+.lp-band-top li { margin-bottom: .4em; }
+.lp-tag { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; background: var(--suite-deep-green); color: #fff; }
+/* The sample: a real page from the app with made-up cattle, cut off with a fade. Never a blurred fake. */
+.lp-peek { margin: 0 auto; max-width: 880px; }
+.lp-paper { position: relative; background: #fff; border: 1px solid #cfd6cf; border-radius: 6px; box-shadow: 0 10px 28px rgba(36, 59, 47, .16); overflow: hidden; max-height: 520px; }
+.lp-paper img { display: block; width: 100%; height: auto; }
+.lp-paper::after { content: ""; position: absolute; left: 0; right: 0; bottom: 40px; height: 18%; background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 78%); }
+.lp-more { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; margin: 0; text-align: center; font-size: .92rem; color: var(--suite-deep-green); font-weight: 700; padding: 10px 14px 12px; background: #fff; border-top: 1px solid #e3e7e3; }
+.lp-peek figcaption { font-size: .85rem; color: var(--suite-muted); margin: 8px 2px 0; }
+.lp-two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.lp-col { background: #fff; border: 1px solid var(--suite-line); border-radius: 10px; padding: 18px 20px; }
+.lp-sub-col { border: 2px solid var(--suite-deep-green); }
+.lp-col h3 { margin: 0 0 4px; font-size: 1.1rem; }
+.lp-when { font-size: .9rem; color: var(--suite-muted); margin: 0 0 10px; }
+.lp-col li { margin-bottom: .5em; }
+.lp-trial { margin: 16px 0 0; color: var(--suite-muted); }
+.lp-trial strong { color: var(--suite-ink); }
+.lp-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 14px 0 34px; padding: 0; list-style: none; counter-reset: lp-step; }
+.lp-steps li { counter-increment: lp-step; background: #fff; border: 1px solid var(--suite-line); border-radius: 10px; padding: 12px 14px; }
+.lp-steps li::before { content: counter(lp-step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--suite-deep-green); color: #fff; font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+.lp-steps b { display: block; }
+.lp-steps span { font-size: .92rem; color: var(--suite-muted); }
+.lp-weekly h2 { margin-top: 0; }
+@media (max-width: 860px) {
+  .lp-hero, .lp-two, .lp-band-top { grid-template-columns: 1fr; gap: 18px; }
+  .lp-band-top { gap: 8px; }
+  .lp-band { padding: 18px 16px; margin: 24px 0; }
+  .lp-steps { grid-template-columns: 1fr; gap: 8px; margin-bottom: 26px; }
+  .lp-steps li { display: grid; grid-template-columns: 34px 1fr; column-gap: 8px; align-items: start; }
+  .lp-steps li::before { grid-row: span 2; margin: 0; }
+  /* On a phone the whole page would be too small to read, so the paper keeps a readable size and runs off
+     the right edge as well as the bottom. */
+  .lp-paper { max-height: 400px; }
+  .lp-paper img { width: 640px; max-width: none; }
+  .lp-paper::before { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 56px; background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff); z-index: 1; }
+}

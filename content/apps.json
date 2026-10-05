@@ -1,5 +1,5 @@
 {
-  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens. \"price_from\" is the lowest monthly plan price, shown on the tiles only when config.SHOW_PRICES is True (after billing exists). \"shot_alt\" describes the app's computer and phone pictures (static/shots/<id>-computer.jpg and -phone.jpg) for people who can't see them.",
+  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens. \"price_from\" is the lowest monthly subscription price, shown on the tiles only when config.SHOW_PRICES is True (after billing exists). \"shot_alt\" describes the app's computer and phone pictures (static/shots/<id>-computer.jpg and -phone.jpg) for people who can't see them. An app with a \"page\" block gets the fuller page (templates/app_full.html): a headline, a sample cut off partway (\"sample\"), what is free and what comes with a subscription, the steps, then the weekly card and findings. An app without one keeps the shorter page (templates/app.html). Every claim in \"free\" and \"subscription\" must match what the app really locks and opens.",
   "herd-planner": {
     "question": "Which calves do I sell, which heifers do I keep, and how fast can my herd grow?",
     "audience": "For cow-calf ranches",
@@ -11,7 +11,80 @@
     ],
     "note": "Keep your herd records and see your barn's prices. The first visit can take a minute to wake up.",
     "price_from": "$12",
-    "shot_alt": "Herd Planner on a computer and a phone, showing a demo ranch's answer: keeping a 367 lb steer calf for 120 days is worth about $204 more than selling today, with the costs of keeping and what each length of keeping is worth."
+    "shot_alt": "Herd Planner on a computer and a phone, showing a demo ranch's answer: keeping a 367 lb steer calf for 120 days is worth about $204 more than selling today, with the costs of keeping and what each length of keeping is worth.",
+  "page": {
+   "headline": "Know what your herd is worth, and what to do about it",
+   "sub": "Which calves to sell, which heifers to keep, how fast the herd can grow, and a page your banker can read. From your own records and your own sale barn's prices.",
+   "offer": "Opening by invite: join the waitlist on the app's first screen. With an account, everything is open for your first 30 days. The first visit can take a minute to wake up.",
+   "sample": {
+    "id": "lender-report",
+    "button": "See a sample report",
+    "tag": "With a subscription",
+    "title": "A Report for Your Lender",
+    "lead": "When the bank asks for your cattle numbers, the page is already made, from the records you keep anyway.",
+    "points": [
+     "Head and value by kind, calves and the breeding herd apart",
+     "Cows at their cull price, beside your own figure for them",
+     "A likely range on the total, and what changed since January",
+     "A PDF to print, or emailed to your banker from the app"
+    ],
+    "image": "shots/herd-planner-lender-report.png",
+    "width": 1140,
+    "height": 925,
+    "alt": "The first page of a sample lender report for a made-up ranch, marked as a demo: cattle on hand by kind with head, average weight and value, then the breeding herd.",
+    "more": "The sample goes on: what changed since January, the year's sales, and every animal by tag.",
+    "caption": "A sample with made-up cattle. Yours is made from your own records and priced from USDA sale reports. It is not an appraisal."
+   },
+   "free_title": "What You Get",
+   "free_note": "Always, for any size of herd",
+   "free": [
+    "Your herd records: animals, tags, weights, calving, breeding and health",
+    "Your own spreadsheet in, whatever its columns are called, and your herd back out any time",
+    "Weigh days straight from the scale, and weights at the chute with no signal",
+    "Your barn's prices this week, and a price check for any one animal you describe",
+    "Keep-or-sell and herd-growth answers for numbers you type in",
+    "Sales recorded the way the settlement sheet reads, added up for your books"
+   ],
+   "subscription_note": "Everything in Free, worked out for your own herd",
+   "subscription": [
+    "Every animal in your herd valued at your own barn, with the total and its likely range",
+    "Keep or sell for any animal, from its own weights and your costs",
+    "A herd growth plan that starts from your real cows, heifers and records",
+    "Which head to sell first when grass is short, and what your cull cows would bring",
+    "Each sale set beside cattle like yours at the same sale",
+    "Whether weaning and holding pays for your calf crop",
+    "A report for your lender, as a PDF you can print or email"
+   ],
+   "trial": [
+    "Everything is open for your first 30 days.",
+    "After that your records stay open, and nothing you saved is lost."
+   ],
+   "steps": [
+    [
+     "Your ranch",
+     "Pick the barn you sell at"
+    ],
+    [
+     "Your cattle",
+     "Upload the spreadsheet you already keep"
+    ],
+    [
+     "What they're worth",
+     "Every animal, this week, at your barn"
+    ],
+    [
+     "Keep or sell",
+     "For any animal, with the reasons"
+    ],
+    [
+     "Grow my herd",
+     "How many heifers to keep"
+    ]
+   ],
+   "weekly_title": "Free on This Site Every Week",
+   "weekly_text": "Each Friday we publish what a 550 lb steer brought at the sale barn nearest one farm county, with the range 8 in 10 sales landed in, and whether the month usually pays to wait.",
+   "weekly_note": "Herd Planner does this for every animal you own, at the barn you sell at."
+  }
   },
   "corn-yield-predictor": {
     "question": "What will this county's corn and soybeans yield, and why?",

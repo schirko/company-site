@@ -231,3 +231,140 @@ def test_the_headline_and_this_weeks_numbers_sit_on_the_photo_and_the_panel_foll
     hero_at, week_at, tiles_at = (page.index(mark) for mark in ('<section class="hero', '<section class="week"', '<section class="tiles-band"'))
     assert hero_at < page.index("<h1>") < page.index('id="pins"') < week_at < page.index('id="this-week"') < tiles_at
     assert page.count("<h1>") == 1
+
+
+def test_the_proof_figures_read_in_plain_words_and_lead_to_how_we_test(site):
+    """Scott, October 3, 2026: "typical miss pricing calves at 26 sales the model never saw" was not plain
+    (he could not follow it, so a rancher won't). The figure is said as a gap from the real sale price, with
+    what it comes to in dollars, and each of the three figures links to the section that explains it."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    proof = home[home.index('class="proof-stats"'):home.index("</section>", home.index('class="proof-stats"'))]
+    assert "typical miss" not in proof and "never saw" not in proof
+    assert "typical gap between our calf price estimate and the real sale price: about $60 on a $2,500 calf" in proof
+    assert "26 auctions the model had not seen" in proof
+    methods = (site / "methods.html").read_text(encoding="utf-8")
+    for section in ("herd-planner", "corn-yield-predictor", "farm-equipment-planner"):
+        assert f'<a href="methods.html#{section}"><strong>' in proof
+        assert f'id="{section}"' in methods                       # the link lands somewhere
+    assert 62.5 == 2500 * 0.025                                   # "about $60": 2.5% of a $2,500 calf
+
+
+def test_why_use_our_apps_leads_to_how_we_test(site):
+    """The sentence promises each finding's source and limits; the link is where that promise is kept. Each
+    finding also links to its own app's section."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    why = home[home.index("<h2>Why Use Our Apps</h2>"):]
+    lede = why[:why.index('<div class="stories">')]
+    assert '<a href="methods.html">How we test them</a>' in lede
+    stories = json.loads((ROOT / "content/stories.json").read_text(encoding="utf-8"))["stories"]
+    methods = (site / "methods.html").read_text(encoding="utf-8")
+    for story in stories:
+        if f'id="{story["id"]}"' in why:                          # the ones shown on the home page
+            assert f'<a href="methods.html#{story["app"]}">How we test it</a>' in why, story["id"]
+            assert f'id="{story["app"]}"' in methods, story["app"]
+
+
+def test_the_header_logo_is_the_size_scott_picked():
+    """October 3, 2026: on a computer the logo "seemed to be hiding" at 36 px. From sheets of three sizes Scott
+    picked 52 px for a computer and kept 30 px for a phone. Windows in between keep 36 px, so the name and the
+    menu share a line as they did before."""
+    css = (ROOT / "static/site.css").read_text(encoding="utf-8")
+    assert ".wordmark img { display: block; height: 52px; width: auto; }" in css
+    assert "@media (max-width: 959px) { .wordmark img { height: 36px; } }" in css
+    phone = css.index(".wordmark img { height: 30px; }")
+    assert "@media (max-width: 600px) {" in css[phone - 250:phone]              # the phone size sits in the phone rule...
+    assert css.index("max-width: 959px") < phone                                # ...which comes last, so it wins
+    layout = (ROOT / "templates/layout.html").read_text(encoding="utf-8")
+    assert 'width="338" height="52"' in layout                     # the shape the browser saves room for: 796.2 x 122.4 scaled
+    assert round(52 * 796.2 / 122.4) == 338
+
+
+# --- the fuller app page (layout A, chosen 2026-10-05): templates/app_full.html --------------------------------
+
+FULL = [a for a in build.load_apps() if "page" in build.load_copy()[a["id"]]]
+
+
+def full_part(page):
+    """The fuller page's own parts: from the headline down to where the weekly card begins."""
+    return page[page.index('<div class="lp-hero">'):page.index('lp-weekly')]
+
+
+def words(html):
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
+
+
+def test_herd_planner_has_the_fuller_page():
+    assert "herd-planner" in [a["id"] for a in FULL]
+
+
+@pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])
+def test_the_fuller_page_runs_headline_sample_what_you_get_steps_then_this_week(site, app):
+    copy = build.load_copy()[app["id"]]
+    page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+    assert page.count("<h1>") == 1 and f'<h1>{build.e(copy["page"]["headline"])}</h1>' in page
+    assert f'<p class="lp-name">{build.e(app["name"])}</p>' in page          # the app is still named, above the headline
+    sample = copy["page"]["sample"]
+    order = [page.index(mark) for mark in ("<h1>", f'id="{sample["id"]}"', 'id="what-you-get"', "<h2>How It Works</h2>",
+                                           "lp-weekly", "<h2>What the Numbers Show</h2>", "<h2>Where the Number Comes From</h2>")]
+    assert order == sorted(order)
+    # Two buttons: into the app, and down to the sample (a link on this page, which the link test follows).
+    assert f'<a class="btn" href="{build.e(app["url"])}">Open {build.e(app["name"])}</a>' in page
+    assert f'<a class="btn ghost" href="#{sample["id"]}">{build.e(sample["button"])}</a>' in page
+    assert len(copy["page"]["steps"]) == page.count("<li><b>") == 5
+
+
+@pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])
+def test_the_sample_is_a_real_picture_cut_off_and_says_what_it_is(site, app):
+    """Scott: "Showing cutoff lending reports is something helpful in getting customers." The pricing plan's rule:
+    say what a subscriber would see next to the free number, never a blurred fake result. So the sample is a real
+    page from the app with made-up cattle, it is cut off by the page's styles (not blurred), and its caption says
+    the cattle are made up and that the report is not an appraisal."""
+    sample = build.load_copy()[app["id"]]["page"]["sample"]
+    picture = site / sample["image"]
+    assert picture.exists() and picture.stat().st_size < 150_000
+    assert len(sample["alt"]) > 60 and "made-up" in sample["alt"]
+    assert "made-up cattle" in sample["caption"] and "not an appraisal" in sample["caption"]
+    page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+    assert f'alt="{build.e(sample["alt"])}"' in page and build.e(sample["more"]) in page
+    styles = (site / "site.css").read_text(encoding="utf-8")
+    cut = styles[styles.index(".lp-paper {"):]
+    assert "overflow: hidden" in cut[:cut.index("}")] and "max-height" in cut[:cut.index("}")]
+    assert "blur(" not in styles
+
+
+@pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])
+def test_the_fuller_page_shows_no_price_and_calls_the_paid_level_a_subscription(site, app):
+    """No price until billing exists (config.SHOW_PRICES is False: the pilot shows none). And the paid level is a
+    subscription, never "the plan", Pro, Premium or an upgrade (Scott, 2026-10-04)."""
+    part = words(full_part((site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")))
+    assert not config.SHOW_PRICES
+    assert "$" not in part and "/mo" not in part and "a month" not in part
+    assert "With a Subscription" in part and "first 30 days" in part
+    assert not re.search(r"\b(the|a|no|your) plans?\b(?! that)", part.replace("herd growth plan", ""), re.I), part
+    for word in ("Pro ", "Premium", "pgrade"):
+        assert word not in part
+
+
+@pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])
+def test_free_and_subscription_are_two_different_lists(app):
+    page = build.load_copy()[app["id"]]["page"]
+    assert len(page["free"]) >= 4 and len(page["subscription"]) >= 4
+    assert not set(page["free"]) & set(page["subscription"])
+    assert len(page["trial"]) == 2
+
+
+def test_a_missing_sample_picture_stops_the_build():
+    app = FULL[0]
+    copy = json.loads(json.dumps(build.load_copy()[app["id"]]))
+    copy["page"]["sample"]["image"] = "shots/not-there.png"
+    with pytest.raises(SystemExit, match="not-there.png"):
+        build.full_page_values(app, copy)
+
+
+def test_apps_without_a_page_block_keep_the_shorter_page(site):
+    copy = build.load_copy()
+    for app in build.load_apps():
+        if "page" in copy[app["id"]]:
+            continue
+        page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        assert 'class="lp-' not in page and "<h2>What It Does</h2>" in page and f'<h1>{build.e(app["name"])}</h1>' in page
