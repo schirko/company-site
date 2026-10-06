@@ -1,4 +1,5 @@
-"""The home page's app tiles: this week's number top right, free to try (and later the price) bottom right."""
+"""The home page's app tiles: this week's number top right; at the bottom, Open and one way in for someone new
+(and later the price)."""
 
 import build
 import cards
@@ -78,3 +79,46 @@ def test_an_app_without_pictures_keeps_the_placeholder(monkeypatch, tmp_path):
 def test_the_pictures_stay_small():
     total = sum(p.stat().st_size for p in build.SHOTS.glob("*.jpg"))
     assert total < 900_000  # about 0.6 MB for four apps today
+
+
+# --- Open, and one way in (2026-10-05) --------------------------------------------------------------
+
+def links(tile):
+    import re
+    return re.findall(r'<a [^>]*href="([^"]+)"[^>]*>(?:(?!</a>).)*?</a>', tile, re.S)
+
+
+def test_a_tile_opens_the_app_and_its_words_lead_to_its_page():
+    """Scott, 2026-10-05, asked for links at the bottom of each card. A link can't sit inside a link, so the
+    tile is no longer one big link: the name and question go to the app's page on this site, Open to the app."""
+    tile = build.app_tile(APP, COPY, week())
+    assert '<a class="tile' not in tile.split("tile-body")[0] and tile.lstrip().startswith('<div class="tile tile-app">')
+    assert links(tile) == ["grazing-planner.html", APP["url"]]
+    # Four tiles each have an Open button: a screen reader hears which app each one opens.
+    assert f'<a class="btn small" href="{APP["url"]}" aria-label="Open {APP["name"]}">Open</a>' in tile
+    assert tile.count("<a ") == tile.count("</a>") == 2
+
+
+def test_an_app_with_sign_up_links_gets_one_on_its_tile_and_never_a_subscribe_link():
+    """ "Just Open and Try for Free" (Scott). While the app is invite-only the same link reads Join the
+    Waitlist; it is hidden in a browser that has used the app (member.js)."""
+    for state, word, card in (("waitlist", "Join the Waitlist", "#waitlist"), ("open", "Try for Free", "#signup")):
+        tile = build.app_tile(APP, {**COPY, "signup": state}, week())
+        assert f'<a class="tile-link visitor-only" data-app="{APP["id"]}" href="{APP["url"]}{card}">{word}</a>' in tile
+        assert links(tile) == ["grazing-planner.html", APP["url"], APP["url"] + card]
+        assert "Subscribe" not in tile and "Free to try" not in tile
+
+
+def test_an_app_with_no_sign_up_says_what_is_true_of_it_instead():
+    tile = build.app_tile(APP, {**COPY, "tile_note": "Free, no sign-in"}, week())
+    assert '<span class="tile-price">Free, no sign-in</span>' in tile and "tile-link" not in tile
+
+
+def test_the_real_tiles_each_have_open_and_a_way_in_or_a_note():
+    copy = build.load_copy()
+    for app in build.load_apps():
+        tile = build.app_tile(app, copy[app["id"]], week())
+        if not app["url"]:
+            continue
+        assert ("tile-link" in tile) == ("signup" in copy[app["id"]]), app["id"]
+        assert ("tile-link" in tile) or build.e(copy[app["id"]]["tile_note"]) in tile, app["id"]

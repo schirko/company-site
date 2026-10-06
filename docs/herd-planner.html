@@ -10,13 +10,17 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=d6c273fe39">
+  <link rel="stylesheet" href="site.css?v=2313f06bfd">
+  <style>
+    html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
+  </style>
+  <script src="member.js?v=7d22447ca3" data-apps="herd-planner"></script>
 </head>
 <body>
 <header class="suite-bar site-header">
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="338" height="52"></a>
-    <nav class="site-nav" aria-label="Site">
+    <nav class="site-nav has-signup" aria-label="Site">
       <div class="mega-wrap" data-current><details class="mega" data-mega>
       <summary>Our Farm Apps</summary>
       <div class="mega-panel">
@@ -44,8 +48,10 @@
     </details></div>
       <a href="barns.html">Barn Prices</a>
       <a href="about.html">About</a>
-      <a href="methods.html">How We Test</a>
-      <a class="nav-signin" href="https://farm-account.onrender.com/app/#signin">Sign In</a>
+      <a class="nav-methods" href="methods.html">How We Test</a>
+      <a class="nav-signin nav-visitor" href="https://herd-planner.onrender.com/#signin">Sign In</a>
+      <a class="nav-signup visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist"><span class="wide">Join the Waitlist</span><span class="narrow">Waitlist</span></a>
+      <a class="nav-signin nav-member member-only" data-app="herd-planner" href="https://herd-planner.onrender.com/"><span class="wide">Open Herd Planner &#8594;</span><span class="narrow">My Herd &#8594;</span></a>
     </nav>
   </div>
 </header>
@@ -64,35 +70,50 @@
         </div>
         <h1>Know what your cattle are worth: what to sell, what to keep</h1>
         <p class="lp-sub">What each animal would bring this week, how fast the herd can grow, and a page your banker can read. From your own records and your own sale barn&#x27;s prices.</p>
-        <p class="lp-cta"><a class="btn" href="https://herd-planner.onrender.com/">Open Herd Planner</a><a class="btn ghost" href="#lender-report">See a sample report</a></p>
-        <p class="lp-fine">Opening by invite: join the waitlist on the app&#x27;s first screen. With an account, everything is open for your first 30 days. The first visit can take a minute to wake up.</p>
+        <p class="lp-cta"><a class="btn visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a><a class="btn member-only" data-app="herd-planner" href="https://herd-planner.onrender.com/">Open Herd Planner</a><a class="btn ghost" href="#lender-report">See a sample report</a></p>
+        <p class="lp-fine visitor-only" data-app="herd-planner">Opening by invite: leave your name and email and we&#x27;ll let you know when it opens to more ranches. With an account, everything is open for your first 30 days. The first visit can take a minute to wake up.</p>
+        <p class="lp-have visitor-only" data-app="herd-planner">Have an invite or an account? <a href="https://herd-planner.onrender.com/">Open Herd Planner</a></p>
+        <p class="lp-fine member-only" data-app="herd-planner">Shown because this browser has used Herd Planner. <a href="privacy.html#this-browser">Why?</a>
+          <button type="button" class="linklike" data-forget-app>Forget this</button></p>
       </div>
-      <figure class="shot showcase">
+      <aside class="lp-feature">
+        <span class="lp-tag">This fall &#183; with a subscription</span>
+        <h2>Weaning time: sell now, or keep growing?</h2>
+        <p>Keep or sell for any calf, from its own weight and your costs, at your barn&#x27;s prices this week.</p>
+        <figure class="shot showcase">
         <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>herd-planner.onrender.com</span></div>
           <img src="shots/herd-planner-computer.jpg" alt="Herd Planner on a computer and a phone, showing a demo ranch&#x27;s answer: keeping a 367 lb steer calf for 120 days is worth about $204 more than selling today, with the costs of keeping and what each length of keeping is worth." width="1100" height="825" loading="lazy"></div>
         <div class="phone"><img src="shots/herd-planner-phone.jpg" alt="" loading="lazy"></div>
       </figure>
+        <p class="lp-feature-cta"><a class="btn ghost visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a><a class="lp-feature-more" href="#year">The rest of the year &#8594;</a></p>
+      </aside>
     </div>
 
     <div class="lp-band" id="lender-report">
-      <div class="lp-band-top">
-        <div>
+      <h2>Two Pages, Already Made</h2>
+      <div class="lp-pair">
+        <div class="lp-half" id="lender-report-page">
           <span class="lp-tag">With a subscription</span>
-          <h2>A Report for Your Lender</h2>
+          <h3>A Report for Your Lender</h3>
           <p>When the bank asks for your cattle numbers, the page is already made, from the records you keep anyway.</p>
-        </div>
-        <ul>
-          <li>Head and value by kind, calves and the breeding herd apart</li>
-          <li>Cows at their cull price, beside your own figure for them</li>
-          <li>A likely range on the total, and what changed since January</li>
-          <li>A PDF to print, or emailed to your banker from the app</li>
-        </ul>
-      </div>
-      <figure class="lp-peek">
+          <figure class="lp-peek">
         <div class="lp-paper"><img src="shots/herd-planner-lender-report.png" alt="The first page of a sample lender report for a made-up ranch, marked as a demo: cattle on hand by kind with head, average weight and value, then the breeding herd." width="1140" height="925" loading="lazy">
           <p class="lp-more">The sample goes on: what changed since January, the year&#x27;s sales, and every animal by tag.</p></div>
         <figcaption>A sample with made-up cattle. Yours is made from your own records and priced from USDA sale reports. It is not an appraisal.</figcaption>
       </figure>
+        </div>
+        <div class="lp-half" id="sale-sheet-page">
+          <span class="lp-tag lp-tag-free">Free</span>
+          <h3>A Sale Sheet for Your Buyer</h3>
+          <p>On sale day the buyer wants to know what they are bidding on. The page is already made, from the records you keep anyway.</p>
+          <figure class="lp-peek">
+        <div class="lp-paper"><img src="shots/herd-planner-sale-sheet.png" alt="The first page of a sample calf sale sheet and health record for a made-up ranch, marked as a demo: head and weights by kind, days weaned, and the health program with each product, dose and route." width="880" height="925" loading="lazy">
+          <p class="lp-more">The sample goes on: every shot, how the calves sort into lots, withdrawal dates, and a line for every calf.</p></div>
+        <figcaption>A sample with made-up cattle. Yours is printed from your own records; Herd Planner does not check them.</figcaption>
+      </figure>
+        </div>
+      </div>
+      <p class="lp-ask visitor-only" data-app="herd-planner"><span>Want these pages for your own herd?</span> <a class="btn" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a></p>
     </div>
     <div class="lp-band" id="what-you-get">
       <h2>What You Get</h2>
@@ -107,6 +128,7 @@
             <li>Your barn&#x27;s prices this week, and a price check for any one animal you describe</li>
             <li>Keep-or-sell and herd-growth answers for numbers you type in</li>
             <li>Sales recorded the way the settlement sheet reads, added up for your books</li>
+            <li>A sale sheet for your buyer: head and weights, days weaned and every shot with its lot number</li>
           </ul>
         </div>
         <div class="lp-col lp-sub-col">
@@ -123,8 +145,16 @@
           </ul>
         </div>
       </div>
-      <p class="lp-trial"><strong>Everything is open for your first 30 days.</strong> After that your records stay open, and nothing you saved is lost.</p>
+      <p class="lp-trial lp-trial-cta"><span><strong>With an account, everything is open for your first 30 days.</strong> After that your records stay open, and nothing you saved is lost.</span> <a class="btn visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a></p>
     </div>
+    <h2 id="year">A Subscription for Every Season</h2>
+    <p class="section-lede">For a spring-calving herd. If you calve in the fall, shift it six months.</p>
+    <ol class="lp-year">
+      <li class="now"><span class="lp-season">Fall <i>Now</i></span><b>Weaning and culling</b><span>Sell the calves at the barn, or wean and hold: does holding pay this year? What your cull cows would bring. And a sale sheet for the buyer (always free).</span></li>
+      <li><span class="lp-season">Winter</span><b>The bank and next year</b><span>A report for your lender when the note comes up, and next year&#x27;s herd growth plan: how many heifers to keep to reach your goal.</span></li>
+      <li><span class="lp-season">Spring</span><b>Calving and replacements</b><span>Calving records at the chute (always free). Keep or sell for each heifer, from her own weights and your costs, before you decide who stays.</span></li>
+      <li><span class="lp-season">Summer</span><b>Grass and weigh days</b><span>Which head to sell first when grass is short, and keep or sell for each animal from its own weights.</span></li>
+    </ol>
     <h2>How It Works</h2>
     <ol class="lp-steps">
       <li><b>Your ranch</b><span>Pick the barn you sell at</span></li>
@@ -229,6 +259,12 @@
     <h2>Where the Number Comes From</h2>
     <p>Herd Planner fits a price model to USDA auction reports from the sale barn nearest the week&#x27;s county that sold in the last three weeks (its own state first, then neighbors; otherwise Oklahoma City, the deepest weekly feeder sale). The range comes from testing the model on sales it never saw: 8 in 10 real sales landed inside it.</p>
     <p class="meta">Source: USDA AMS Market News auction reports. <a href="methods.html#herd-planner">How we test Herd Planner</a>.</p>
+    <div class="lp-close visitor-only" data-app="herd-planner">
+      <h2>Want this for your own herd?</h2>
+      <p>Herd Planner is opening by invite. Leave your name and email and we&#x27;ll let you know when it opens to more ranches.</p>
+      <p class="lp-cta"><a class="btn" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a></p>
+      <p class="lp-have">Have an invite or an account? <a href="https://herd-planner.onrender.com/">Open Herd Planner</a></p>
+    </div>
   </div>
 </section>
 <script src="slider.js?v=6ebfd70b87" defer></script>

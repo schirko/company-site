@@ -11,17 +11,21 @@
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css">
   <link rel="stylesheet" href="site.css">
+  <style>
+${member_css}
+  </style>
+  <script src="member.js" data-apps="${member_apps}"></script>
 </head>
 <body>
 <header class="suite-bar site-header">
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="${name}" width="338" height="52"></a>
-    <nav class="site-nav" aria-label="Site">
+    <nav class="site-nav${nav_class}" aria-label="Site">
       <div class="mega-wrap"${nav_apps}>${mega_menu}</div>
       <a href="barns.html"${nav_barns}>Barn Prices</a>
       <a href="about.html"${nav_about}>About</a>
-      <a href="methods.html"${nav_methods}>How We Test</a>
-      <a class="nav-signin" href="${account_url}">Sign In</a>
+      <a class="nav-methods" href="methods.html"${nav_methods}>How We Test</a>
+      ${nav_account}
     </nav>
   </div>
 </header>

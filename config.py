@@ -34,10 +34,13 @@ SITE_URL = f"https://{DOMAIN}/"
 
 # Where "Sign In" in the menu goes: the suite's account service (farm-account), where each
 # person's home page shows every app with their county's numbers. Change it with the domain.
+# On the page of an app that has sign-up links ("signup" in content/apps.json) Sign In goes to that app's own
+# sign-in card instead: a Herd Planner account is not a Your Account sign-in.
 ACCOUNT_URL = "https://farm-account.onrender.com/app/#signin"
 
 # Subscription prices on the home page's app tiles ("From $12/mo", from "price_from" in content/apps.json).
-# False until billing exists (the pilot shows no prices); the tiles then just say "Free to try".
+# False until billing exists (the pilot shows no prices). Until then no link on the site says "Subscribe"
+# either: that word only ever goes to a pay page (see "Sign-up links" in the README).
 SHOW_PRICES = False
 
 # The photo behind the home page's headline: a file under static/ (about 2,000 px wide, under 400 KB), and its

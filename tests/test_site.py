@@ -110,11 +110,19 @@ def test_the_apps_link_back_to_this_site_by_its_own_name():
     assert company["url"] == config.SITE_URL
 
 
+def site_nav(page):
+    return page[page.index('<nav class="site-nav'):page.index("</nav>")]
+
+
 def test_sign_in_is_in_every_page_menu(site):
+    """Sign In goes to the suite account, except on the page of an app with sign-up links, where it goes to
+    that app's own sign-in card (a Herd Planner account is not a Your Account sign-in)."""
+    copy = build.load_copy()
+    own = {build.APP_PAGE.format(a["id"]): build.signup(a, copy[a["id"]]) for a in build.load_apps()}
     for name in all_pages():
-        page = (site / name).read_text(encoding="utf-8")
-        nav = page[page.index('<nav class="site-nav"'):page.index("</nav>")]
-        assert f'href="{config.ACCOUNT_URL}">Sign In</a>' in nav, name
+        nav = site_nav((site / name).read_text(encoding="utf-8"))
+        where = own[name]["signin"] if own.get(name) else config.ACCOUNT_URL
+        assert f'href="{where}">Sign In</a>' in nav and nav.count(">Sign In</a>") == 1, name
         assert "<summary>Our Farm Apps</summary>" in nav, name
 
 
@@ -307,9 +315,15 @@ def test_the_fuller_page_runs_headline_sample_what_you_get_steps_then_this_week(
     order = [page.index(mark) for mark in ("<h1>", f'id="{sample["id"]}"', 'id="what-you-get"', "<h2>How It Works</h2>",
                                            "lp-weekly", "<h2>What the Numbers Show</h2>", "<h2>Where the Number Comes From</h2>")]
     assert order == sorted(order)
-    # Two buttons: into the app, and down to the sample (a link on this page, which the link test follows).
-    assert f'<a class="btn" href="{build.e(app["url"])}">Open {build.e(app["name"])}</a>' in page
-    assert f'<a class="btn ghost" href="#{sample["id"]}">{build.e(sample["button"])}</a>' in page
+    # Two buttons: the way in for someone new (or, for a browser that has used the app, straight into it), and
+    # down to the sample (a link on this page, which the link test follows).
+    su = build.signup(app, copy)
+    top = page[page.index('<p class="lp-cta">'):page.index('</p>', page.index('<p class="lp-cta">'))]
+    assert f'<a class="btn visitor-only" data-app="{app["id"]}" href="{su["url"]}">{su["button"]}</a>' in top
+    assert f'<a class="btn member-only" data-app="{app["id"]}" href="{build.e(app["url"])}">Open {build.e(app["name"])}</a>' in top
+    assert f'<a class="btn ghost" href="#{sample["id"]}">{build.e(sample["button"])}</a>' in top
+    order = [page.index(mark) for mark in ('id="what-you-get"', 'id="year"', "<h2>How It Works</h2>")]
+    assert order == sorted(order)
     assert len(copy["page"]["steps"]) == page.count("<li><b>") == 5
 
 
@@ -378,3 +392,456 @@ def test_herd_planners_page_opens_with_the_apps_own_headline():
     welcome = (MASTER.parent / "src" / "herd_planner" / "web" / "index.html").read_text(encoding="utf-8")
     headline = build.load_copy()["herd-planner"]["page"]["headline"]
     assert f">{build.e(headline)}<" in welcome
+
+
+
+
+# --- Two pages side by side: the lender's report and the buyer's sale sheet (2026-10-05) -------------
+# Scott asked whether the app should do more with health records and whether sale barns need a printout like
+# the lender's. It already has one (the calf sale sheet and health record, free); the page never said so.
+# He chose "both pages side by side in one band" from three mockups.
+
+PAIRED = [a for a in FULL if build.load_copy()[a["id"]]["page"].get("second_sample")]
+
+
+def test_herd_planner_shows_the_buyers_sheet_beside_the_lenders_report():
+    assert "herd-planner" in [a["id"] for a in PAIRED]
+
+
+@pytest.mark.parametrize("app", PAIRED, ids=lambda a: a["id"])
+def test_both_pages_sit_in_one_band_each_under_its_own_level(site, app):
+    page_words = build.load_copy()[app["id"]]["page"]
+    first, second = page_words["sample"], page_words["second_sample"]
+    page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+    band = page[page.index(f'<div class="lp-band" id="{first["id"]}">'):page.index('id="what-you-get"')]
+    assert f'<h2>{build.e(page_words["samples_title"])}</h2>' in band and band.count('<div class="lp-half"') == 2
+    halves = band.split('<div class="lp-half"')[1:]
+    for half, smp, tag in zip(halves, (first, second), ('<span class="lp-tag">', '<span class="lp-tag lp-tag-free">')):
+        assert f'{tag}{build.e(smp["tag"])}</span>' in half and f'<h3>{build.e(smp["title"])}</h3>' in half
+        assert f'src="{smp["image"]}"' in half and build.e(smp["more"]) in half and build.e(smp["caption"]) in half
+    assert first["tag"] == "With a subscription" and second["tag"] == "Free"
+    # The button under the headline still lands on the band, and the sign-up line still closes it.
+    assert f'href="#{first["id"]}"' in page and band.count('class="lp-ask visitor-only"') == 1
+    assert "$" not in words(band)
+
+
+@pytest.mark.parametrize("app", PAIRED, ids=lambda a: a["id"])
+def test_the_second_sample_keeps_the_first_ones_rules(site, app):
+    """A real page from the app with made-up cattle, marked as such on the page itself and in its caption, cut
+    off by the styles and never blurred; and it claims no more for the page than the app does (the sale sheet
+    prints the seller's own records, which Herd Planner has not checked)."""
+    second = build.load_copy()[app["id"]]["page"]["second_sample"]
+    picture = site / second["image"]
+    assert picture.exists() and picture.stat().st_size < 150_000
+    assert len(second["alt"]) > 60 and "made-up" in second["alt"] and "marked as a demo" in second["alt"]
+    assert "made-up cattle" in second["caption"] and "does not check" in second["caption"]
+    styles = (site / "site.css").read_text(encoding="utf-8")
+    assert "blur(" not in styles and ".lp-pair .lp-paper { height:" in styles
+    assert ".lp-paper {" in styles and "overflow: hidden" in styles[styles.index(".lp-paper {"):styles.index(".lp-paper {") + 400]
+
+
+@pytest.mark.parametrize("app", PAIRED, ids=lambda a: a["id"])
+def test_a_free_page_is_in_the_free_list_and_never_in_the_subscription_list(app):
+    page_words = build.load_copy()[app["id"]]["page"]
+    assert page_words["second_sample"]["tag"] == "Free"
+    assert any("sale sheet" in line.lower() for line in page_words["free"])
+    assert not any("sale sheet" in line.lower() for line in page_words["subscription"])
+    fall = next(s for s in page_words["year"]["seasons"] if s["id"] == "fall")
+    assert "sale sheet" in fall["text"] and "always free" in fall["text"]
+
+
+def test_a_missing_second_picture_stops_the_build():
+    app = PAIRED[0]
+    copy = json.loads(json.dumps(build.load_copy()[app["id"]]))
+    copy["page"]["second_sample"]["image"] = "shots/not-there-either.png"
+    with pytest.raises(SystemExit, match="not-there-either.png"):
+        build.full_page_values(app, copy, "2026-10-02")
+
+
+def test_without_a_second_sample_the_band_is_as_it_was():
+    """Another app's page, or this one with the second sample taken out, keeps the one sample with its points."""
+    app = PAIRED[0]
+    copy = json.loads(json.dumps(build.load_copy()[app["id"]]))
+    del copy["page"]["second_sample"]
+    band = build.full_page_values(app, copy, "2026-10-02")["sample_band"]
+    assert "lp-pair" not in band and '<div class="lp-band-top">' in band
+    assert all(build.e(point) in band for point in copy["page"]["sample"]["points"])
+
+
+# --- Sign-up links (2026-10-05) --------------------------------------------------------------------
+# Scott: "I think we need to be subtly aggressive in having subscribe/sign up links to the products,
+# especially if they are on a product home page." One setting per app ("signup" in content/apps.json) words
+# every link; the words mean two different things and are never mixed: Sign Up / Try for Free makes a free
+# account, Subscribe pays (so it waits for a pay page).
+#
+# These tests read what the build writes. How the pages behave in a browser (the remembered browser, Forget
+# this, the header at every width, the links landing on the app's cards) is checked by
+# herd-planner/tests/browser/site_links.js, which drives this site and the app together.
+
+SIGNED = [a for a in build.load_apps() if build.signup(a, build.load_copy()[a["id"]])]
+VOID = {"img", "br", "meta", "link", "input", "hr", "source", "path", "rect", "circle", "line", "polyline", "polygon", "ellipse", "use", "stop"}
+
+
+class Guards(HTMLParser):
+    """Every link and button on a page, with its words and whether it, or anything around it, is marked for new
+    visitors only (visitor-only) or for a browser that has used the app (member-only)."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack, self.found, self.open = [], [], []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        classes = (attrs.get("class") or "").split()
+        kind = next((k for k in ("visitor-only", "member-only") if k in classes), None)
+        if tag in ("a", "button"):
+            around = kind or next((k for k in reversed(self.stack) if k), None)
+            self.open.append({"tag": tag, "href": attrs.get("href"), "for": around, "text": "", "depth": len(self.stack)})
+        if tag not in VOID:
+            self.stack.append(kind)
+
+    def handle_startendtag(self, tag, attrs):
+        pass
+
+    def handle_data(self, data):
+        for item in self.open:
+            item["text"] += data
+
+    def handle_endtag(self, tag):
+        if tag in VOID or not self.stack:
+            return
+        self.stack.pop()
+        if tag in ("a", "button") and self.open:
+            item = self.open.pop()
+            item["text"] = re.sub(r"\s+", " ", item["text"]).strip()
+            self.found.append(item)
+
+
+def controls(html):
+    parser = Guards()
+    parser.feed(html)
+    return parser.found
+
+
+def with_state(app, state):
+    copy = json.loads(json.dumps(build.load_copy()[app["id"]]))
+    copy["signup"] = state
+    return copy
+
+
+def test_herd_planner_is_on_the_waitlist_and_has_sign_up_links():
+    """Herd Planner online is invite-only (Scott, 2026-10-05: "the waitlist does make sense"). The day its own
+    sign-up setting changes on Render, "signup" in content/apps.json changes to "open" the same day."""
+    copy = build.load_copy()["herd-planner"]
+    assert copy["signup"] == "waitlist" and "herd-planner" in [a["id"] for a in SIGNED]
+
+
+def test_every_app_says_how_a_new_person_gets_in():
+    copy = build.load_copy()
+    for app in build.load_apps():
+        entry = copy[app["id"]]
+        assert ("signup" in entry) != ("tile_note" in entry), app["id"]   # one or the other, never neither
+
+
+def test_a_setting_or_an_address_the_site_cannot_use_stops_the_build():
+    app = SIGNED[0]
+    with pytest.raises(SystemExit, match="signup"):
+        build.signup(app, {"signup": "soon"})
+    with pytest.raises(SystemExit, match="plain"):
+        build.signup({**app, "url": app["url"] + "?from=site"}, {"signup": "open"})
+    assert build.signup(app, {}) is None and build.signup({**app, "url": None}, {"signup": "open"}) is None
+    su = build.signup({**app, "url": "https://example.test/app"}, {"signup": "waitlist"})   # with or without the slash
+    assert su["url"] == "https://example.test/app/#waitlist" and su["signin"] == "https://example.test/app/#signin"
+
+
+@pytest.mark.parametrize("state, button, card, others, wrong", [
+    ("waitlist", "Join the Waitlist", "#waitlist", {""}, "Sign Up"),
+    ("open", "Sign Up Free", "#signup", {"", "#signin"}, "Waitlist")])
+def test_one_setting_words_every_sign_up_link_on_the_page(state, button, card, others, wrong):
+    """Each state says only what is true of it: on the waitlist nothing offers to sign up, and with sign-up
+    open nothing mentions a waitlist. Every link opens the app on the card it names. "Have an invite or an
+    account?" leads to the whole first screen (an invite needs the account form, an account the sign-in card);
+    "Already have an account?" to the sign-in card."""
+    app = SIGNED[0]
+    copy = with_state(app, state)
+    v = build.full_page_values(app, copy, "2026-10-02")
+    spots = ("open_button", "fine", "sample_band", "free_band", "shot", "closing")
+    parts = " ".join(v[k] for k in spots)
+    assert wrong not in words(parts), state
+    base = app["url"].rstrip("/") + "/"
+    hrefs = set(re.findall(r'href="(%s[^"]*)"' % re.escape(base), parts))
+    assert hrefs == {base + card} | {base + o for o in others}
+    for where in ("open_button", "sample_band", "free_band", "shot", "closing"):   # every spot Scott kept
+        ways_in = [c for c in controls(v[where]) if c["href"] == base + card]
+        assert ways_in, (state, where)
+        assert all(c["for"] == "visitor-only" for c in ways_in), (state, where)   # gone once the browser uses the app
+    assert sum(c["text"] == button for c in controls(parts)) >= 4
+    assert "$" not in words(parts)   # still no price
+    nav = controls(build.nav_account(build.load_apps(), {**build.load_copy(), app["id"]: copy}, app))
+    assert [(c["href"], c["for"]) for c in nav if c["for"] != "member-only"] == [(base + "#signin", None), (base + card, "visitor-only")]
+
+
+def test_on_the_waitlist_nothing_beside_a_button_promises_what_only_an_account_gives():
+    """Joining a waitlist starts no 30 days and shows nobody their cattle's worth this week. So beside the
+    waitlist button the 30 days are "With an account", and the closing headline asks rather than offers."""
+    app = SIGNED[0]
+    page = build.load_copy()[app["id"]]["page"]
+    waiting, opened = page["signup"]["waitlist"], page["signup"]["open"]
+    assert waiting["trial_lead"].startswith("With an account") and "30 days" in waiting["trial_lead"]
+    assert waiting["fine"].count("With an account") == 1
+    for promise in ("this week", "today", "now", "worth"):
+        assert promise not in waiting["close_title"].lower()
+    band = build.full_page_values(app, with_state(app, "waitlist"), "2026-10-02")["free_band"]
+    assert f'<strong>{build.e(waiting["trial_lead"])}</strong>' in band and f'<strong>{build.e(page["trial"][0])}</strong>' not in band
+    band = build.full_page_values(app, with_state(app, "open"), "2026-10-02")["free_band"]
+    assert f'<strong>{build.e(page["trial"][0])}</strong>' in band and "trial_lead" not in opened
+
+
+def test_what_you_get_has_a_button_under_each_list_only_when_sign_up_is_open():
+    app = SIGNED[0]
+    waiting = build.full_page_values(app, with_state(app, "waitlist"), "2026-10-02")["free_band"]
+    opened = build.full_page_values(app, with_state(app, "open"), "2026-10-02")["free_band"]
+    assert waiting.count("lp-col-cta") == 0 and waiting.count(">Join the Waitlist</a>") == 1   # one list, one button
+    assert opened.count("lp-col-cta") == 2 and ">Sign Up Free</a>" in opened and ">Try It Free for 30 Days</a>" in opened
+
+
+def test_words_left_out_stop_the_build_with_a_plain_sentence():
+    """A season's panel is first read on the first build of that season: a gap must stop the build by name, not
+    as a KeyError on some Friday in December."""
+    app = SIGNED[0]
+    def broken(change):
+        copy = json.loads(json.dumps(build.load_copy()[app["id"]]))
+        change(copy["page"])
+        return copy
+    cases = [
+        (lambda p: p.pop("signup"), "signup"),
+        (lambda p: p["signup"].pop("ask"), "ask"),
+        (lambda p: p["signup"]["waitlist"].pop("close_title"), "close_title"),
+        (lambda p: p["year"].pop("more"), "more"),
+        (lambda p: p["year"]["seasons"][2].pop("text"), "text"),
+        (lambda p: p["panel"].update(picture="photo"), "picture"),
+        (lambda p: p.pop("sample"), "sample"),   # winter's panel shows the sample
+    ]
+    for change, name in cases:
+        with pytest.raises(SystemExit, match=name):
+            build.full_page_values(app, broken(change), "2026-10-02")
+    with pytest.raises(SystemExit, match="2026-10-02"):
+        build.season_of("10/02/2026")
+
+
+def test_no_page_offers_to_subscribe_until_there_is_a_pay_page(site):
+    """Scott, 2026-10-05: Subscribe is the word for the pay page, and "we don't need a subscribe link on the
+    carousel cards ... just Open and Try for Free". There is no pay page yet, so nothing a visitor can press,
+    on any page of the site, says it (the paid level is still named: "With a Subscription")."""
+    pages = sorted(site.glob("*.html"))
+    assert len(pages) >= len(all_pages())
+    for path in pages:
+        for control in controls(path.read_text(encoding="utf-8")):
+            assert not re.search(r"\bsubscrib(e|ing)\b", control["text"], re.I), (path.name, control["text"])
+    assert not config.SHOW_PRICES   # when billing exists both change together, with a real pay page to go to
+
+
+def test_the_built_pages_carry_every_sign_up_spot_and_hide_them_from_a_browser_that_uses_the_app(site):
+    """Read from the finished pages, so a part dropped from a template shows up here. Every link onto the
+    app's sign-up card is for new visitors only; the Open links that replace them are for the rest; and the
+    page keeps its ordinary links (the sample, the year) for both."""
+    copy = build.load_copy()
+    import cards
+    for app in SIGNED:
+        su = build.signup(app, copy[app["id"]])
+        page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        v = build.full_page_values(app, copy[app["id"]], cards.current()["date"])
+        for where in ("open_button", "fine", "sample_band", "free_band", "shot", "year_strip", "closing"):
+            assert v[where] and v[where] in page, where
+        found = controls(page)
+        ways_in = [c for c in found if c["href"] == su["url"]]
+        assert len(ways_in) == 6 and all(c["for"] == "visitor-only" for c in ways_in)   # header, top, panel, sample, lists, close
+        into_app = [c for c in found if c["href"] == app["url"]]
+        assert {c["for"] for c in into_app} == {"member-only", "visitor-only"}   # Open for one; "Have an invite?" for the other
+        assert sum(c["for"] == "member-only" for c in into_app) == 2             # the menu, and the main button
+        forget = [c for c in found if c["tag"] == "button" and c["text"] == "Forget this"]
+        assert len(forget) == 1 and forget[0]["for"] == "member-only"
+        home = controls((site / "index.html").read_text(encoding="utf-8"))
+        assert [c["for"] for c in home if c["href"] == su["url"] and c["text"] == su["tile"]] == ["visitor-only"]
+
+
+def test_sign_up_links_go_only_on_pages_that_have_them(site):
+    copy = build.load_copy()
+    own = {build.APP_PAGE.format(a["id"]) for a in SIGNED}
+    for name in all_pages():
+        nav = site_nav((site / name).read_text(encoding="utf-8"))
+        assert ("nav-signup" in nav) == (name in own), name
+        assert ('class="site-nav has-signup"' in (site / name).read_text(encoding="utf-8")) == (name in own), name
+    waitlist = build.signup(SIGNED[0], copy[SIGNED[0]["id"]])["url"]
+    home = (site / "index.html").read_text(encoding="utf-8")
+    notify = home[home.index('<section id="notify">'):]
+    assert f'href="{waitlist}"' in notify   # "Join the list" opens the waitlist card itself
+
+
+def test_the_header_makes_room_for_the_extra_button_below_a_wide_screen(site):
+    """With the button (or the longer Open link) the header would wrap onto another row on tablets and small
+    laptops. Below 1,100 px the labels shorten and How We Test leaves the row, only on pages that have the
+    button or in a browser that uses an app. Measured in a browser at every width from 320 to 1,240 px."""
+    styles = (site / "site.css").read_text(encoding="utf-8")
+    block = styles[styles.index("@media (max-width: 1100px) {\n  .site-nav.has-signup"):]
+    block = block[:block.index("\n}\n")]
+    assert ".site-nav.has-signup > .nav-methods, html[data-uses] .site-nav > .nav-methods { display: none; }" in block
+    assert ".nav-signup .wide, .nav-member .wide { display: none; }" in block
+    assert ".nav-signup .narrow, .nav-member .narrow { display: inline; }" in block
+    assert ".nav-signup .narrow, .nav-member .narrow { display: none; }" in styles[:styles.index(block)]
+    for name in all_pages():   # How We Test is still reachable when it leaves the row
+        page = (site / name).read_text(encoding="utf-8")
+        assert page.count('href="methods.html"') >= 3, name   # the row, the Our Farm Apps menu, the footer
+    copy = build.load_copy()
+    for app in SIGNED:   # both labels are in the page for the styles to choose between
+        nav = site_nav((site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8"))
+        assert '<span class="wide">Join the Waitlist</span><span class="narrow">Waitlist</span>' in nav
+        assert (f'<span class="wide">Open {app["name"]} &#8594;</span><span class="narrow">'
+                f'{copy[app["id"]]["member_short"]} &#8594;</span>') in nav
+
+
+# --- The panel beside the headline, and the year ----------------------------------------------------
+
+def test_seasons_run_by_whole_months():
+    from datetime import date
+    assert [build.season_of(f"2026-{m:02d}-15") for m in range(1, 13)] == (
+        ["winter"] * 2 + ["spring"] * 3 + ["summer"] * 3 + ["fall"] * 3 + ["winter"])
+    assert build.season_of(date(2026, 11, 30)) == "fall" and build.season_of(date(2026, 12, 1)) == "winter"
+
+
+@pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])
+def test_the_year_has_four_seasons_and_marks_the_one_being_published(app):
+    page = build.load_copy()[app["id"]]["page"]
+    assert [s["id"] for s in page["year"]["seasons"]] == ["fall", "winter", "spring", "summer"]
+    for day, name in (("2026-10-02", "Fall"), ("2027-01-08", "Winter"), ("2027-04-02", "Spring"), ("2027-07-02", "Summer")):
+        strip = build.year_strip(page, build.season_of(day))
+        assert strip.count('class="now"') == 1 and f'<li class="now"><span class="lp-season">{name} <i>Now</i>' in strip
+        assert strip.count("<li") == 4
+    # The paid level is a subscription, never "the plan"; and the heading promises no payback.
+    strip = words(build.year_strip(page, "fall"))
+    assert not re.search(r"\b(the|a|no|your) plans?\b", strip, re.I)
+    for promise in ("earn", "pays for itself", "guarantee", "$"):
+        assert promise not in page["year"]["title"].lower()
+
+
+@pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])
+def test_a_panels_words_always_sit_with_their_own_picture(app):
+    """A season takes over the panel beside the headline only when it has a panel of its own; otherwise the
+    standing one shows. So spring and summer, which have no picture of their own yet, never borrow another
+    season's words, and no panel describes a picture it isn't sitting on. The sample never appears without
+    its caption (made-up cattle; not an appraisal)."""
+    copy = build.load_copy()[app["id"]]
+    page = copy["page"]
+    su = build.signup(app, copy)
+    seen = set()
+    for season in page["year"]["seasons"]:
+        html = build.feature_panel(app, copy, su, season["id"])
+        own = season.get("panel")
+        panel = own or page["panel"]
+        assert f'<h2>{build.e(panel["title"])}</h2>' in html and build.e(panel["text"]) in html
+        assert (f'This {season["name"].lower()} &#183; with a subscription' in html) == bool(own), season["id"]
+        if not own:
+            assert '<span class="lp-tag">With a subscription</span>' in html
+        assert ('class="shot showcase"' in html) == (panel["picture"] == "showcase")
+        assert (build.e(page["sample"]["image"]) in html) == (panel["picture"] == "sample")
+        assert (build.e(page["sample"]["caption"]) in html) == (panel["picture"] == "sample")
+        assert 'href="#year"' in html and f'href="{su["url"]}"' in html
+        seen.add(bool(own))
+    assert seen == {True, False}   # today: fall and winter have their own, spring and summer wait for pictures
+    assert "not an appraisal" in page["sample"]["caption"]
+
+
+def test_the_built_page_follows_the_week_it_publishes_not_the_day_it_is_built(monkeypatch, tmp_path):
+    """The Friday job publishes a week; the page's season comes from that week's date. Built here for a week in
+    January, whatever today is: Winter is marked, and the lender's page sits beside the headline."""
+    import cards
+    week = {**cards.current(), "date": "2027-01-08"}
+    monkeypatch.setattr(cards, "current", lambda: week)
+    monkeypatch.setattr(build, "OUT", tmp_path / "docs")   # a scratch build, never the real docs/
+    site = build.build()
+    for app in FULL:
+        page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        seasons = {s["id"]: s for s in build.load_copy()[app["id"]]["page"]["year"]["seasons"]}
+        assert '<li class="now"><span class="lp-season">Winter <i>Now</i>' in page
+        assert f'<h2>{build.e(seasons["winter"]["panel"]["title"])}</h2>' in page
+        assert build.e(seasons["fall"]["panel"]["title"]) not in page
+        assert "This winter &#183; with a subscription" in page
+
+
+# --- A browser that has used an app ------------------------------------------------------------------
+
+def test_every_page_can_offer_the_app_in_place_of_sign_in(site):
+    """Scott, 2026-10-05: "when I'm logged in on herd planner and then go to the home page ... the link up top
+    says Sign In as if I am not already logged in." The site can't see an app's sign-in, so member.js remembers
+    the browser. In every page: the script in the head (not deferred, so it runs before anything is drawn),
+    the app's Open link in the menu, and the rule that swaps them."""
+    ids = " ".join(a["id"] for a in SIGNED)
+    for path in sorted(site.glob("*.html")):
+        page = path.read_text(encoding="utf-8")
+        head = page[:page.index("</head>")]
+        assert re.search(r'<script src="member\.js\?v=\w+" data-apps="%s"></script>' % re.escape(ids), head), path.name
+        nav = site_nav(page)
+        for app in SIGNED:
+            assert (f'<a class="nav-signin nav-member member-only" data-app="{app["id"]}" href="{app["url"]}">'
+                    in nav), path.name
+            rule = (f'html[data-uses="{app["id"]}"] .visitor-only[data-app="{app["id"]}"], '
+                    f'html:not([data-uses="{app["id"]}"]) .member-only[data-app="{app["id"]}"] {{ display: none !important; }}')
+            assert rule in head, path.name
+
+
+def test_without_the_script_a_page_is_what_a_new_visitor_sees(site):
+    """The Open links are hidden by a rule that needs no script, and the sign-up links by one that only a
+    remembered browser triggers: so no JavaScript, or storage switched off, leaves the visitor's page."""
+    for name in all_pages():
+        page = (site / name).read_text(encoding="utf-8")
+        assert re.search(r'<html lang="en">', page) and "data-uses" not in page[page.index("<body"):], name
+    styles = (site / "site.css").read_text(encoding="utf-8")
+    assert "html[data-uses] .site-nav .nav-visitor { display: none; }" in styles
+
+
+def test_the_script_keeps_one_word_in_the_browser_and_sends_nothing():
+    """Read as text: what the script may and may not contain. What it does (remembers, forgets, tidies the
+    address, ignores an app it doesn't know, leaves ordinary #links alone) is checked in a browser by
+    herd-planner/tests/browser/site_links.js."""
+    script = (build.STATIC / "member.js").read_text(encoding="utf-8")
+    code = re.sub(r"//[^\n]*", "", script)
+    for sends in ("fetch(", "XMLHttpRequest", "sendBeacon", "document.cookie", "new Image", ".src =", "WebSocket", "postMessage"):
+        assert sends not in code
+    assert code.count("localStorage.") == 3 and "sessionStorage" not in code   # read, write, remove: one key
+    assert 'var KEY = "cpl.uses";' in code
+    # Only a mark for an app this site lists is acted on, and it is then taken out of the address, keeping the
+    # page and anything after "?".
+    assert r"var mark = /^#(uses|left)=([a-z0-9-]{1,40})$/.exec(location.hash);" in code
+    assert "if (mark && apps.indexOf(mark[2]) > -1) {" in code
+    assert 'if (mark[1] === "uses") write(mark[2]); else if (read() === mark[2]) write(null);' in code
+    assert 'history.replaceState(null, "", location.pathname + location.search);' in code
+    assert 'if (id && apps.indexOf(id) > -1) root.setAttribute("data-uses", id); else root.removeAttribute("data-uses");' in code
+    # Forget this: forgets, redraws, and hands the keyboard on if its own line has gone.
+    forget = code[code.index('closest("[data-forget-app]")'):]
+    assert forget.index("write(null);") < forget.index("show();") < forget.index("next.focus()")
+
+
+def test_the_privacy_page_says_what_the_browser_keeps(site):
+    page = (site / "privacy.html").read_text(encoding="utf-8")
+    note = page[page.index('<p id="this-browser">'):]
+    note = words(note[:note.index("</p>")])
+    assert "sets no cookies" in note and "never sent to us" in note and "not who you are" in note
+    assert "data-forget-app" in page
+    for app in FULL:   # the page that hides the links says why, and how to undo it
+        full = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        assert 'href="privacy.html#this-browser"' in full and "data-forget-app" in full
+
+
+@pytest.mark.skipif(not MASTER.exists(), reason="Herd Planner isn't checked out next to this project")
+def test_herd_planner_reads_the_marks_this_site_sends_and_sends_the_ones_it_reads():
+    """The two projects agree on a few small words. This site's links end in #waitlist, #signup and #signin, and
+    the app opens that card; the app's link back ends in #uses=herd-planner or #left=herd-planner, and
+    member.js reads those. If either side changes its words, change the other."""
+    web = MASTER.parent / "src" / "herd_planner" / "web"
+    app_js, first_screen = (web / "app.js").read_text(encoding="utf-8"), (web / "index.html").read_text(encoding="utf-8")
+    cards_ = re.search(r"const CARD_MARK = /\^#\(([a-z|]+)\)\$/;", app_js).group(1).split("|")
+    for state in build.SIGNUP.values():
+        card = state["hash"].lstrip("#")
+        assert card in cards_ and f'id="{card}-form"' in first_screen
+    assert "signin" in cards_ and 'id="signin-form"' in first_screen
+    assert '`${signedIn ? "uses" : "left"}=herd-planner`' in app_js

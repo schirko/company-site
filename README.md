@@ -32,6 +32,8 @@ company-site/
 ├── static/panel.js    "See your county": swaps the pins and the panel's tiles to a visitor's county
 ├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
 ├── static/menu.js     the header's Our Farm Apps menu: closes on a click elsewhere, Escape or a chosen link
+├── static/member.js   remembers a browser that has used an app, so the menu offers "Open Herd Planner"
+│                      in place of "Sign In" (see "Sign-up links")
 ├── templates/         the pages, with ${placeholders} for the name and the app list. An app's own page is
 │                      app.html, or app_full.html when the app has a "page" block in apps.json
 ├── content/apps.json  the home page's longer words about each app (tiles and app sections), "page" for
@@ -214,8 +216,16 @@ week's number from the app for the county of the week (`build.tile_stat`, from t
 panel): Herd Planner the 550 lb steer price and its barn, the Yield Predictor the county's trend corn yield,
 the Grazing Planner this season's grass against normal (red with a down arrow only when it's below), the
 Equipment Planner fall field days. A week without a number (a stale steer price, an Iowa county for the
-Grazing Planner) leaves the corner empty. Bottom right, "Free to try"; "From $X/mo" joins it once
-`SHOW_PRICES = True` in `config.py` (after billing exists), using `"price_from"` in `content/apps.json`.
+Grazing Planner) leaves the corner empty.
+
+**The bottom of a tile: Open, and one way in (2026-10-05, mockups in `notes/sign-up-mockups-4-*` and `-5-*`).**
+Scott asked for sign-up links on the cards, then settled on "just Open and Try for Free", with no Subscribe
+link. A link can't sit inside a link, so a tile is no longer one big link: the name and question lead to the
+app's page on this site, **Open** goes into the app, and beside it is the app's sign-up link (Join the
+Waitlist, or Try for Free once sign-up is open; see "Sign-up links"). An app with no sign-up says what is true
+of it instead (`"tile_note"` in `content/apps.json`: "Free, no account", "Free, no sign-in", "By invite for
+now"). "From $X/mo" joins the tile once `SHOW_PRICES = True` in `config.py` (after billing exists), using
+`"price_from"`; check the row still fits on a phone when that day comes.
 
 ## Each app on a computer and a phone (Our Farm Apps)
 
@@ -238,10 +248,10 @@ is something helpful in getting customers." He chose layout A, "the report first
 An app without the block keeps `templates/app.html`. Top to bottom:
 
 1. **The headline** (`headline`, `sub`; Herd Planner's is the app's own welcome headline, word for word,
-   which Scott liked best, and a test holds the two together), two buttons (into the app, and down to the sample) and one line of
-   small print (`offer`), beside the app on a computer and a phone (`build.app_shot`). The small print
-   must say how a visitor really gets in: while Herd Planner online is invite-only
-   (`HERD_PLANNER_OPEN_SIGNUP=0`) it says so and points at the waitlist; change it the day sign-up opens. The app's name sits
+   which Scott liked best, and a test holds the two together), two buttons (the way in, and down to the sample) and a line of
+   small print, beside **the feature panel**: one subscription job with the app's own picture (see "Sign-up
+   links" for the buttons and the panel). The small print must say how a visitor really gets in, so it comes
+   from the page's `signup` words for the state the app is in. The app's name sits
    above the headline; the headline is the page's one `<h1>`.
 2. **The sample, cut off** (`sample`): for Herd Planner the first page of the lender report for a made-up
    ranch, `static/shots/herd-planner-lender-report.png`, copied from the app's own sample picture
@@ -250,20 +260,118 @@ An app without the block keeps `templates/app.html`. Top to bottom:
    off the right edge too. It is never blurred and never invented: the pricing plan's rule is to say what a
    subscriber would see, not to fake a result. The caption says the cattle are made up and that the report
    is not an appraisal. Retake the picture when the app's report changes.
+   **Two pages side by side (2026-10-05).** With a `second_sample` in the block, the band becomes "Two Pages,
+   Already Made" (`samples_title`): the first sample under its tag (With a subscription) beside the second
+   under its own (Free), and the first sample's four points are not shown. Herd Planner's second is the calf
+   sale sheet and health record, which the app has had since Milestone 20 and the page never mentioned (Scott
+   asked whether sale barns need a printout like the lender's; he chose this from three mockups,
+   `notes/sale-sheet-on-the-page-mockups-*.png`). The same rules hold for it, and a test holds them: a real
+   page from the app, marked on the page itself as made up, cut off, never blurred, and its caption says
+   Herd Planner does not check the seller's records. `static/shots/herd-planner-sale-sheet.png` is the app's
+   own sale sheet for a demo ranch (Herd Planner v0.37.4 or later, which prints "DEMO RANCH: these cattle are
+   made up." on it): the sheet itself at 820 px wide, its top 900 px, on a white page 880 by 925. Retake it
+   when the sale sheet changes.
 3. **What You Get** (`free`, `subscription`, `trial`): two lists side by side. Every line must match what
    the app really leaves open and what it locks; check it against Herd Planner's Help ("Trials and the
    Subscription") whenever either changes.
-4. **How It Works** (`steps`): the app's own five steps.
-5. Then what the page had before: this week's card (with a few words on the left that it is free on this
+4. **The year** (`year`): four seasons, each with what a subscription is for then; the season being
+   published is framed and marked Now.
+5. **How It Works** (`steps`): the app's own five steps.
+6. Then what the page had before: this week's card (with a few words on the left that it is free on this
    site every week), What the Numbers Show, Recent Weeks, and Where the Number Comes From.
+7. **A closing band** with the sign-up button once more.
 
 Rules the tests hold (`tests/test_site.py`, "the fuller app page"): the order above; one `<h1>`; the sample
 picture exists, stays under 150 KB, and its caption says what it is; **no price anywhere in the new parts**
 while `SHOW_PRICES` is False; the paid level is a **subscription**, never "the plan"; the two lists share no
 line; a missing sample picture stops the build; and apps without a `"page"` block are untouched.
 
-To give another app the same page: write its `"page"` block (leave out `sample`, the two lists or `steps`
-and that part is skipped), add its sample picture if it has one, and run the tests.
+To give another app the same page: write its `"page"` block (leave out `sample`, the two lists, `steps`,
+`panel` or `year` and that part is skipped), add its sample picture if it has one, and run the tests.
+
+## Sign-up links (2026-10-05)
+
+Scott: "I think we need to be subtly aggressive in having subscribe/sign up links to the products, especially
+if they are on a product home page." And of the Herd Planner page: "There isn't one Sign Up link ... including
+in the With a Subscription area." Mockups: `notes/sign-up-mockups-1` to `-5-2026-10-05.png`.
+
+**Two words, two meanings, never mixed.** *Sign Up* / *Try for Free* makes a free account: no card, everything
+open for 30 days. *Subscribe* pays, so that word only ever goes to a pay page, and there is none yet: a test
+reads every link and button on every built page and fails if one says Subscribe or Subscribing.
+
+**One setting per app** words every link: `"signup"` in `content/apps.json`.
+
+| `"signup"` | The app | Buttons read | They open the app on |
+| --- | --- | --- | --- |
+| `"waitlist"` | is invite-only | Join the Waitlist | its waitlist card (`#waitlist`) |
+| `"open"` | lets anyone make an account | Sign Up Free (tiles: Try for Free) | its account form (`#signup`) |
+| not there | has no sign-up to offer | no sign-up links; the tile shows `"tile_note"` | |
+
+Herd Planner is `"waitlist"` (Scott, after weighing it: "the waitlist does make sense"). **The day its own
+setting changes on Render (`HERD_PLANNER_OPEN_SIGNUP=1`), change `"signup"` to `"open"` here the same day**,
+build, and read the page: the site cannot see the app's setting. `build.signup()` gives every link its words
+and address, so nothing is worded by hand.
+
+**Where the links are on a fuller page** (Scott kept all of them): a gold button beside Sign In in the header
+(on that app's page only, where Sign In also goes to that app's own sign-in card, not to Your Account); the
+main button under the headline, with "Have an invite or an account?" under it; the feature panel; a line
+under the sample; under What You Get (one button beside the 30 days on the waitlist; a button under each list
+when sign-up is open); and a closing band. Below 1,100 px the header makes room by shortening the labels
+(Waitlist, My Herd) and leaving out How We Test (it is in the Our Farm Apps menu and the footer): measured at
+every width from 320 to 1,240 px, the header is never taller than it was before these links.
+
+**On the waitlist, nothing beside a button may promise what only an account gives.** Joining a waitlist
+starts no 30 days and shows nobody what their cattle are worth this week. So the page's words for that state
+(`"page"` > `"signup"` > `"waitlist"`) say "With an account, everything is open for your first 30 days" and
+the closing headline asks ("Want this for your own herd?") rather than offers. A test holds both.
+
+**The feature panel and the year** (`build.feature_panel`, `build.year_strip`; the page's `"panel"` and
+`"year"`). Scott, of the white space beside the headline: "Maybe a Sign-up ad for us with a feature of the
+paid subscription?" and "features the farmer or rancher can use in the off season to encourage year-round
+subscriptions". The panel shows one subscription job; the year strip ("A Subscription for Every Season")
+lists one for each season of a spring-calving herd. (The mockup's heading was "A Subscription Earns Its Keep
+All Year"; it was changed before going live because it reads as a promise that the subscription pays for
+itself, which nothing here has shown.) The build takes the season from the week it publishes (`build.season_of`: whole months,
+December to February being winter), so the page turns over by itself on the first Friday of a new season.
+Two rules:
+
+- **Every line in `"year"` is something the app does today**, in the words of the page's own `"free"` and
+  `"subscription"` lists. No test can check this: read the lines against the lists whenever either changes
+  (an independent review on 2026-10-05 found three lines that had drifted from the lists; they were
+  reworded). The seasons are the usual spring-calving
+  pattern and "when the note comes up" is placed in winter from general knowledge: neither has been checked
+  with a rancher or a banker yet. Ask a pilot rancher and change the words to theirs.
+- **A panel's words describe its own picture** (tested). A season takes over the panel only when it has a `"panel"` of
+  its own (`"picture"`: `"showcase"`, the app's computer and phone pictures, or `"sample"`, the page's sample,
+  which always carries its caption: made-up cattle, not an appraisal).
+  Fall and winter have one. **Spring and summer do not yet**: until their pictures are taken from the app
+  (before March 2027), those months show the standing panel. To add one: take the pictures, add them as a new
+  picture kind in `build.feature_panel`, and write the season's `"panel"`.
+
+**A browser that has used an app** (`static/member.js`). Scott: "when I'm logged in on herd planner and then go
+to the home page ... the link up top says Sign In as if I am not already logged in." This site and the apps
+are on different domains, and a browser shows a site only its own sign-in, so the site can never see that
+someone is signed in to an app. Instead:
+
+1. The app's link back here ends in `#uses=herd-planner` while someone is signed in, and `#left=herd-planner`
+   on its sign-in screen (Herd Planner v0.37.3). The part after `#` is never sent to a server.
+2. `member.js`, in every page's head, keeps that one word in the browser (localStorage `cpl.uses`), takes the
+   mark out of the address, and sets `data-uses` on `<html>` before the page is drawn.
+3. Two style rules per app in the head (`build.member_css`) then hide that app's sign-up links
+   (`.visitor-only`) and show its Open link (`.member-only`): "Open Herd Planner" in place of Sign In, and on
+   its page a line saying why, with **Forget this**.
+
+It is a memory, not a check: the sign-in may have run out since. That is why the link says Open, which is true
+either way. Anyone can also type or be sent an address ending in `#uses=herd-planner`; all it does is hide
+the sign-up links in that browser until **Forget this** is pressed (the app adds the mark to where the browser
+goes, not to the link itself, so "Copy link address" in the app gives the plain address). It says which app, never who, and nothing is sent anywhere (a test reads the script for anything
+that could send). No JavaScript or no storage: the page stays as a new visitor sees it. The Privacy page says
+all this in a sentence and has its own Forget button. The real fix is still one sign-in for every app, which
+needs the apps on subdomains of cornerpostlogic.com.
+
+Checked in a real browser with the app beside it: `herd-planner/tests/browser/site_links.js` (at 1,200 and
+390 px, with the site on the waitlist and with sign-up open). The pytest tests read what the build writes;
+what the pages do in a browser is that script's job. Not checked: Safari and a real iPhone.
 
 ## The app pages: This Week and What the Numbers Show (2026-09-30)
 

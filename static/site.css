@@ -128,7 +128,7 @@ section h2 { font-size: 1.6rem; margin: 0 0 8px; }
 .tile { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 20px; text-decoration: none;
   color: var(--suite-ink); background: var(--suite-surface); border: 1px solid var(--suite-line); border-radius: var(--suite-radius);
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04); transition: border-color .15s, box-shadow .15s; }
-a.tile:hover { border-color: var(--suite-gold-line); box-shadow: 0 4px 14px rgba(0, 0, 0, .08); }
+.tile.tile-app:hover { border-color: var(--suite-gold-line); box-shadow: 0 4px 14px rgba(0, 0, 0, .08); }
 .tile-words { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .tile-words strong { font-size: 1.15rem; }
 .tile-words span { color: var(--suite-muted); }
@@ -148,7 +148,7 @@ a.tile:hover { border-color: var(--suite-gold-line); box-shadow: 0 4px 14px rgba
 /* The app tiles are the products: a thick deep-green frame so they stand out from the lighter,
    thin-bordered stat cards below them. */
 .tile { border: 3px solid var(--suite-deep-green); }
-a.tile:hover { border-color: var(--suite-gold); }
+.tile.tile-app:hover { border-color: var(--suite-gold); }
 .tile.soon { border-color: #8a9a90; }
 
 /* One section per app */
@@ -423,7 +423,7 @@ svg.mini .marker { stroke: var(--suite-ink); stroke-width: 3; }
 .live-pick[hidden] { display: none; }
 .live-pick label { display: flex; flex-direction: column; gap: 4px; font-size: .78rem; font-weight: 700; color: var(--suite-deep-green); }
 .live-pick select { font: inherit; font-size: .95rem; padding: 6px 8px; border: 1px solid var(--suite-line); border-radius: 8px; background: #fff; min-width: 9rem; }
-.live-pick .linklike { background: none; border: 0; padding: 6px 0; font: inherit; font-size: .88rem; color: var(--suite-link); cursor: pointer; text-decoration: underline; }
+.live-pick .linklike, button.linklike { background: none; border: 0; padding: 6px 0; font: inherit; font-size: .88rem; color: var(--suite-link); cursor: pointer; text-decoration: underline; }
 .live.is-yours .live-dot { background: var(--suite-gold); box-shadow: 0 0 0 3px rgba(224, 172, 69, .25); }
 @media (max-width: 520px) { .live-pick label, .live-pick select { width: 100%; } }
 
@@ -557,4 +557,102 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
   .lp-paper { max-height: 400px; }
   .lp-paper img { width: 640px; max-width: none; }
   .lp-paper::before { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 56px; background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff); z-index: 1; }
+}
+
+/* Sign-up links (2026-10-05; Scott: "subtly aggressive in having subscribe/sign up links to the products").
+   One setting per app ("signup" in content/apps.json) words them all: Join the Waitlist, or Sign Up Free. */
+/* The header: a filled gold button beside Sign In, on the page of an app that has sign-up links. */
+.site-nav .nav-signup { background: var(--suite-gold); border: 2px solid var(--suite-gold); border-radius: 8px; padding: 4px 12px; color: var(--suite-deep-green); font-weight: 700; margin-left: -8px; }
+.site-nav .nav-signup:hover { background: #e9bf68; border-color: #e9bf68; }
+.nav-signup .narrow, .nav-member .narrow { display: none; }
+/* A browser that has used an app (member.js): its Open link takes the place of Sign In. */
+html[data-uses] .site-nav .nav-visitor { display: none; }
+/* Below a wide screen the extra button, or the longer Open link, would push the header onto another row
+   (measured at every width from 320 to 1,240 px: it is never taller than it was before these links). So the
+   labels shorten (Waitlist, My Herd) and How We Test leaves the row: it stays in the Our Farm Apps menu and
+   the footer. Pages without a sign-up button, in a browser that has used no app, are untouched. */
+@media (max-width: 1100px) {
+  .site-nav.has-signup > .nav-methods, html[data-uses] .site-nav > .nav-methods { display: none; }
+  .nav-signup .wide, .nav-member .wide { display: none; }
+  .nav-signup .narrow, .nav-member .narrow { display: inline; }
+}
+@media (max-width: 600px) {
+  .site-nav.has-signup > .nav-signin, html[data-uses] .site-nav > .nav-signin { margin-left: auto; }
+  .site-nav .nav-signup { margin-left: 0; order: 2; font-size: .95rem; }
+}
+/* The home page tiles: the name and question lead to the app's page; Open and one way in sit at the bottom. */
+.tile-body { display: flex; flex-direction: column; gap: 10px; flex: 1; width: 100%; text-decoration: none; color: inherit; }
+.tile-body:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.tile.tile-app .tile-bottom { justify-content: flex-start; gap: 0; }
+.tile.tile-app .tile-price { margin-left: auto; }
+.tile-link { margin-left: 6px; padding: 6px 10px; font-size: .92rem; font-weight: 700; color: var(--suite-deep-green); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.tile-link:hover { color: var(--suite-link, #2a78d6); }
+/* The fuller page: the line under the headline's buttons, the line under the sample, the buttons under What
+   You Get, and the closing band. */
+.lp-have { font-size: .9rem; color: var(--suite-muted); margin: 8px 0 0; }
+.lp-fine button.linklike { padding: 0 0 0 6px; font-size: inherit; }
+.lp-ask { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: center; margin: 22px 0 0; padding-top: 18px; border-top: 1px solid var(--suite-line); }
+.lp-ask span { font-weight: 700; font-size: 1.05rem; }
+.lp-col { display: flex; flex-direction: column; }
+.lp-col-cta { margin: auto 0 0; padding-top: 14px; }
+.lp-col-cta .btn { display: block; text-align: center; }
+.lp-trial-cta { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; }
+.lp-close { background: var(--suite-deep-green); color: #fff; border-radius: 12px; padding: 30px 28px; margin: 40px 0 8px; text-align: center; }
+.lp-close h2 { color: #fff; margin: 0 0 8px; }
+.lp-close p { margin: 0 auto 14px; max-width: 52ch; color: #e6ede8; }
+.lp-close .lp-cta { justify-content: center; margin-bottom: 8px; }
+.lp-close .lp-have { color: #cfdad3; margin: 0 auto; }
+.lp-close .lp-have a { color: #fff; }
+/* Beside the headline: one subscription job, with the app's own picture (it changes with the season). */
+.lp-hero:has(.lp-feature) { align-items: start; }
+.lp-hero:has(.lp-feature) > div { padding-top: 14px; }
+.lp-feature { background: var(--band); border: 1px solid var(--suite-line); border-radius: 14px; padding: 20px 22px 18px; min-width: 0; }
+.lp-hero > * { min-width: 0; }   /* a wide picture inside is cut off, it never widens the page */
+.lp-feature h2 { margin: 10px 0 6px; font-size: 1.35rem; }
+.lp-feature > p { margin: 0 0 14px; color: var(--suite-muted); }
+.lp-feature .shot { margin: 0 0 -6px; }
+.lp-feature .lp-paper-small { max-height: 300px; margin-bottom: 16px; }
+.lp-feature .lp-paper-small::after { bottom: 0; }   /* no caption strip here, so the fade runs to the edge */
+.lp-feature-note { font-size: .82rem; color: var(--suite-muted); margin: -8px 2px 14px; }
+.lp-feature .lp-feature-cta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 0; color: var(--suite-ink); }
+.lp-feature .btn.ghost { background: #fff; }
+.lp-feature-more { font-size: .92rem; font-weight: 600; }
+/* What a subscription is for, season by season; the season being published is framed and marked Now. */
+.lp-year { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 14px 0 34px; padding: 0; list-style: none; }
+.lp-year li { background: #fff; border: 1px solid var(--suite-line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.lp-year li.now { border: 2px solid var(--suite-deep-green); }
+.lp-season { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--suite-muted); display: flex; align-items: center; gap: 8px; }
+.lp-season i { font-style: normal; background: var(--suite-gold); color: var(--suite-deep-green); border-radius: 4px; padding: 1px 7px; letter-spacing: .04em; }
+.lp-year li > span:last-child { font-size: .93rem; color: var(--suite-muted); }
+#year { scroll-margin-top: 16px; }
+@media (max-width: 860px) {
+  .lp-year { grid-template-columns: 1fr 1fr; }
+  .lp-feature { padding: 16px 16px 14px; }
+}
+@media (max-width: 640px) {
+  .tile-link { padding: 6px 7px; font-size: .86rem; }
+  .lp-cta .btn { flex: 1 1 100%; text-align: center; }
+  .lp-ask { flex-direction: column; align-items: stretch; text-align: center; }
+  .lp-ask .btn, .lp-trial-cta .btn { text-align: center; }
+  .lp-trial-cta { flex-direction: column; align-items: stretch; }
+  .lp-close { padding: 24px 18px; }
+  .lp-feature .btn { flex: 1 1 100%; text-align: center; }
+}
+@media (max-width: 520px) {
+  .lp-year { grid-template-columns: 1fr; gap: 8px; }
+}
+
+/* Two pages from the app side by side in one band (2026-10-05): the lender's report (with a subscription) and
+   the buyer's sale sheet (free). The free tag is the same tag in outline. On a phone they stack. */
+.lp-tag-free { background: #fff; color: var(--suite-deep-green); border: 2px solid var(--suite-deep-green); padding: 0 6px; }
+.lp-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
+.lp-half { min-width: 0; }
+.lp-half h3 { margin: 8px 0 6px; font-size: 1.15rem; }
+.lp-half > p { margin: 0 0 14px; min-height: 3em; }
+.lp-pair .lp-paper { height: 470px; max-height: none; }   /* the same height for both, tall enough for the first shots to show */
+.lp-pair .lp-more { font-size: .84rem; }
+@media (max-width: 860px) {
+  .lp-pair { grid-template-columns: 1fr; }
+  .lp-half > p { min-height: 0; }
+  .lp-pair .lp-paper { height: auto; max-height: 440px; }
 }

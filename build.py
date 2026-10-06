@@ -138,10 +138,127 @@ def tile_stat(app_id, week):
     return None
 
 
+# How a new person gets into an app today: "signup" in content/apps.json (Scott, 2026-10-05: "we need to be subtly
+# aggressive in having subscribe/sign up links to the products"). Two words, two meanings, and the site never
+# mixes them: "Sign Up" / "Try for Free" makes a free account; "Subscribe" pays, so it waits for a pay page.
+#   waitlist  the app is invite-only: every link reads Join the Waitlist and opens the app's waitlist card
+#   open      anyone can make an account: Sign Up Free (cards: Try for Free)
+# One setting per app flips every link. Change it the same day the app's own sign-up setting changes.
+SIGNUP = {
+    "waitlist": {"button": "Join the Waitlist", "nav": "Join the Waitlist", "nav_short": "Waitlist",
+                 "tile": "Join the Waitlist", "panel": "Join the Waitlist", "hash": "#waitlist", "have_hash": ""},
+    "open": {"button": "Sign Up Free", "nav": "Sign Up", "nav_short": "Sign Up", "tile": "Try for Free",
+             "panel": "Try It Free for 30 Days", "hash": "#signup", "have_hash": "#signin"},
+}
+
+
+def signup(app, copy):
+    """How a new person gets into this app today, or None: an app with no address or no "signup" setting gets
+    no sign-up links anywhere. The addresses end in #waitlist, #signup and #signin, which the app reads to open
+    the right card on its first screen."""
+    state = copy.get("signup")
+    if not state or not app.get("url"):
+        return None
+    if state not in SIGNUP:
+        raise SystemExit(f'{app["id"]}: "signup" in content/apps.json must be one of {", ".join(SIGNUP)}, not "{state}".')
+    if "?" in app["url"] or "#" in app["url"]:
+        raise SystemExit(f'{app["id"]}: its address in suite-apps.json must be a plain one to hang #waitlist on, not {app["url"]}')
+    base = app["url"].rstrip("/") + "/"
+    words = SIGNUP[state]
+    # "have": where "Have an invite or an account?" leads. On the waitlist that is the whole first screen (an
+    # invite needs the account form, an account the sign-in card); with sign-up open, the sign-in card.
+    return {**words, "state": state, "url": base + words["hash"], "signin": base + "#signin", "app": base,
+            "have": base + words["have_hash"]}
+
+
+def visitor(app, classes=""):
+    """Attributes for a link only a new visitor needs: hidden in a browser that has used this app (member.js)."""
+    return f'class="{(classes + " visitor-only").strip()}" data-app="{e(app["id"])}"'
+
+
+def member(app, classes=""):
+    """Attributes for what a browser that has used this app sees instead."""
+    return f'class="{(classes + " member-only").strip()}" data-app="{e(app["id"])}"'
+
+
+def member_apps(apps, copy):
+    """The apps whose links back to this site say "this browser is signed in" (the ones with sign-up links)."""
+    return [a for a in apps if signup(a, copy[a["id"]])]
+
+
+def member_css(apps, copy):
+    """Two rules per app: a browser that has used it loses that app's sign-up links and gains its Open link.
+    In the page's head, so nothing flashes: member.js sets data-uses on <html> before the page is drawn."""
+    return "\n".join(
+        f'    html[data-uses="{a["id"]}"] .visitor-only[data-app="{a["id"]}"], '
+        f'html:not([data-uses="{a["id"]}"]) .member-only[data-app="{a["id"]}"] {{ display: none !important; }}'
+        for a in member_apps(apps, copy))
+
+
+def nav_account(apps, copy, page_app=None):
+    """The end of the header menu. Everywhere: Sign In (the suite account). On the page of an app with sign-up
+    links: Sign In goes to that app, with its sign-up button beside it. And for each such app, the link a
+    browser that has used it sees instead of both ("Open Herd Planner"): the site can't see an app's sign-in
+    (different domains), so it remembers the browser, and the words stay true signed in or not."""
+    su = signup(page_app, copy[page_app["id"]]) if page_app else None
+    parts = [f'<a class="nav-signin nav-visitor" href="{e(su["signin"] if su else config.ACCOUNT_URL)}">Sign In</a>']
+    if su:
+        parts.append(f'<a {visitor(page_app, "nav-signup")} href="{e(su["url"])}"><span class="wide">{e(su["nav"])}</span>'
+                     f'<span class="narrow">{e(su["nav_short"])}</span></a>')
+    for a in member_apps(apps, copy):
+        short = copy[a["id"]].get("member_short", "Open")
+        parts.append(f'<a {member(a, "nav-signin nav-member")} href="{e(a["url"])}"><span class="wide">Open {e(a["name"])} &#8594;</span>'
+                     f'<span class="narrow">{e(short)} &#8594;</span></a>')
+    return "\n      ".join(parts)
+
+
+SEASON_OF = {12: "winter", 1: "winter", 2: "winter", 3: "spring", 4: "spring", 5: "spring",
+             6: "summer", 7: "summer", 8: "summer", 9: "fall", 10: "fall", 11: "fall"}
+
+
+def season_of(day) -> str:
+    """ "2026-10-02" (or a date) -> "fall". Seasons by whole months, December to February being winter."""
+    try:
+        month = day.month if hasattr(day, "month") else date.fromisoformat(str(day)).month
+    except ValueError:
+        raise SystemExit(f'The date being published must read like 2026-10-02, not "{day}".') from None
+    return SEASON_OF[month]
+
+
+def check_page(app, copy):
+    """Stop the build with a plain sentence when a fuller page's words are incomplete, rather than a KeyError
+    on some Friday (a season's panel is first read on the first build of that season)."""
+    page, name = copy["page"], app["id"]
+    def need(block, keys, where):
+        missing = [k for k in keys if not block.get(k)]
+        if missing:
+            raise SystemExit(f'{name}: {where} in content/apps.json needs {", ".join(missing)}.')
+    if signup(app, copy):
+        need(page, ["signup"], '"page"')
+        need(page["signup"], ["ask", "member_fine", copy["signup"]], '"page" > "signup"')
+        need(page["signup"][copy["signup"]], ["fine", "have", "have_link", "close_title", "close"],
+             f'"page" > "signup" > "{copy["signup"]}"')
+    panels = [("panel", page["panel"])] if page.get("panel") else []
+    if page.get("year"):
+        need(page["year"], ["title", "note", "more", "seasons"], '"page" > "year"')
+        for s in page["year"]["seasons"]:
+            need(s, ["id", "name", "title", "text"], f'a season in "page" > "year"')
+            if s.get("panel"):
+                panels.append((f'the {s["id"]} panel', s["panel"]))
+    for where, panel in panels:
+        need(panel, ["title", "text", "picture"], where)
+        if panel["picture"] not in ("showcase", "sample"):
+            raise SystemExit(f'{name}: a panel\'s "picture" must be "showcase" or "sample", not "{panel["picture"]}" ({where}).')
+        if panel["picture"] == "sample" and not page.get("sample"):
+            raise SystemExit(f'{name}: {where} shows the sample, but the page has no "sample".')
+
+
 def app_tile(app, copy, week):
-    """A big tile in the opening row: the whole tile is the link, so it's easy to hit on a phone. Top right:
-    this week's number from the app (tile_stat); bottom right: free to try, and the starting price once
-    billing exists (config.SHOW_PRICES)."""
+    """A big tile in the opening row. Top right: this week's number from the app (tile_stat). The name and
+    question lead to the app's page on this site; at the bottom, Open (into the app) and one way in for someone
+    new: the app's sign-up link (signup(): Join the Waitlist or Try for Free), or for an app with none, what is
+    true of it ("tile_note": Free, no account). No Subscribe link here (Scott, 2026-10-05: "just Open and Try
+    for Free"); that word waits for a pay page. The starting price shows once billing exists (config.SHOW_PRICES)."""
     stat = tile_stat(app["id"], week)
     stat_html = ""
     if stat:
@@ -151,14 +268,19 @@ def app_tile(app, copy, week):
                      f'<b class="{tone}">{e(number)}</b>{e(unit)}</span><small>{e(small)}</small></span>')
     inner = f"""<span class="tile-top"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="56" height="56">{stat_html}</span>
         <span class="tile-words"><strong>{e(app["name"])}</strong><span>{e(copy["question"])}</span></span>"""
-    price = (f'<br>From <b>{e(copy["price_from"])}/mo</b>' if config.SHOW_PRICES and copy.get("price_from") else "")
+    price = (f'From <b>{e(copy["price_from"])}/mo</b>' if config.SHOW_PRICES and copy.get("price_from") else "")
     if app["url"]:
-        return f"""      <a class="tile" href="{e(app["url"])}">
-        {inner}
-        <span class="tile-bottom"><span class="btn small" aria-hidden="true">Open</span><span class="tile-price">Free to try{price}</span></span>
-      </a>"""
-    later = (f'<span class="tile-price">From <b>{e(copy["price_from"])}/mo</b></span>'
-             if config.SHOW_PRICES and copy.get("price_from") else "")
+        su = signup(app, copy)
+        if su:
+            way_in = f'<a {visitor(app, "tile-link")} href="{e(su["url"])}">{e(su["tile"])}</a>'
+            way_in += f'<span class="tile-price">{price}</span>' if price else ""
+        else:
+            way_in = f'<span class="tile-price">{e(copy.get("tile_note", "Free to try"))}{"<br>" + price if price else ""}</span>'
+        return f"""      <div class="tile tile-app">
+        <a class="tile-body" href="{APP_PAGE.format(e(app["id"]))}">{inner}</a>
+        <span class="tile-bottom"><a class="btn small" href="{e(app["url"])}" aria-label="Open {e(app["name"])}">Open</a>{way_in}</span>
+      </div>"""
+    later = f'<span class="tile-price">{price}</span>' if price else ""
     return f"""      <div class="tile soon">
         {inner}
         <span class="tile-bottom"><span class="status">Coming soon</span>{later}</span>
@@ -467,23 +589,95 @@ def app_page_values(app, copy, week, weeks, barns=None, barn_href=None):
     }
 
 
-def full_page_values(app, copy):
+def feature_panel(app, copy, su, season):
+    """Beside the headline: one subscription job, with the app's own picture and the sign-up button (Scott,
+    2026-10-05, of the white space there: "Maybe a Sign-up ad for us with a feature of the paid subscription?").
+    Chosen from three mockups: the job changes with the season ("year" in apps.json; the build takes the season
+    from the week it publishes). A season only takes over when it has a panel of its own, because a panel's words
+    must describe its own picture; otherwise the page's standing panel shows. No "panel" at all: the picture alone."""
+    page = copy["page"]
+    seasons = {s["id"]: s for s in page.get("year", {}).get("seasons", [])}
+    own = seasons.get(season, {}).get("panel")
+    panel = own or page.get("panel")
+    if not panel:
+        return app_shot(app, copy)
+    if panel["picture"] == "sample":
+        sample = page["sample"]
+        # The sample never appears without saying what it is: made-up cattle, and not an appraisal.
+        picture = (f'<div class="lp-paper lp-paper-small"><img src="{e(sample["image"])}" alt="{e(sample["alt"])}" '
+                   f'width="{int(sample["width"])}" height="{int(sample["height"])}"></div>\n'
+                   f'        <p class="lp-feature-note">{e(sample["caption"])}</p>')
+    else:
+        picture = app_shot(app, copy)
+    tag = f'This {e(seasons[season]["name"].lower())} &#183; with a subscription' if own else "With a subscription"
+    button = f'<a {visitor(app, "btn ghost")} href="{e(su["url"])}">{e(su["panel"])}</a>' if su else ""
+    more = (f'<a class="lp-feature-more" href="#year">{e(page["year"]["more"])} &#8594;</a>' if page.get("year") else "")
+    return f"""<aside class="lp-feature">
+        <span class="lp-tag">{tag}</span>
+        <h2>{e(panel["title"])}</h2>
+        <p>{e(panel["text"])}</p>
+        {picture}
+        <p class="lp-feature-cta">{button}{more}</p>
+      </aside>"""
+
+
+def year_strip(page, season):
+    """What a subscription is for in each season (Scott, 2026-10-05: "features the farmer or rancher can use in
+    the off season to encourage year-round subscriptions"). Every line is something the app does today; the
+    season being published is marked."""
+    year = page.get("year")
+    if not year:
+        return ""
+    def card(s):
+        cls, mark = (' class="now"', " <i>Now</i>") if s["id"] == season else ("", "")
+        return (f'      <li{cls}><span class="lp-season">{e(s["name"])}{mark}</span>'
+                f'<b>{e(s["title"])}</b><span>{e(s["text"])}</span></li>')
+    cards_ = "\n".join(card(s) for s in year["seasons"])
+    return f"""    <h2 id="year">{e(year["title"])}</h2>
+    <p class="section-lede">{e(year["note"])}</p>
+    <ol class="lp-year">
+{cards_}
+    </ol>"""
+
+
+def full_page_values(app, copy, day=None):
     """The fuller page's own parts (templates/app_full.html), from the app's "page" block in content/apps.json:
     the headline, the sample cut off partway, what is free and what comes with a subscription, and the steps.
     Chosen by Scott from three mockups, 2026-10-05 (layout A, "the report first"). The words are all in
     apps.json, so another app gets the same page by filling in its own block; parts it leaves out are skipped.
 
+    Sign-up links (2026-10-05): the main button, a line under the sample, under What You Get, and a closing
+    band, all from signup() so one setting changes them together, plus the feature panel beside the headline
+    and the year strip. `day` is the date being published (it picks the season); today when left out.
+
     Two rules the page keeps (tests hold both): it shows no price until billing exists (config.SHOW_PRICES),
     and the sample is a real page from the app with made-up cattle, cut off and labeled, never a blurred fake."""
     page = copy["page"]
+    check_page(app, copy)
+    season = season_of(day or date.today())
+    su = signup(app, copy)
+    words = page["signup"][su["state"]] if su else None
+    join = f'<a {visitor(app, "btn")} href="{e(su["url"])}">{e(su["button"])}</a>' if su else ""
 
     def items(lines, pad="          "):
         return "\n".join(f"{pad}<li>{e(line)}</li>" for line in lines)
 
     sample, band, button = page.get("sample"), "", ""
+    second = page.get("second_sample") if sample else None
+
+    def paper(smp):
+        """A page from the app, cut off by the styles: the picture, what the rest holds, and what it is."""
+        if not (STATIC / smp["image"]).exists():
+            raise SystemExit(f'{app["id"]}: the sample picture static/{smp["image"]} is missing.')
+        return f"""<figure class="lp-peek">
+        <div class="lp-paper"><img src="{e(smp["image"])}" alt="{e(smp["alt"])}" width="{int(smp["width"])}" height="{int(smp["height"])}" loading="lazy">
+          <p class="lp-more">{e(smp["more"])}</p></div>
+        <figcaption>{e(smp["caption"])}</figcaption>
+      </figure>"""
+    ask = (f'''
+      <p {visitor(app, "lp-ask")}><span>{e(page["signup"]["ask"])}</span> <a class="btn" href="{e(su["url"])}">{e(su["button"])}</a></p>'''
+           if su else "")
     if sample:
-        if not (STATIC / sample["image"]).exists():
-            raise SystemExit(f'{app["id"]}: the sample picture static/{sample["image"]} is missing.')
         button = f'<a class="btn ghost" href="#{e(sample["id"])}">{e(sample["button"])}</a>'
         band = f"""    <div class="lp-band" id="{e(sample["id"])}">
       <div class="lp-band-top">
@@ -496,15 +690,37 @@ def full_page_values(app, copy):
 {items(sample["points"])}
         </ul>
       </div>
-      <figure class="lp-peek">
-        <div class="lp-paper"><img src="{e(sample["image"])}" alt="{e(sample["alt"])}" width="{int(sample["width"])}" height="{int(sample["height"])}" loading="lazy">
-          <p class="lp-more">{e(sample["more"])}</p></div>
-        <figcaption>{e(sample["caption"])}</figcaption>
-      </figure>
+      {paper(sample)}{ask}
+    </div>"""
+    if second:
+        # Two pages side by side (Scott chose this from three mockups, 2026-10-05): what a subscription makes for
+        # the lender beside what the free records make for the buyer. On a phone they stack.
+        def half(smp, free):
+            return f"""<div class="lp-half" id="{e(smp["id"])}-page">
+          <span class="lp-tag{" lp-tag-free" if free else ""}">{e(smp["tag"])}</span>
+          <h3>{e(smp["title"])}</h3>
+          <p>{e(smp["lead"])}</p>
+          {paper(smp)}
+        </div>"""
+        band = f"""    <div class="lp-band" id="{e(sample["id"])}">
+      <h2>{e(page["samples_title"])}</h2>
+      <div class="lp-pair">
+        {half(sample, False)}
+        {half(second, True)}
+      </div>{ask}
     </div>"""
     free = ""
     if page.get("free") and page.get("subscription"):
         lead, rest = page["trial"]
+        lead = (words or {}).get("trial_lead", lead)   # beside a waitlist button the 30 days need "With an account"
+        col_free = col_sub = trial_button = ""
+        if su and su["state"] == "open":   # two ways in, each under its own list
+            col_free = f'''
+          <p {visitor(app, "lp-col-cta")}><a class="btn ghost" href="{e(su["url"])}">{e(su["button"])}</a></p>'''
+            col_sub = f'''
+          <p {visitor(app, "lp-col-cta")}><a class="btn" href="{e(su["url"])}">{e(su["panel"])}</a></p>'''
+        elif su:                           # one list to join, so one button, beside the 30 days
+            trial_button = f' <a {visitor(app, "btn")} href="{e(su["url"])}">{e(su["button"])}</a>'
         free = f"""    <div class="lp-band" id="what-you-get">
       <h2>{e(page["free_title"])}</h2>
       <div class="lp-two">
@@ -513,17 +729,17 @@ def full_page_values(app, copy):
           <p class="lp-when">{e(page["free_note"])}</p>
           <ul>
 {items(page["free"], "            ")}
-          </ul>
+          </ul>{col_free}
         </div>
         <div class="lp-col lp-sub-col">
           <h3>With a Subscription</h3>
           <p class="lp-when">{e(page["subscription_note"])}</p>
           <ul>
 {items(page["subscription"], "            ")}
-          </ul>
+          </ul>{col_sub}
         </div>
       </div>
-      <p class="lp-trial"><strong>{e(lead)}</strong> {e(rest)}</p>
+      <p class="lp-trial{" lp-trial-cta" if trial_button else ""}"><span><strong>{e(lead)}</strong> {e(rest)}</span>{trial_button}</p>
     </div>"""
     steps = ""
     if page.get("steps"):
@@ -532,10 +748,26 @@ def full_page_values(app, copy):
     <ol class="lp-steps">
 {rows}
     </ol>"""
+    # The top: for someone new, the way in; for a browser that has used the app, straight into it.
+    opener = f'<a class="btn" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"] else '<span class="status">Coming soon</span>'
+    fine, closing = (f'<p class="lp-fine">{e(page["offer"])}</p>' if page.get("offer") else ""), ""
+    if su:
+        opener = join + f'<a {member(app, "btn")} href="{e(app["url"])}">Open {e(app["name"])}</a>'
+        have = f'{e(words["have"])} <a href="{e(su["have"])}">{e(words["have_link"])}</a>'
+        fine = f"""<p {visitor(app, "lp-fine")}>{e(words["fine"])}</p>
+        <p {visitor(app, "lp-have")}>{have}</p>
+        <p {member(app, "lp-fine")}>{e(page["signup"]["member_fine"])} <a href="privacy.html#this-browser">Why?</a>
+          <button type="button" class="linklike" data-forget-app>Forget this</button></p>"""
+        closing = f"""    <div {visitor(app, "lp-close")}>
+      <h2>{e(words["close_title"])}</h2>
+      <p>{e(words["close"])}</p>
+      <p class="lp-cta"><a class="btn" href="{e(su["url"])}">{e(su["button"])}</a></p>
+      <p class="lp-have">{have}</p>
+    </div>"""
     return {
-        "headline": e(page["headline"]), "sub": e(page["sub"]), "offer": e(page["offer"]),
+        "headline": e(page["headline"]), "sub": e(page["sub"]), "fine": fine, "open_button": opener,
         "sample_button": button, "sample_band": band, "free_band": free, "steps_block": steps,
-        "shot": app_shot(app, copy),
+        "shot": feature_panel(app, copy, su, season), "year_strip": year_strip(page, season), "closing": closing,
         "weekly_title": e(page["weekly_title"]), "weekly_text": e(page["weekly_text"]), "weekly_note": e(page["weekly_note"]),
     }
 
@@ -599,7 +831,7 @@ def hero_photo() -> tuple[str, str, str]:
             f'  <p class="photo-credit">{e(credit)}</p>')
 
 
-VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js")
+VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js")
 
 
 def versioned(page: str) -> str:
@@ -627,10 +859,12 @@ def build():
         "tagline": e(config.TAGLINE),
         "location": e(config.LOCATION),
         "year": str(config.YEAR),
-        "herd_url": e(herd["url"] or "#apps"),
+        "herd_url": e((signup(herd, copy[herd["id"]]) or {}).get("url") or herd["url"] or "#apps"),
         "app_tiles": "\n".join([app_tile(a, copy[a["id"]], week) for a in apps]
                                + [dev_tile(d) for d in copy.get("in_development", [])]),
         "account_url": e(config.ACCOUNT_URL),
+        "member_css": member_css(apps, copy),
+        "member_apps": e(" ".join(a["id"] for a in member_apps(apps, copy))),
         "app_rows": "\n".join(app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)),
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
@@ -652,9 +886,11 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(STATIC, OUT)
-    def write(out_name, body, title, description, current=None):
+    def write(out_name, body, title, description, current=None, page_app=None):
+        page_signup = bool(page_app and signup(page_app, copy[page_app["id"]]))
         page = layout.substitute(
             values, body=body,
+            nav_account=nav_account(apps, copy, page_app), nav_class=(" has-signup" if page_signup else ""),
             title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
             description=e(description),
             canonical=e(config.SITE_URL + ("" if out_name == "index.html" else out_name)),
@@ -672,7 +908,7 @@ def build():
         v = app_page_values(app, copy[app["id"]], week, weeks, all_barns, barn_href)
         full = "page" in copy[app["id"]]
         if full:
-            v.update(full_page_values(app, copy[app["id"]]))
+            v.update(full_page_values(app, copy[app["id"]], week["date"]))
         own = [st for st in stories if st["app"] == app["id"]]
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
         # read it" line on each chart (stories.json "how_to_read").
@@ -683,7 +919,7 @@ def build():
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), (full_template if full else app_template).substitute(values, **v), app["name"],
-              f'{app["name"]}: {copy[app["id"]]["question"]}{lead}', "apps")
+              f'{app["name"]}: {copy[app["id"]]["question"]}{lead}', "apps", page_app=app)
     # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
     corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)
     picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},
