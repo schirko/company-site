@@ -207,7 +207,9 @@ job (`build.WEEKLY`) get an app page with "This Season" instead of "This Week" a
 An app in development gets a dashed tile, an **In development** tag, its question, and **Get notified**,
 which jumps to "Hear When Something New Opens" (Herd Planner's waitlist). It has no app page, no Farm Apps
 menu entry and no footer link until it exists. Its logo goes in `static/soon/<id>.svg` (the suite's logo
-style: a colored circle, a cream drawing, a gold accent). When it opens: add it to the master
+style since October 2026: a rounded-square tile in the app's color, a cream line symbol, one gold piece; the
+rules are in `herd-planner/brand/README.md`. The two pictures in `static/soon/` today are in the old circle
+style and are not shown on any page, because nothing is in development). When it opens: add it to the master
 `herd-planner/brand/suite-apps.json`, copy that out, write its entry in `apps.json`, and remove it from
 `"in_development"` (a test fails if an app is in both).
 

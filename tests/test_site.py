@@ -95,6 +95,34 @@ def test_how_we_test_covers_every_app(site):
         assert f"<h2>{app['name']}" in page, f"methods page doesn't name {app['name']}"
 
 
+def drawing(path):
+    """The drawing in an SVG file. Some tools add a note about where a file came from (a <metadata> block) when they
+    save it; that note isn't part of the picture, so two copies of one drawing still compare as equal."""
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n").strip()
+    text = re.sub(r"<metadata>.*?</metadata>", "", text, flags=re.S)
+    return text.replace(' xmlns:c2pa="http://c2pa.org/manifest"', "")
+
+
+def test_the_app_logos_are_the_line_symbols_on_rounded_tiles():
+    """October 7, 2026: the four app logos were redrawn (a cream line symbol with one gold piece on a rounded square
+    in the app's colour), after a graphic designer called the first ones clip art. This holds without Herd Planner
+    beside the project. The company's own mark (static/brand, favicon.svg) is a different thing and did not change."""
+    tiles = {"herd-planner": "#243b2f", "corn-yield-predictor": "#4a3520", "grazing-planner": "#2f5d5a", "farm-equipment-planner": "#23374d"}
+    apps = json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["apps"]
+    assert {a["id"] for a in apps} == set(tiles)
+    for app, tile in tiles.items():
+        svg = drawing(ROOT / "static/suite/suite-logos" / f"{app}.svg")
+        assert f'<rect x="2" y="2" width="96" height="96" rx="22" fill="{tile}"/>' in svg, app
+        assert set(re.findall(r"#[0-9a-f]{6}", svg)) == {tile, "#f4efe3", "#d9a441"}, app
+
+
+@pytest.mark.skipif(not (MASTER / "herd-planner-logo-small.svg").exists(), reason="Herd Planner with the redrawn logos isn't checked out next to this project")
+def test_the_app_logos_match_the_master_copies():
+    for app in json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["apps"]:
+        copy, master = ROOT / "static/suite/suite-logos" / f"{app['id']}.svg", MASTER / f"{app['id']}-logo.svg"
+        assert drawing(copy) == drawing(master), f"{app['id']}.svg drifted from herd-planner/brand"
+
+
 @pytest.mark.skipif(not MASTER.exists(), reason="Herd Planner isn't checked out next to this project")
 def test_suite_files_match_the_master_copies():
     for name in ("suite.css", "suite.js", "suite-apps.json"):
