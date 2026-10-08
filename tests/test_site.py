@@ -919,3 +919,12 @@ def test_the_main_sections_open_on_a_green_band(site):
         at = home.index(f"<h2>{name}</h2>")
         assert home.rindex('<div class="head-band">', 0, at) > home.rindex("<section", 0, at)
     assert ".head-band {" in (site / "site.css").read_text(encoding="utf-8")
+
+
+
+def test_the_herd_planner_page_says_whose_page_it_is_far_down_on_a_phone(site):
+    """Scott, 2026-10-08: on a phone "What You Get" is far down the page and he forgot he was on Herd Planner's;
+    and "A Subscription for Every Season" spoke of one subscription as if there were several. Both name the app."""
+    page = (site / "herd-planner.html").read_text(encoding="utf-8")
+    assert "<h2>What You Get with Herd Planner</h2>" in page
+    assert '<h2 id="year">Herd Planner Through the Ranch Year</h2>' in page and "Subscription for Every Season" not in page
