@@ -298,12 +298,26 @@ table.history td:nth-child(2), table.history th:nth-child(2) { text-align: left;
 .why-lede { margin: 0; max-width: 44rem; font-size: 1.08rem; line-height: 1.55; color: #e9efe9; }
 .why-lede a { color: var(--suite-gold); font-weight: 700; text-underline-offset: 3px; }
 .why-lede a:hover { color: #fff; }
-/* The other main sections open the same way (Our Farm Apps, How It Works, Our Promises; 2026-10-08), without the
+/* Our Farm Apps opens the same way (2026-10-08), without the
    cards rising onto the band. The section's own top padding goes, so the band meets the section above. */
 section.has-head { padding-top: 0; }
 .head-band { background: var(--suite-deep-green); color: #fff; padding: 40px 0 36px; margin-bottom: 28px; }
 .head-band h2 { margin: 0; font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.15; color: #fff; }
 .head-lede { margin: 12px 0 0; max-width: 44rem; font-size: 1.08rem; line-height: 1.55; color: #e9efe9; }
+/* How It Works and Our Promises: a lighter heading between thin deep-green lines (Scott, 2026-10-08, option B; three
+   green bands in a row were too much). The line above each section frames the three steps, so they don't run into
+   Our Promises. The small line above the heading is a darker gold here: the bright gold on white is 3.2 to 1, too
+   faint for small text; #8a6418 is 4.9 to 1 on the pale band. */
+section.quiet-top { padding-top: 56px; border-top: 6px solid var(--suite-deep-green); }
+.quiet-head { margin-bottom: 24px; }
+.quiet-head .why-eyebrow { color: #8a6418; }
+.quiet-head h2 { margin: 0; font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.15; color: var(--suite-deep-green); }
+/* The steps end with the next move: open Herd Planner, or go back up to pick another app */
+.steps-cta { margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--suite-line); }
+.steps-cta p { margin: 0 0 10px; }
+.steps-cta-line { font-size: 1.05rem; max-width: 44rem; }
+.steps-cta .meta { font-size: .88rem; }
+@media (max-width: 520px) { .steps-cta .btn { display: block; text-align: center; } }
 /* The three test figures (moved here from under this week's panel, 2026-10-08), on the green: white figures,
    pale words (#d5e0d7 on the green is 8.9 to 1). ".why-band" in front: the plain .proof-stats rules come later in
    this file and would win at equal weight. Each still links to its section on How We Test. */

@@ -911,14 +911,32 @@ def test_the_test_figures_sit_in_answers_you_can_check_and_the_apps_row_has_a_he
     assert home.count("<h2>Our Farm Apps</h2>") == 1                  # the full section further down keeps its name
 
 
-def test_the_main_sections_open_on_a_green_band(site):
+def test_our_farm_apps_opens_on_a_green_band(site):
     """Scott, 2026-10-08: "Our Farm Apps" was barely bigger than the app names under it. He chose the deep-green
-    band of "Answers You Can Check" (option A) for it and for How It Works and Our Promises."""
+    band of "Answers You Can Check" (option A) for it."""
     home = (site / "index.html").read_text(encoding="utf-8")
-    for name in ("Our Farm Apps", "How It Works", "Our Promises"):
-        at = home.index(f"<h2>{name}</h2>")
-        assert home.rindex('<div class="head-band">', 0, at) > home.rindex("<section", 0, at)
+    at = home.index("<h2>Our Farm Apps</h2>")
+    assert home.rindex('<div class="head-band">', 0, at) > home.rindex("<section", 0, at)
     assert ".head-band {" in (site / "site.css").read_text(encoding="utf-8")
+
+
+def test_how_it_works_and_our_promises_open_lighter_and_the_steps_end_with_herd_planner(site):
+    """Scott, 2026-10-08: three green bands in a row were too much. How It Works and Our Promises got a lighter
+    heading between thin deep-green lines (his option B), and after reading the three steps "the natural thing to do
+    is open herd planner", so the steps end with its button and a way back to the other apps."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    for name in ("How It Works", "Our Promises"):
+        at = home.index(f"<h2>{name}</h2>")
+        section = home.rindex("<section", 0, at)
+        assert "quiet-top" in home[section:home.index(">", section)]
+        assert home.rfind('class="head-band"', section, at) == -1
+    steps = home[home.index("<h2>How It Works</h2>"):home.index("<h2>Our Promises</h2>")]
+    cta = steps[steps.index('class="steps-cta"'):]
+    assert steps.index('class="steps"') < steps.index('class="steps-cta"')
+    assert 'href="https://herd-planner.onrender.com/">Open Herd Planner' in cta and 'href="#our-apps"' in cta
+    assert "worth" not in cta        # the herd value is a paid tool after the trial (2026-09-29): promise only what's free
+    css = (site / "site.css").read_text(encoding="utf-8")
+    assert "section.quiet-top {" in css and "border-top: 6px solid var(--suite-deep-green)" in css
 
 
 
