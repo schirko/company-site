@@ -237,6 +237,8 @@ def record_barns(body: dict, today: date) -> str:
     for b in body["barns"]:
         entry = data["barns"].setdefault(str(b["slug"]), {"weeks": []})
         entry.update({k: b[k] for k in ("name", "city", "state", "sale", "is_hub")})
+        if b.get("lat") is not None and b.get("lon") is not None:  # Herd Planner v0.41+: the barn's town on the map
+            entry["lat"], entry["lon"] = b["lat"], b["lon"]
         week = {"week": week_id(today), "date": today.isoformat(), "last_sale": b["last_sale"],
                 "fresh": b["fresh"], "prices": b["prices"]}
         entry["weeks"] = ([week] + [w for w in entry["weeks"] if w["week"] != week["week"]])[:KEEP_BARN_WEEKS]
@@ -244,6 +246,88 @@ def record_barns(body: dict, today: date) -> str:
             entry["seasons"], entry["seasons_date"] = b["seasons"], today.isoformat()
     BARNS_FILE.write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
     return f"{len(body['barns'])} barns"
+
+
+# --- which barn a county's steer tile names (October 2026) ---------------------------------------
+# Scott: tell a rancher whose barn has no fresh price that it has none, and offer the nearest barns that do,
+# rather than quietly showing another barn's price. Without a chosen barn, the tile names the nearest barn
+# with a fresh price. Distances are straight-line miles from the middle of the county (county_centers.csv,
+# the same centres as Herd Planner's) to the barn's town (from Herd Planner's /suite/barns), the same
+# rule Herd Planner's own feed uses since v0.41.0.
+
+CENTERS_FILE = ROOT / "content" / "county_centers.csv"
+NEAR_MILES = 250  # past this a barn isn't "nearby": Oklahoma City, the benchmark, is the honest answer
+NEARBY_SHOWN = 2  # the other fresh barns a tile lists
+STEER_LB = 550
+
+
+def county_centers() -> dict[str, tuple[float, float]]:
+    rows = CENTERS_FILE.read_text(encoding="utf-8").splitlines()[1:]
+    return {f: (float(lat), float(lon)) for f, lat, lon in (r.split(",") for r in rows if r)}
+
+
+def miles(a: tuple[float, float], b: tuple[float, float]) -> float:
+    """Great-circle (straight-line) miles between two (latitude, longitude) points: the haversine formula."""
+    from math import asin, cos, radians, sin, sqrt
+    lat1, lat2 = radians(a[0]), radians(b[0])
+    h = sin((lat2 - lat1) / 2) ** 2 + cos(lat1) * cos(lat2) * sin(radians(b[1] - a[1]) / 2) ** 2
+    return 2 * 3958.8 * asin(sqrt(h))
+
+
+def barns_now(today: date | None = None, data: dict | None = None) -> dict[str, dict]:
+    """Every barn's latest 550 lb steer price, as of `today`: {slug: {name, city, state, is_hub, lat, lon,
+    last_sale, fresh, value, low, high}}. A barn whose latest sheet has no 550 lb steer is left out."""
+    today = today or datetime.now(timezone.utc).date()
+    out = {}
+    for slug, b in (data or load_barns())["barns"].items():
+        if not b.get("weeks"):
+            continue
+        week = b["weeks"][0]
+        steer = next((p for p in week["prices"] if p["animal_class"] == "Steers" and p["weight_lb"] == STEER_LB), None)
+        if not steer:
+            continue
+        sold = date.fromisoformat(week["last_sale"])
+        out[slug] = {"slug": slug, "name": b["name"], "city": b["city"], "state": b["state"],
+                     "is_hub": bool(b.get("is_hub")), "lat": b.get("lat"), "lon": b.get("lon"),
+                     "last_sale": week["last_sale"], "fresh": (today - sold).days <= FRESH_DAYS,
+                     "value": steer["price"], "low": steer["low"], "high": steer["high"]}
+    return out
+
+
+def nearby(fips: str, barns: dict[str, dict], centers: dict | None = None) -> list[list]:
+    """[[slug, miles], ...] for every barn within NEAR_MILES of the county's middle, nearest first. Empty
+    when the county or the barns' positions aren't known (an older Herd Planner sent no positions)."""
+    here = (centers or county_centers()).get(fips)
+    if not here:
+        return []
+    near = [[slug, round(miles(here, (b["lat"], b["lon"])))] for slug, b in barns.items()
+            if b.get("lat") is not None and miles(here, (b["lat"], b["lon"])) <= NEAR_MILES]
+    return sorted(near, key=lambda x: (x[1], x[0]))
+
+
+def hub_of(barns: dict[str, dict]) -> str | None:
+    return next((slug for slug, b in barns.items() if b["is_hub"]), None)
+
+
+def choose(near: list[list], barns: dict[str, dict], chosen: str | None = None) -> dict:
+    """Which steer tile a county gets. panel.js makes the same choice in the browser (keep the two alike).
+
+    * a chosen barn is never swapped: fresh, its price ("barn"); not, "quiet" with the nearest fresh barns
+      (up to NEARBY_SHOWN), or the benchmark when none has sold;
+    * no barn chosen: the nearest barn with a fresh price ("barn"), else Oklahoma City as the benchmark."""
+    hub = hub_of(barns)
+    fresh = [slug for slug, _m in near if barns[slug]["fresh"]]
+    if chosen in barns:
+        if barns[chosen]["fresh"]:
+            return {"kind": "barn", "barn": chosen}
+        rows = [s for s in fresh if s != chosen][:NEARBY_SHOWN]
+        bench = hub if not rows and hub and hub != chosen and barns[hub]["fresh"] else None
+        return {"kind": "quiet", "barn": chosen, "rows": rows, "benchmark": bench}
+    if fresh:
+        return {"kind": "barn", "barn": fresh[0]}
+    if hub and barns[hub]["fresh"]:
+        return {"kind": "benchmark", "barn": hub}
+    return {"kind": "none"}
 
 
 def refresh(today: date | None = None, fetch=fetch_herd, barns=None, grass=None) -> tuple[dict, list[str]]:

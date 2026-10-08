@@ -143,7 +143,7 @@ def test_picker_data_carries_every_countys_pins(tmp_path, monkeypatch):
     monkeypatch.setattr(build, "OUT", tmp_path / "docs")
     site = build.build()
     data = json.loads((site / "panel-data.json").read_text(encoding="utf-8"))
-    assert data["format"] == 2 and set(data["herd_pin"]) == set(cards.STATE_NAMES)
+    assert data["format"] == 3 and set(data["herd_pin"]) == set(cards.STATE_NAMES)   # by state: the fallback
     assert all(pin.startswith('<a class="pin') and 'data-pin="herd"' in pin for pin in data["herd_pin"].values())
     for county in data["counties"].values():
         assert 'data-pin="land"' in county["pins"]["land"] and 'data-pin="corn"' in county["pins"]["corn"]

@@ -859,6 +859,15 @@ def build():
     barn_data = cards.load_barns()
     all_barns = barn_data["barns"]
     barn_href = lambda slug: barn_pages.page_name(str(slug), all_barns[str(slug)]) if str(slug) in all_barns else None
+    # The steer tile by barn (October 2026): the county of the week gets the nearest barn with a fresh price
+    # (cards.choose). Until Herd Planner has sent the barns' positions, the week's saved card is used.
+    barns_now = cards.barns_now(data=barn_data)
+    by_barn = any(b["lat"] is not None for b in barns_now.values())
+    centers = cards.county_centers()
+    near_of = (lambda fips: cards.nearby(fips, barns_now, centers)) if by_barn else None
+    steer_tile = steer_pin = None
+    if by_barn:
+        steer_tile, steer_pin = hero.steer_for(cards.choose(near_of(week["place"]["fips"]), barns_now), barns_now, barn_href)
     stories = load_stories()
     apps_by_id = {a["id"]: a for a in apps}
     weeks = cards.load_weeks()
@@ -883,8 +892,8 @@ def build():
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
         "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
-        "live_panel": hero.panel(week, stories, nice_date, barn_href),
-        "pins": hero.pins(week, barn_href),
+        "live_panel": hero.panel(week, stories, nice_date, barn_href, steer_tile),
+        "pins": hero.pins(week, barn_href, steer_pin),
         **dict(zip(("hero_class", "hero_style", "hero_credit"), hero_photo())),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps if a["id"] in WEEKLY),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
@@ -934,7 +943,8 @@ def build():
     picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},
                              {"corn": "The Yield Predictor covers " + corn["not_covered"][:1].lower() + corn["not_covered"][1:],
                               "days": "The Equipment Planner covers " + days["not_covered"][:1].lower() + days["not_covered"][1:]},
-                             cards.STATE_NAMES, barn_href)
+                             cards.STATE_NAMES, barn_href, barns_now if by_barn else None, near_of,
+                             cards.hub_of(barns_now), cards.FRESH_DAYS)
     (OUT / "panel-data.json").write_text(json.dumps(picker, separators=(",", ":")), encoding="utf-8")
     # One page per sale barn, and the index of them all
     for slug, barn in all_barns.items():

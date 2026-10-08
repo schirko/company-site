@@ -140,7 +140,8 @@ def herd_tile(herd: dict | None, state_name: str, barn_href=None) -> str:
     """barn_href(slug) gives that barn's page on the site, or None; the tile then links there."""
     if not herd:
         return tile("herd-planner.html", "USDA auction reports", steer_label(None), "No fresh price", "",
-                    f"No sale barn near {state_name} reported in the last three weeks. Prices update every Friday.",
+                    (f"No sale barn near {state_name} reported in the last three weeks. " if state_name else
+                     "No sale barn nearby reported in the last three weeks. ") + "Prices update every Friday.",
                     " quiet", slot="herd")
     href = (barn_href(herd.get("market_slug")) if barn_href and herd.get("market_slug") else None) or "herd-planner.html"
     return tile(
@@ -149,6 +150,103 @@ def herd_tile(herd: dict | None, state_name: str, barn_href=None) -> str:
         range_bar(herd["low"], herd["value"], herd["high"], herd["low"] * 0.97, herd["high"] * 1.03,
                   (money(herd["low"]), "", money(herd["high"])), marker="this sale"),
         f'About {money(herd["value"] * 5.5)} a head at {herd["market"]}.', slot="herd")   # the sale's day is in the label
+
+
+# --- the steer tile by barn (October 2026) ---------------------------------------------------------
+# Scott: a rancher whose barn has no fresh price is told so and offered the nearest barns that have one
+# (option A of the 2026-10-07 mockups), never handed another barn's price as if it were his. cards.choose
+# picks which tile a county gets; panel.js makes the same choice in the browser, from pieces drawn here.
+# The tile is a box with its main link stretched over it, because the nearby barns are links of their own
+# and a link can't sit inside a link.
+
+CHANGE = '<a class="live-change" href="#live-pick" data-change-barn hidden>Change barn</a>'
+NEAR = "<!--near-->"  # where a quiet tile's nearby barns go; panel.js fills it the same way
+NEAR_HEAD = {"near": "Fresh nearby, $/cwt", "benchmark": "Nothing fresh nearby. The national benchmark, $/cwt:"}
+
+
+def day(iso: str) -> str:
+    d = date.fromisoformat(iso)
+    return f"{d:%b} {d.day}"
+
+
+def barn_card(b: dict) -> dict:
+    """A barn's latest steer price (cards.barns_now) in the shape herd_tile and herd_pin take."""
+    return {"value": b["value"], "low": b["low"], "high": b["high"], "as_of": b["last_sale"],
+            "market": f'{b["name"]}, {b["city"]} {b["state"]}', "market_slug": int(b["slug"])}
+
+
+def box_tile(href: str, callout: str, label: str, headline: str, chart: str, note_html: str, extra_class: str = "") -> str:
+    return f"""        <div class="live-tile{extra_class}" data-tile="herd">
+          <span class="callout">{e(callout)}</span>
+          <span class="live-label">{e(label)}</span>
+          <a class="live-main" href="{e(href)}"><span class="live-headline">{e(headline)}</span></a>
+          {chart}
+          <span class="live-note">{note_html}</span>
+        </div>"""
+
+
+def barn_page(b: dict, barn_href=None) -> str:
+    return (barn_href(b["slug"]) if barn_href else None) or "herd-planner.html"
+
+
+def barn_tile(b: dict, barn_href=None, benchmark: bool = False) -> str:
+    """The barn's fresh price, as herd_tile draws it, naming the town; the benchmark says why it's shown."""
+    card, town = barn_card(b), f'{b["city"]}, {b["state"]}'
+    head = money(b["value"] * 5.5)
+    note = (f"About {head} a head at {town}, the national benchmark: no barn within 250 miles has sold in "
+            f"three weeks." if benchmark else f"About {head} a head at {town}.")
+    return box_tile(barn_page(b, barn_href), "8 in 10 sales land in this range", steer_label(card),
+                    f'{money(b["value"])}/cwt',
+                    range_bar(b["low"], b["value"], b["high"], b["low"] * 0.97, b["high"] * 1.03,
+                              (money(b["low"]), "", money(b["high"])), marker="this sale"),
+                    f"{e(note)} {CHANGE}")
+
+
+def near_row(b: dict, barn_href=None) -> str:
+    """One nearby barn: its town, its price and the day it sold, linking to its page."""
+    return (f'<a href="{e(barn_page(b, barn_href))}"><span class="near-name">{e(b["city"])}</span>'
+            f'<span class="near-fig"><b>{e(money(b["value"]))}</b><small> &middot; {e(day(b["last_sale"]))}</small></span></a>')
+
+
+def near_block(kind: str, rows: list[str]) -> str:
+    return f'<span class="near"><span class="near-head">{e(NEAR_HEAD[kind])}</span>{"".join(rows)}</span>' if rows else ""
+
+
+def quiet_tile(b: dict, barn_href=None, near: str = NEAR) -> str:
+    """A chosen barn with no sale in three weeks: said plainly, then `near` (the nearby barns, or NEAR for
+    panel.js to fill)."""
+    return box_tile(barn_page(b, barn_href), "USDA auction reports", f'{STEER} at {b["city"]}', "No fresh price",
+                    near, f'{e(b["city"])} last sold {e(day(b["last_sale"]))}. {CHANGE}', " quiet")
+
+
+def barn_pin(b: dict, barn_href=None, benchmark: bool = False) -> str:
+    if benchmark:
+        return pin("herd", barn_page(b, barn_href), steer_label(barn_card(b)), f'{e(money(b["value"]))}<small>/cwt</small>',
+                   f'{b["city"]} {b["state"]} \u00b7 the national benchmark')
+    return herd_pin(barn_card(b), "", barn_href)
+
+
+def quiet_pin(b: dict, barn_href=None) -> str:
+    return pin("herd", barn_page(b, barn_href), f'{STEER} at {b["city"]}', "No fresh price",
+               f'Last sale {day(b["last_sale"])}', quiet=True)
+
+
+def steer_for(choice: dict, barns: dict, barn_href=None) -> tuple[str, str]:
+    """(tile, pin) for cards.choose's answer."""
+    kind = choice["kind"]
+    if kind == "none":
+        return herd_tile(None, "", barn_href), herd_pin(None, "", barn_href)
+    b = barns[choice["barn"]]
+    if kind == "benchmark":
+        return barn_tile(b, barn_href, benchmark=True), barn_pin(b, barn_href, benchmark=True)
+    if kind == "barn":
+        return barn_tile(b, barn_href), barn_pin(b, barn_href)
+    rows = [near_row(barns[s], barn_href) for s in choice["rows"]]
+    if choice.get("benchmark"):
+        near = near_block("benchmark", [near_row(barns[choice["benchmark"]], barn_href)])
+    else:
+        near = near_block("near", rows)
+    return quiet_tile(b, barn_href, near), quiet_pin(b, barn_href)
 
 
 def calves_tile(season: dict, when: date) -> str:
@@ -204,7 +302,8 @@ def pin(slot: str, href: str, label: str, figure: str, note: str, quiet: bool = 
 def herd_pin(herd: dict | None, state_name: str, barn_href=None) -> str:
     if not herd:
         return pin("herd", "herd-planner.html", steer_label(None), "No fresh price",
-                   f"No sale barn near {state_name} reported in three weeks", quiet=True)
+                   f"No sale barn near {state_name} reported in three weeks" if state_name else
+                   "No sale barn nearby reported in three weeks", quiet=True)
     href = (barn_href(herd.get("market_slug")) if barn_href and herd.get("market_slug") else None) or "herd-planner.html"
     barn = herd["market"].rsplit(",", 1)[-1].strip()  # "Bassett Livestock Auction, Bassett NE" -> "Bassett NE"
     return pin("herd", href, steer_label(herd), f'{e(money(herd["value"]))}<small>/cwt</small>',
@@ -247,10 +346,11 @@ def land_pin(cards: dict, county: str) -> str:
     return grass_pin(grass, county) if grass else days_pin(cards.get("farm-equipment-planner"), county)
 
 
-def pins(week: dict, barn_href=None) -> str:
+def pins(week: dict, barn_href=None, steer_pin: str | None = None) -> str:
+    """steer_pin: the herd pin for the barn cards.choose picked (build.py); without it, the week's saved card."""
     place, cards = week["place"], week["cards"]
     where = f'{place["county"]}, {place["state_name"]}'
-    rows = [herd_pin(cards.get("herd-planner"), place["state_name"], barn_href),
+    rows = [steer_pin or herd_pin(cards.get("herd-planner"), place["state_name"], barn_href),
             land_pin(cards, place["county"]),
             corn_pin(cards.get("corn-yield-predictor"), place["county"])]
     return f"""      <div class="pins" id="pins" role="group" aria-label="This week's numbers">
@@ -262,17 +362,18 @@ def pins(week: dict, barn_href=None) -> str:
 PICKER = """      <form class="live-pick" id="live-pick" hidden>
         <label>State <select name="state"></select></label>
         <label>County <select name="county"></select></label>
+        <label>Sale barn <select name="barn"></select></label>
         <button type="submit" class="btn small">Show</button>
         <button type="button" class="linklike live-pick-reset">County of the week</button>
       </form>"""
 
 
-def panel(week: dict, stories: list[dict], nice_date, barn_href=None) -> str:
+def panel(week: dict, stories: list[dict], nice_date, barn_href=None, steer_tile: str | None = None) -> str:
     place = week["place"]
     where = f'{place["county"]}, {place["state_name"]}'
     cards = week["cards"]
     season = next((s for s in stories if s["chart"] == "seasonal"), None)
-    tiles = [herd_tile(cards.get("herd-planner"), place["state_name"], barn_href)]
+    tiles = [steer_tile or herd_tile(cards.get("herd-planner"), place["state_name"], barn_href)]
     if season:
         tiles.append(calves_tile(season, date.fromisoformat(week["date"])))
     tiles.append(corn_tile(cards.get("corn-yield-predictor"), where))
@@ -296,18 +397,35 @@ def panel(week: dict, stories: list[dict], nice_date, barn_href=None) -> str:
 
 
 def panel_data(week: dict, counties: list[dict], static_cards: dict, not_covered: dict, state_names: dict,
-               barn_href=None) -> dict:
+               barn_href=None, barns: dict | None = None, near_of=None, hub: str | None = None,
+               fresh_days: int = 21) -> dict:
     """Everything the county picker needs, each tile already drawn by the same functions as the page,
     so a picked county looks exactly like the county of the week. build.py writes it to
     docs/panel-data.json; panel.js reads it only when a visitor asks for their county."""
     by_state = week.get("herd_by_state") or {}
-    out = {"format": 2, "week": week["week"], "default": week["place"]["fips"],
+    out = {"format": 3, "week": week["week"], "default": week["place"]["fips"],
            "states": {code: state_names[code] for code in sorted({c["state"] for c in counties})},
            "herd": {code: herd_tile(by_state.get(code), state_names[code], barn_href) for code in state_names},
            # The pins on the photo follow the picked county too (format 2). Grass is only known for the county of
            # the week, so a picked county's middle pin is its fall field days.
            "herd_pin": {code: herd_pin(by_state.get(code), state_names[code], barn_href).strip() for code in state_names},
            "counties": {}}
+    # Format 3 (October 2026): the steer tile by barn. Every barn's pieces, drawn here; each county's barns
+    # within 250 miles, nearest first; panel.js picks among them with the visitor's own date (a price ages
+    # out of "fresh" during the week) and their chosen barn. Without barn positions it uses "herd" above.
+    if barns and near_of:
+        out["barns"] = {}
+        for slug, b in barns.items():
+            pieces = {"city": b["city"], "state": b["state"], "last_sale": b["last_sale"],
+                      "tile": barn_tile(b, barn_href).strip(), "quiet": quiet_tile(b, barn_href).strip(),
+                      "row": near_row(b, barn_href), "pin": barn_pin(b, barn_href).strip(),
+                      "quiet_pin": quiet_pin(b, barn_href).strip()}
+            if slug == hub:
+                pieces["bench_tile"] = barn_tile(b, barn_href, benchmark=True).strip()
+                pieces["bench_pin"] = barn_pin(b, barn_href, benchmark=True).strip()
+            out["barns"][slug] = pieces
+        out.update({"hub": hub, "fresh_days": fresh_days, "near_head": NEAR_HEAD, "near_token": NEAR,
+                    "none_tile": herd_tile(None, "", barn_href).strip(), "none_pin": herd_pin(None, "", barn_href).strip()})
     for c in counties:
         where = f'{c["name"]}, {state_names[c["state"]]}'
         out["counties"][c["fips"]] = {
@@ -317,4 +435,6 @@ def panel_data(week: dict, counties: list[dict], static_cards: dict, not_covered
             "pins": {"land": days_pin(static_cards["days"].get(c["fips"]), c["name"]).strip(),
                      "corn": corn_pin(static_cards["corn"].get(c["fips"]), c["name"]).strip()},
         }
+        if barns and near_of:
+            out["counties"][c["fips"]]["barns"] = near_of(c["fips"])
     return out

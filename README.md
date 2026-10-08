@@ -134,9 +134,19 @@ picked county's middle pin shows its fall field days.
   `static/panel.js` loads it only when someone uses the picker (or has used it before).
 - **Which counties:** all 191 that either the Yield Predictor or the Equipment Planner covers
   (Nebraska and Iowa). A county only one app covers says so in the other tile.
-- **The steer price by state:** the Friday job asks Herd Planner once per state (`herd_by_state` in
-  `weeks.json`); the nearest barn with fresh sales differs by state. Iowa has no neighbor barns in
-  Herd Planner yet, so Iowa shows Oklahoma City, and says so.
+- **The steer price by barn (October 2026, `panel-data.json` format 3):** a county's steer tile names the
+  nearest barn with a fresh price (a sale in the last three weeks), by straight-line miles from the middle of
+  the county (`content/county_centers.csv`, the Census shapes' centres, the same as Herd Planner's) to the
+  barn's town (each barn's `lat` and `lon`, which the Friday job saves from Herd Planner's `/suite/barns`).
+  Barns within 250 miles count; past that, Oklahoma City is shown as the national benchmark, and says so.
+  **Sale barn** in the picker lets a rancher choose their own barn ("Nearest with a fresh price" by default);
+  a chosen barn is never swapped for another: when it hasn't sold in three weeks the tile says "No fresh
+  price" at that barn and lists the two nearest barns that have, each with its price and sale day, linking to
+  its page (Scott's option A of 2026-10-07). `cards.choose` makes the choice for the county of the week and
+  `panel.js` the same choice in the browser, by the visitor's own date, so a price that ages out mid-week stops
+  being shown as fresh. Until the barns' positions are saved, the tile falls back to the price by state
+  (`herd_by_state` in `weeks.json`, from Herd Planner's state rule: the most recent sale in the state, then
+  its neighbors).
 - **Search engines and first visits** always get the county of the week: the picker only changes what
   a returning visitor sees in their own browser.
 - The file is about 470 KB but GitHub Pages sends it compressed (about 15 KB); a test keeps it under 700 KB.
