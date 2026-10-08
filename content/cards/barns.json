@@ -583,7 +583,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 35.468,
+   "lon": -97.516
   },
   "1851": {
    "weeks": [
@@ -1121,7 +1123,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 41.782,
+   "lon": -99.133
   },
   "1852": {
    "weeks": [
@@ -1701,7 +1705,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 42.586,
+   "lon": -99.538
   },
   "1902": {
    "weeks": [
@@ -2167,7 +2173,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 37.985,
+   "lon": -103.544
   },
   "3653": {
    "weeks": [
@@ -2690,7 +2698,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 41.124,
+   "lon": -100.765
   },
   "3801": {
    "weeks": [
@@ -3155,7 +3165,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 42.805,
+   "lon": -102.203
   },
   "1830": {
    "weeks": [
@@ -3739,7 +3751,9 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08"
+   "seasons_date": "2026-10-08",
+   "lat": 34.775,
+   "lon": -96.678
   }
  },
  "source": "USDA AMS MyMarketNews auction reports",
