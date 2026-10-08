@@ -301,7 +301,7 @@ def test_the_proof_figures_read_in_plain_words_and_lead_to_how_we_test(site):
     assert "26 auctions the model had not seen" in proof
     methods = (site / "methods.html").read_text(encoding="utf-8")
     for section in ("herd-planner", "corn-yield-predictor", "farm-equipment-planner"):
-        assert f'<a href="methods.html#{section}"><strong>' in proof
+        assert f'<a href="methods.html#{section}"><span class="proof-app"><img src="suite/suite-logos/{section}.svg"' in proof
         assert f'id="{section}"' in methods                       # the link lands somewhere
     assert 62.5 == 2500 * 0.025                                   # "about $60": 2.5% of a $2,500 calf
 
@@ -981,4 +981,21 @@ def test_the_ranch_year_leads_with_every_week_and_free_marks_only_records(site):
                 assert any(w in part for w in ("records", "sale sheet", "Weigh days")), part
     page = (site / "herd-planner.html").read_text(encoding="utf-8")
     assert year["note"].replace("'", "&#x27;") in page
+
+
+def test_each_test_figure_says_which_app_and_what_was_tested(site):
+    """Scott, 2026-10-08, on a phone: "the percentage like 2.5% are out on their own. Hard to see what they belong
+    to." Option C: a heading over them, and each figure in its own box with its app's logo, name and what was
+    tested, before the number."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    band = home[home.index('<div class="why-band">'):home.index('<div class="stories">')]
+    assert band.index("How each app did when we tested it") < band.index('class="proof-stats why-proof"')
+    names = {"herd-planner": "Herd Planner", "corn-yield-predictor": "Yield Predictor", "farm-equipment-planner": "Equipment Planner"}
+    for section, name in names.items():
+        box = band[band.index(f'<a href="methods.html#{section}">'):]
+        box = box[:box.index("</a>")]
+        assert box.index(f"<span>{name}<small>") < box.index("<strong>")       # the app is named before its number
+        assert (site / "suite" / "suite-logos" / f"{section}.svg").exists()
+    css = (site / "site.css").read_text(encoding="utf-8")
+    assert ".why-band .why-proof .proof-app {" in css and ".why-proof-head {" in css
 

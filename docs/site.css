@@ -322,14 +322,26 @@ section.quiet-top { padding-top: 56px; border-top: 6px solid var(--suite-deep-gr
 .steps-cta-line { font-size: 1.05rem; max-width: 44rem; }
 .steps-cta .meta { font-size: .88rem; }
 @media (max-width: 520px) { .steps-cta .btn { display: block; text-align: center; } }
-/* The three test figures (moved here from under this week's panel, 2026-10-08), on the green: white figures,
+/* The three test figures (moved here from under this week's panel, 2026-10-08), on the green: gold figures,
    pale words (#d5e0d7 on the green is 8.9 to 1). ".why-band" in front: the plain .proof-stats rules come later in
    this file and would win at equal weight. Each still links to its section on How We Test. */
-.why-proof { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .2); max-width: 900px; }
-.why-band .why-proof strong { color: #fff; font-size: 1.7rem; }
+/* Option C (2026-10-08): a small heading, then each figure in a faint box with its app's logo, name and what was
+   tested, so a bare "2.5%" never stands alone. Gold figures (#e0ac45 on the box, about 5.4 to 1); white on hover. */
+.why-proof-head { margin: 26px 0 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .2); font-size: .8rem;
+  font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #d5e0d7; }
+.why-proof { margin-top: 12px; max-width: 900px; gap: 12px; }
+.why-band .why-proof a { display: block; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 10px; padding: 14px 16px; }
+.why-band .why-proof strong { color: var(--suite-gold); font-size: 1.7rem; }
 .why-band .why-proof span { color: #d5e0d7; font-size: .86rem; }
-.why-band .why-proof a:hover strong, .why-band .why-proof a:focus-visible strong { color: var(--suite-gold); }
-/* On a phone, each figure above its words (side by side, "64 of 64" ran into its words at this size) */
+.why-band .why-proof .proof-app { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: .95rem;
+  font-weight: 700; color: #fff; }
+.why-band .why-proof .proof-app span { color: #fff; font-size: .95rem; }
+.why-band .why-proof .proof-app small { display: block; font-weight: 400; font-size: .8rem; color: #d5e0d7; }
+.why-band .why-proof .proof-app img { width: 30px; height: 30px; border-radius: 7px; flex: none; }
+.why-band .why-proof a:hover strong, .why-band .why-proof a:focus-visible strong { color: #fff; }
+.why-band .why-proof a:hover, .why-band .why-proof a:focus-visible { border-color: rgba(255, 255, 255, .45); }
+/* On a phone the boxes stack, each figure above its words */
 @media (max-width: 520px) { .why-band .why-proof a { display: block; } .why-band .why-proof strong { font-size: 1.5rem; min-width: 0; } }
 /* The app tiles row ends the hero: less space below it, so it and the findings' green band read as neighbors. */
 .tiles-band { padding: 26px 0 18px; }
