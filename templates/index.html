@@ -22,19 +22,19 @@ ${hero_credit}
 <section class="week">
   <div class="wrap">
 ${live_panel}
-    <div class="proof">
-      <p class="proof-title">Tested before we trust it</p>
-      <div class="proof-stats">
-        <a href="methods.html#herd-planner"><strong>2.5%</strong><span>typical gap between our calf price estimate and the real sale price: about $$60 on a $$2,500 calf. Tested on 26 auctions the model had not seen</span></a>
-        <a href="methods.html#corn-yield-predictor"><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></a>
-        <a href="methods.html#farm-equipment-planner"><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></a>
-      </div>
-    </div>
   </div>
 </section>
 
+<!-- The apps row opens with its own heading (Scott, 2026-10-08, option A): it keeps this week's cards from running
+     into the app cards. The three test figures that sat here moved into "Answers You Can Check", so the page
+     makes the testing case once. "Our Farm Apps" is the full section further down, so this heading is different. -->
 <section class="tiles-band">
   <div class="wrap">
+    <div class="tiles-head">
+      <h2>Try the Apps</h2>
+      <p>Free tools for the decisions above: what your calves will bring, how your crop and grass will grow,
+        and the machinery to get it done.</p>
+    </div>
     <div class="slider" id="tiles" data-slider>
       <div class="tiles" role="region" aria-label="Our farm apps" tabindex="0">
 ${app_tiles}
@@ -56,6 +56,11 @@ ${app_tiles}
       <p class="why-lede">These are real findings from the work behind each app. Every one shows where its
         numbers came from and where it can be wrong. The apps give you the same kind of answer for your own
         herd and fields. <a href="methods.html">How we test them</a></p>
+      <div class="proof-stats why-proof">
+        <a href="methods.html#herd-planner"><strong>2.5%</strong><span>typical gap between our calf price estimate and the real sale price: about $$60 on a $$2,500 calf. Tested on 26 auctions the model had not seen</span></a>
+        <a href="methods.html#corn-yield-predictor"><strong>0.51</strong><span>score in Iowa for a yield model trained only on Nebraska (1.0 is perfect)</span></a>
+        <a href="methods.html#farm-equipment-planner"><strong>64 of 64</strong><span>rows of Iowa State's field capacity table matched</span></a>
+      </div>
     </div>
   </div>
   <div class="wrap">

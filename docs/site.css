@@ -298,8 +298,20 @@ table.history td:nth-child(2), table.history th:nth-child(2) { text-align: left;
 .why-lede { margin: 0; max-width: 44rem; font-size: 1.08rem; line-height: 1.55; color: #e9efe9; }
 .why-lede a { color: var(--suite-gold); font-weight: 700; text-underline-offset: 3px; }
 .why-lede a:hover { color: #fff; }
+/* The three test figures (moved here from under this week's panel, 2026-10-08), on the green: white figures,
+   pale words (#d5e0d7 on the green is 8.9 to 1). ".why-band" in front: the plain .proof-stats rules come later in
+   this file and would win at equal weight. Each still links to its section on How We Test. */
+.why-proof { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .2); max-width: 900px; }
+.why-band .why-proof strong { color: #fff; font-size: 1.7rem; }
+.why-band .why-proof span { color: #d5e0d7; font-size: .86rem; }
+.why-band .why-proof a:hover strong, .why-band .why-proof a:focus-visible strong { color: var(--suite-gold); }
+/* On a phone, each figure above its words (side by side, "64 of 64" ran into its words at this size) */
+@media (max-width: 520px) { .why-band .why-proof a { display: block; } .why-band .why-proof strong { font-size: 1.5rem; min-width: 0; } }
 /* The app tiles row ends the hero: less space below it, so it and the findings' green band read as neighbors. */
 .tiles-band { padding: 26px 0 18px; }
+.tiles-head { margin: 8px 0 16px; padding-top: 22px; border-top: 1px solid var(--suite-line); }
+.tiles-head h2 { margin: 0 0 4px; font-size: clamp(1.35rem, 2.6vw, 1.7rem); }
+.tiles-head p { margin: 0; max-width: 44rem; color: var(--suite-muted); }
 .stories { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .story { margin: 0; padding: 20px; background: var(--suite-surface); border: 1px solid var(--suite-line);
   border-radius: var(--suite-radius); display: flex; flex-direction: column; }
@@ -360,7 +372,7 @@ a.pin:hover { background: #fff; box-shadow: 0 12px 30px rgba(0, 0, 0, .45); }
   font-size: .8rem; font-weight: 700; color: #fff; background: rgba(16, 28, 22, .62); }
 .pins-foot .live-dot { display: inline-block; margin-right: 6px; vertical-align: 1px; }
 
-/* Under the photo: the whole panel in a row, then the proof */
+/* Under the photo: the whole panel in a row (the proof moved into "Answers You Can Check", 2026-10-08) */
 .week { padding: 26px 0 8px; }
 .week .live { background: transparent; border: 0; border-radius: 0; padding: 0; box-shadow: none; }
 .week .live-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }

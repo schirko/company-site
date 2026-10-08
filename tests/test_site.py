@@ -295,7 +295,7 @@ def test_the_proof_figures_read_in_plain_words_and_lead_to_how_we_test(site):
     (he could not follow it, so a rancher won't). The figure is said as a gap from the real sale price, with
     what it comes to in dollars, and each of the three figures links to the section that explains it."""
     home = (site / "index.html").read_text(encoding="utf-8")
-    proof = home[home.index('class="proof-stats"'):home.index("</section>", home.index('class="proof-stats"'))]
+    proof = home[home.index('class="proof-stats'):home.index('<div class="stories">')]   # in "Answers You Can Check" since 2026-10-08
     assert "typical miss" not in proof and "never saw" not in proof
     assert "typical gap between our calf price estimate and the real sale price: about $60 on a $2,500 calf" in proof
     assert "26 auctions the model had not seen" in proof
@@ -895,3 +895,17 @@ def test_herd_planner_reads_the_marks_this_site_sends_and_sends_the_ones_it_read
         assert card in cards_ and f'id="{card}-form"' in first_screen
     assert "signin" in cards_ and 'id="signin-form"' in first_screen
     assert '`${signedIn ? "uses" : "left"}=herd-planner`' in app_js
+
+
+def test_the_test_figures_sit_in_answers_you_can_check_and_the_apps_row_has_a_heading(site):
+    """Scott, 2026-10-08: two testing sections close together took a lot of room for the same thing, and the first
+    looked plain. The three figures moved onto the green band of "Answers You Can Check", and the apps row now opens
+    with its own heading (his option A), so this week's cards don't run straight into the app cards."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    week = home[home.index('<section class="week"'):home.index('<section class="tiles-band"')]
+    assert "proof" not in week and "Tested before we trust it" not in home
+    band = home[home.index('<div class="why-band">'):home.index('<div class="stories">')]
+    assert band.count('<a href="methods.html#') == 3 and 'class="proof-stats why-proof"' in band
+    tiles = home[home.index('<section class="tiles-band"'):home.index('<section class="why"')]
+    assert tiles.index("<h2>Try the Apps</h2>") < tiles.index('class="tiles"')
+    assert home.count("<h2>Our Farm Apps</h2>") == 1                  # the full section further down keeps its name
