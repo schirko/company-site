@@ -83,8 +83,8 @@ def mega_menu(apps) -> str:
     for title, lead, ids in OPERATIONS:
         links = "\n".join(app_link(by_id[i]) for i in ids if i in by_id)
         if links:
-            groups.append(f'        <div class="mega-op">\n          <p class="mega-op-title">{e(title)}</p>\n'
-                          f'          <p class="mega-op-lead">{e(lead)}</p>\n{links}\n        </div>')
+            groups.append(f'        <div class="mega-op">\n          <div class="mega-op-head"><p class="mega-op-title">{e(title)}</p>'
+                          f'<p class="mega-op-lead">{e(lead)}</p></div>\n{links}\n        </div>')
     return "\n".join([
         '<details class="mega" data-mega>',
         '      <summary>Our Farm Apps</summary>',

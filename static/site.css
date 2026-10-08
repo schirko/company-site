@@ -39,9 +39,15 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 /* !important on the colors: suite.css makes every link in the green header white (.suite-bar a:not(...)), which
    would hide these on the white panel. Scoped to the panel, so nothing else changes. */
 .mega-panel a { text-decoration: none; color: var(--suite-ink) !important; }
-.mega-op { background: #faf8f2; border-radius: 12px; padding: 16px; }
-.mega-op-title { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--suite-ink); }
-.mega-op-lead { margin: 0 0 10px; font-size: .86rem; color: var(--suite-muted); }
+.mega-op { background: #faf8f2; border-radius: 12px; padding: 0 0 10px; overflow: hidden; }
+/* Each group opens with a slim band in the header's green, heading and lead on one line (Scott, 2026-10-07: the
+   headings "don't seem to stand out"; option A of three, then made one line because "My only concern would be if
+   the green headers is too big": the band is 42 px and the menu ends up 10 px shorter than before). */
+.mega-op-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; margin: 0 0 10px;
+  padding: 9px 16px; background: var(--suite-deep-green); }
+.mega-op-title { margin: 0; font-size: 1.05rem; font-weight: 700; color: #fff; }
+.mega-op-lead { margin: 0; font-size: .84rem; color: #dbe6df; }
+.mega-panel .mega-op a.mega-app { margin: 0 8px 2px; }
 .mega-panel a.mega-app { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: 0 -8px 2px;
   border-radius: 10px; color: var(--suite-ink); }
 .mega-panel a.mega-app:hover, .mega-panel a.mega-app:focus-visible { background: var(--suite-gold-tint); }

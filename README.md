@@ -59,7 +59,9 @@ are built from that same list, so an app going live is still a one-file change.
 after Tractor Zoom's Solutions menu): a panel sorted by operation, **For Ranches** (Herd Planner, Grazing Planner)
 and **For Farms** (Yield Predictor, Farm Equipment Planner), each app with its logo, its one line from
 `suite-apps.json` and a link to its page here; then **This week's numbers** (Barn Prices, This week in your county),
-**Why trust it** (How We Test), and a strip linking to Your Account. `build.mega_menu()` draws it; which group an
+**Why trust it** (How We Test), and a strip linking to Your Account. Each group opens with a slim band in the header's
+green, its heading and lead on one line (2026-10-07: the headings didn't stand out; the band was made one line so the menu
+got shorter, not taller). `build.mega_menu()` draws it; which group an
 app belongs to is `OPERATIONS` in `build.py`, and a test fails if a live app isn't in exactly one group, so a new
 app needs a line there too. It's a `<details>` element, so it opens without JavaScript; on an app's page its title is
 underlined like the other current links. The header is now Our Farm Apps, Barn Prices, About, How We Test and

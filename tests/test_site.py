@@ -230,6 +230,27 @@ def test_the_farm_apps_menu_sorts_every_app_by_operation(site):
     assert 'src="menu.js?v=' in page
 
 
+def test_each_menu_group_opens_with_a_green_band(site):
+    """Scott, 2026-10-07: "For Ranches" and "For Farms" "don't seem to stand out". Each group's heading and lead
+    sit on one slim band in the header's green; the lead's light green must stay readable on it."""
+    page = (site / "index.html").read_text(encoding="utf-8")
+    for title, lead, _ids in build.OPERATIONS:
+        assert (f'<div class="mega-op-head"><p class="mega-op-title">{build.e(title)}</p>'
+                f'<p class="mega-op-lead">{build.e(lead)}</p></div>') in page
+    css = (ROOT / "static" / "site.css").read_text(encoding="utf-8")
+    head = css[css.index(".mega-op-head {"):]
+    assert "background: var(--suite-deep-green)" in head[:head.index("}")]
+
+    def lum(hexcolor):
+        rgb = [int(hexcolor[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+        lin = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in rgb]
+        return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2]
+    lead = css[css.index(".mega-op-lead {"):]
+    color = lead[lead.index("color: #") + 7:lead.index("color: #") + 14]
+    ratio = (lum(color) + 0.05) / (lum("#243b2f") + 0.05)
+    assert ratio >= 4.5, f"the lead {color} on the band is {ratio:.1f} to 1; small text needs 4.5"
+
+
 def test_an_app_page_marks_the_menu_as_where_you_are(site):
     page = (site / build.APP_PAGE.format("herd-planner")).read_text(encoding="utf-8")
     assert '<div class="mega-wrap" data-current>' in page
