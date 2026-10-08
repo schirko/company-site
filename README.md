@@ -410,6 +410,11 @@ per chart: when calves sell best, how many heifers to keep, what explains a coun
 and when owning a combine beats hiring. Each lives in `content/stories.json` with its numbers,
 words, limits and source; `charts.py` draws it as an SVG that `build.py` writes into the page.
 
+On the home page its heading is a deep-green band the cards rise onto (`.why-band` in `site.css`,
+October 2026): "Why Use Our Apps" as a small gold line, the headline "Answers You Can Check", and one
+sentence saying every finding shows where its numbers came from and where it can be wrong. That
+sentence is a promise the cards keep: the test below fails a story with no source or no caution.
+
 - **Every number comes from the app's own notebook or README**, named in `source`. A test fails
   if a story has no source, no caution, or belongs to an app that isn't in the suite list.
 - **Add a story:** add an entry to `stories.json`. A new chart shape needs a new function in

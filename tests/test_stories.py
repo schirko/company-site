@@ -95,3 +95,24 @@ def test_herd_planners_this_week_is_a_slider_of_two_cards(site):
     assert page.count('class="week-slide"') == 2
     assert "The whole price sheet" in page and "<summary>Show the numbers</summary>" in page
     assert 'src="slider.js?v=' in page
+
+
+def test_the_findings_heading_is_a_band_with_one_headline(site):
+    """Scott, 2026-10-07, of the plain heading: "This looks boring when it's something we should be proud of, and
+    the customer should be happy to see." Now a deep-green band: "Why Use Our Apps" as a small gold line, one
+    headline that makes the claim, and the sentence the cards have to keep (a source and a limit on each, which
+    test_every_story_is_complete_and_sourced holds them to). The cards follow, outside the band."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    section = home[home.index('<section class="why" id="why">'):]
+    section = section[:section.index("</section>")]
+    band, cards = section.split('<div class="stories">')
+    assert '<div class="why-band">' in band and '<p class="why-eyebrow">Why Use Our Apps</p>' in band
+    assert "<h2>Answers You Can Check</h2>" in band and section.count("<h2") == 1
+    assert band.index("why-eyebrow") < band.index("<h2>") < band.index('class="why-lede"')
+    assert 'class="story"' in cards and "why-band" not in cards
+    css = (build.STATIC / "site.css").read_text(encoding="utf-8")
+    assert ".why-band { background: var(--suite-deep-green);" in css
+    # The link is the suite's gold, like the small line above the headline (Scott picked it over white and two
+    # yellow-greens, 2026-10-07): one accent on the band, not two.
+    assert ".why-lede a { color: var(--suite-gold);" in css and ".why-eyebrow {" in css
+    assert "color: var(--suite-gold); }" in css[css.index(".why-eyebrow {"):css.index(".why-band h2")]

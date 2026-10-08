@@ -282,11 +282,18 @@ table.history td:nth-child(2), table.history th:nth-child(2) { text-align: left;
 }
 
 /* "Why Use Our Apps": one finding per card, with its chart (charts.py draws the SVG) */
-.why { border-top: 1px solid var(--suite-line); }
-/* The app tiles row ends the hero: less space below it and above Why Use Our Apps, so the
-   two read as neighbors rather than a gap (was about 100 px; now about 50 px). */
+.why { padding-top: 0; }
+/* Its heading: a deep-green band the story cards rise onto (2026-10-07). Gold on this green is 5.8 to 1,
+   the pale lede 10.3 to 1. The link is gold and underlined, a pair with the small line above the headline
+   (Scott chose it from four colors; the page's blue would not pass on green, and a yellow-green was too loud). */
+.why-band { background: var(--suite-deep-green); color: #fff; padding: 44px 0 86px; margin-bottom: -58px; }
+.why-eyebrow { margin: 0 0 8px; font-size: .8rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--suite-gold); }
+.why-band h2 { margin: 0 0 12px; font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.15; color: #fff; }
+.why-lede { margin: 0; max-width: 44rem; font-size: 1.08rem; line-height: 1.55; color: #e9efe9; }
+.why-lede a { color: var(--suite-gold); font-weight: 700; text-underline-offset: 3px; }
+.why-lede a:hover { color: #fff; }
+/* The app tiles row ends the hero: less space below it, so it and the findings' green band read as neighbors. */
 .tiles-band { padding: 26px 0 18px; }
-.tiles-band + .why { padding-top: 32px; }
 .stories { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .story { margin: 0; padding: 20px; background: var(--suite-surface); border: 1px solid var(--suite-line);
   border-radius: var(--suite-radius); display: flex; flex-direction: column; }
@@ -587,6 +594,8 @@ html[data-uses] .site-nav .nav-visitor { display: none; }
 .tile.tile-app .tile-price { margin-left: auto; }
 .tile-link { margin-left: 6px; padding: 6px 10px; font-size: .92rem; font-weight: 700; color: var(--suite-deep-green); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .tile-link:hover { color: var(--suite-link, #2a78d6); }
+/* While an app is invite-only: one quiet line above the buttons saying the account is free (visitors only). */
+.tile-free { font-size: .82rem; line-height: 1.3; color: var(--suite-muted); }
 /* The fuller page: the line under the headline's buttons, the line under the sample, the buttons under What
    You Get, and the closing band. */
 .lp-have { font-size: .9rem; color: var(--suite-muted); margin: 8px 0 0; }

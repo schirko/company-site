@@ -289,8 +289,9 @@ def test_why_use_our_apps_leads_to_how_we_test(site):
     """The sentence promises each finding's source and limits; the link is where that promise is kept. Each
     finding also links to its own app's section."""
     home = (site / "index.html").read_text(encoding="utf-8")
-    why = home[home.index("<h2>Why Use Our Apps</h2>"):]
+    why = home[home.index('<section class="why" id="why">'):]
     lede = why[:why.index('<div class="stories">')]
+    assert "where its numbers came from and where it can be wrong" in " ".join(lede.split())
     assert '<a href="methods.html">How we test them</a>' in lede
     stories = json.loads((ROOT / "content/stories.json").read_text(encoding="utf-8"))["stories"]
     methods = (site / "methods.html").read_text(encoding="utf-8")

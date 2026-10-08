@@ -122,3 +122,34 @@ def test_the_real_tiles_each_have_open_and_a_way_in_or_a_note():
             continue
         assert ("tile-link" in tile) == ("signup" in copy[app["id"]]), app["id"]
         assert ("tile-link" in tile) or build.e(copy[app["id"]]["tile_note"]) in tile, app["id"]
+
+
+# --- While an app is invite-only, its tile says the account is free (2026-10-07) -----------------------------------
+
+def test_a_waitlist_tile_says_the_account_is_free_to_visitors_only():
+    """Scott, 2026-10-07: "Should we add something about Herd Planner being free to try. From the card it looks
+    like you have to pay". The other tiles say "Free, no account"; this one said only Join the Waitlist. The line
+    sits above the buttons, is hidden in a browser that has used the app (like the link), and is not a link."""
+    words = "Free account. By invite for now."
+    tile = build.app_tile(APP, {**COPY, "signup": "waitlist", "tile_waitlist": words}, week())
+    line = f'<span class="tile-free visitor-only" data-app="{APP["id"]}">{words}</span>'
+    assert line in tile and tile.index("</a>") < tile.index(line) < tile.index('class="tile-bottom"')
+    assert links(tile) == ["grazing-planner.html", APP["url"], APP["url"] + "#waitlist"]
+    # When sign-up opens the link itself says Try for Free, and the line goes.
+    assert "tile-free" not in build.app_tile(APP, {**COPY, "signup": "open", "tile_waitlist": words}, week())
+    # No words set, or no sign-up links at all: no line.
+    assert "tile-free" not in build.app_tile(APP, {**COPY, "signup": "waitlist"}, week())
+    assert "tile-free" not in build.app_tile(APP, {**COPY, "tile_waitlist": words}, week())
+    assert ".tile-free {" in (build.STATIC / "site.css").read_text(encoding="utf-8")
+
+
+def test_the_waitlist_line_promises_only_what_is_true_by_invite():
+    """Joining a waitlist starts no 30 days and lets nobody try the app today, so the line says neither."""
+    copy = build.load_copy()
+    for app in build.load_apps():
+        line = copy[app["id"]].get("tile_waitlist")
+        if line:
+            assert copy[app["id"]].get("signup") in build.SIGNUP, app["id"]
+            assert "30" not in line and "try" not in line.lower() and "trial" not in line.lower(), app["id"]
+            assert len(line) <= 40, app["id"]      # one line on a phone's tile
+    assert copy["herd-planner"]["tile_waitlist"] == "Free account. By invite for now."

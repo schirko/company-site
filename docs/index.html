@@ -10,7 +10,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=2313f06bfd">
+  <link rel="stylesheet" href="site.css?v=5b1e407f0e">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -148,6 +148,7 @@
       <div class="tile tile-app">
         <a class="tile-body" href="herd-planner.html"><span class="tile-top"><img src="suite/suite-logos/herd-planner.svg" alt="" width="56" height="56"></span>
         <span class="tile-words"><strong>Herd Planner</strong><span>Which calves do I sell, which heifers do I keep, and how fast can my herd grow?</span></span></a>
+        <span class="tile-free visitor-only" data-app="herd-planner">Free account. By invite for now.</span>
         <span class="tile-bottom"><a class="btn small" href="https://herd-planner.onrender.com/" aria-label="Open Herd Planner">Open</a><a class="tile-link visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a></span>
       </div>
       <div class="tile tile-app">
@@ -172,12 +173,20 @@
   </div>
 </section>
 
+<!-- The findings' heading sits on a deep-green band and the cards rise onto it (Scott, 2026-10-07: "This looks
+     boring when it's something we should be proud of"). "Why Use Our Apps" is the small gold line; the headline
+     makes the claim, and the sentence under it says what every card must keep: a source and a limit. -->
 <section class="why" id="why">
+  <div class="why-band">
+    <div class="wrap">
+      <p class="why-eyebrow">Why Use Our Apps</p>
+      <h2>Answers You Can Check</h2>
+      <p class="why-lede">These are real findings from the work behind each app. Every one shows where its
+        numbers came from and where it can be wrong. The apps give you the same kind of answer for your own
+        herd and fields. <a href="methods.html">How we test them</a></p>
+    </div>
+  </div>
   <div class="wrap">
-    <h2>Why Use Our Apps</h2>
-    <p class="section-lede">Real findings from the work behind each app, each with its source and its limits.
-      These are the kinds of answers the apps give for your own herd and fields.
-      <a href="methods.html">How we test them</a></p>
     <div class="stories">
       <figure class="story" id="calf-season">
         <p class="stat-app"><img src="suite/suite-logos/herd-planner.svg" alt="" width="24" height="24"> Herd Planner</p>

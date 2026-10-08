@@ -258,7 +258,10 @@ def app_tile(app, copy, week):
     question lead to the app's page on this site; at the bottom, Open (into the app) and one way in for someone
     new: the app's sign-up link (signup(): Join the Waitlist or Try for Free), or for an app with none, what is
     true of it ("tile_note": Free, no account). No Subscribe link here (Scott, 2026-10-05: "just Open and Try
-    for Free"); that word waits for a pay page. The starting price shows once billing exists (config.SHOW_PRICES)."""
+    for Free"); that word waits for a pay page. The starting price shows once billing exists (config.SHOW_PRICES).
+    While an app is invite-only, a line above the buttons says what a new person can count on today
+    ("tile_waitlist": Free account. By invite for now.): Scott, 2026-10-07, "From the card it looks like you have
+    to pay". Like the link, it is for visitors only, and it goes when sign-up opens (the link then says Try for Free)."""
     stat = tile_stat(app["id"], week)
     stat_html = ""
     if stat:
@@ -271,13 +274,16 @@ def app_tile(app, copy, week):
     price = (f'From <b>{e(copy["price_from"])}/mo</b>' if config.SHOW_PRICES and copy.get("price_from") else "")
     if app["url"]:
         su = signup(app, copy)
+        line = ""
+        if su and su["state"] == "waitlist" and copy.get("tile_waitlist"):
+            line = f'\n        <span {visitor(app, "tile-free")}>{e(copy["tile_waitlist"])}</span>'
         if su:
             way_in = f'<a {visitor(app, "tile-link")} href="{e(su["url"])}">{e(su["tile"])}</a>'
             way_in += f'<span class="tile-price">{price}</span>' if price else ""
         else:
             way_in = f'<span class="tile-price">{e(copy.get("tile_note", "Free to try"))}{"<br>" + price if price else ""}</span>'
         return f"""      <div class="tile tile-app">
-        <a class="tile-body" href="{APP_PAGE.format(e(app["id"]))}">{inner}</a>
+        <a class="tile-body" href="{APP_PAGE.format(e(app["id"]))}">{inner}</a>{line}
         <span class="tile-bottom"><a class="btn small" href="{e(app["url"])}" aria-label="Open {e(app["name"])}">Open</a>{way_in}</span>
       </div>"""
     later = f'<span class="tile-price">{price}</span>' if price else ""
