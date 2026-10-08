@@ -2,6 +2,92 @@
  "format": 1,
  "weeks": [
   {
+   "week": "2026-W41",
+   "date": "2026-10-08",
+   "place": {
+    "fips": "31165",
+    "state": "NE",
+    "county": "Sioux County",
+    "state_name": "Nebraska"
+   },
+   "cards": {
+    "corn-yield-predictor": {
+     "label": "Trend corn yield, 2026",
+     "headline": "184 bu/acre",
+     "detail": "Sioux County, NE yields since 2000 rise about 1.6 bu/acre a year. In 1 year in 10 the county falls below 166.",
+     "value": 184.2,
+     "low": 165.8,
+     "unit": "bu/acre",
+     "source": "USDA NASS county corn yields (all practices), 2000 on",
+     "method": "Straight-line trend through the county's yields; the low end is the 10th percentile of each year's yield relative to its trend. County averages, not a forecast of this season."
+    },
+    "farm-equipment-planner": {
+     "label": "Fall field days, Oct 1 to Nov 30",
+     "headline": "56 of 61 days",
+     "detail": "Sioux County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 52. Wettest: 2013, with 49. Counts rain only, not snow or frozen ground.",
+     "value": 56.5,
+     "low": 52.5,
+     "unit": "days",
+     "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)",
+     "method": "Workable day = under 2.5 mm of rain that day and under 12.5 mm over the two days before. Typical = median fall; wet = 10th percentile."
+    },
+    "herd-planner": {
+     "label": "550 lb steer, this week",
+     "headline": "$432/cwt",
+     "detail": "About $2,378 a head at Burwell Livestock Market, Burwell NE (sale of Sep 25). 8 in 10 sales land between $412 and $455/cwt.",
+     "value": 432.38,
+     "low": 411.52,
+     "high": 454.9,
+     "unit": "$/cwt",
+     "as_of": "2026-09-25",
+     "market": "Burwell Livestock Market, Burwell NE",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1851
+    },
+    "grazing-planner": {
+     "label": "Grass this season, 2026",
+     "headline": "5% below normal",
+     "detail": "Sioux County, NE grassland: about 1,229 lb an acre this season against a normal 1,295 (forecast as of August 1). 8 in 10: 1,147 to 1,299.",
+     "value": -0.0514,
+     "low": -0.1144,
+     "high": 0.0029,
+     "unit": "share vs normal",
+     "as_of": "2026-09-29",
+     "season": 2026,
+     "source": "Rangeland Analysis Platform (USDA Agricultural Research Service) and NASA POWER weather, via the Grazing Planner",
+     "method": "The Grazing Planner's own answer for the county's grassland on its latest check date: grass grown so far plus the forecast for the rest of the season, against the county's average over the 10 seasons before. The range is where 8 in 10 seasons landed around forecasts made on the same date."
+    }
+   },
+   "herd_by_state": {
+    "NE": {
+     "label": "550 lb steer, this week",
+     "headline": "$432/cwt",
+     "detail": "About $2,378 a head at Burwell Livestock Market, Burwell NE (sale of Sep 25). 8 in 10 sales land between $412 and $455/cwt.",
+     "value": 432.38,
+     "low": 411.52,
+     "high": 454.9,
+     "unit": "$/cwt",
+     "as_of": "2026-09-25",
+     "market": "Burwell Livestock Market, Burwell NE",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1851
+    },
+    "IA": {
+     "label": "550 lb steer, this week",
+     "headline": "$399/cwt",
+     "detail": "About $2,197 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Oct 5). 8 in 10 sales land between $379 and $416/cwt.",
+     "value": 399.5,
+     "low": 379.21,
+     "high": 416.06,
+     "unit": "$/cwt",
+     "as_of": "2026-10-05",
+     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1280
+    }
+   }
+  },
+  {
    "week": "2026-W40",
    "date": "2026-10-02",
    "place": {
