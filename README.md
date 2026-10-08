@@ -121,10 +121,11 @@ that is dropped at build time, counted from the day of the build, so a rebuild l
 
 ### "See your county"
 
-A **See your county** button in the panel lets a visitor pick their state and county; the steer
+A **See your county** button right after the county's name lets a visitor pick their state and county; the steer
 price, corn and field-day tiles switch to that county (the calves tile is the same everywhere). The
-choice is kept in their own browser, so their next visit opens on their county, with **Change county**
-and **County of the week** to switch back. Nothing is sent anywhere: no account, no location lookup.
+choice is kept in their own browser, so their next visit opens on their county, with **Change** (next to the
+name, with a drawn pin rather than an emoji, so every phone shows the same thing) and **County of the week** to
+switch back. Nothing is sent anywhere: no account, no location lookup.
 The three pins on the photo switch with it (`herd_pin` per state and `pins` per county in
 `panel-data.json`, format 2). Grass against normal is only known for the county of the week, so a
 picked county's middle pin shows its fall field days.

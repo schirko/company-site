@@ -443,12 +443,20 @@ svg.mini .marker { stroke: var(--suite-ink); stroke-width: 3; }
 .proof-stats a:hover strong, .proof-stats a:focus-visible strong { text-decoration: underline; }
 @media (max-width: 520px) { .proof-stats { grid-template-columns: 1fr; } .proof-stats a { display: flex; gap: 12px; align-items: baseline; } .proof-stats strong { min-width: 6.5rem; white-space: nowrap; font-size: 1.3rem; } }
 
-/* "See your county" (panel.js): a small button in the panel's top line and a one-row form */
+/* "See your county" (panel.js): a button right after the county's name (option A, 2026-10-08: it sits on what it
+   changes; on a phone it wraps under the name) and a one-row form. The pin is drawn (a mask over currentColor), not
+   an emoji, so it looks the same on every phone. */
 .live-top { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; }
-.live-pick-open { font: inherit; font-size: .82rem; font-weight: 700; color: var(--suite-deep-green); background: var(--suite-gold-tint);
-  border: 1px solid var(--suite-gold-line); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
-.live-pick-open:hover { background: var(--suite-gold); }
-.live-pick-open::before { content: "\1F4CD  "; }
+.live-name { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 2px 0 18px; }
+.live .live-name h2 { margin: 0; }
+.live-pick-open { font: inherit; font-size: .85rem; font-weight: 700; color: var(--suite-deep-green); background: var(--suite-surface);
+  border: 1.5px solid var(--suite-gold-line); border-radius: 8px; padding: 5px 12px 5px 10px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; }
+.live-pick-open[hidden] { display: none; }
+.live-pick-open:hover, .live-pick-open[aria-expanded="true"] { background: var(--suite-gold-tint); }
+.live-pick-open::before { content: ""; width: 1em; height: 1em; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") center / contain no-repeat; }
 .live-pick { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; margin: -6px 0 18px; padding: 12px;
   background: var(--band); border: 1px solid var(--suite-line); border-radius: 10px; }
 .live-pick[hidden] { display: none; }

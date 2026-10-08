@@ -383,9 +383,11 @@ def panel(week: dict, stories: list[dict], nice_date, barn_href=None, steer_tile
     return f"""    <div class="live" id="this-week" data-week-place="{e(where)}">
       <div class="live-top">
         <p class="live-head"><span class="live-dot" aria-hidden="true"></span> New every Friday &middot; week of {nice_date(week["date"])}</p>
+      </div>
+      <div class="live-name">
+        <h2><span class="live-title">This Week</span>: <span class="live-where">{e(where)}</span></h2>
         <button type="button" class="live-pick-open" hidden aria-expanded="false" aria-controls="live-pick">See your county</button>
       </div>
-      <h2><span class="live-title">This Week</span>: <span class="live-where">{e(where)}</span></h2>
 {PICKER}
       <div class="live-grid" aria-live="polite">
 {chr(10).join(tiles)}

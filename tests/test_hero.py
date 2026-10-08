@@ -1,8 +1,11 @@
 """The live panel: red marks the downside, never alone, and the rounded numbers agree."""
 
 import re
+from pathlib import Path
 
 import hero
+
+ROOT = Path(__file__).resolve().parents[1]
 
 WEEK = {"week": "2026-W39", "date": "2026-09-25",
         "place": {"fips": "31063", "state": "NE", "county": "Frontier County", "state_name": "Nebraska"},
@@ -69,6 +72,9 @@ def test_picker_data_covers_every_county_with_its_own_tiles(tmp_path, monkeypatc
 def test_picker_starts_hidden_so_the_page_works_without_javascript():
     html = build_panel()
     assert '<button type="button" class="live-pick-open" hidden' in html
+    # Option A (2026-10-08): the button follows the county's name, in the same row, so it sits on what it changes.
+    name = html[html.index('<div class="live-name">'):]
+    assert name.index("<h2>") < name.index('class="live-pick-open"') < name.index("</div>")
     assert '<form class="live-pick" id="live-pick" hidden>' in html
     assert 'src="panel.js"' in html
     for slot in ("herd", "calves", "corn", "days"):
@@ -197,3 +203,13 @@ def test_the_app_pages_card_names_the_sale_too():
     assert '<span class="stat-label">Trend corn yield, 2026</span>' in corn
     none = build.stat_card({"id": "herd-planner", "name": "Herd Planner"}, None, WEEK)
     assert '<span class="stat-label">550 lb steer, this week</span>' in none and "No fresh sale-barn price" in none
+
+
+def test_the_change_button_has_a_drawn_pin_and_a_full_name_for_screen_readers():
+    """Scott, 2026-10-08: the button could look better. The emoji pin drew differently on every phone; it is now a
+    drawn pin, and once a county is picked the button says "Change" (heard as "Change county")."""
+    css = (ROOT / "static" / "site.css").read_text(encoding="utf-8")
+    js = (ROOT / "static" / "panel.js").read_text(encoding="utf-8")
+    assert "\\1F4CD" not in css and "mask: url(" in css and ".live-name {" in css
+    assert 'openButton.textContent = yours ? "Change" : "See your county"' in js
+    assert 'setAttribute("aria-label", "Change county")' in js and '"Change county"; openForm' not in js

@@ -40,6 +40,13 @@
   const originalPinsWhere = pinsWhere ? pinsWhere.textContent : "";
   let data = null;
 
+  // The button after the county's name: "See your county" until a visitor picks one, then "Change" (a screen
+  // reader hears "Change county": the name it changes is right before it, but a lone "Change" says too little).
+  function label(yours) {
+    openButton.textContent = yours ? "Change" : "See your county";
+    if (yours) openButton.setAttribute("aria-label", "Change county"); else openButton.removeAttribute("aria-label");
+  }
+
   // localStorage can be missing or refuse (private windows, blocked site data): never let that break the page.
   const store = (key, value) => { try { value ? localStorage.setItem(key, value) : localStorage.removeItem(key); } catch (e) { /* fine */ } };
   const stored = (key) => { try { return localStorage.getItem(key); } catch (e) { return null; } };
@@ -194,15 +201,15 @@
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     store(BARN_KEY, barnSelect.closest("label").hidden ? null : barnSelect.value || null);
-    if (show(countySelect.value)) { remember(countySelect.value); openButton.textContent = "Change county"; openForm(false); }
+    if (show(countySelect.value)) { remember(countySelect.value); label(true); openForm(false); }
   });
   form.querySelector(".live-pick-reset").addEventListener("click", () => {
-    remember(null); store(BARN_KEY, null); reset(); openButton.textContent = "See your county"; openForm(false);
+    remember(null); store(BARN_KEY, null); reset(); label(false); openForm(false);
   });
 
   // A returning visitor: open on their county (and their barn).
   const saved = remembered();
   if (saved) {
-    load().then(() => { if (show(saved)) openButton.textContent = "Change county"; }).catch(() => {});
+    load().then(() => { if (show(saved)) label(true); }).catch(() => {});
   }
 })();
