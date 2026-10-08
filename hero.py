@@ -122,20 +122,33 @@ def money(x: float) -> str:
 # --- the four tiles, one function each (the county picker reuses them) ---------------------------
 
 
+STEER = "550 lb steer"
+
+
+def steer_label(card: dict | None) -> str:
+    """The steer price's label with the day of the sale it comes from: "550 lb steer, sale of Sep 16".
+    It used to say "this week", but the price is the nearest barn's latest sale in the last three weeks, so it
+    can be two weeks old; Scott asked for a real date here, as the field-days tile has (October 7, 2026).
+    With no fresh price there is no sale to name, and the label says "this week"."""
+    if not card or not card.get("as_of"):
+        return f"{STEER}, this week"
+    sold = date.fromisoformat(card["as_of"])
+    return f"{STEER}, sale of {sold:%b} {sold.day}"
+
+
 def herd_tile(herd: dict | None, state_name: str, barn_href=None) -> str:
     """barn_href(slug) gives that barn's page on the site, or None; the tile then links there."""
     if not herd:
-        return tile("herd-planner.html", "USDA auction reports", "550 lb steer, this week", "No fresh price", "",
+        return tile("herd-planner.html", "USDA auction reports", steer_label(None), "No fresh price", "",
                     f"No sale barn near {state_name} reported in the last three weeks. Prices update every Friday.",
                     " quiet", slot="herd")
-    sold = date.fromisoformat(herd["as_of"])
     href = (barn_href(herd.get("market_slug")) if barn_href and herd.get("market_slug") else None) or "herd-planner.html"
     return tile(
-        href, "8 in 10 sales land in this range", "550 lb steer, this week",
+        href, "8 in 10 sales land in this range", steer_label(herd),
         f'{money(herd["value"])}/cwt',
         range_bar(herd["low"], herd["value"], herd["high"], herd["low"] * 0.97, herd["high"] * 1.03,
                   (money(herd["low"]), "", money(herd["high"])), marker="this sale"),
-        f'About {money(herd["value"] * 5.5)} a head at {herd["market"]}, sale of {sold:%b} {sold.day}.', slot="herd")
+        f'About {money(herd["value"] * 5.5)} a head at {herd["market"]}.', slot="herd")   # the sale's day is in the label
 
 
 def calves_tile(season: dict, when: date) -> str:
@@ -190,11 +203,11 @@ def pin(slot: str, href: str, label: str, figure: str, note: str, quiet: bool = 
 
 def herd_pin(herd: dict | None, state_name: str, barn_href=None) -> str:
     if not herd:
-        return pin("herd", "herd-planner.html", "550 lb steer, this week", "No fresh price",
+        return pin("herd", "herd-planner.html", steer_label(None), "No fresh price",
                    f"No sale barn near {state_name} reported in three weeks", quiet=True)
     href = (barn_href(herd.get("market_slug")) if barn_href and herd.get("market_slug") else None) or "herd-planner.html"
     barn = herd["market"].rsplit(",", 1)[-1].strip()  # "Bassett Livestock Auction, Bassett NE" -> "Bassett NE"
-    return pin("herd", href, "550 lb steer, this week", f'{e(money(herd["value"]))}<small>/cwt</small>',
+    return pin("herd", href, steer_label(herd), f'{e(money(herd["value"]))}<small>/cwt</small>',
                f'{barn} \u00b7 8 in 10 sales {money(herd["low"])} to {money(herd["high"])}')
 
 

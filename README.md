@@ -111,6 +111,11 @@ against the trend, the county's trend corn yield, and its fall field days (61 da
 in a row under the photo, then the "Tested before we trust it" numbers.
 `hero.py` draws it from the same week `cards.py` saved. Each tile's gold callout says what stands
 behind the number, so it must stay literally true: change the callout if the number's source changes.
+The steer tile's label names the day of the sale its price comes from ("550 lb steer, sale of Sep 16",
+`hero.steer_label`), not "this week": the price is the nearest barn's latest sale in the last three weeks
+(`cards.FRESH_DAYS`), so it can be two weeks old. The pin on the photo says the same. A sale older than
+that is dropped at build time, counted from the day of the build, so a rebuild late in a week can show
+"No fresh price" until the next Friday's refresh.
 
 ### "See your county"
 

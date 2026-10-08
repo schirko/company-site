@@ -358,12 +358,15 @@ def stat_card(app, card, week, link=True):
     app's page on this site."""
     if card:
         foot = f"Source: {e(card['source'])}"  # the sale date is already in the detail
-        inner = f"""<span class="stat-label">{e(card["label"])}</span>
+        # Herd Planner's saved label says "this week"; the card names the sale's day instead (hero.steer_label),
+        # which stays true when the card is shown again under Recent Weeks.
+        label = hero.steer_label(card) if app["id"] == "herd-planner" and card.get("as_of") else card["label"]
+        inner = f"""<span class="stat-label">{e(label)}</span>
         <span class="stat-headline">{e(card["headline"])}</span>
         <span class="stat-detail">{e(card["detail"])}</span>
         <span class="stat-source">{foot}</span>"""
     else:
-        inner = f"""<span class="stat-label">550 lb steer, this week</span>
+        inner = f"""<span class="stat-label">{e(hero.steer_label(None))}</span>
         <span class="stat-detail">No fresh sale-barn price for {e(week["place"]["state_name"])} this week.
           Prices update every Friday.</span>"""
     if link:

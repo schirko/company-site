@@ -154,3 +154,46 @@ def test_picker_data_carries_every_countys_pins(tmp_path, monkeypatch):
     page = (site / "index.html").read_text(encoding="utf-8")
     script = (site / "panel.js").read_text(encoding="utf-8")
     assert 'id="pins"' in page and 'getElementById("pins")' in script and "data.herd_pin" in script
+
+
+# --- the steer price names the day of its sale (October 7, 2026) ------------------------------------------------
+# Scott, of the home page's panel: the field-days tile carries real dates ("Oct 1 to Nov 30") and the steer tile
+# said "this week". The price is the nearest barn's latest sale in the last three weeks, so it can be two weeks
+# old; the label now says which sale.
+
+FRESH = {"label": "550 lb steer, this week", "headline": "$456/cwt", "value": 456.36, "low": 436.5, "high": 480.33,
+         "detail": "About $2,510 a head at Bassett Livestock Auction, Bassett NE (sale of Sep 16). 8 in 10 sales land between $437 and $480/cwt.",
+         "unit": "$/cwt", "as_of": "2026-09-16", "market": "Bassett Livestock Auction, Bassett NE",
+         "source": "USDA AMS MyMarketNews auction reports", "market_slug": 1852}
+
+
+def test_the_steer_label_names_the_sale_and_not_this_week():
+    assert hero.steer_label(FRESH) == "550 lb steer, sale of Sep 16"
+    assert hero.steer_label({**FRESH, "as_of": "2026-10-02"}) == "550 lb steer, sale of Oct 2"     # no leading zero
+    tile = hero.herd_tile(FRESH, "Nebraska")
+    label = re.search(r'<span class="live-label">(.*?)</span>', tile).group(1)
+    note = re.search(r'<span class="live-note">(.*?)</span>', tile).group(1)
+    assert label == "550 lb steer, sale of Sep 16" and "this week" not in tile
+    assert note == "About $2,510 a head at Bassett Livestock Auction, Bassett NE."      # the day is said once, in the label
+    pin = hero.herd_pin(FRESH, "Nebraska")
+    assert '<span class="pin-label">550 lb steer, sale of Sep 16</span>' in pin and "this week" not in pin
+
+
+def test_with_no_fresh_price_there_is_no_sale_to_name():
+    assert hero.steer_label(None) == "550 lb steer, this week"
+    for html in (hero.herd_tile(None, "Nebraska"), hero.herd_pin(None, "Nebraska")):
+        assert "550 lb steer, this week" in html and "No fresh price" in html and "sale of" not in html
+
+
+def test_the_app_pages_card_names_the_sale_too():
+    """The saved card keeps Herd Planner's own label ("this week"); the page shows the sale's day, which stays
+    true when the same card is shown again under Recent Weeks. Other apps' cards keep their own labels."""
+    import build
+
+    herd = build.stat_card({"id": "herd-planner", "name": "Herd Planner"}, FRESH, WEEK)
+    assert '<span class="stat-label">550 lb steer, sale of Sep 16</span>' in herd and "this week" not in herd
+    corn = build.stat_card({"id": "corn-yield-predictor", "name": "Yield Predictor"},
+                           {**WEEK["cards"]["corn-yield-predictor"], "detail": "d", "source": "s"}, WEEK)
+    assert '<span class="stat-label">Trend corn yield, 2026</span>' in corn
+    none = build.stat_card({"id": "herd-planner", "name": "Herd Planner"}, None, WEEK)
+    assert '<span class="stat-label">550 lb steer, this week</span>' in none and "No fresh sale-barn price" in none
