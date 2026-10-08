@@ -909,3 +909,13 @@ def test_the_test_figures_sit_in_answers_you_can_check_and_the_apps_row_has_a_he
     tiles = home[home.index('<section class="tiles-band"'):home.index('<section class="why"')]
     assert tiles.index("<h2>Try the Apps</h2>") < tiles.index('class="tiles"')
     assert home.count("<h2>Our Farm Apps</h2>") == 1                  # the full section further down keeps its name
+
+
+def test_the_main_sections_open_on_a_green_band(site):
+    """Scott, 2026-10-08: "Our Farm Apps" was barely bigger than the app names under it. He chose the deep-green
+    band of "Answers You Can Check" (option A) for it and for How It Works and Our Promises."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    for name in ("Our Farm Apps", "How It Works", "Our Promises"):
+        at = home.index(f"<h2>{name}</h2>")
+        assert home.rindex('<div class="head-band">', 0, at) > home.rindex("<section", 0, at)
+    assert ".head-band {" in (site / "site.css").read_text(encoding="utf-8")
