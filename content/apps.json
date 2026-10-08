@@ -44,14 +44,14 @@
    },
    "year": {
     "title": "Herd Planner Through the Ranch Year",
-    "note": "For a spring-calving herd. If you calve in the fall, shift it six months.",
+    "note": "Every week, all year: what your cattle are worth at your barn and what changed, and a Monday email of what's due. Laid out for a spring-calving herd; if you calve in the fall, shift it six months.",
     "more": "The rest of the year",
     "seasons": [
      {
       "id": "fall",
       "name": "Fall",
-      "title": "Weaning and culling",
-      "text": "Sell the calves at the barn, or wean and hold: does holding pay this year? What your cull cows would bring. And a sale sheet for the buyer (always free).",
+      "title": "Weaning and the fall sale",
+      "text": "Sell at weaning, or wean and hold: does the premium pay this year? Which barn nets you the most, what your cull cows would bring, and a sale sheet for the buyer (always free).",
       "panel": {
        "title": "Weaning time: sell now, or keep growing?",
        "text": "Keep or sell for any calf, from its own weight and your costs, at your barn's prices this week.",
@@ -62,7 +62,7 @@
       "id": "winter",
       "name": "Winter",
       "title": "The bank and next year",
-      "text": "A report for your lender when the note comes up, and next year's herd growth plan: how many heifers to keep to reach your goal.",
+      "text": "A report for your lender when the note comes up, your fall sales set beside what the market paid, and next year's plan: how many heifers to keep to reach your goal.",
       "panel": {
        "title": "When the bank asks for your cattle numbers",
        "text": "A report for your lender, made from the records you keep anyway: head and value by kind, with a likely range on the total.",
@@ -73,13 +73,13 @@
       "id": "spring",
       "name": "Spring",
       "title": "Calving and replacements",
-      "text": "Calving records at the chute (always free). Keep or sell for each heifer, from her own weights and your costs, before you decide who stays."
+      "text": "Calving and treatment records at the chute, with withdrawal dates kept for you (always free). Keep or sell for each heifer, from her own weights and your costs, before you decide who stays."
      },
      {
       "id": "summer",
       "name": "Summer",
-      "title": "Grass and weigh days",
-      "text": "Which head to sell first when grass is short, and keep or sell for each animal from its own weights."
+      "title": "Grass, weigh days and the fall outlook",
+      "text": "Which head to sell first when grass is short. Weigh days loaded from your scale or EID reader (always free). And a three-month price outlook with an honest range, to plan the fall sale."
      }
     ]
    },

@@ -965,3 +965,20 @@ def test_built_in_says_what_the_company_and_apps_do_with_no_draft_left(site):
     for page in links:
         assert (site / page).exists(), page
 
+
+def test_the_ranch_year_leads_with_every_week_and_free_marks_only_records(site):
+    """Scott, 2026-10-08: the season cards checked against what Herd Planner does today. The line under the
+    heading leads with what happens every week, all year (the herd's worth and what changed, the Monday email),
+    and "(always free)" only ever sits on record keeping, the Sept 29 rule (decisions are the subscription)."""
+    year = build.load_copy()["herd-planner"]["page"]["year"]
+    assert year["note"].startswith("Every week, all year:") and "Monday email" in year["note"]
+    seasons = {s["id"]: s for s in year["seasons"]}
+    assert "outlook" in seasons["summer"]["title"] and "scale or EID reader" in seasons["summer"]["text"]
+    assert "nets you the most" in seasons["fall"]["text"] and "withdrawal dates" in seasons["spring"]["text"]
+    for s in year["seasons"]:
+        for part in s["text"].split(". "):
+            if "(always free)" in part:
+                assert any(w in part for w in ("records", "sale sheet", "Weigh days")), part
+    page = (site / "herd-planner.html").read_text(encoding="utf-8")
+    assert year["note"].replace("'", "&#x27;") in page
+
