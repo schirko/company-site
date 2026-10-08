@@ -104,7 +104,7 @@ ${app_rows}
     <div class="steps-cta">
       <p class="steps-cta-line"><strong>Start with your herd.</strong> Keeping your records is free, and you see this
         week's prices at your own sale barn.</p>
-      <p><a class="btn" href="https://herd-planner.onrender.com/">Open Herd Planner &#8594;</a> <a class="more" href="#our-apps">or pick another app</a></p>
+      <p>${herd_start} <a class="more" href="#our-apps">or pick another app</a></p>
       <p class="meta">The first visit can take a minute to wake up.</p>
     </div>
   </div>
@@ -142,12 +142,20 @@ ${app_rows}
 
 <section class="band">
   <div class="wrap">
+    <!-- What the company and its apps do (Scott, 2026-10-08, option 2: the draft line and the photo placeholder
+         read as unfinished). The round logo badge stands in until there is a photo he has chosen. -->
     <div class="founder">
-      <div class="placeholder photo">Photo</div>
+      <img class="founder-badge" src="brand/icon.svg" alt="" width="180" height="180">
       <div>
         <h2>Built in ${location}</h2>
-        <p>${name} is a small company building decision tools for ranchers and farmers, with a background in
-          data science. <em class="draft">(Draft: a few sentences in your own words go here.)</em></p>
+        <p>${name} is a small company building decision tools for ranchers and farmers: your own records plus
+          public data from USDA and NASA, turned into an answer with a range you can check.</p>
+        <ul class="founder-apps">
+          <li><a href="herd-planner.html">Herd Planner</a>: which calves to sell, which heifers to keep</li>
+          <li><a href="grazing-planner.html">Grazing Planner</a>: how many head a pasture can carry this season</li>
+          <li><a href="corn-yield-predictor.html">Yield Predictor</a>: what a county's corn and soybeans will yield</li>
+          <li><a href="farm-equipment-planner.html">Equipment Planner</a>: whether a machine will pay for itself</li>
+        </ul>
         <p><a href="about.html">More about us</a></p>
       </div>
     </div>

@@ -171,6 +171,21 @@ def signup(app, copy):
             "have": base + words["have_hash"]}
 
 
+def start_buttons(app, copy, have=True):
+    """The way into one app, the same wherever a page offers it: a new visitor gets the sign-up button (today Join
+    the Waitlist) and, with `have`, "Have an invite or an account? Open Herd Planner"; a browser that has used the
+    app gets Open Herd Planner instead (member.js). An app with no sign-up setting: just its Open button."""
+    su = signup(app, copy)
+    opened = f'Open {e(app["name"])} &#8594;'
+    if not su:
+        return f'<a class="btn" href="{e(app["url"])}">{opened}</a>' if app.get("url") else ""
+    words = copy.get("page", {}).get("signup", {}).get(su["state"])
+    more = (f' <a {visitor(app, "more")} href="{e(su["have"])}">{e(words["have"])} {e(words["have_link"])}</a>'
+            if have and words else "")
+    return (f'<a {visitor(app, "btn")} href="{e(su["url"])}">{e(su["button"])}</a>'
+            f'<a {member(app, "btn")} href="{e(su["app"])}">{opened}</a>{more}')
+
+
 def visitor(app, classes=""):
     """Attributes for a link only a new visitor needs: hidden in a browser that has used this app (member.js)."""
     return f'class="{(classes + " visitor-only").strip()}" data-app="{e(app["id"])}"'
@@ -543,20 +558,14 @@ def price_sheet_card(barn, href):
       </div>"""
 
 
-def week_slider(slides: list[str]) -> str:
-    """This Week's cards side by side in a row you swipe or step through with arrows (slider.js), with dots that say
-    which card is showing. One card: no slider at all."""
+def week_pair(slides: list[str]) -> str:
+    """This Week's cards side by side, stacked on a phone (Scott, 2026-10-08, option A: they were a slider showing one
+    card at a time, which left half the section empty). One card: just the card."""
     if len(slides) == 1:
         return slides[0]
-    items = "\n".join(f'        <div class="week-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} of {len(slides)}">\n{s}\n        </div>'
-                      for i, s in enumerate(slides))
-    return f"""      <div class="slider week-slider" data-slider data-dots>
-        <div class="tiles" role="region" aria-label="This week, card by card" tabindex="0">
+    items = "\n".join(f'        <div class="week-pair-item">\n{s}\n        </div>' for s in slides)
+    return f"""      <div class="week-pair">
 {items}
-        </div>
-        <button class="slide-btn prev" type="button" aria-label="Previous card" hidden>&#8249;</button>
-        <button class="slide-btn next" type="button" aria-label="Next card" hidden>&#8250;</button>
-        <div class="slide-dots" aria-hidden="true"></div>
       </div>"""
 
 
@@ -575,7 +584,7 @@ def week_blocks(app, week, weeks, barns=None, barn_href=None):
         slug = str(raw.get("market_slug", ""))
         href = barn_href(slug) if barn_href else None
         slides = [c for c in (herd_week_card(raw, week, barns.get(slug), href), price_sheet_card(barns.get(slug), href)) if c]
-        card = week_slider(slides) if slides else None
+        card = week_pair(slides) if slides else None
     card = card or stat_card(app, raw, week, link=False)
     history = history_table(app["id"], weeks)
     return (f"""        <h2>This Week: {e(f'{place["county"]}, {place["state_name"]}')}</h2>
@@ -753,10 +762,17 @@ def full_page_values(app, copy, day=None):
     steps = ""
     if page.get("steps"):
         rows = "\n".join(f"      <li><b>{e(title)}</b><span>{e(words)}</span></li>" for title, words in page["steps"])
+        # After reading the steps the natural move is to start (Scott, 2026-10-08), so they end with the way in.
+        lead, rest = page.get("steps_cta") or ("", "")
+        cta = (f"""
+    <div class="steps-cta">
+      <p class="steps-cta-line"><strong>{e(lead)}</strong> {e(rest)}</p>
+      <p>{start_buttons(app, copy)}</p>
+    </div>""" if lead and app.get("url") else "")
         steps = f"""    <h2>How It Works</h2>
     <ol class="lp-steps">
 {rows}
-    </ol>"""
+    </ol>{cta}"""
     # The top: for someone new, the way in; for a browser that has used the app, straight into it.
     opener = f'<a class="btn" href="{e(app["url"])}">Open {e(app["name"])}</a>' if app["url"] else '<span class="status">Coming soon</span>'
     fine, closing = (f'<p class="lp-fine">{e(page["offer"])}</p>' if page.get("offer") else ""), ""
@@ -777,7 +793,9 @@ def full_page_values(app, copy, day=None):
         "headline": e(page["headline"]), "sub": e(page["sub"]), "fine": fine, "open_button": opener,
         "sample_button": button, "sample_band": band, "free_band": free, "steps_block": steps,
         "shot": feature_panel(app, copy, su, season), "year_strip": year_strip(page, season), "closing": closing,
-        "weekly_title": e(page["weekly_title"]), "weekly_text": e(page["weekly_text"]), "weekly_note": e(page["weekly_note"]),
+        "weekly_eyebrow": e(page["weekly_eyebrow"]), "weekly_title": e(page["weekly_title"]),
+        "weekly_text": e(page["weekly_text"]), "weekly_note_lead": e(page["weekly_note"][0]),
+        "weekly_note_rest": e(page["weekly_note"][1]), "start_buttons": start_buttons(app, copy, have=False),
     }
 
 
@@ -878,6 +896,7 @@ def build():
         "location": e(config.LOCATION),
         "year": str(config.YEAR),
         "herd_url": e((signup(herd, copy[herd["id"]]) or {}).get("url") or herd["url"] or "#apps"),
+        "herd_start": start_buttons(herd, copy[herd["id"]], have=False),
         "app_tiles": "\n".join([app_tile(a, copy[a["id"]], week) for a in apps]
                                + [dev_tile(d) for d in copy.get("in_development", [])]),
         "account_url": e(config.ACCOUNT_URL),
@@ -927,6 +946,10 @@ def build():
         full = "page" in copy[app["id"]]
         if full:
             v.update(full_page_values(app, copy[app["id"]], week["date"]))
+            # The fuller page sets its own heading for this week ("This Week at the Sale Barn: <county>"), so it
+            # takes the card(s) without week_blocks' "This Week: <county>" line.
+            v["week_card"] = v["week_block"].split("</h2>\n", 1)[1]
+            v["week_place"] = e(f'{week["place"]["county"]}, {week["place"]["state_name"]}')
         own = [st for st in stories if st["app"] == app["id"]]
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
         # read it" line on each chart (stories.json "how_to_read").

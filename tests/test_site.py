@@ -705,14 +705,16 @@ def test_the_built_pages_carry_every_sign_up_spot_and_hide_them_from_a_browser_t
             assert v[where] and v[where] in page, where
         found = controls(page)
         ways_in = [c for c in found if c["href"] == su["url"]]
-        assert len(ways_in) == 6 and all(c["for"] == "visitor-only" for c in ways_in)   # header, top, panel, sample, lists, close
+        # header, top, panel, sample, lists, after the steps, under this week, close (the last two 2026-10-08)
+        assert len(ways_in) == 8 and all(c["for"] == "visitor-only" for c in ways_in)
         into_app = [c for c in found if c["href"] == app["url"]]
         assert {c["for"] for c in into_app} == {"member-only", "visitor-only"}   # Open for one; "Have an invite?" for the other
-        assert sum(c["for"] == "member-only" for c in into_app) == 2             # the menu, and the main button
+        assert sum(c["for"] == "member-only" for c in into_app) == 4             # the menu, the main button, the steps, this week
         forget = [c for c in found if c["tag"] == "button" and c["text"] == "Forget this"]
         assert len(forget) == 1 and forget[0]["for"] == "member-only"
         home = controls((site / "index.html").read_text(encoding="utf-8"))
-        assert [c["for"] for c in home if c["href"] == su["url"] and c["text"] == su["tile"]] == ["visitor-only"]
+        # the app's tile, and (Herd Planner, 2026-10-08) the button under the home page's three steps
+        assert [c["for"] for c in home if c["href"] == su["url"] and c["text"] == su["button"]] == ["visitor-only"] * 2
 
 
 def test_sign_up_links_go_only_on_pages_that_have_them(site):
@@ -934,6 +936,9 @@ def test_how_it_works_and_our_promises_open_lighter_and_the_steps_end_with_herd_
     cta = steps[steps.index('class="steps-cta"'):]
     assert steps.index('class="steps"') < steps.index('class="steps-cta"')
     assert 'href="https://herd-planner.onrender.com/">Open Herd Planner' in cta and 'href="#our-apps"' in cta
+    # Herd Planner is opening by invite: a new visitor gets Join the Waitlist, a browser that has used it Open
+    assert 'class="btn visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist"' in cta
+    assert 'class="btn member-only" data-app="herd-planner"' in cta
     assert "worth" not in cta        # the herd value is a paid tool after the trial (2026-09-29): promise only what's free
     css = (site / "site.css").read_text(encoding="utf-8")
     assert "section.quiet-top {" in css and "border-top: 6px solid var(--suite-deep-green)" in css
@@ -946,3 +951,17 @@ def test_the_herd_planner_page_says_whose_page_it_is_far_down_on_a_phone(site):
     page = (site / "herd-planner.html").read_text(encoding="utf-8")
     assert "<h2>What You Get with Herd Planner</h2>" in page
     assert '<h2 id="year">Herd Planner Through the Ranch Year</h2>' in page and "Subscription for Every Season" not in page
+
+
+def test_built_in_says_what_the_company_and_apps_do_with_no_draft_left(site):
+    """Scott, 2026-10-08: the "(Draft: ...)" line and the gray "Photo" circle near the foot of the home page were
+    unfinished for anyone to see. They became what the company does and the four apps (his option 2), each linking
+    to its own page, with the logo badge in place of a photo."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    block = home[home.index('<div class="founder">'):home.index('id="notify"')]
+    assert "Draft" not in block and ">Photo<" not in block and 'class="founder-badge" src="brand/icon.svg"' in block
+    links = re.findall(r'<li><a href="([a-z-]+\.html)">', block)
+    assert len(links) == 4
+    for page in links:
+        assert (site / page).exists(), page
+

@@ -86,15 +86,20 @@ def test_herd_planners_this_week_card_has_the_price_and_the_months(site):
     assert "full price sheet" in page          # links to the barn's own page
 
 
-def test_herd_planners_this_week_is_a_slider_of_two_cards(site):
-    """Scott (2026-09-30): This Week as a slider: the price + sell now or wait, then the barn's whole price sheet."""
+def test_herd_planners_this_week_shows_both_cards_side_by_side(site):
+    """Scott (2026-09-30): This Week's two cards, the price + sell now or wait, then the barn's whole price sheet.
+    2026-10-08 (option A): side by side instead of a slider, which showed one at a time and left half the section
+    empty; the heading runs across the page, and the way in sits under the cards."""
     page = (site / "herd-planner.html").read_text(encoding="utf-8")
     if 'class="stat-card week-card"' not in page:
         pytest.skip("no fresh steer price this week")
-    assert 'class="slider week-slider" data-slider data-dots' in page
-    assert page.count('class="week-slide"') == 2
-    assert "The whole price sheet" in page and "<summary>Show the numbers</summary>" in page
-    assert 'src="slider.js?v=' in page
+    week = page[page.index('<div class="lp-weekly">'):page.index("<h2>What the Numbers Show</h2>")]
+    assert '<div class="week-pair">' in week and week.count('class="week-pair-item"') == 2
+    assert "data-slider" not in page and "slider.js" not in page
+    assert "<h2>This Week at the Sale Barn: " in week and "Free on This Site Every Week" not in page
+    assert "The whole price sheet" in week and "<summary>Show the numbers</summary>" in week
+    cta = week[week.index('class="lp-weekly-cta"'):]
+    assert cta.index('href="https://herd-planner.onrender.com/#waitlist"') < cta.index("Open Herd Planner")
 
 
 def test_the_findings_heading_is_a_band_with_one_headline(site):

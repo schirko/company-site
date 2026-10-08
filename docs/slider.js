@@ -1,5 +1,5 @@
 // A row you can swipe or scroll sideways, snapping to each card, with arrow buttons for a mouse: the app tiles on
-// the home page, and This Week on the Herd Planner page (which also gets dots, data-dots, saying which card shows). Not an auto-rotating carousel: it only moves when the visitor moves it.
+// the home page (and dots, data-dots, saying which card shows, for any slider that asks). Not an auto-rotating carousel: it only moves when the visitor moves it.
 // Without JavaScript the row still scrolls; the arrows just stay hidden.
 "use strict";
 (function () {

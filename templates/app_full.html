@@ -21,14 +21,16 @@ ${sample_band}
 ${free_band}
 ${year_strip}
 ${steps_block}
-    <div class="app-page-grid lp-weekly">
-      <div>
-        <h2>${weekly_title}</h2>
-        <p>${weekly_text}</p>
-        <p class="meta">${weekly_note}</p>
-      </div>
-      <div>
-${week_block}
+    <!-- This week (Scott, 2026-10-08, option A): the heading across the page, both cards side by side (a slider
+         showed one at a time and left half the section empty), and a way in under them. -->
+    <div class="lp-weekly">
+      <p class="lp-weekly-eyebrow">${weekly_eyebrow}</p>
+      <h2>${weekly_title}: ${week_place}</h2>
+      <p class="lp-weekly-lede">${weekly_text}</p>
+${week_card}
+      <div class="lp-weekly-cta">
+        <p><strong>${weekly_note_lead}</strong> ${weekly_note_rest}</p>
+        <p class="lp-weekly-buttons">${start_buttons}</p>
       </div>
     </div>
 
@@ -41,4 +43,3 @@ ${history_block}
 ${closing}
   </div>
 </section>
-<script src="slider.js" defer></script>

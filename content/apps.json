@@ -162,9 +162,17 @@
      "How many heifers to keep"
     ]
    ],
-   "weekly_title": "Free on This Site Every Week",
-   "weekly_text": "Each Friday we publish what a 550 lb steer brought at the sale barn nearest one farm county, with the range 8 in 10 sales landed in, and whether the month usually pays to wait.",
-   "weekly_note": "Herd Planner does this for every animal you own, at the barn you sell at."
+   "steps_cta": [
+    "Ready for your own herd?",
+    "Step 1 is picking the barn you sell at."
+   ],
+   "weekly_eyebrow": "Free Every Friday",
+   "weekly_title": "This Week at the Sale Barn",
+   "weekly_text": "What a 550 lb steer brought at the barn nearest one farm county, the range 8 in 10 sales landed in, whether the month usually pays to wait, and the barn's whole price sheet.",
+   "weekly_note": [
+    "Herd Planner does this for every animal you own,",
+    "at the barn you sell at, every week."
+   ]
   }
   },
   "corn-yield-predictor": {

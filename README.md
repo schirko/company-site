@@ -433,6 +433,9 @@ The page's other main headings follow one order. **Our Farm Apps** opens on the 
 deep-green lines (`section.quiet-top`), because three green bands in a row were too much. The three steps
 end with the next move, an **Open Herd Planner** button and "or pick another app" (back up to Our Farm Apps).
 Its line promises only what is free: keeping records and this week's prices at your own sale barn.
+**Built in Centennial, Colorado** (near the foot of the home page) says what the company does in one sentence and
+lists the four apps with each one's question, linking to its page; the round logo badge stands in for a photo
+until Scott picks one (`.founder-badge`).
 
 - **Every number comes from the app's own notebook or README**, named in `source`. A test fails
   if a story has no source, no caution, or belongs to an app that isn't in the suite list.

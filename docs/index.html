@@ -10,7 +10,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=730ed1644b">
-  <link rel="stylesheet" href="site.css?v=15f0235ae3">
+  <link rel="stylesheet" href="site.css?v=10829a7884">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -382,7 +382,7 @@
     <div class="steps-cta">
       <p class="steps-cta-line"><strong>Start with your herd.</strong> Keeping your records is free, and you see this
         week's prices at your own sale barn.</p>
-      <p><a class="btn" href="https://herd-planner.onrender.com/">Open Herd Planner &#8594;</a> <a class="more" href="#our-apps">or pick another app</a></p>
+      <p><a class="btn visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist">Join the Waitlist</a><a class="btn member-only" data-app="herd-planner" href="https://herd-planner.onrender.com/">Open Herd Planner &#8594;</a> <a class="more" href="#our-apps">or pick another app</a></p>
       <p class="meta">The first visit can take a minute to wake up.</p>
     </div>
   </div>
@@ -420,12 +420,20 @@
 
 <section class="band">
   <div class="wrap">
+    <!-- What the company and its apps do (Scott, 2026-10-08, option 2: the draft line and the photo placeholder
+         read as unfinished). The round logo badge stands in until there is a photo he has chosen. -->
     <div class="founder">
-      <div class="placeholder photo">Photo</div>
+      <img class="founder-badge" src="brand/icon.svg" alt="" width="180" height="180">
       <div>
         <h2>Built in Centennial, Colorado</h2>
-        <p>Cornerpost Logic is a small company building decision tools for ranchers and farmers, with a background in
-          data science. <em class="draft">(Draft: a few sentences in your own words go here.)</em></p>
+        <p>Cornerpost Logic is a small company building decision tools for ranchers and farmers: your own records plus
+          public data from USDA and NASA, turned into an answer with a range you can check.</p>
+        <ul class="founder-apps">
+          <li><a href="herd-planner.html">Herd Planner</a>: which calves to sell, which heifers to keep</li>
+          <li><a href="grazing-planner.html">Grazing Planner</a>: how many head a pasture can carry this season</li>
+          <li><a href="corn-yield-predictor.html">Yield Predictor</a>: what a county's corn and soybeans will yield</li>
+          <li><a href="farm-equipment-planner.html">Equipment Planner</a>: whether a machine will pay for itself</li>
+        </ul>
         <p><a href="about.html">More about us</a></p>
       </div>
     </div>
@@ -439,7 +447,7 @@
     <p><a class="btn" href="https://herd-planner.onrender.com/#waitlist">Join the list</a></p>
   </div>
 </section>
-<script src="slider.js?v=6ebfd70b87" defer></script>
+<script src="slider.js?v=1cc42a47cc" defer></script>
 
 </main>
 

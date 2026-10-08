@@ -195,6 +195,9 @@ ul.points li { margin-bottom: .45em; }
 .principle p { margin: 0; color: var(--suite-muted); }
 .founder { display: grid; grid-template-columns: 180px 1fr; gap: 28px; align-items: center; max-width: 760px; }
 .photo { aspect-ratio: 1; border-radius: 50%; }
+.founder-badge { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 50%; }
+.founder-apps { margin: 0 0 14px; padding-left: 1.1rem; }
+.founder-apps li { margin: 4px 0; }
 
 @media (max-width: 760px) {
   .tiles { gap: 10px; }
@@ -207,7 +210,8 @@ ul.points li { margin-bottom: .45em; }
   .app-row { grid-template-columns: 1fr; gap: 16px; }
   .app-row.flip > .shot { order: 0; }
   .stats, .steps { grid-template-columns: 1fr; }
-  .founder { grid-template-columns: 110px 1fr; gap: 16px; }
+  .founder { grid-template-columns: 1fr; gap: 12px; }       /* a phone: the badge small, above the words */
+  .founder-badge { width: 72px; }
 }
 
 /* Inner pages */
@@ -556,19 +560,12 @@ table.barns-table td .note { white-space: normal; }
 .stories-compact figcaption p { font-size: .9rem; }
 .how-to-read { font-size: .88rem; background: var(--band, #f3f6f3); border-radius: 6px; padding: 7px 10px; margin: 4px 0 8px; }
 @media (max-width: 760px) { .stories-compact.pair { grid-template-columns: 1fr; } }
-/* This Week as a slider (Herd Planner page): one card at a time, arrows and swipe, dots for where you are */
-.week-slider { margin-top: 0; }
-.week-slider .tiles { gap: 14px; padding-bottom: 4px; }
-.week-slider .tiles > .week-slide { flex: 0 0 100%; scroll-snap-align: start; display: flex; }
-.week-slider .week-slide > .stat-card { flex: 1; }
-/* the arrows sit under the card, either side of the dots, so they never cover the numbers */
-.week-slider { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; row-gap: 8px; }
-.week-slider .tiles { grid-column: 1 / -1; grid-row: 1; }
-.week-slider .slide-btn { position: static; grid-row: 2; width: 36px; height: 36px; }
-.week-slider .slide-btn.prev { grid-column: 1; }
-.week-slider .slide-btn.next { grid-column: 3; justify-self: end; }
-.week-slider .slide-dots { grid-column: 2; grid-row: 2; }
-@media (max-width: 760px) { .week-slider .slide-btn { display: inline-block; } .week-slider .slide-btn[hidden] { display: none; } }
+/* This Week on the Herd Planner page (2026-10-08, option A): both cards side by side, stacked on a phone.
+   (They were a slider, one card at a time, which left half the section empty.) */
+.week-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.week-pair-item { display: flex; min-width: 0; }
+.week-pair-item > .stat-card { flex: 1; }
+@media (max-width: 760px) { .week-pair { grid-template-columns: 1fr; } }
 .slide-dots { display: flex; justify-content: center; gap: 8px; }
 .slide-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--suite-line); }
 .slide-dots span.on { background: var(--suite-deep-green, #243b2f); }
@@ -616,7 +613,18 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .lp-steps li::before { content: counter(lp-step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--suite-deep-green); color: #fff; font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
 .lp-steps b { display: block; }
 .lp-steps span { font-size: .92rem; color: var(--suite-muted); }
-.lp-weekly h2 { margin-top: 0; }
+.lp-weekly h2 { margin: 0 0 8px; }
+.lp-weekly-eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #8a6418; }
+.lp-weekly-lede { max-width: 46rem; margin: 0 0 18px; }
+/* Under the cards, the way in: what Herd Planner does with your own cattle, and the button */
+.lp-weekly-cta { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin: 20px 0 8px; padding: 16px 20px;
+  background: var(--band); border: 1px solid var(--suite-line); border-radius: 10px; }
+.lp-weekly-cta p { margin: 0; }
+.lp-weekly-cta p:first-child { flex: 1 1 320px; }
+/* After the five steps: the same way in (the margin keeps it apart from This Week below) */
+.app-full .steps-cta { margin: -10px 0 48px; }
+.steps-cta a.more { white-space: normal; }
+@media (max-width: 760px) { .lp-weekly-cta .btn { display: block; text-align: center; } .lp-weekly-cta p { flex-basis: 100%; } }
 @media (max-width: 860px) {
   .lp-hero, .lp-two, .lp-band-top { grid-template-columns: 1fr; gap: 18px; }
   .lp-band-top { gap: 8px; }
