@@ -374,6 +374,14 @@ def nice_date(iso):
     return f"{d:%b} {d.day}, {d.year}"
 
 
+# On an app's own page, the weekly card's line saying why the number matters to that app's question (2026-10-08),
+# with a link down to the finding that shows it: (words, the finding's id on the page, the link's words).
+WEEK_MEANS = {
+    "farm-equipment-planner": ("the fewer workable days a fall has, the more each day of waiting for a custom crew "
+                               "costs.", "own-or-hire", "When owning starts to pay"),
+}
+
+
 def stat_card(app, card, week, link=True):
     """One number with its meaning and its source. On the home page the whole card links to the
     app's page on this site."""
@@ -395,6 +403,11 @@ def stat_card(app, card, week, link=True):
         <span class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="28" height="28"> {e(app["name"])}</span>
         {inner}
       </a>"""
+    means = WEEK_MEANS.get(app["id"]) if card else None
+    if means:
+        words, target, link_words = means
+        inner += f"""
+        <span class="stat-means"><strong>What it means:</strong> {e(words)} <a href="#{e(target)}">{e(link_words)}</a></span>"""
     return f"""      <div class="stat-card">
         {inner}
       </div>"""
@@ -813,27 +826,43 @@ def load_stories():
     return json.loads((CONTENT / "stories.json").read_text(encoding="utf-8"))["stories"]
 
 
-def story_block(story, apps_by_id, heading="h3", link=True, how=False):
+def story_block(story, apps_by_id, heading="h3", link=True, how=False, split=False):
+    """One finding as a card. `split` (an app's page with a single finding, 2026-10-08): the words and the chart
+    in two wrappers, side by side on a wide screen so the card fills the row; on a phone the wrappers step aside
+    (display: contents) and the card reads in its usual order, headline, chart, then the explanation."""
     app = apps_by_id[story["app"]]
     # On the home page each finding leads two ways: to the app it came from, and to how that app is tested
     # (methods.html has a section per app, named by the app's id).
     more = (f'<p class="story-link"><a href="{APP_PAGE.format(e(app["id"]))}">More about {e(app["name"])}</a>'
             f' <span aria-hidden="true">&middot;</span> <a href="methods.html#{e(app["id"])}">How we test it</a></p>'
             if link else "")
-    return f"""      <figure class="story" id="{e(story["id"])}">
-        <p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="24" height="24"> {e(app["name"])}</p>
+    words_open, words_close, chart_open, chart_close = ("", "", "", "")
+    if split:
+        words_open, words_close = '<div class="story-words">', "</div>"
+        chart_open, chart_close = '<div class="story-chart">', "</div>"
+    head = f"""<p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="24" height="24"> {e(app["name"])}</p>
         <{heading}>{e(story["title"])}</{heading}>
-        <p class="story-headline">{e(story["headline"])}</p>
-        <p class="chart-title">{e(story["chart_title"])}</p>
+        <p class="story-headline">{e(story["headline"])}</p>"""
+    chart = f"""<p class="chart-title">{e(story["chart_title"])}</p>
         {f'<p class="how-to-read"><strong>How to read it:</strong> {e(story["how_to_read"])}</p>' if how and story.get("how_to_read") else ""}
-        {charts.draw(story)}
-        <figcaption>
+        {charts.draw(story)}"""
+    rest = f"""<figcaption>
           <p>{e(story["takeaway"])}</p>
           <p class="note">{e(story["caution"])}</p>
           <p class="source">Source: {e(story["source"])}</p>
         </figcaption>
         {charts.table(story)}
-{more}
+{more}"""
+    if split:
+        return f"""      <figure class="story split" id="{e(story["id"])}">
+        {words_open}{head}
+        {rest}{words_close}
+        {chart_open}{chart}{chart_close}
+      </figure>"""
+    return f"""      <figure class="story" id="{e(story["id"])}">
+        {head}
+        {chart}
+        {rest}
       </figure>"""
 
 
@@ -956,7 +985,8 @@ def build():
         v["stories"] = (f"""    <h2>What the Numbers Show</h2>
     <p class="section-lede">{"Findings from the work behind " + e(app["name"]) + ", each with its source and its limits." if len(own) > 1 else "A finding from the work behind " + e(app["name"]) + ", with its source and its limits."}</p>
     <div class="stories-compact{' pair' if len(own) > 1 else ''}">
-""" + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True) for st in own) + "\n    </div>") if own else ""
+""" + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True, split=len(own) == 1) for st in own)
+                      + "\n    </div>") if own else ""
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
         write(APP_PAGE.format(app["id"]), (full_template if full else app_template).substitute(values, **v), app["name"],

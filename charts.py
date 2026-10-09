@@ -168,8 +168,9 @@ def hire_wait(s: dict) -> str:
     for d, v in zip(days, pct):
         parts.append(f'<circle cx="{x(d):.1f}" cy="{f.y(v):.1f}" r="4" fill="{BLUE}" stroke="#fff" stroke-width="2">'
                      f'<title>Crew {d} days later: hire is cheaper in {v:.0f}% of futures</title></circle>')
+    # "0% from 22 days" (2026-10-08): the longer "... on" reached back over the 20-day point and sat on the line
     for d, v, dy, anchor in ((12, 100, 20, "end"), (16, 62.3, -4, "start"), (28, 0, -12, "end")):
-        label = {12: "100% up to 12 days", 16: "62% at 16 days", 28: "0% from 22 days on"}[d]
+        label = {12: "100% up to 12 days", 16: "62% at 16 days", 28: "0% from 22 days"}[d]
         parts.append(f'<text x="{x(d) + (8 if anchor == "start" else 0):.1f}" y="{f.y(v) + dy:.1f}" '
                      f'text-anchor="{anchor}" class="value">{label}</text>')
     return svg("".join(parts), s["chart_title"])

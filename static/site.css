@@ -567,6 +567,22 @@ table.barns-table td .note { white-space: normal; }
 .stories-compact { display: grid; gap: 18px; align-items: start; margin-bottom: 8px; }
 .stories-compact.pair { grid-template-columns: 1fr 1fr; }
 .stories-compact:not(.pair) .story { max-width: 640px; }
+/* One finding on an app's page (2026-10-08): the words left, the chart right, so the card fills the row instead of
+   leaving an empty column. On a narrower screen the two wrappers step aside and the card reads as before:
+   headline, chart, then the explanation. */
+.stories-compact .story.split { max-width: none; }
+@media (min-width: 900px) {
+  .story.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); column-gap: 36px; align-items: start; }
+}
+@media (max-width: 899px) {
+  .story.split { display: flex; flex-direction: column; }
+  .story.split .story-words, .story.split .story-chart { display: contents; }
+  .story.split .stat-app { order: 1; } .story.split h3 { order: 2; } .story.split .story-headline { order: 3; }
+  .story.split .chart-title { order: 4; } .story.split .how-to-read { order: 5; } .story.split svg.chart { order: 6; }
+  .story.split figcaption { order: 7; } .story.split details { order: 8; } .story.split .story-link { order: 9; }
+}
+/* The weekly card's "What it means" line on an app's page */
+.stat-card .stat-means { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--suite-line); font-size: .92rem; }
 .stories-compact .story { margin: 0; }
 .stories-compact .story-headline { font-size: .98rem; }
 .stories-compact figcaption p { font-size: .9rem; }

@@ -999,3 +999,23 @@ def test_each_test_figure_says_which_app_and_what_was_tested(site):
     css = (site / "site.css").read_text(encoding="utf-8")
     assert ".why-band .why-proof .proof-app {" in css and ".why-proof-head {" in css
 
+
+def test_the_equipment_planner_page_fixes(site):
+    """Scott, 2026-10-08 (option A): the chart is a line, so its guide says "point", not "bar"; its last label no
+    longer reaches over the line; a page's single finding fills the row (words left, chart right); and the weekly
+    card says why the number matters, with a link down to the finding that shows it."""
+    page = (site / "farm-equipment-planner.html").read_text(encoding="utf-8")
+    assert "Each point is how many days" in page and "Each bar is how many days" not in page
+    assert ">0% from 22 days<" in page
+    assert '<figure class="story split" id="own-or-hire">' in page
+    story = page[page.index('<figure class="story split"'):page.index("</figure>", page.index('<figure class="story split"'))]
+    assert story.index('<div class="story-words">') < story.index('<div class="story-chart">')
+    card = page[page.index('<div class="stat-card">'):]
+    card = card[:card.index("</div>")]
+    assert "What it means:" in card and 'href="#own-or-hire"' in card
+    for name in ("corn-yield-predictor.html", "grazing-planner.html"):          # every single-finding page
+        other = (site / name).read_text(encoding="utf-8")
+        assert '<figure class="story split"' in other and "What it means:" not in other
+    home = (site / "index.html").read_text(encoding="utf-8")
+    assert "story split" not in home                                            # the home page's cards are as before
+

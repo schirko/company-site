@@ -173,7 +173,7 @@
    "takeaway": "Without any wait, custom hire beats owning at every farm size one combine can cover. What makes owning pay is timeliness: harvesting when the crop is ready, before the wet weeks cost you yield. The Equipment Planner replays your county's real falls to price that wait.",
    "caution": "Hall County, Nebraska; 210 bu corn at $4.80, 5-year horizon, used combine $430,000, custom rate $46.05 an acre. Taxes are left out.",
    "source": "Falls 2000-2025 replayed with NASA POWER daily rainfall, USDA NASS county yields, and corn price volatility 0.15 (USDA RMA); 1,000 simulated 5-year futures per delay (Equipment Planner notebook m7).",
-   "how_to_read": "Each bar is how many days after you could start that the custom crew arrives. Its height is the share of simulated futures in which hiring is still cheaper than owning a used combine."
+   "how_to_read": "Each point is how many days after you could start that the custom crew arrives. How high it sits is the share of simulated futures in which hiring is still cheaper than owning a used combine."
   },
   {
    "id": "grass-forecast-skill",
