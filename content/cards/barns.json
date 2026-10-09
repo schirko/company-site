@@ -5,7 +5,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2026-10-05",
      "fresh": true,
      "prices": [
@@ -583,7 +583,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 35.468,
    "lon": -97.516
   },
@@ -591,7 +591,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2026-09-25",
      "fresh": true,
      "prices": [
@@ -1123,7 +1123,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 41.782,
    "lon": -99.133
   },
@@ -1131,7 +1131,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2026-09-16",
      "fresh": false,
      "prices": [
@@ -1705,7 +1705,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 42.586,
    "lon": -99.538
   },
@@ -1713,7 +1713,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2025-11-17",
      "fresh": false,
      "prices": [
@@ -2173,7 +2173,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 37.985,
    "lon": -103.544
   },
@@ -2181,7 +2181,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2026-09-22",
      "fresh": true,
      "prices": [
@@ -2698,7 +2698,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 41.124,
    "lon": -100.765
   },
@@ -2706,7 +2706,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2024-11-02",
      "fresh": false,
      "prices": [
@@ -3165,7 +3165,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 42.805,
    "lon": -102.203
   },
@@ -3173,7 +3173,7 @@
    "weeks": [
     {
      "week": "2026-W41",
-     "date": "2026-10-08",
+     "date": "2026-10-09",
      "last_sale": "2026-09-23",
      "fresh": true,
      "prices": [
@@ -3751,7 +3751,7 @@
      "markets": 5
     }
    ],
-   "seasons_date": "2026-10-08",
+   "seasons_date": "2026-10-09",
    "lat": 34.775,
    "lon": -96.678
   }
