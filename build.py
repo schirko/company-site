@@ -994,8 +994,8 @@ def build():
     # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
     corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)
     picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},
-                             {"corn": "The Yield Predictor covers " + corn["not_covered"][:1].lower() + corn["not_covered"][1:],
-                              "days": "The Equipment Planner covers " + days["not_covered"][:1].lower() + days["not_covered"][1:]},
+                             {"corn": "The Yield Predictor covers " + cards.mid_sentence(corn["not_covered"]),
+                              "days": "The Equipment Planner covers " + cards.mid_sentence(days["not_covered"])},
                              cards.STATE_NAMES, barn_href, barns_now if by_barn else None, near_of,
                              cards.hub_of(barns_now), cards.FRESH_DAYS)
     (OUT / "panel-data.json").write_text(json.dumps(picker, separators=(",", ":")), encoding="utf-8")

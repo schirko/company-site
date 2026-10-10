@@ -181,3 +181,16 @@ def test_refresh_saves_the_grass_card_with_the_week(weeks_file):
     week, notes = cards.refresh(FRIDAY, fetch=got_price, grass=grass)
     assert week["cards"]["grazing-planner"]["headline"] == "8% below normal"
     assert "grazing-planner: ok" in notes
+
+
+def test_the_rotation_takes_every_county_both_apps_cover():
+    """All of Iowa since 2026-10-10: every county with corn numbers and field days, 182 of them."""
+    order = cards.rotation()
+    corn, days = cards.load_static(cards.CORN)["cards"], cards.load_static(cards.EQUIP)["cards"]
+    assert len(order) == len(set(corn) & set(days)) == 182
+    assert sum(f.startswith("19") for f in order) > 80
+
+
+def test_a_coverage_sentence_keeps_a_states_capital():
+    assert cards.mid_sentence("Nebraska and Iowa counties with recent USDA yield reports today.").startswith("Nebraska")
+    assert cards.mid_sentence("Every county in Nebraska and Iowa today.") == "every county in Nebraska and Iowa today."

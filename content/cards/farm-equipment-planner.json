@@ -1,6 +1,66 @@
 {
  "app": "farm-equipment-planner",
  "cards": {
+  "19001": {
+   "detail": "Adair County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2008
+  },
+  "19003": {
+   "detail": "Adams County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2001, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2001
+  },
+  "19005": {
+   "detail": "Allamakee County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2019, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19007": {
+   "detail": "Appanoose County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2004
+  },
+  "19009": {
+   "detail": "Audubon County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2017, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2017
+  },
+  "19011": {
+   "detail": "Benton County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2001, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2001
+  },
   "19013": {
    "detail": "Black Hawk County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2002, with 39. Counts rain only, not snow or frozen ground.",
    "falls": 26,
@@ -10,6 +70,696 @@
    "unit": "days",
    "value": 46.0,
    "wettest_year": 2002
+  },
+  "19015": {
+   "detail": "Boone County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19017": {
+   "detail": "Bremer County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 45.5,
+   "wettest_year": 2019
+  },
+  "19019": {
+   "detail": "Buchanan County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2001, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 39.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2001
+  },
+  "19021": {
+   "detail": "Buena Vista County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2019
+  },
+  "19023": {
+   "detail": "Butler County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2002, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.5,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2002
+  },
+  "19025": {
+   "detail": "Calhoun County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2008
+  },
+  "19027": {
+   "detail": "Carroll County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19029": {
+   "detail": "Cass County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2017, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2017
+  },
+  "19031": {
+   "detail": "Cedar County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2001, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "45 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 45.0,
+   "wettest_year": 2001
+  },
+  "19033": {
+   "detail": "Cerro Gordo County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2019, with 36. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19035": {
+   "detail": "Cherokee County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2000, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2000
+  },
+  "19037": {
+   "detail": "Chickasaw County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 45.5,
+   "wettest_year": 2019
+  },
+  "19039": {
+   "detail": "Clarke County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2008, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2008
+  },
+  "19041": {
+   "detail": "Clay County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2000, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2000
+  },
+  "19043": {
+   "detail": "Clayton County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2019
+  },
+  "19045": {
+   "detail": "Clinton County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2004, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19047": {
+   "detail": "Crawford County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2019, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2019
+  },
+  "19049": {
+   "detail": "Dallas County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19051": {
+   "detail": "Davis County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2004
+  },
+  "19053": {
+   "detail": "Decatur County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2009
+  },
+  "19055": {
+   "detail": "Delaware County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2001, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 39.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2001
+  },
+  "19057": {
+   "detail": "Des Moines County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19059": {
+   "detail": "Dickinson County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2009, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2009
+  },
+  "19061": {
+   "detail": "Dubuque County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 35. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2019
+  },
+  "19063": {
+   "detail": "Emmet County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2009, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2009
+  },
+  "19065": {
+   "detail": "Fayette County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 36. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2019
+  },
+  "19067": {
+   "detail": "Floyd County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 45.5,
+   "wettest_year": 2019
+  },
+  "19069": {
+   "detail": "Franklin County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2001, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2001
+  },
+  "19071": {
+   "detail": "Fremont County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 45. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.0,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2009
+  },
+  "19073": {
+   "detail": "Greene County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19075": {
+   "detail": "Grundy County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2002, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.5,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2002
+  },
+  "19077": {
+   "detail": "Guthrie County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2008
+  },
+  "19079": {
+   "detail": "Hamilton County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19081": {
+   "detail": "Hancock County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19083": {
+   "detail": "Hardin County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2001, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2001
+  },
+  "19085": {
+   "detail": "Harrison County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2000, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2000
+  },
+  "19087": {
+   "detail": "Henry County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19089": {
+   "detail": "Howard County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2019
+  },
+  "19091": {
+   "detail": "Humboldt County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19093": {
+   "detail": "Ida County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2000, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2000
+  },
+  "19095": {
+   "detail": "Iowa County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2015, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2015
+  },
+  "19097": {
+   "detail": "Jackson County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2004, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19099": {
+   "detail": "Jasper County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2019
+  },
+  "19101": {
+   "detail": "Jefferson County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19103": {
+   "detail": "Johnson County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2015, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2015
+  },
+  "19105": {
+   "detail": "Jones County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2001, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "45 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 45.0,
+   "wettest_year": 2001
+  },
+  "19107": {
+   "detail": "Keokuk County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2015, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2015
+  },
+  "19109": {
+   "detail": "Kossuth County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19111": {
+   "detail": "Lee County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 35. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2004
+  },
+  "19113": {
+   "detail": "Linn County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2001, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2001
+  },
+  "19115": {
+   "detail": "Louisa County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19117": {
+   "detail": "Lucas County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2008, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2008
+  },
+  "19119": {
+   "detail": "Lyon County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2000, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "52 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.5,
+   "unit": "days",
+   "value": 52.0,
+   "wettest_year": 2000
+  },
+  "19121": {
+   "detail": "Madison County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19123": {
+   "detail": "Mahaska County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2001, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2001
+  },
+  "19125": {
+   "detail": "Marion County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2019
+  },
+  "19127": {
+   "detail": "Marshall County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2000, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2000
+  },
+  "19129": {
+   "detail": "Mills County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19131": {
+   "detail": "Mitchell County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2019
+  },
+  "19133": {
+   "detail": "Monona County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 46. Wettest: 2008, with 43. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 45.5,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2008
+  },
+  "19135": {
+   "detail": "Monroe County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2008, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2008
+  },
+  "19137": {
+   "detail": "Montgomery County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2001, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2001
+  },
+  "19139": {
+   "detail": "Muscatine County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 40. Wettest: 2001, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 40.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2001
+  },
+  "19141": {
+   "detail": "O'Brien County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2009, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 49.5,
+   "wettest_year": 2009
+  },
+  "19143": {
+   "detail": "Osceola County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2009, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2009
+  },
+  "19145": {
+   "detail": "Page County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2009, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2009
+  },
+  "19147": {
+   "detail": "Palo Alto County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19149": {
+   "detail": "Plymouth County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2000, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2000
+  },
+  "19151": {
+   "detail": "Pocahontas County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2008
   },
   "19153": {
    "detail": "Polk County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
@@ -21,6 +771,76 @@
    "value": 48.0,
    "wettest_year": 2008
   },
+  "19155": {
+   "detail": "Pottawattamie County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2000, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2000
+  },
+  "19157": {
+   "detail": "Poweshiek County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2001, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2001
+  },
+  "19159": {
+   "detail": "Ringgold County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2009, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2009
+  },
+  "19161": {
+   "detail": "Sac County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "49 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 49.0,
+   "wettest_year": 2019
+  },
+  "19163": {
+   "detail": "Scott County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 39. Wettest: 2004, with 35. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 39.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2004
+  },
+  "19165": {
+   "detail": "Shelby County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2017, with 42. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2017
+  },
+  "19167": {
+   "detail": "Sioux County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2000, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "50 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.0,
+   "unit": "days",
+   "value": 50.0,
+   "wettest_year": 2000
+  },
   "19169": {
    "detail": "Story County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
    "falls": 26,
@@ -31,6 +851,116 @@
    "value": 48.0,
    "wettest_year": 2008
   },
+  "19171": {
+   "detail": "Tama County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2019, with 41. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.0,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2019
+  },
+  "19173": {
+   "detail": "Taylor County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2009, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2009
+  },
+  "19175": {
+   "detail": "Union County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2009, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2009
+  },
+  "19177": {
+   "detail": "Van Buren County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.5,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2004
+  },
+  "19179": {
+   "detail": "Wapello County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2009, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "47 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 47.0,
+   "wettest_year": 2009
+  },
+  "19181": {
+   "detail": "Warren County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2008, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
+  },
+  "19183": {
+   "detail": "Washington County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2015, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.0,
+   "unit": "days",
+   "value": 46.5,
+   "wettest_year": 2015
+  },
+  "19185": {
+   "detail": "Wayne County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2004, with 40. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "46 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 46.0,
+   "wettest_year": 2004
+  },
+  "19187": {
+   "detail": "Webster County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 48.5,
+   "wettest_year": 2008
+  },
+  "19189": {
+   "detail": "Winnebago County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2019, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 44.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
+  "19191": {
+   "detail": "Winneshiek County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 42. Wettest: 2019, with 37. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 42.5,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2019
+  },
   "19193": {
    "detail": "Woodbury County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2000, with 42. Counts rain only, not snow or frozen ground.",
    "falls": 26,
@@ -40,6 +970,26 @@
    "unit": "days",
    "value": 50.0,
    "wettest_year": 2000
+  },
+  "19195": {
+   "detail": "Worth County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 44. Wettest: 2019, with 38. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 43.5,
+   "unit": "days",
+   "value": 47.5,
+   "wettest_year": 2019
+  },
+  "19197": {
+   "detail": "Wright County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 41. Wettest: 2008, with 39. Counts rain only, not snow or frozen ground.",
+   "falls": 26,
+   "headline": "48 of 61 days",
+   "label": "Fall field days, Oct 1 to Nov 30",
+   "low": 41.0,
+   "unit": "days",
+   "value": 48.0,
+   "wettest_year": 2008
   },
   "31001": {
    "detail": "Adams County, NE: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 48. Wettest: 2008, with 44. Counts rain only, not snow or frozen ground.",
@@ -974,9 +1924,9 @@
  },
  "format": 1,
  "link": null,
- "made": "2026-09-26",
+ "made": "2026-10-10",
  "method": "Workable day = under 2.5 mm of rain that day and under 12.5 mm over the two days before. Typical = median fall; wet = 10th percentile.",
- "not_covered": "Counties the Yield Predictor has weather for (Nebraska and some of Iowa) today.",
+ "not_covered": "Every county in Nebraska and Iowa today.",
  "rule": "rain-2.5mm/12.5mm-2d",
  "skipped": {},
  "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)"

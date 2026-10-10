@@ -167,7 +167,7 @@ or **waffle chart** (the 61 day squares, one mark per day).
 | Calves this month | Monthly | The highlighted month and its % move with the calendar |
 | Corn yield | Weekly | A new county each week |
 | Field days | Weekly | A new county each week |
-| Heading ("This Week: ... County") | Weekly | Rotates through 88 counties |
+| Heading ("This Week: ... County") | Weekly | Rotates through 182 counties |
 
 Each app page's Recent Weeks table gains a row weekly. The "Why Use Our Apps" charts stay put until
 a story is added or changed.
@@ -451,8 +451,9 @@ price, waiting up to about 4 minutes for it to wake), then `python build.py`, th
 Run it by hand from GitHub: **Actions > Weekly stat cards > Run workflow**. Because it pushes to
 GitHub, start every work session with `git pull` (see **Git in this project** below).
 
-- **The county of the week** rotates through the 88 counties both county apps cover, in a fixed
-  shuffled order, so each comes around about every 21 months.
+- **The county of the week** rotates through the 182 counties both county apps cover, in a fixed
+  shuffled order, so each comes around about every 3.5 years. (It was 88, about every 21 months, until the
+  Equipment Planner covered all of Iowa on 2026-10-10; weeks already saved never change.)
 - **No price that week** (Herd Planner asleep too long, or only sample prices): the card says so; the
   corn and field-day cards still show. Sample prices are never published.
 - **New yields or weather:** export the cards in those projects (`python scripts\export_suite_card.py`

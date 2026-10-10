@@ -1,5 +1,6 @@
 """The live panel: red marks the downside, never alone, and the rounded numbers agree."""
 
+import gzip
 import re
 from pathlib import Path
 
@@ -62,11 +63,14 @@ def test_picker_data_covers_every_county_with_its_own_tiles(tmp_path, monkeypatc
     hall = data["counties"]["31079"]
     assert hall["name"] == "Hall County" and 'data-tile="corn"' in hall["corn"] and 'data-tile="days"' in hall["days"]
     assert "Hall County, Nebraska" in hall["corn"]
-    # A county only one app covers says so, instead of an empty tile.
-    iowa_only = next(f for f, c in data["counties"].items() if c["state"] == "IA" and "Not covered yet" in c["days"])
-    assert "Equipment Planner covers" in data["counties"][iowa_only]["days"]
-    # Small enough to load on a phone: GitHub Pages compresses it to a few percent of this.
-    assert (site / "panel-data.json").stat().st_size < 700_000
+    # Every Nebraska and Iowa county has field days since the Equipment Planner covered all of Iowa (2026-10-10).
+    assert all('data-tile="days"' in c["days"] and "Not covered yet" not in c["days"] for c in data["counties"].values())
+    # A county only one app covers says so, instead of an empty tile, in a sentence that reads right.
+    no_corn = next(f for f, c in data["counties"].items() if "Not covered yet" in c["corn"])
+    assert "The Yield Predictor covers Nebraska and Iowa counties" in data["counties"][no_corn]["corn"]
+    # Small enough to load on a phone. GitHub Pages sends it compressed (gzip): about 25 KB for 192 counties.
+    raw = (site / "panel-data.json").read_bytes()
+    assert len(raw) < 900_000 and len(gzip.compress(raw)) < 60_000
 
 
 def test_picker_starts_hidden_so_the_page_works_without_javascript():

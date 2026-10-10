@@ -23,7 +23,8 @@ number on the site never changes after the week it was shown, and the app pages 
 
 The place of the week: every county both the Yield Predictor and the Equipment Planner cover, in a
 fixed shuffled order (by a hash of its FIPS code, so neighbors don't come one after another), one
-per week. 88 counties means about 21 months before a county comes around again.
+per week. Since the Equipment Planner covered all of Iowa (2026-10-10) that's 182 counties, about 3.5 years
+before a county comes around again (it was 88, about 21 months). Weeks already saved never change.
 """
 
 from __future__ import annotations
@@ -379,6 +380,14 @@ def current(today: date | None = None) -> dict:
 
 
 # --- every county the picker offers ------------------------------------------------------------
+
+
+def mid_sentence(text: str) -> str:
+    """An app's "who's covered" sentence, continuing ours: "Counties the ..." -> "counties the ...", but a
+    state's name keeps its capital ("Nebraska and Iowa counties ...")."""
+    if text.split(" ", 1)[0] in STATE_NAMES.values():
+        return text
+    return text[:1].lower() + text[1:]
 
 
 def county_name(fips: str) -> str:
