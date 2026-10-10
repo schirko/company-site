@@ -272,12 +272,17 @@ def corn_tile(corn: dict | None, where: str, not_covered: str = "") -> str:
         flag=badge(f'{round(corn["value"]) - round(corn["low"])} bu in a bad year', True), slot="corn")
 
 
-def days_tile(days: dict | None, where: str, not_covered: str = "") -> str:
+def falls_tag(years: list | None) -> str:
+    """The gold tag over the field-days tile: which falls the numbers come from (2026-10-10, option A)."""
+    return f"Falls {years[0]} to {years[1]}, day by day" if years else "Real falls on record, day by day"
+
+
+def days_tile(days: dict | None, where: str, not_covered: str = "", years: list | None = None) -> str:
     if not days:
-        return tile("farm-equipment-planner.html", "Real falls on record, day by day", "Fall field days, Oct 1 to Nov 30",
+        return tile("farm-equipment-planner.html", falls_tag(years), "Fall field days, Oct 1 to Nov 30",
                     "Not covered yet", "", f"No weather yet for {where}. {not_covered}", " quiet", slot="days")
     return tile(
-        "farm-equipment-planner.html", "Real falls on record, day by day", days["label"], days["headline"],
+        "farm-equipment-planner.html", falls_tag(years), days["label"], days["headline"],
         day_squares(days["value"], days["low"]),
         f'Dark blue: workable even in a wet fall ({round(days["low"])}). Light blue: extra days in a typical fall. '
         f'Red: too wet to work.',
@@ -368,7 +373,8 @@ PICKER = """      <form class="live-pick" id="live-pick" hidden>
       </form>"""
 
 
-def panel(week: dict, stories: list[dict], nice_date, barn_href=None, steer_tile: str | None = None) -> str:
+def panel(week: dict, stories: list[dict], nice_date, barn_href=None, steer_tile: str | None = None,
+          fall_years: list | None = None) -> str:
     place = week["place"]
     where = f'{place["county"]}, {place["state_name"]}'
     cards = week["cards"]
@@ -377,7 +383,7 @@ def panel(week: dict, stories: list[dict], nice_date, barn_href=None, steer_tile
     if season:
         tiles.append(calves_tile(season, date.fromisoformat(week["date"])))
     tiles.append(corn_tile(cards.get("corn-yield-predictor"), where))
-    tiles.append(days_tile(cards.get("farm-equipment-planner"), where))
+    tiles.append(days_tile(cards.get("farm-equipment-planner"), where, years=fall_years))
     # The picker's button and form start hidden: panel.js shows them, so a browser without
     # JavaScript sees the county of the week and nothing that doesn't work.
     return f"""    <div class="live" id="this-week" data-week-place="{e(where)}">
@@ -433,7 +439,7 @@ def panel_data(week: dict, counties: list[dict], static_cards: dict, not_covered
         out["counties"][c["fips"]] = {
             "name": c["name"], "state": c["state"],
             "corn": corn_tile(static_cards["corn"].get(c["fips"]), where, not_covered["corn"]),
-            "days": days_tile(static_cards["days"].get(c["fips"]), where, not_covered["days"]),
+            "days": days_tile(static_cards["days"].get(c["fips"]), where, not_covered["days"], static_cards.get("days_years")),
             "pins": {"land": days_pin(static_cards["days"].get(c["fips"]), c["name"]).strip(),
                      "corn": corn_pin(static_cards["corn"].get(c["fips"]), c["name"]).strip()},
         }

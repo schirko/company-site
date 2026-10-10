@@ -217,3 +217,25 @@ def test_the_change_button_has_a_drawn_pin_and_a_full_name_for_screen_readers():
     assert "\\1F4CD" not in css and "mask: url(" in css and ".live-name {" in css
     assert 'openButton.textContent = yours ? "Change" : "See your county"' in js
     assert 'setAttribute("aria-label", "Change county")' in js and '"Change county"; openForm' not in js
+
+
+def test_the_field_days_tag_names_the_falls():
+    """Option A (2026-10-10): the gold tag says which falls the numbers come from, read from the card file."""
+    card = {"label": "Fall field days, Oct 1 to Nov 30", "headline": "47 of 61 days", "value": 47, "low": 42}
+    assert "Falls 2000 to 2025, day by day" in hero.days_tile(card, "Adair County, Iowa", years=[2000, 2025])
+    assert "Real falls on record, day by day" in hero.days_tile(card, "Adair County, Iowa")    # an older file
+
+
+def test_the_built_site_shows_the_years_and_the_bigger_story_icons(tmp_path, monkeypatch):
+    import json
+
+    import build
+    import cards
+    monkeypatch.setattr(build, "OUT", tmp_path / "docs")
+    site = build.build()
+    first, last = cards.load_static(cards.EQUIP)["years"]
+    tag = f"Falls {first} to {last}, day by day"
+    home = (site / "index.html").read_text(encoding="utf-8")
+    assert tag in home and "Real falls on record" not in home
+    assert all(tag in c["days"] for c in json.loads((site / "panel-data.json").read_text(encoding="utf-8"))["counties"].values())
+    assert 'class="stat-app"><img src="suite/suite-logos/herd-planner.svg" alt="" width="36" height="36">' in home

@@ -353,7 +353,8 @@ section.quiet-top { padding-top: 56px; border-top: 6px solid var(--suite-deep-gr
   border-radius: var(--suite-radius); display: flex; flex-direction: column; }
 .story h3 { font-size: 1.2rem; margin: 6px 0 6px; }
 .app-page .story { margin-bottom: 20px; }
-.story .stat-app { margin: 0; }
+.story .stat-app { margin: 0; gap: 10px; font-size: 1rem; }          /* option A (2026-10-10): a bigger app icon */
+.story .stat-app img { width: 36px; height: 36px; }
 .story-headline { margin: 0 0 12px; }
 .chart-title { font-size: .85rem; font-weight: 600; color: var(--suite-muted); margin: 0 0 4px; }
 .story figcaption p { margin: 8px 0 0; font-size: .95rem; }

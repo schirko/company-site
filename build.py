@@ -840,7 +840,7 @@ def story_block(story, apps_by_id, heading="h3", link=True, how=False, split=Fal
     if split:
         words_open, words_close = '<div class="story-words">', "</div>"
         chart_open, chart_close = '<div class="story-chart">', "</div>"
-    head = f"""<p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="24" height="24"> {e(app["name"])}</p>
+    head = f"""<p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="36" height="36"> {e(app["name"])}</p>
         <{heading}>{e(story["title"])}</{heading}>
         <p class="story-headline">{e(story["headline"])}</p>"""
     chart = f"""<p class="chart-title">{e(story["chart_title"])}</p>
@@ -940,7 +940,8 @@ def build():
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
         "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
-        "live_panel": hero.panel(week, stories, nice_date, barn_href, steer_tile),
+        "live_panel": hero.panel(week, stories, nice_date, barn_href, steer_tile,
+                                 cards.load_static(cards.EQUIP).get("years")),
         "pins": hero.pins(week, barn_href, steer_pin),
         **dict(zip(("hero_class", "hero_style", "hero_credit"), hero_photo())),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps if a["id"] in WEEKLY),
@@ -993,7 +994,8 @@ def build():
               f'{app["name"]}: {copy[app["id"]]["question"]}{lead}', "apps", page_app=app)
     # The county picker's data: every county's tiles, drawn in advance (hero.panel_data).
     corn, days = cards.load_static(cards.CORN), cards.load_static(cards.EQUIP)
-    picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"]},
+    picker = hero.panel_data(week, cards.all_counties(), {"corn": corn["cards"], "days": days["cards"],
+                                                          "days_years": days.get("years")},
                              {"corn": "The Yield Predictor covers " + cards.mid_sentence(corn["not_covered"]),
                               "days": "The Equipment Planner covers " + cards.mid_sentence(days["not_covered"])},
                              cards.STATE_NAMES, barn_href, barns_now if by_barn else None, near_of,

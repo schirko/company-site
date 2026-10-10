@@ -1929,5 +1929,9 @@
  "not_covered": "Every county in Nebraska and Iowa today.",
  "rule": "rain-2.5mm/12.5mm-2d",
  "skipped": {},
- "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)"
+ "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)",
+ "years": [
+  2000,
+  2025
+ ]
 }
