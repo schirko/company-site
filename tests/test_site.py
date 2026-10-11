@@ -299,6 +299,11 @@ def test_the_proof_figures_read_in_plain_words_and_lead_to_how_we_test(site):
     assert "typical miss" not in proof and "never saw" not in proof
     assert "typical gap between our calf price estimate and the real sale price: about $60 on a $2,500 calf" in proof
     assert "26 auctions the model had not seen" in proof
+    # Scott, October 10, 2026: "0.51 score (1.0 is perfect)" and "rows of Iowa State's field capacity table" meant
+    # nothing to a farmer. Bushels an acre and machine sizes instead (crop-yield-predictor README section 5).
+    assert "<strong>0.51</strong>" not in proof and "1.0 is perfect" not in proof and "rows of" not in proof
+    assert "<strong>15 bu</strong><span>an acre: typical gap between our estimate and an Iowa county" in proof
+    assert "machine sizes, from combines to sprayers" in proof
     methods = (site / "methods.html").read_text(encoding="utf-8")
     for section in ("herd-planner", "corn-yield-predictor", "farm-equipment-planner"):
         assert f'<a href="methods.html#{section}"><span class="proof-app"><img src="suite/suite-logos/{section}.svg"' in proof
