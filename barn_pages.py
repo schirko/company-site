@@ -16,9 +16,12 @@ showing a stale price as "this week".
 
 from __future__ import annotations
 
+import json
 import re
+import urllib.parse
 from datetime import date
 from html import escape
+from pathlib import Path
 
 import charts
 import hero
@@ -159,6 +162,42 @@ def seasons_section(barn: dict) -> str:
       for each animal.</p>"""
 
 
+CONTACTS = Path(__file__).resolve().parent / "content" / "barn_contacts.json"
+
+
+def load_contacts(path: Path = CONTACTS) -> dict:
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("barns", {})
+    except FileNotFoundError:
+        return {}
+
+
+def contact_section(slug: str, barn: dict, contacts: dict) -> str:
+    """Contact the Barn (Scott, 2026-10-12): the barn's business details where we've checked them
+    (content/barn_contacts.json, each with its source and date), and on every page a map of the barn's town and
+    USDA's own page for the sale. Sale days and times change, so it says to call before hauling, and that we
+    aren't the barn."""
+    c = contacts.get(slug) or {}
+    lines = []
+    if c.get("address"):
+        lines.append(f"<li><b>Address:</b> {e(c['address'])}</li>")
+    if c.get("phone"):
+        tel = re.sub(r"[^0-9+]", "", c["phone"])
+        lines.append(f'<li><b>Phone:</b> <a href="tel:{e(tel)}">{e(c["phone"])}</a></li>')
+    if c.get("website"):
+        lines.append(f'<li><b>Website:</b> <a href="{e(c["website"])}" rel="noopener">{e(c["website"].split("//")[-1].rstrip("/"))}</a></li>')
+    query = urllib.parse.quote(f'{barn["name"]}, {c.get("address") or place(barn)}')
+    links = [f'<a href="https://www.google.com/maps/search/?api=1&amp;query={query}" rel="noopener">Map and directions</a>',
+             f'<a href="https://mymarketnews.ams.usda.gov/viewReport/{e(slug)}" rel="noopener">USDA&rsquo;s report for this sale</a>']
+    source = (f' Details from <a href="{e(c["source_url"])}" rel="noopener">{e(c["source"])}</a>, checked '
+              f'{e(short_date(c["checked"]))}.' if c.get("source") else "")
+    return f"""<h2>Contact the Barn</h2>
+    {('<ul class="plain barn-contact">' + "".join(lines) + "</ul>") if lines else ""}
+    <p class="barn-links">{" &middot; ".join(links)}</p>
+    <p class="note">We aren't connected with {e(barn['name'])}. Sale days and times change: call the barn before you
+      haul.{source}</p>"""
+
+
 def short_date(iso: str) -> str:
     d = date.fromisoformat(iso)
     return f"{d:%b} {d.day}"
@@ -245,6 +284,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <p class="chart-title">550 lb steer, $/cwt: the dot is the price, the bar the range 8 in 10 sales fell in</p>
     {history_chart(barn, nice_date)}
     {seasons_section(barn)}
+    {contact_section(slug, barn, load_contacts())}
     {others_html}
     <h2>Where the Numbers Come From</h2>
     <p>{e(data.get('method', ''))}{hub_note} Medium and large frame, muscle grade 1 cattle.</p>

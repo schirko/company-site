@@ -1,0 +1,8 @@
+{
+  "about": "Each barn's own business contact details, added one at a time (Scott, 2026-10-12: \"add contact information to each barn on their page\"). Only from the barn's own website or a public business listing, never a person's own phone, each with its source and the day it was checked. A barn not listed here still gets its map and USDA report links. Recheck once a year: barns change hands and numbers.",
+  "barns": {
+    "3653": {"address": "2200 E 8th Street, North Platte, NE 69101",
+             "source": "KRVN Rural Radio business listing", "source_url": "https://ruralradio.com/krvn/business/north-platte-stockyards/",
+             "checked": "2026-10-12"}
+  }
+}

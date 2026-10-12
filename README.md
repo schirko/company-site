@@ -217,6 +217,13 @@ and description carry the week ("North Platte Stockyards, North Platte, NE: Feed
 ("550 lb steer, week of Oct 9 ... Last sale there Sep 22"). Oklahoma City's own page and tile keep "sale of
 Oct 5": its price comes from its own sale. Mockup: `notes/barn-wording-*-2026-10-12.png`.
 
+**Contact the Barn (2026-10-12, Scott: "add contact information to each barn on their page").** Every barn page
+has a map link (the barn's name and town, or its checked address) and USDA's own MyMarketNews page for the sale.
+A barn's business address, phone and website show only once checked, from the barn's own website or a public
+business listing (never a person's own phone), and each is kept in `content/barn_contacts.json` with its source
+and the day it was checked; the page names the source. Add barns there one at a time and recheck once a year.
+The page says we aren't connected with the barn and to call before hauling. Tests in `test_barns.py`.
+
 **Link previews and structured data (2026-10-12).** Every page has Open Graph and Twitter tags (its title,
 description and address, and `static/brand/og-card.png`, 1200 x 630, the logo on the suite green), so a page
 shared by text or on Facebook shows a card. Every page also carries JSON-LD naming the publisher

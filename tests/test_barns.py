@@ -133,3 +133,30 @@ def test_seasons_survive_a_week_when_herd_planner_sends_none(barns_file):
     cards.record_barns(body, date(2026, 9, 18))
     cards.record_barns(answer(401), date(2026, 9, 25))  # an older Herd Planner: no seasons this week
     assert cards.load_barns()["barns"]["1848"]["seasons"][0]["best"] == 3
+
+
+def test_every_barn_page_says_how_to_reach_the_barn(barns_file):
+    """Scott, 2026-10-12: "add contact information to each barn on their page". Every page has Contact the Barn with
+    a map link and USDA's page for the sale; checked business details show only with their source and date."""
+    import json
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    site = build.build()
+    for page in site.glob("barn-*.html"):
+        html = page.read_text(encoding="utf-8")
+        assert "<h2>Contact the Barn</h2>" in html and "google.com/maps/search/?api=1&amp;query=" in html, page.name
+        assert "mymarketnews.ams.usda.gov/viewReport/" in html and "call the barn before you" in html, page.name
+    listed = json.loads(barn_pages.CONTACTS.read_text(encoding="utf-8"))["barns"]
+    for slug, c in listed.items():
+        assert c.get("source") and c.get("source_url", "").startswith("https://") and c.get("checked"), slug
+        assert set(c) <= {"address", "phone", "website", "source", "source_url", "checked"}, slug
+
+
+def test_checked_details_show_with_their_source():
+    barn = {"name": "North Platte Stockyards", "city": "North Platte", "state": "NE"}
+    html = barn_pages.contact_section("3653", barn, {"3653": {
+        "address": "2200 E 8th Street, North Platte, NE 69101", "phone": "(308) 555-0100",
+        "source": "A listing", "source_url": "https://example.com/x", "checked": "2026-10-12"}})
+    assert "2200 E 8th Street" in html and 'href="tel:3085550100"' in html
+    assert 'Details from <a href="https://example.com/x" rel="noopener">A listing</a>, checked Oct 12.' in html
+    bare = barn_pages.contact_section("1851", {"name": "Burwell Livestock Market", "city": "Burwell", "state": "NE"}, {})
+    assert "Address" not in bare and "Phone" not in bare and "viewReport/1851" in bare
