@@ -1054,3 +1054,12 @@ def test_barn_pages_carry_their_breadcrumbs_as_structured_data(site):
         names = [i["name"] for i in trail["itemListElement"]]
         assert names[:2] == ["Home", "Barn Prices"] and trail["itemListElement"][-1]["item"] == config.SITE_URL + path.name
 
+
+def test_the_privacy_page_says_what_sharing_results_keeps(site):
+    """2026-10-12, with My Farm v0.26.0 (Share Your Results): the promises the share page makes, here too."""
+    page = (site / "privacy.html").read_text(encoding="utf-8")
+    item = page.split('id="shared-results"', 1)[1].split("</li>", 1)[0]
+    for words in ("keep only the summary you confirm", "An uploaded file is read and deleted", "never\n        sell them",
+                  "averages across at least 5 farms", "delete them in My Farm any time"):
+        assert words in item, words
+
