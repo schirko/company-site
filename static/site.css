@@ -7,6 +7,10 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 
 /* Header */
 .site-header { padding: 14px 0; }
+/* Scott, 2026-10-12 (screenshot of a barn page): the header ran inside the 1,080 px content column, so on a wide screen
+   the logo and menu sat toward the middle. Like the apps' headers, it now spans the window: logo at the left edge,
+   menu at the right; the page content keeps its column. */
+.site-header > .wrap { max-width: none; padding: 0 clamp(20px, 2.5vw, 32px); }
 .header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; }
 .wordmark { font-size: 1.3rem; letter-spacing: .01em; }
 /* The logo (static/brand/): the C-sun and the name, drawn as shapes so it looks the same on every

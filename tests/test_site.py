@@ -1055,6 +1055,13 @@ def test_barn_pages_carry_their_breadcrumbs_as_structured_data(site):
         assert names[:2] == ["Home", "Barn Prices"] and trail["itemListElement"][-1]["item"] == config.SITE_URL + path.name
 
 
+def test_the_header_spans_the_window():
+    """Scott, 2026-10-12: on a wide screen the logo belongs at the left edge and the menu at the right, as in the apps,
+    not inside the content column."""
+    css = (ROOT / "static" / "site.css").read_text(encoding="utf-8")
+    assert ".site-header > .wrap { max-width: none; padding: 0 clamp(20px, 2.5vw, 32px); }" in css
+
+
 def test_the_privacy_page_says_what_sharing_results_keeps(site):
     """2026-10-12, with My Farm v0.26.0 (Share Your Results): the promises the share page makes, here too."""
     page = (site / "privacy.html").read_text(encoding="utf-8")
