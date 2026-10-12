@@ -97,7 +97,7 @@ def mega_menu(apps) -> str:
         '          <div><p class="mega-head">Why trust it</p>',
         '          <a href="methods.html">How We Test<small>Real results, and where we fell short</small></a></div>',
         '        </div>',
-        f'        <p class="mega-foot"><span>One account for every app.</span><a href="{e(config.ACCOUNT_URL)}">Your Account &#8594;</a></p>',
+        f'        <p class="mega-foot"><span>Your apps in one place.</span><a href="{e(config.ACCOUNT_URL)}">My Farm &#8594;</a></p>',
         '      </div>',
         '    </details>'])
 

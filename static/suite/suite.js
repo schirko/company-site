@@ -15,7 +15,7 @@
    The page writes the link itself so it works without JavaScript; this script keeps its name and
    address in step with "company" in suite-apps.json, so renaming the company is a one-file change.
    The menu also opens with a link to the company site (not on the company site itself) and, on the
-   right, "Your Account": the suite's account page, "account" in suite-apps.json (not on that page itself). */
+   right, "My Farm" (was "Your Account" until 2026-10-11): the suite's home page for people signed in, "account" in suite-apps.json (not on that page itself). */
 (function () {
   "use strict";
 
