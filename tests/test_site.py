@@ -1,5 +1,6 @@
 """The company site builds, every page carries the name from config.py, and nothing links nowhere."""
 
+import html
 import json
 import re
 from html.parser import HTMLParser
@@ -155,7 +156,8 @@ def test_sign_in_is_in_every_page_menu(site):
 
 
 def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
-    """A tile on the home page (tag, Get notified), but no app page, no Farm Apps menu entry, no footer link."""
+    """A tile on the home page (tag, Get Notified), but no app page, no Farm Apps menu entry, no footer link.
+    Scott, 2026-10-12: a fifth tile, "Coming Soon", not clickable itself, \"just makes the suite look stronger\"."""
     copy = json.loads((ROOT / "content/apps.json").read_text(encoding="utf-8"))
     suite_ids = {a["id"] for a in build.load_apps()}
     home = (site / "index.html").read_text(encoding="utf-8")
@@ -164,7 +166,7 @@ def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
         assert (site / "soon" / f"{app['id']}.svg").exists()
         tile = home[home.index(f'soon/{app["id"]}.svg'):]
         tile = tile[:tile.index("</div>")]
-        assert "In development" in tile and 'href="#notify"' in tile and app["name"] in tile
+        assert "Coming Soon" in tile and 'href="#notify"' in tile and html.escape(app["name"]) in tile and "Get Notified" in tile
         assert not (site / build.APP_PAGE.format(app["id"])).exists()
     assert 'id="notify"' in home
     assert len(re.findall(r'class="tile[ "]', home)) == len(suite_ids) + len(copy["in_development"])

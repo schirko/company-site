@@ -217,5 +217,8 @@
     "price_from": "$9",
     "shot_alt": "Grazing Planner on a computer and a phone, showing the August 1 check for 120 pairs on 2,000 acres of Frontier County, Nebraska native range: keep your 120 pairs; this year's grass is 8% below normal."
   },
-  "in_development": []
+  "in_development": [
+    {"id": "hay-feed-planner", "name": "Hay & Feed Planner",
+     "question": "How much hay will the herd need this winter, and what will it cost?"}
+  ]
 }

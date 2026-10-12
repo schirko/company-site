@@ -344,8 +344,8 @@ def dev_tile(app):
     hear when it opens. Not a link to an app, and not in the Farm Apps menu until it exists."""
     return f"""      <div class="tile dev">
         <img src="soon/{e(app["id"])}.svg" alt="" width="56" height="56">
-        <span class="tile-words"><span class="tag">In development</span><strong>{e(app["name"])}</strong><span>{e(app["question"])}</span></span>
-        <a class="btn small ghost" href="#notify">Get notified</a>
+        <span class="tile-words"><span class="tag">Coming Soon</span><strong>{e(app["name"])}</strong><span>{e(app["question"])}</span></span>
+        <a class="btn small ghost" href="#notify">Get Notified</a>
       </div>"""
 
 

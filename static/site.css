@@ -129,7 +129,7 @@ section h2 { font-size: 1.6rem; margin: 0 0 8px; }
 .slide-btn.prev { left: -18px; }
 .slide-btn.next { right: -18px; }
 .slide-btn[hidden] { display: none; }
-/* An app being built: a dashed frame, a small tag, and Get notified. */
+/* An app being built: a dashed frame, a "Coming Soon" tag, and Get Notified. */
 .tile.dev { border: 3px dashed #8a9a90; background: #fbfaf7; }
 .tile .tag { align-self: flex-start; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
   color: #5b4a1f; background: var(--suite-gold-tint); border: 1px solid var(--suite-gold-line); border-radius: 999px;
