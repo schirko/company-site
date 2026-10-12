@@ -36,7 +36,7 @@ SITE_URL = f"https://{DOMAIN}/"
 # person's home page shows every app with their county's numbers. Change it with the domain.
 # On the page of an app that has sign-up links ("signup" in content/apps.json) Sign In goes to that app's own
 # sign-in card instead: a Herd Planner account is not a Your Account sign-in.
-ACCOUNT_URL = "https://farm-account.onrender.com/app/#signin"
+ACCOUNT_URL = "https://apps.cornerpostlogic.com/app/#signin"   # My Farm; farm-account.onrender.com until 2026-10-12
 
 # Subscription prices on the home page's app tiles ("From $12/mo", from "price_from" in content/apps.json).
 # False until billing exists (the pilot shows no prices). Until then no link on the site says "Subscribe"
