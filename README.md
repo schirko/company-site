@@ -208,6 +208,21 @@ Every Friday `cards.py refresh` asks Herd Planner's public `GET /suite/barns` an
 but says so instead of showing an old price. The live panel's steer tile links to the barn its price came
 from. "Barn Prices" is in the site's menu, and every barn page is in `sitemap.xml`.
 
+**Dates (2026-10-12, Scott: "barn pages and search").** A barn's price is Herd Planner's estimate for the week:
+the hub's (Oklahoma City's) latest sale plus that barn's own measured difference from it (`method` in
+`barns.json`). So a barn page says "550 lb steer, estimate for the week of Oct 9", and under the range "Worked
+out from Oklahoma City's Oct 5 sale and this barn's usual difference from it. Last sale here: Sep 22." Its title
+and description carry the week ("North Platte Stockyards, North Platte, NE: Feeder Cattle Prices, Week of Oct 9,
+2026"), so a search result shows how fresh it is. The home page's steer tile and photo pin say the same
+("550 lb steer, week of Oct 9 ... Last sale there Sep 22"). Oklahoma City's own page and tile keep "sale of
+Oct 5": its price comes from its own sale. Mockup: `notes/barn-wording-*-2026-10-12.png`.
+
+**Link previews and structured data (2026-10-12).** Every page has Open Graph and Twitter tags (its title,
+description and address, and `static/brand/og-card.png`, 1200 x 630, the logo on the suite green), so a page
+shared by text or on Facebook shows a card. Every page also carries JSON-LD naming the publisher
+(`Organization`), and barn pages their trail (`BreadcrumbList`: Home > Barn Prices > the barn). Search engines
+read neither while `PUBLIC` is False. `build.social_tags` and `build.structured_data`; tests in `test_site.py`.
+
 ## The app tiles row
 
 Under the live panel, one tile per app: every app in the suite list (`static/suite/suite-apps.json`),

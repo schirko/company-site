@@ -112,10 +112,20 @@ def test_the_benchmark_says_why_it_is_shown(barns):
     assert "Nothing fresh nearby. The national benchmark, $/cwt:" in tile and "Oklahoma City" in tile
 
 
-def test_a_fresh_barn_tile_names_its_sale_and_its_town(barns):
+def test_a_fresh_barn_tile_names_its_week_its_last_sale_and_its_town(barns):
+    """Since 2026-10-12 (Scott, "barn pages and search"): a barn's price is the week's estimate (the hub's latest sale
+    plus the barn's own difference), so the label names the week and the small print the barn's last sale."""
     tile, pin = hero.steer_for({"kind": "barn", "barn": "3653"}, barns, lambda slug: f"barn-{slug}.html")
-    assert "550 lb steer, sale of Sep 29" in tile and "$430/cwt" in tile and "About $2,365 a head at North Platte, NE." in tile
+    assert "550 lb steer, week of Oct 9" in tile and "$430/cwt" in tile
+    assert "About $2,365 a head at North Platte, NE. Last sale there Sep 29." in tile and "this week" in tile
+    assert "550 lb steer, week of Oct 9" in pin and "last sale Sep 29" in pin
     assert 'href="barn-3653.html"' in tile and 'href="barn-3653.html" data-pin="herd"' in pin
+
+
+def test_the_hub_tile_keeps_its_own_sale(barns):
+    """Oklahoma City is priced from its own sale, so its tile still says which one."""
+    tile, pin = hero.steer_for({"kind": "barn", "barn": "1280"}, barns, lambda slug: f"barn-{slug}.html")
+    assert "550 lb steer, sale of" in tile and "week of" not in tile and "Last sale there" not in tile
 
 
 # --- the Friday job and the build ------------------------------------------------------------------

@@ -159,26 +159,56 @@ def seasons_section(barn: dict) -> str:
       for each animal.</p>"""
 
 
+def short_date(iso: str) -> str:
+    d = date.fromisoformat(iso)
+    return f"{d:%b} {d.day}"
+
+
+def hub_sale(all_barns: dict) -> str | None:
+    """The hub's (Oklahoma City's) latest sale: every other barn's price is worked out from it."""
+    hub = next((b for b in all_barns.values() if b.get("is_hub")), None)
+    weeks = (hub or {}).get("weeks") or []
+    return weeks[0]["last_sale"] if weeks else None
+
+
 def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> tuple[str, str, str]:
-    """(title, description, body) for one barn's page."""
+    """(title, description, body) for one barn's page.
+
+    Dates (Scott, 2026-10-12, "barn pages and search"): a barn's price is Herd Planner's estimate for the week,
+    worked out from the hub's (Oklahoma City's) latest sale plus this barn's own measured difference from it, so
+    the page says "estimate for the week of ..." and names both sales: the hub's it was worked out from, and the
+    last one here. The hub's own page shows its sale. The title and description carry the week, so a search
+    result says how fresh it is."""
     where = place(barn)
     state_name = STATE_NAMES.get(barn.get("state"), barn.get("state") or "")
     week = current(barn)
     latest = (barn.get("weeks") or [None])[0]
-    title = f"{barn['name']}, {where}: feeder cattle prices this week"
+    title = f"{barn['name']}, {where}: Feeder Cattle Prices"
     if week:
         steer, heifer = price_at(week, "Steers", WEIGHT), price_at(week, "Heifers", WEIGHT)
-        sold = date.fromisoformat(week["last_sale"])
-        desc = (f"{where} feeder cattle prices, week of {nice_date(week['date'])}: 550 lb steers "
-                f"{money(steer['price'])}/cwt ({money(steer['low'])} to {money(steer['high'])})"
-                + (f", 550 lb heifers {money(heifer['price'])}/cwt" if heifer else "") + ".")
+        week_of, here = nice_date(week["date"]), short_date(week["last_sale"])
+        hub_day = hub_sale(all_barns)
+        title += f", Week of {week_of}"
+        prices = (f"550 lb steers {money(steer['price'])}/cwt ({money(steer['low'])} to {money(steer['high'])})"
+                  + (f", 550 lb heifers {money(heifer['price'])}/cwt" if heifer else ""))
+        if barn.get("is_hub"):
+            desc = f"{where} feeder cattle prices from the sale of {here}: {prices}."
+            label = f"550 lb steer, sale of {here}"
+            basis = "Worked out from this sale."
+        else:
+            desc = f"{where} feeder cattle prices, estimated for the week of {week_of}: {prices}. Last sale here {here}."
+            label = f"550 lb steer, estimate for the week of {short_date(week['date'])}"
+            basis = (f"Worked out from Oklahoma City's {short_date(hub_day)} sale and this barn's usual difference "
+                     f"from it. Last sale here: <strong>{here}</strong>." if hub_day else
+                     f"Last sale here: <strong>{here}</strong>.")
         headline = f"""<div class="barn-now">
-        <p class="live-label">550 lb steer, sale of {sold:%b} {sold.day}</p>
+        <p class="live-label">{label}</p>
         <p class="barn-price">{money(steer['price'])}/cwt{change_flag(barn)}</p>
         {hero.range_bar(steer['low'], steer['price'], steer['high'], steer['low'] * 0.97, steer['high'] * 1.03,
-                        (money(steer['low']), '', money(steer['high'])), marker='this sale')}
+                        (money(steer['low']), '', money(steer['high'])), marker='this sale' if barn.get('is_hub') else 'this week')}
         <p class="note">About {money(steer['price'] * WEIGHT / 100)} a head. 8 in 10 sales like it land between
           {money(steer['low'])} and {money(steer['high'])}/cwt.</p>
+        <p class="note barn-basis">{basis}</p>
       </div>"""
         sheet = f"<h2>This Week's Price Sheet</h2>\n    {sheet_table(week)}"
     else:
@@ -230,6 +260,8 @@ def index_page(all_barns: dict, nice_date) -> str:
     for slug, barn in all_barns.items():
         by_state.setdefault(barn.get("state") or "Other", []).append((slug, barn))
     sections = []
+    week_of = max((b["weeks"][0]["date"] for b in all_barns.values() if b.get("weeks")), default=None)
+    price_head = f"550 lb steer, week of {short_date(week_of)}" if week_of else "550 lb steer"
     for state in sorted(by_state, key=lambda s: STATE_NAMES.get(s, s)):
         rows = []
         for slug, barn in sorted(by_state[state], key=lambda sb: sb[1].get("city") or sb[1]["name"]):
@@ -243,7 +275,7 @@ def index_page(all_barns: dict, nice_date) -> str:
                         f'<td>{sold}</td><td>{price}</td></tr>')
         sections.append(f"""    <h2>{e(STATE_NAMES.get(state, state))}</h2>
     <div class="table-scroll"><table class="results barns-table">
-      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer</th></tr></thead>
+      <thead><tr><th>Sale barn</th><th>Last sale</th><th>{price_head}</th></tr></thead>
       <tbody>{"".join(rows)}</tbody></table></div>""")
     body = "\n".join(sections) if sections else '    <p class="note">The first prices arrive with Friday\'s update.</p>'
     return f"""<section class="page">

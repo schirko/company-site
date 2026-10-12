@@ -66,6 +66,36 @@ def load_apps():
     return json.loads((STATIC / "suite" / "suite-apps.json").read_text(encoding="utf-8"))["apps"]
 
 
+# --- Link previews and structured data (2026-10-12, Scott: "barn pages and search") -----------------------
+# Open Graph and Twitter tags give a shared link a title, a description and a picture (static/brand/og-card.png,
+# the logo on the suite green). Structured data (JSON-LD) tells search engines who publishes the site
+# (Organization, on every page) and where a page sits (BreadcrumbList on the barn pages). Search engines read
+# neither while PUBLIC is False; they're there for launch day.
+OG_IMAGE = "brand/og-card.png"
+
+
+def social_tags(title: str, description: str, url: str) -> str:
+    tags = [("og:type", "website"), ("og:site_name", config.NAME), ("og:title", title), ("og:description", description),
+            ("og:url", url), ("og:image", config.SITE_URL + OG_IMAGE), ("og:image:width", "1200"),
+            ("og:image:height", "630"), ("og:image:alt", f"{config.NAME}: {config.TAGLINE}")]
+    out = [f'  <meta property="{k}" content="{e(v)}">' for k, v in tags]
+    out.append('  <meta name="twitter:card" content="summary_large_image">')
+    return "\n".join(out)
+
+
+def structured_data(crumbs: list[tuple[str, str]] | None = None) -> str:
+    """JSON-LD: the publisher on every page, and a breadcrumb trail when the page has one."""
+    items = [{"@context": "https://schema.org", "@type": "Organization", "name": config.NAME,
+              "url": config.SITE_URL, "logo": config.SITE_URL + "brand/icon-512.png"}]
+    if crumbs:
+        items.append({"@context": "https://schema.org", "@type": "BreadcrumbList",
+                      "itemListElement": [{"@type": "ListItem", "position": i, "name": name, "item": url}
+                                          for i, (name, url) in enumerate(crumbs, start=1)]})
+    # "</" can't appear inside the script: escape the slash so a name can never end the tag early.
+    blocks = [json.dumps(x, ensure_ascii=False).replace("</", "<\\/") for x in items]
+    return "\n".join(f'  <script type="application/ld+json">{b}</script>' for b in blocks)
+
+
 def e(text):
     """Escape text for HTML: an app name with an '&' in it must not break the page."""
     return html.escape(text, quote=True)
@@ -954,14 +984,18 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(STATIC, OUT)
-    def write(out_name, body, title, description, current=None, page_app=None):
+    def write(out_name, body, title, description, current=None, page_app=None, crumbs=None):
         page_signup = bool(page_app and signup(page_app, copy[page_app["id"]]))
+        full_title = f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"
+        url = config.SITE_URL + ("" if out_name == "index.html" else out_name)
         page = layout.substitute(
             values, body=body,
             nav_account=nav_account(apps, copy, page_app), nav_class=(" has-signup" if page_signup else ""),
-            title=e(f"{title} | {config.NAME}" if title else f"{config.NAME}: {config.TAGLINE}"),
+            title=e(full_title),
             description=e(description),
-            canonical=e(config.SITE_URL + ("" if out_name == "index.html" else out_name)),
+            canonical=e(url),
+            social=social_tags(title or full_title, description, url),
+            structured_data=structured_data(crumbs),
             **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy")},
             nav_apps=(' data-current' if current == "apps" else ""),
         )
@@ -1005,7 +1039,10 @@ def build():
     # One page per sale barn, and the index of them all
     for slug, barn in all_barns.items():
         title, desc, body = barn_pages.barn_page(slug, barn, all_barns, barn_data, nice_date)
-        write(barn_pages.page_name(slug, barn), body, title, desc, "barns")
+        name = barn_pages.page_name(slug, barn)
+        write(name, body, title, desc, "barns", crumbs=[("Home", config.SITE_URL),
+                                                        ("Barn Prices", config.SITE_URL + "barns.html"),
+                                                        (barn["name"], config.SITE_URL + name)])
     write("barns.html", barn_pages.index_page(all_barns, nice_date), "Sale Barn Prices",
           "Feeder cattle prices at each sale barn Herd Planner follows, updated every Friday from USDA auction reports.",
           "barns")

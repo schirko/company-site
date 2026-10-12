@@ -57,7 +57,9 @@ def test_a_page_per_barn_with_the_price_the_sheet_and_the_change(barns_file):
     assert "$5 from last week" in page and 'class="badge down"' in page  # fell: red, with an arrow and words
     assert "Heifers" in page and "800 lb" in page
     assert '<a href="barn-lexington-ne-1849.html">' in page               # other barns in the state
-    assert 'content="Kearney, NE feeder cattle prices, week of' in page   # the search snippet leads with the town
+    assert 'content="Kearney, NE feeder cattle prices, estimated for the week of Sep 25, 2026' in page   # town first
+    assert "<title>Huss Livestock Market, Kearney, NE: Feeder Cattle Prices, Week of Sep 25, 2026 |" in page
+    assert "550 lb steer, estimate for the week of Sep 25" in page and "Last sale here" in page
     index = (site / "barns.html").read_text(encoding="utf-8")
     assert "barn-kearney-ne-1848.html" in index and "Nebraska" in index
     sitemap = (site / "sitemap.xml").read_text(encoding="utf-8")
@@ -90,7 +92,7 @@ def test_the_barn_list_fits_a_phone(barns_file):
     """Three columns (the town sits under the barn's name), so the price never hides off the right edge."""
     cards.record_barns(answer(400), date(2026, 9, 25))
     index = (build.build() / "barns.html").read_text(encoding="utf-8")
-    assert "<th>Sale barn</th><th>Last sale</th><th>550 lb steer</th>" in index
+    assert "<th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Sep 25</th>" in index
     assert '<span class="barn-town">Kearney</span>' in index
 
 

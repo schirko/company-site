@@ -1024,3 +1024,33 @@ def test_the_equipment_planner_page_fixes(site):
     home = (site / "index.html").read_text(encoding="utf-8")
     assert "story split" not in home                                            # the home page's cards are as before
 
+
+def test_every_page_has_a_link_preview_and_names_its_publisher(site):
+    """2026-10-12 (Scott, "barn pages and search"): Open Graph tags, so a shared link shows the page's title, its
+    description and the Cornerpost Logic picture; and JSON-LD saying who publishes the site. Every built page,
+    barn pages included."""
+    pages = all_pages() + [p.name for p in site.glob("barn-*.html")]
+    for name in pages:
+        page = (site / name).read_text(encoding="utf-8")
+        desc = re.search(r'<meta name="description" content="([^"]*)"', page).group(1)
+        assert f'<meta property="og:description" content="{desc}">' in page, name
+        url = re.search(r'<link rel="canonical" href="([^"]*)"', page).group(1)
+        assert f'<meta property="og:url" content="{url}">' in page, name
+        assert f'<meta property="og:image" content="{config.SITE_URL}brand/og-card.png">' in page, name
+        blocks = [json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', page)]
+        org = [b for b in blocks if b["@type"] == "Organization"]
+        assert org and org[0]["name"] == config.NAME and org[0]["url"] == config.SITE_URL, name
+    card = (site / "brand" / "og-card.png").read_bytes()
+    assert card[:8] == b"\x89PNG\r\n\x1a\n" and int.from_bytes(card[16:20], "big") == 1200 \
+        and int.from_bytes(card[20:24], "big") == 630                       # the size the tags promise
+
+
+def test_barn_pages_carry_their_breadcrumbs_as_structured_data(site):
+    """The trail the page shows (Barn Prices > state), as search engines read it: Home > Barn Prices > the barn."""
+    for path in site.glob("barn-*.html"):
+        page = path.read_text(encoding="utf-8")
+        trail = next(json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', page)
+                     if '"BreadcrumbList"' in b)
+        names = [i["name"] for i in trail["itemListElement"]]
+        assert names[:2] == ["Home", "Barn Prices"] and trail["itemListElement"][-1]["item"] == config.SITE_URL + path.name
+

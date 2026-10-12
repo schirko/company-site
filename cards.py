@@ -290,7 +290,8 @@ def barns_now(today: date | None = None, data: dict | None = None) -> dict[str, 
         sold = date.fromisoformat(week["last_sale"])
         out[slug] = {"slug": slug, "name": b["name"], "city": b["city"], "state": b["state"],
                      "is_hub": bool(b.get("is_hub")), "lat": b.get("lat"), "lon": b.get("lon"),
-                     "last_sale": week["last_sale"], "fresh": (today - sold).days <= FRESH_DAYS,
+                     "last_sale": week["last_sale"], "week_of": week.get("date"),
+                     "fresh": (today - sold).days <= FRESH_DAYS,
                      "value": steer["price"], "low": steer["low"], "high": steer["high"]}
     return out
 
