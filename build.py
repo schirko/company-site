@@ -53,11 +53,12 @@ PAGES = [
 APP_PAGE = "{}.html"
 
 # The Our Farm Apps menu in the header (chosen 2026-09-30, option C): apps sorted by operation, then the free
-# tools and How We Test. Every live app must be in exactly one group (a test checks), so a new app needs a line here.
-OPERATIONS = [
-    ("For Ranches", "Cattle and grass", ["herd-planner", "grazing-planner"]),
-    ("For Farms", "Crops and machines", ["corn-yield-predictor", "farm-equipment-planner"]),
-]
+# tools and How We Test. Every live app must be in exactly one group (a test checks), so a new app goes in a group in
+# herd-planner/brand/suite-apps.json (then copied here).
+# The menu's groups come from "groups" in static/suite/suite-apps.json (suite version 7, 2026-10-11), the same list
+# every app's Farm Apps menu uses, so the site's menu and the apps' menus can't drift apart.
+OPERATIONS = [(g["title"], g["lead"], g["apps"]) for g in
+              json.loads((STATIC / "suite" / "suite-apps.json").read_text(encoding="utf-8"))["groups"]]
 HISTORY_WEEKS = 12  # weeks listed on each app page
 
 
