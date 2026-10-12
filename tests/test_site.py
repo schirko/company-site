@@ -107,7 +107,7 @@ def test_the_app_logos_are_the_line_symbols_on_rounded_tiles():
     """October 7, 2026: the four app logos were redrawn (a cream line symbol with one gold piece on a rounded square
     in the app's colour), after a graphic designer called the first ones clip art. This holds without Herd Planner
     beside the project. The company's own mark (static/brand, favicon.svg) is a different thing and did not change."""
-    tiles = {"herd-planner": "#243b2f", "corn-yield-predictor": "#4a3520", "grazing-planner": "#2f5d5a", "farm-equipment-planner": "#23374d"}
+    tiles = {"herd-planner": "#3f6e4e", "corn-yield-predictor": "#4a3520", "grazing-planner": "#2f5d5a", "farm-equipment-planner": "#23374d"}
     apps = json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["apps"]
     assert {a["id"] for a in apps} == set(tiles)
     for app, tile in tiles.items():
