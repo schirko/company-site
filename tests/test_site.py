@@ -1115,6 +1115,15 @@ def test_the_privacy_page_says_what_sharing_results_keeps(site):
         assert words in item, words
 
 
+def test_the_privacy_page_says_what_your_fields_keeps(site):
+    """2026-10-13, with My Farm v0.30.0 (yield maps in Your Fields): outlines and a kept yield map, only with a yes."""
+    page = (site / "privacy.html").read_text(encoding="utf-8")
+    item = page.split('id="your-fields"', 1)[1].split("</li>", 1)[0]
+    for words in ("if you tick the box to keep it", "never the single readings", "seen only by you",
+                  "Delete removes them for good"):
+        assert words in " ".join(item.split()), words
+
+
 def test_every_page_has_the_ask_a_question_button_hidden_until_it_is_on(site):
     """Suite version 9 (2026-10-12): the support assistant's round button, bottom right on every page (mockup
     notes/ask-a-question-mockup-2026-10-12.png). It starts hidden; the shared suite.js shows it only once My Farm
