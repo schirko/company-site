@@ -16,7 +16,14 @@
    The page writes the link itself so it works without JavaScript; this script keeps its name and
    address in step with "company" in suite-apps.json, so renaming the company is a one-file change.
    The menu also opens with a link to the company site (not on the company site itself) and, on the
-   right, "My Farm" (was "Your Account" until 2026-10-11): the suite's home page for people signed in, "account" in suite-apps.json (not on that page itself). */
+   right, "My Farm" (was "Your Account" until 2026-10-11): the suite's home page for people signed in, "account" in suite-apps.json (not on that page itself).
+
+   Suite version 9 (2026-10-12): Ask a Question, the support assistant (claude/support-assistant-plan.md). Any
+   element with data-suite-ask="<where it is: site or the app's id>" opens the panel. Every such element starts with
+   class suite-ask-hidden and is shown only once My Farm says the assistant is on (GET /ask/status), so a page
+   never offers a button that only says it's off. Where to ask: data-suite-ask-url on the element (My Farm itself
+   uses "/ask"), else My Farm's address from "account" in suite-apps.json. Every word from the server is put in
+   with textContent, never as HTML. */
 (function () {
   "use strict";
 
@@ -96,6 +103,170 @@
     const base = document.querySelector("a[data-suite-company]").dataset.suiteBase || ".";
     fetch(`${base}/suite-apps.json`).then((r) => (r.ok ? r.json() : null)).then((list) => list && updateCompanyLinks(list)).catch(() => {});
   }
+
+  // --- Ask a Question (suite version 9) -----------------------------------------------------------------
+  const ASK_WORDS = {
+    title: "Ask a Question",
+    lead: "Answers from our own pages: the app pages, How We Test and Help",
+    hello: "Hi! I answer questions about our farm apps from our own pages, and I'll show you where each answer " +
+      "comes from. I can't see anyone's herd or farm records.",
+    note: "Estimates, not advice. Don't type personal details. Questions are kept without your name for 90 days " +
+      "to improve our pages.",
+    trouble: "I couldn't reach the assistant just now. Check your connection and try again.",
+  };
+
+  function setUpAsk(askers) {
+    const first = askers[0];
+    const where = (url) => url.replace(/\/$/, "");
+    const known = first.dataset.suiteAskUrl;
+    const found = known ? Promise.resolve(where(known)) : fetch(`${first.dataset.suiteBase || document.querySelector("[data-suite-base]")?.dataset.suiteBase || "."}/suite-apps.json`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((list) => `${new URL(list.account.url).origin}/ask`);
+    found.then((url) => fetch(`${url}/status`).then((r) => (r.ok ? r.json() : { on: false })).then((s) => {
+      if (!s.on) return;
+      for (const a of askers) {
+        a.classList.remove("suite-ask-hidden");
+        a.addEventListener("click", (event) => { event.preventDefault(); openAsk(url, a); });
+      }
+    })).catch(() => {});                                  // no list, offline, My Farm asleep: no button, nothing broken
+  }
+
+  let ask = null;                                          // the one panel on the page, made on first open
+
+  function bubble(cls, text) {
+    const b = el("div", { class: `suite-ask-msg ${cls}` });
+    if (text) b.appendChild(el("p", {}, text));
+    ask.body.appendChild(b);
+    ask.body.scrollTop = ask.body.scrollHeight;
+    return b;
+  }
+
+  function closeAsk() {
+    if (!ask || ask.panel.hidden) return;
+    ask.panel.hidden = true;
+    if (ask.opener) ask.opener.focus();
+  }
+
+  function openAsk(url, opener) {
+    if (!ask) makeAsk(url);
+    ask.opener = opener;
+    ask.from = opener.dataset.suiteAsk || "site";
+    ask.panel.hidden = false;
+    ask.input.focus();
+  }
+
+  function makeAsk(url) {
+    const panel = el("div", { class: "suite-ask", role: "dialog", "aria-labelledby": "suite-ask-title" });
+    const head = el("div", { class: "suite-ask-head" });
+    const words = el("div");
+    words.appendChild(el("strong", { id: "suite-ask-title" }, ASK_WORDS.title));
+    words.appendChild(el("small", {}, ASK_WORDS.lead));
+    head.appendChild(words);
+    const close = el("button", { type: "button", class: "suite-ask-close", "aria-label": "Close" }, "\u00d7");
+    head.appendChild(close);
+    const body = el("div", { class: "suite-ask-body", "aria-live": "polite" });
+    const form = el("form", { class: "suite-ask-foot" });
+    const row = el("div", { class: "suite-ask-row" });
+    const input = el("input", { type: "text", name: "question", maxlength: "500", autocomplete: "off",
+      placeholder: "Ask about an app, a number or a page", "aria-label": "Your question" });
+    const send = el("button", { type: "submit", class: "suite-ask-send" }, "Ask");
+    row.appendChild(input);
+    row.appendChild(send);
+    form.appendChild(row);
+    form.appendChild(el("p", { class: "suite-ask-note" }, ASK_WORDS.note));
+    panel.appendChild(head);
+    panel.appendChild(body);
+    panel.appendChild(form);
+    panel.hidden = true;
+    document.body.appendChild(panel);
+    ask = { url, panel, body, input, send, conversation: null, busy: false };
+    bubble("bot", ASK_WORDS.hello);
+
+    close.addEventListener("click", closeAsk);
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeAsk(); });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const question = input.value.trim();
+      if (!question || ask.busy) return;
+      input.value = "";
+      askOne(question);
+    });
+  }
+
+  function askOne(question) {
+    ask.busy = true;
+    ask.send.disabled = true;
+    bubble("me", question);
+    const waiting = bubble("bot waiting", "Looking through our pages\u2026");
+    fetch(ask.url, {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ question, conversation: ask.conversation, asked_from: ask.from }),
+    })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((reply) => { waiting.remove(); showReply(reply); })
+      .catch(() => { waiting.remove(); bubble("bot", ASK_WORDS.trouble); })
+      .finally(() => { ask.busy = false; ask.send.disabled = false; ask.input.focus(); });
+  }
+
+  function showReply(reply) {
+    if (reply.conversation) ask.conversation = reply.conversation;
+    const b = bubble("bot", reply.answer);
+    if (reply.sources && reply.sources.length) {
+      const from = el("p", { class: "suite-ask-src" }, "From: ");
+      reply.sources.forEach((s, i) => {
+        if (i) from.appendChild(document.createTextNode(", "));
+        from.appendChild(el("a", { href: s.url }, s.title));
+      });
+      b.appendChild(from);
+    }
+    const buttons = el("div", { class: "suite-ask-actions" });
+    if (reply.offer_handoff && ask.conversation && reply.limit !== "off") {
+      const yes = el("button", { type: "button", class: "suite-ask-yes" }, "Send to Scott");
+      const no = el("button", { type: "button", class: "suite-ask-no" }, "No Thanks");
+      yes.addEventListener("click", () => { buttons.remove(); handoffForm(b); });
+      no.addEventListener("click", () => buttons.remove());
+      buttons.appendChild(yes);
+      buttons.appendChild(no);
+    }
+    if (reply.limit === "conversation") {
+      const again = el("button", { type: "button", class: "suite-ask-no" }, "Start a New Chat");
+      again.addEventListener("click", () => {
+        ask.conversation = null;
+        ask.body.textContent = "";
+        bubble("bot", ASK_WORDS.hello);
+        ask.input.focus();
+      });
+      buttons.appendChild(again);
+    }
+    if (buttons.children.length) b.appendChild(buttons);
+    ask.body.scrollTop = ask.body.scrollHeight;
+  }
+
+  function handoffForm(b) {
+    const form = el("form", { class: "suite-ask-handoff" });
+    const label = el("label", {}, "Your email, if you'd like a reply (optional)");
+    const email = el("input", { type: "email", maxlength: "254", autocomplete: "email" });
+    label.appendChild(email);
+    const go = el("button", { type: "submit", class: "suite-ask-yes" }, "Send");
+    form.appendChild(label);
+    form.appendChild(go);
+    b.appendChild(form);
+    email.focus();
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      go.disabled = true;
+      fetch(`${ask.url}/handoff`, {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ conversation: ask.conversation, email: email.value.trim() || null }),
+      })
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then((done) => { form.remove(); b.appendChild(el("p", { class: "suite-ask-done" }, done.message)); })
+        .catch(() => { go.disabled = false; b.appendChild(el("p", { class: "suite-ask-done" }, ASK_WORDS.trouble)); });
+    });
+  }
+
+  const askers = document.querySelectorAll("[data-suite-ask]");
+  if (askers.length) setUpAsk(askers);
 
   for (const menu of document.querySelectorAll("details.suite-apps")) {
     closeOnOutsideClickOrEscape(menu);

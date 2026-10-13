@@ -331,6 +331,15 @@ line; a missing sample picture stops the build; and apps without a `"page"` bloc
 To give another app the same page: write its `"page"` block (leave out `sample`, the two lists, `steps`,
 `panel` or `year` and that part is skipped), add its sample picture if it has one, and run the tests.
 
+## Ask a Question (2026-10-12)
+
+The support assistant (`claude/support-assistant-plan.md`): a round **Ask a Question** button at the bottom right of
+every page (in `templates/layout.html`; mockup `notes/ask-a-question-mockup-2026-10-12.png`). It opens the shared
+panel from `static/suite/suite.js` (suite version 9), which asks My Farm (`POST /ask` at apps.cornerpostlogic.com)
+and shows the answer with the page it came from, or offers to send the question to Scott. The button starts hidden
+and appears only once My Farm says the assistant is switched on, so it can't be offered before it works. Every app
+has the same item in its Learn menu. The site keeps nothing: My Farm keeps each question, without a name, for 90 days.
+
 ## Sign-up links (2026-10-05)
 
 Scott: "I think we need to be subtly aggressive in having subscribe/sign up links to the products, especially

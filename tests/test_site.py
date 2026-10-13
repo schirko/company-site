@@ -1072,3 +1072,14 @@ def test_the_privacy_page_says_what_sharing_results_keeps(site):
                   "averages across at least 5 farms", "delete them in My Farm any time"):
         assert words in item, words
 
+
+def test_every_page_has_the_ask_a_question_button_hidden_until_it_is_on(site):
+    """Suite version 9 (2026-10-12): the support assistant's round button, bottom right on every page (mockup
+    notes/ask-a-question-mockup-2026-10-12.png). It starts hidden; the shared suite.js shows it only once My Farm
+    says the assistant is switched on, so nobody meets a button that only says it's off."""
+    button = ('<button type="button" class="suite-ask-fab suite-ask-hidden" data-suite-ask="site" '
+              'data-suite-base="suite">Ask a Question</button>')
+    for page in ("index.html", "about.html", "methods.html", "barns.html", "herd-planner.html"):
+        html = (site / page).read_text(encoding="utf-8")
+        assert button in html and html.index(button) < html.index('<script src="suite/suite.js'), page
+
