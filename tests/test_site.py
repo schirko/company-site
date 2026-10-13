@@ -172,6 +172,25 @@ def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
     assert len(re.findall(r'class="tile[ "]', home)) == len(suite_ids) + len(copy["in_development"])
 
 
+def test_apps_in_development_get_a_slim_strip_at_the_foot_of_our_farm_apps(site):
+    """Scott, 2026-10-13, option B of notes/hay-row-A-or-B-2026-10-13.png: below the apps that are built, a dashed
+    strip with the question, the Coming Soon tag and Get Notified. Smaller than a built app's row on purpose: no
+    points, no screenshot, no Open button and no page link."""
+    copy = json.loads((ROOT / "content/apps.json").read_text(encoding="utf-8"))
+    home = (site / "index.html").read_text(encoding="utf-8")
+    section = home[home.index('id="our-apps"'):]
+    section = section[:section.index("</section>")]
+    last_row = max(section.index(f'id="{a["id"]}"') for a in build.load_apps())
+    for app in copy["in_development"]:
+        strip = section[section.index(f'<div class="dev-strip" id="{app["id"]}">'):]
+        strip = strip[:strip.index("</a>\n    </div>")]
+        assert section.index(f'<div class="dev-strip" id="{app["id"]}">') > last_row       # after every built app
+        for words in ("Coming Soon", html.escape(app["name"]), html.escape(app["question"]), 'href="#notify"', "Get Notified"):
+            assert words in strip, words
+        assert "Open " not in strip and ".html" not in strip and "app-row" not in strip
+    assert section.count('class="dev-strip"') == len(copy["in_development"])
+
+
 def test_the_location_is_centennial(site):
     assert config.LOCATION == "Centennial, Colorado"
     assert "Built in Centennial, Colorado" in (site / "index.html").read_text(encoding="utf-8")

@@ -244,14 +244,16 @@ copy its logo into `static/suite/suite-logos/`, give it a story (`content/storie
 How We Test (`templates/methods.html`). The tests list anything missing. Apps without a card in the Friday
 job (`build.WEEKLY`) get an app page with "This Season" instead of "This Week" and "Recent Weeks".
 
-An app in development gets a dashed tile, an **In development** tag, its question, and **Get notified**,
-which jumps to "Hear When Something New Opens" (Herd Planner's waitlist). It has no app page, no Farm Apps
-menu entry and no footer link until it exists. Its logo goes in `static/soon/<id>.svg` (the suite's logo
-style since October 2026: a rounded-square tile in the app's color, a cream line symbol, one gold piece; the
-rules are in `herd-planner/brand/README.md`. The two pictures in `static/soon/` today are in the old circle
-style and are not shown on any page, because nothing is in development). When it opens: add it to the master
-`herd-planner/brand/suite-apps.json`, copy that out, write its entry in `apps.json`, and remove it from
-`"in_development"` (a test fails if an app is in both).
+An app in development (today the Hay & Feed Planner) shows in two places on the home page, each with a
+**Coming Soon** tag, its question and **Get Notified**, which jumps to "Hear When Something New Opens" (Herd
+Planner's waitlist): a dashed tile at the end of the top row, and a slim dashed strip at the foot of Our Farm
+Apps (`build.dev_strip`; Scott chose this "option B" on 2026-10-13 from `notes/hay-row-A-or-B-2026-10-13.png`,
+over a full row like the built apps', so an app that isn't built or tested never looks like one that is). It
+has no app page, no Farm Apps menu entry and no footer link until it exists. Its logo goes in
+`static/soon/<id>.svg` (the suite's logo style since October 2026: a rounded-square tile in the app's color, a
+cream line symbol, one gold piece; the rules are in `herd-planner/brand/README.md`). When it opens: add it to
+the master `herd-planner/brand/suite-apps.json`, copy that out, write its entry in `apps.json`, and remove it
+from `"in_development"` (a test fails if an app is in both).
 
 **What each tile shows (chosen 2026-09-30, mockups in `notes/tile-mockups-2026-09-29.png`).** Top right, this
 week's number from the app for the county of the week (`build.tile_stat`, from the same cards as the live

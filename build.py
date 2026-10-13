@@ -349,6 +349,18 @@ def dev_tile(app):
       </div>"""
 
 
+def dev_strip(app):
+    """The same app at the foot of Our Farm Apps (Scott, 2026-10-13, option B of notes/hay-row-A-or-B-2026-10-13.png):
+    a slim dashed strip, clearly smaller than the apps that are built and tested, with only its question. No points,
+    no screenshot and no page until it exists."""
+    return f"""    <div class="dev-strip" id="{e(app["id"])}">
+      <img src="soon/{e(app["id"])}.svg" alt="" width="64" height="64">
+      <div class="dev-words"><span class="tag">Coming Soon</span><strong>{e(app["name"])}</strong>
+        <span>{e(app["question"])}</span></div>
+      <a class="btn small ghost" href="#notify">Get Notified</a>
+    </div>"""
+
+
 def app_shot(app, copy):
     """The app on a computer (its real header joined to a real answer) with the same answer on a phone in
     front: static/shots/<id>-computer.jpg and -phone.jpg, taken from the running app. Until an app has
@@ -962,7 +974,8 @@ def build():
         "account_url": e(config.ACCOUNT_URL),
         "member_css": member_css(apps, copy),
         "member_apps": e(" ".join(a["id"] for a in member_apps(apps, copy))),
-        "app_rows": "\n".join(app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)),
+        "app_rows": "\n".join([app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)]
+                               + [dev_strip(d) for d in copy.get("in_development", [])]),
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
         "contact_sentence": contact_sentence(),

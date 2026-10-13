@@ -164,6 +164,15 @@ section h2 { font-size: 1.6rem; margin: 0 0 8px; }
 /* One section per app */
 .app-row { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; padding: 28px 0; }
 .app-row.flip > .shot { order: 2; }
+/* An app being built, at the foot of Our Farm Apps (2026-10-13, option B): smaller than the built apps, dashed
+   like its tile at the top of the page */
+.dev-strip { display: flex; align-items: center; gap: 18px; border: 3px dashed #8a9a90; background: #fbfaf7;
+  border-radius: 14px; padding: 16px 20px; margin: 20px 0 28px; }
+.dev-strip .dev-words { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.dev-strip strong { font-size: 1.15rem; }
+.dev-strip .tag { align-self: flex-start; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: #5b4a1f; background: var(--suite-gold-tint); border: 1px solid var(--suite-gold-line); border-radius: 999px;
+  padding: 1px 8px; }
 .app-row h3 { font-size: 1.4rem; margin: 0 0 8px; }
 .shot { aspect-ratio: 4 / 3; }
 /* Each app on a computer (its header joined to a real answer) with the phone in front, lower right.
@@ -212,6 +221,8 @@ ul.points li { margin-bottom: .45em; }
   .tile-words span { font-size: .9rem; }
   .slide-btn { display: none; }  /* phones swipe; the peek of the next tile shows there's more */
   .app-row { grid-template-columns: 1fr; gap: 16px; }
+  .dev-strip { flex-wrap: wrap; }
+  .dev-strip .dev-words { flex-basis: calc(100% - 90px); }
   .app-row.flip > .shot { order: 0; }
   .stats, .steps { grid-template-columns: 1fr; }
   .founder { grid-template-columns: 1fr; gap: 12px; }       /* a phone: the badge small, above the words */
