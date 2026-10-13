@@ -258,6 +258,18 @@ def nav_account(apps, copy, page_app=None):
     return "\n      ".join(parts)
 
 
+def nav_bar(apps, copy, page_app=None):
+    """The phone's bar (2026-10-13): what nav_account ends with, minus the sign-up button (that goes in the Menu):
+    Sign In, or for a browser that has used an app its short Open link. The same classes as in the menu, so
+    member.js and member_css show and hide them the same way."""
+    su = signup(page_app, copy[page_app["id"]]) if page_app else None
+    parts = [f'<a class="nav-signin nav-visitor" href="{e(su["signin"] if su else config.ACCOUNT_URL)}">Sign In</a>']
+    for a in member_apps(apps, copy):
+        short = copy[a["id"]].get("member_short", "Open")
+        parts.append(f'<a {member(a, "nav-signin nav-member")} href="{e(a["url"])}">{e(short)} &#8594;</a>')
+    return "".join(parts)
+
+
 SEASON_OF = {12: "winter", 1: "winter", 2: "winter", 3: "spring", 4: "spring", 5: "spring",
              6: "summer", 7: "summer", 8: "summer", 9: "fall", 10: "fall", 11: "fall"}
 
@@ -1003,7 +1015,8 @@ def build():
         url = config.SITE_URL + ("" if out_name == "index.html" else out_name)
         page = layout.substitute(
             values, body=body,
-            nav_account=nav_account(apps, copy, page_app), nav_class=(" has-signup" if page_signup else ""),
+            nav_account=nav_account(apps, copy, page_app), nav_bar=nav_bar(apps, copy, page_app),
+            nav_class=(" has-signup" if page_signup else ""),
             title=e(full_title),
             description=e(description),
             canonical=e(url),

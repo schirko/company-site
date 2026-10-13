@@ -69,6 +69,16 @@ Sign In: Privacy moved to the footer only, and the separate Farm Apps grid menu 
 does its job; the apps keep theirs). Tablets put the free tools under the two operations; phones show one
 scrolling column.
 
+**On a phone (2026-10-13), the same header as every app.** Scott chose one phone header for the site and every
+app, Herd Planner's (`herd-planner/notes/phone-headers-now-and-proposed-2026-10-13.png`: "As drawn", Sign In "On
+the bar", tablets "Keep the row"). Below 640 px the header is the logo, **Sign In** (or, for a browser that has used
+an app, its short Open link, e.g. "My Herd →") and **Menu**. Menu opens a white list, one link to a row with a grey
+note: Our Farm Apps (tapped, its list opens in place), Barn Prices, About, How We Test, and on an app's page its
+sign-up button (Join the Waitlist). Before, the links wrapped into three rows and the header was about 130 px
+tall; now about 60. The bar's links come from `build.nav_bar()` with the same classes as the menu's, so
+`member.js` shows and hides them the same way; the notes are `data-note` attributes; `static/menu.js` opens and
+closes it (Escape, a chosen link, a tap outside, or turning the phone sideways).
+
 ## Build and check it
 
 ```powershell

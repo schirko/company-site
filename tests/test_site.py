@@ -191,6 +191,28 @@ def test_apps_in_development_get_a_slim_strip_at_the_foot_of_our_farm_apps(site)
     assert section.count('class="dev-strip"') == len(copy["in_development"])
 
 
+def test_every_page_has_the_phone_bar_and_menu(site):
+    """Scott, 2026-10-13: one phone header for every app and the site, Herd Planner's (herd-planner/notes/
+    phone-headers-now-and-proposed-2026-10-13.png, "As drawn"; Sign In "On the bar"; tablets "Keep the row").
+    Below 640 px: the logo, Sign In (or a returning browser's Open link) and Menu; Menu opens the header's links as
+    a white list with a grey note on each. Checked in Chromium at 360 and 390 px (and 768 and 1280: unchanged)."""
+    for name in all_pages():
+        page = (site / name).read_text(encoding="utf-8")
+        head = page[page.index("<header"):page.index("</header>")]
+        bar = head.index('<div class="bar-account"><a class="nav-signin nav-visitor" href=')
+        menu = head.index('<button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav">')
+        assert bar < menu < head.index('id="site-nav"'), name
+        for note, words in (("Every barn", "Barn Prices"), ("Who we are", "About"), ("How we check it", "How We Test")):
+            assert re.search(rf'data-note="{note}"[^>]*>{words}</a>', head), (name, words)
+        assert head.count(">Sign In</a>") == 2, name                  # the bar's and the menu's (shown one at a time)
+    styles = (ROOT / "static/site.css").read_text(encoding="utf-8")
+    phone = styles[styles.index(".menu-btn, .bar-account { display: none; }"):]
+    assert "@media (max-width: 640px)" in phone and ".site-header.menu-open .site-nav { display: flex;" in phone
+    assert "html[data-uses] .bar-account .nav-visitor { display: none; }" in phone
+    js = (ROOT / "static/menu.js").read_text(encoding="utf-8")
+    assert 'matchMedia("(max-width: 640px)")' in js and "if (flat) { setMenu(false); btn.focus(); return; }" in js
+
+
 def test_the_location_is_centennial(site):
     assert config.LOCATION == "Centennial, Colorado"
     assert "Built in Centennial, Colorado" in (site / "index.html").read_text(encoding="utf-8")
@@ -735,7 +757,8 @@ def test_the_built_pages_carry_every_sign_up_spot_and_hide_them_from_a_browser_t
         assert len(ways_in) == 8 and all(c["for"] == "visitor-only" for c in ways_in)
         into_app = [c for c in found if c["href"] == app["url"]]
         assert {c["for"] for c in into_app} == {"member-only", "visitor-only"}   # Open for one; "Have an invite?" for the other
-        assert sum(c["for"] == "member-only" for c in into_app) == 4             # the menu, the main button, the steps, this week
+        # the menu, the main button, the steps, this week, and (2026-10-13) the phone's bar beside Menu
+        assert sum(c["for"] == "member-only" for c in into_app) == 5
         forget = [c for c in found if c["tag"] == "button" and c["text"] == "Forget this"]
         assert len(forget) == 1 and forget[0]["for"] == "member-only"
         home = controls((site / "index.html").read_text(encoding="utf-8"))

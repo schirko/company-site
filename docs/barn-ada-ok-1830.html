@@ -22,7 +22,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=a52439396e">
-  <link rel="stylesheet" href="site.css?v=215fd775b3">
+  <link rel="stylesheet" href="site.css?v=0c2ca999f6">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -32,7 +32,12 @@
 <header class="suite-bar site-header">
   <div class="wrap header-row">
     <a class="suite-name wordmark" href="index.html"><img src="brand/wordmark-dark.svg" alt="Cornerpost Logic" width="338" height="52"></a>
-    <nav class="site-nav" aria-label="Site">
+    <!-- On a phone (Scott, 2026-10-13: one phone header for every app and the site, Herd Planner's, from
+         herd-planner/notes/phone-headers-now-and-proposed-2026-10-13.png): Sign In (or a returning browser's Open
+         link) stays on the bar and the rest is behind Menu. Both are hidden on wider screens. -->
+    <div class="bar-account"><a class="nav-signin nav-visitor" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a><a class="nav-signin nav-member member-only" data-app="herd-planner" href="https://herd-planner.onrender.com/">My Herd &#8594;</a></div>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav"><span aria-hidden="true">&#9776;</span> Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Site">
       <div class="mega-wrap"><details class="mega" data-mega>
       <summary>Our Farm Apps</summary>
       <div class="mega-panel">
@@ -56,9 +61,9 @@
         <p class="mega-foot"><span>Your apps in one place.</span><a href="https://apps.cornerpostlogic.com/app/#signin">My Farm &#8594;</a></p>
       </div>
     </details></div>
-      <a href="barns.html" aria-current="page">Barn Prices</a>
-      <a href="about.html">About</a>
-      <a class="nav-methods" href="methods.html">How We Test</a>
+      <a href="barns.html" data-note="Every barn" aria-current="page">Barn Prices</a>
+      <a href="about.html" data-note="Who we are">About</a>
+      <a class="nav-methods" href="methods.html" data-note="How we check it">How We Test</a>
       <a class="nav-signin nav-visitor" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a>
       <a class="nav-signin nav-member member-only" data-app="herd-planner" href="https://herd-planner.onrender.com/"><span class="wide">Open Herd Planner &#8594;</span><span class="narrow">My Herd &#8594;</span></a>
     </nav>
@@ -160,6 +165,6 @@
      switched on; the shared suite.js shows it and opens the panel. -->
 <button type="button" class="suite-ask-fab suite-ask-hidden" data-suite-ask="site" data-suite-base="suite">Ask a Question</button>
 <script src="suite/suite.js?v=83af6f311a" defer></script>
-<script src="menu.js?v=b1a8319430" defer></script>
+<script src="menu.js?v=e153a3ec91" defer></script>
 </body>
 </html>

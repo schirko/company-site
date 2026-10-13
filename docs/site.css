@@ -782,3 +782,50 @@ html[data-uses] .site-nav .nav-visitor { display: none; }
   .lp-half > p { min-height: 0; }
   .lp-pair .lp-paper { height: auto; max-height: 440px; }
 }
+
+/* The phone header (2026-10-13; Scott: one phone header for every app and the site, Herd Planner's, from
+   herd-planner/notes/phone-headers-now-and-proposed-2026-10-13.png; Sign In "On the bar"; tablets "Keep the row").
+   Below 640 px: the name, Sign In (or a returning browser's Open link) and Menu; Menu opens the header's links as a
+   white list, one to a row with a grey note. Before, the links wrapped into three rows. The sign-up button of an
+   app's page is a row in the list. static/menu.js opens and closes it. Last in the file, so it wins over the
+   600 px rules above. */
+.menu-btn, .bar-account { display: none; }
+@media (max-width: 640px) {
+  .header-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 10px; align-items: center; }
+  .wordmark { flex: none; min-width: 0; }
+  .wordmark img { height: 26px; max-width: 100%; }
+  .bar-account { display: flex; grid-column: 2; grid-row: 1; }
+  .suite-bar .bar-account .nav-signin { display: inline-flex; align-items: center; min-height: 40px; box-sizing: border-box;
+    padding: 8px 12px; border: 2px solid var(--suite-gold); border-radius: 8px; color: #fff; font-size: .9rem;
+    font-weight: 700; text-decoration: none; white-space: nowrap; }
+  html[data-uses] .bar-account .nav-visitor { display: none; }
+  .menu-btn { display: inline-flex; align-items: center; gap: 6px; grid-column: 3; grid-row: 1; min-height: 40px;
+    padding: 8px 12px; background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, .6); border-radius: 8px;
+    font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+  .menu-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .16); }
+  .site-nav { display: none; grid-column: 1 / -1; }
+  .site-header.menu-open .site-nav { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 0;
+    margin-top: 2px; background: var(--suite-surface); border-radius: 12px; box-shadow: 0 10px 28px rgba(0, 0, 0, .28);
+    overflow: hidden; }
+  .site-nav > .mega-wrap, .site-nav > a { order: 0; }
+  .suite-bar .site-nav > a, .site-nav .mega > summary { display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; width: 100%; box-sizing: border-box; min-height: 52px; margin: 0; padding: 12px 16px; border: 0;
+    border-bottom: 1px solid var(--suite-line); border-radius: 0; background: transparent; color: var(--suite-ink) !important;
+    font-size: 1rem; font-weight: 600; text-decoration: none; box-shadow: none; }
+  .suite-bar .site-nav > a[aria-current="page"], .mega-wrap[data-current] .mega > summary { box-shadow: inset 4px 0 0 var(--suite-gold); }
+  .site-nav a[data-note]::after { content: attr(data-note) " \203A"; color: var(--suite-muted); font-size: .9rem; font-weight: 400; }
+  .suite-bar .site-nav > a:active, .site-nav .mega > summary:active { background: var(--band); }
+  /* Sign In and Open are on the bar; How We Test comes back (wider screens drop it from a crowded row). */
+  .suite-bar .site-nav > .nav-signin { display: none !important; }
+  .suite-bar .site-nav > .nav-methods { display: flex !important; }
+  .suite-bar .site-nav > .nav-signup { color: var(--suite-deep-green) !important; font-weight: 700; border-bottom: 0; }
+  .site-nav .nav-signup .wide { display: inline; }
+  .site-nav .nav-signup .narrow { display: none; }
+  .site-nav .nav-signup::after { content: "\203A"; color: var(--suite-muted); font-weight: 400; }
+  /* Our Farm Apps: a row; tapped, its list of apps opens in place under it. */
+  .site-nav .mega > summary::after { content: "Every app \203A"; width: auto; height: auto; margin: 0; border: 0;
+    transform: none; transition: none; color: var(--suite-muted); font-size: .9rem; font-weight: 400; }
+  .site-nav .mega[open] > summary::after { content: "Close"; }
+  .site-nav .mega-panel { position: static; transform: none; width: auto; max-height: none; overflow: visible;
+    border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--suite-line); }
+}
