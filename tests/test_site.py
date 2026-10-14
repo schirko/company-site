@@ -1120,7 +1120,8 @@ def test_the_privacy_page_says_what_your_fields_keeps(site):
     page = (site / "privacy.html").read_text(encoding="utf-8")
     item = page.split('id="your-fields"', 1)[1].split("</li>", 1)[0]
     for words in ("if you tick the box to keep it", "never the single readings", "seen only by you",
-                  "Delete removes them for good"):
+                  "Delete removes them for good",
+                  "its outline (with no name or account) is sent to USDA's Soil Data Access"):   # v0.31.0, soils
         assert words in " ".join(item.split()), words
 
 
