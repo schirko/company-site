@@ -25,6 +25,7 @@ from string import Template
 
 import cards
 import barn_pages
+import markets
 import charts
 import hero
 import config
@@ -1069,10 +1070,17 @@ def build():
         write(name, body, title, desc, "barns", crumbs=[("Home", config.SITE_URL),
                                                         ("Barn Prices", config.SITE_URL + "barns.html"),
                                                         (barn["name"], config.SITE_URL + name)])
-    write("barns.html", barn_pages.index_page(all_barns, nice_date), "Sale Barn Prices",
+    # Weekly market news, one page per state and week (markets.py; Scott chose the Nebraska layout 2026-10-14)
+    market_pages = markets.pages(all_barns, barn_href)
+    for name, title, desc, body, state in market_pages:
+        write(name, body, title, desc, "barns", crumbs=[("Home", config.SITE_URL),
+                                                        ("Barn Prices", config.SITE_URL + "barns.html"),
+                                                        (f"{markets.STATES[state]} Markets", config.SITE_URL + name)])
+    write("barns.html", barn_pages.index_page(all_barns, nice_date, markets.index_links(all_barns)), "Sale Barn Prices",
           "Feeder cattle prices at each sale barn Herd Planner follows, updated every Friday from USDA auction reports.",
           "barns")
-    listed_barns = ["barns.html"] + [barn_pages.page_name(s, b) for s, b in all_barns.items()]
+    listed_barns = (["barns.html"] + [barn_pages.page_name(s, b) for s, b in all_barns.items()]
+                    + [m[0] for m in market_pages])
 
     listed = [p[0] for p in PAGES if p[0] != "404.html"] + [APP_PAGE.format(a["id"]) for a in apps] + listed_barns
     (OUT / "sitemap.xml").write_text(sitemap(listed, week["date"]), encoding="utf-8")

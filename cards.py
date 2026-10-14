@@ -222,6 +222,9 @@ def herd_card(body: dict) -> dict:
 # --- the sale barns' weekly price sheets ------------------------------------------------------------
 
 KEEP_BARN_WEEKS = 104  # two years per barn; the pages chart the last 12
+# What the market news pages (markets.py) keep of USDA's report for a barn's latest sale: head sold now, a week and a
+# year before, the reporter's summary and narrative (public domain, quoted as written), and the link to the report.
+REPORT_KEYS = ("sale_date", "section", "head_sold", "head_week_ago", "head_year_ago", "final", "summary", "narrative", "url")
 
 
 def load_barns() -> dict:
@@ -242,6 +245,8 @@ def record_barns(body: dict, today: date) -> str:
             entry["lat"], entry["lon"] = b["lat"], b["lon"]
         week = {"week": week_id(today), "date": today.isoformat(), "last_sale": b["last_sale"],
                 "fresh": b["fresh"], "prices": b["prices"]}
+        if b.get("report"):  # Herd Planner v0.48+: USDA's report of the latest sale, for the market news pages
+            week["report"] = {k: b["report"].get(k) for k in REPORT_KEYS}
         entry["weeks"] = ([week] + [w for w in entry["weeks"] if w["week"] != week["week"]])[:KEEP_BARN_WEEKS]
         if b.get("seasons"):  # best months to sell (Herd Planner v0.21+): only the latest is kept
             entry["seasons"], entry["seasons_date"] = b["seasons"], today.isoformat()

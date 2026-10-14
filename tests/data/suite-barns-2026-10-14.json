@@ -1,0 +1,194 @@
+{
+ "_note": "Herd Planner's live GET /suite/barns, read 2026-10-14 (v0.48.0): Oklahoma City and the four Nebraska barns, trimmed to the 550 lb prices; reports exactly as sent.",
+ "as_of": "2026-10-14",
+ "hub": 1280,
+ "source": "USDA AMS MyMarketNews auction reports",
+ "method": "Herd Planner's price model: the hub market (Oklahoma City) plus each barn's own measured difference from it; the range is where 8 in 10 real sales fell when the model was tested on sales it never saw.",
+ "barns": [
+  {
+   "slug": 1280,
+   "name": "Oklahoma National Stockyards",
+   "city": "Oklahoma City",
+   "state": "OK",
+   "sale": "Feeder Cattle Auction",
+   "last_sale": "2026-10-12",
+   "fresh": true,
+   "is_hub": true,
+   "lat": 35.468,
+   "lon": -97.516,
+   "prices": [
+    {
+     "animal_class": "Steers",
+     "weight_lb": 550,
+     "price": 402.39,
+     "low": 381.6,
+     "high": 419.46
+    },
+    {
+     "animal_class": "Heifers",
+     "weight_lb": 550,
+     "price": 369.06,
+     "low": 349.99,
+     "high": 384.72
+    }
+   ],
+   "report": {
+    "sale_date": "2026-10-12",
+    "section": "Feeder Cattle",
+    "head_sold": 5496,
+    "head_week_ago": 4242,
+    "head_year_ago": 5163,
+    "final": true,
+    "summary": "Compared to last week: Feeder steers over 750lbs steady to 3.00 higher, under 750lbs 5.00-10.00 higher.",
+    "narrative": "Compared to last week: Feeder steers over 750lbs steady to 3.00 higher, under 750lbs 5.00-10.00 higher. Feeder heifers 2.00-7.00 higher. Steer calves 10.00-20.00 higher. Heifers calves over 500lbs 4.00-8.00 higher, under 500lbs 10.00-20.00 higher. Demand good for all classes of cattle. Quality average. Most feeders were coming off grass and condition was in the buyer's favor. Buyers reported an increase in orders as wheat has emerged across the trading area, with additional rainfall forecasted throughout the remainder of the week.",
+    "url": "https://mymarketnews.ams.usda.gov/viewReport/1280"
+   }
+  },
+  {
+   "slug": 1851,
+   "name": "Burwell Livestock Market",
+   "city": "Burwell",
+   "state": "NE",
+   "sale": "Feeder Cattle Auction",
+   "last_sale": "2026-10-02",
+   "fresh": true,
+   "is_hub": false,
+   "lat": 41.782,
+   "lon": -99.133,
+   "prices": [
+    {
+     "animal_class": "Steers",
+     "weight_lb": 550,
+     "price": 440.1,
+     "low": 418.79,
+     "high": 461.9
+    },
+    {
+     "animal_class": "Heifers",
+     "weight_lb": 550,
+     "price": 403.58,
+     "low": 384.03,
+     "high": 423.57
+    }
+   ],
+   "report": {
+    "sale_date": "2026-10-02",
+    "section": "Feeder Cattle",
+    "head_sold": 2090,
+    "head_week_ago": 440,
+    "head_year_ago": 0,
+    "final": true,
+    "summary": "A limited number of comparable offerings from last weeks a trend will not be given.",
+    "narrative": "A limited number of comparable offerings from last weeks a trend will not be given. Today's auction started the day with Feeders off grass, pregged checked open heifers then onto Fall calves and finished up the auction with Spring calves. Demand was moderate to good with active internet bidding. Next Auction Date Oct 16th 23rd & 30th Spring Calf and Feeder Auctions",
+    "url": "https://mymarketnews.ams.usda.gov/viewReport/1851"
+   }
+  },
+  {
+   "slug": 1852,
+   "name": "Bassett Livestock Auction",
+   "city": "Bassett",
+   "state": "NE",
+   "sale": "Feeder Cattle Auction",
+   "last_sale": "2026-10-07",
+   "fresh": true,
+   "is_hub": false,
+   "lat": 42.586,
+   "lon": -99.538,
+   "prices": [
+    {
+     "animal_class": "Steers",
+     "weight_lb": 550,
+     "price": 449.7,
+     "low": 429.52,
+     "high": 473.72
+    },
+    {
+     "animal_class": "Heifers",
+     "weight_lb": 550,
+     "price": 414.35,
+     "low": 395.75,
+     "high": 436.48
+    }
+   ],
+   "report": {
+    "sale_date": "2026-10-07",
+    "section": "Feeder Cattle",
+    "head_sold": 1045,
+    "head_week_ago": 2055,
+    "head_year_ago": 1785,
+    "final": true,
+    "summary": "No comparable offerings from two weeks ago a trend will not be given for steers or heifers.",
+    "narrative": "No comparable offerings from two weeks ago a trend will not be given for steers or heifers. Today's auction started the day with weigh-ups, yearling offerings off grass, followed by pregged checked opens heifers, and finished the day with non-weaned spring calves. Demand was good for all offerings. Next Auction Dates Oct 14th Special Feeder Cattle Auction, Oct 21st Special Bred Cows & Pairs, Oct 28th Special Yearlings and Calves",
+    "url": "https://mymarketnews.ams.usda.gov/viewReport/1852"
+   }
+  },
+  {
+   "slug": 3653,
+   "name": "North Platte Stockyards",
+   "city": "North Platte",
+   "state": "NE",
+   "sale": "Feeder Cattle Auction",
+   "last_sale": "2026-10-13",
+   "fresh": true,
+   "is_hub": false,
+   "lat": 41.124,
+   "lon": -100.765,
+   "prices": [
+    {
+     "animal_class": "Steers",
+     "weight_lb": 550,
+     "price": 432.08,
+     "low": 413.43,
+     "high": 455.92
+    },
+    {
+     "animal_class": "Heifers",
+     "weight_lb": 550,
+     "price": 396.29,
+     "low": 379.19,
+     "high": 418.16
+    }
+   ],
+   "report": {
+    "sale_date": "2026-10-13",
+    "section": "Feeder Cattle",
+    "head_sold": 951,
+    "head_week_ago": 1132,
+    "head_year_ago": 850,
+    "final": true,
+    "summary": "Compared to last week, steer and heifer calves sold with a lower undertone.",
+    "narrative": "Compared to last week, steer and heifer calves sold with a lower undertone. Demand was mostly moderate, instances good from in house buyers with an active internet. Bulk of the trade sold in packages throughout the day. Majority of the calves had fall precondition shots. For the few lots that only had spring vaccination protocol a steep discount was applied by the buyers. Some nice packages of preg checked open heifers off area ranchers replacements in the run.",
+    "url": "https://mymarketnews.ams.usda.gov/viewReport/3653"
+   }
+  },
+  {
+   "slug": 3801,
+   "name": "Gordon Livestock Market",
+   "city": "Gordon",
+   "state": "NE",
+   "sale": "Feeder Cattle Special",
+   "last_sale": "2024-11-02",
+   "fresh": false,
+   "is_hub": false,
+   "lat": 42.805,
+   "lon": -102.203,
+   "prices": [
+    {
+     "animal_class": "Steers",
+     "weight_lb": 550,
+     "price": 430.16,
+     "low": 422.93,
+     "high": 449.63
+    },
+    {
+     "animal_class": "Heifers",
+     "weight_lb": 550,
+     "price": 394.53,
+     "low": 387.9,
+     "high": 412.38
+    }
+   ],
+   "report": null
+  }
+ ]
+}

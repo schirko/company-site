@@ -29,6 +29,7 @@ company-site/
 ├── charts.py          draws the "Why Use Our Apps" charts as SVG, in plain Python
 ├── hero.py            the home page's live numbers: three pins on the photo, and the panel under it
 ├── barn_pages.py      one page per sale barn, and the Barn Prices index
+├── markets.py         weekly market news: one page per state and week, from USDA's auction reports
 ├── static/panel.js    "See your county": swaps the pins and the panel's tiles to a visitor's county
 ├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
 ├── static/menu.js     the header's Our Farm Apps menu: closes on a click elsewhere, Escape or a chosen link
@@ -239,6 +240,31 @@ description and address, and `static/brand/og-card.png`, 1200 x 630, the logo on
 shared by text or on Facebook shows a card. Every page also carries JSON-LD naming the publisher
 (`Organization`), and barn pages their trail (`BreadcrumbList`: Home > Barn Prices > the barn). Search engines
 read neither while `PUBLIC` is False. `build.social_tags` and `build.structured_data`; tests in `test_site.py`.
+
+## Market News: One Page per State and Week (2026-10-14)
+
+Scott wanted fresh content for ranchers and for search engines without republishing other people's articles. So the
+site writes its own weekly market news from USDA's auction reports, which are public domain (17 U.S.C. 105) and are
+quoted as written. Nebraska comes first (Scott, 2026-10-12); Iowa follows once Herd Planner follows Iowa barns. The
+layout is the one Scott chose "As drawn": `notes/nebraska-markets-computer/phone-2026-10-14.png`.
+
+- **Where the words come from.** Herd Planner v0.48+ sends, in `/suite/barns`, USDA's report of each barn's latest
+  sale: head sold, USDA's week-ago and year-ago counts, the reporter's summary and narrative, and the report's link.
+  `cards.record_barns` keeps it with the barn's weekly sheet in `content/cards/barns.json` (`report`, `REPORT_KEYS`).
+  Weeks saved before 2026-10-16 have no report, so the first page appears after that Friday's run.
+- **The pages** (`markets.py`): `markets-ne.html` is the newest week; `markets-ne-2026-w42.html` is one week (named by
+  its ISO week, headed "Week of" its Monday), rebuilt the same from the saved data every time, so it never changes once
+  the week is over. Each page lists the earlier weeks. A state gets a page for a week only when at least one of its
+  barns had a fresh sale with a report (thin pages hurt a site in search).
+- **On a page:** an opening line made by rules from the newest sale (head sold against USDA's own counts, then the
+  reporter's summary in quotes); tiles for head sold at the latest sales, Herd Planner's 550 lb steer estimate across
+  those barns (labelled as ours, not a quote) and the next sale dates the reporter names ("Next Auction Date Oct
+  16th", from the day the page is written; otherwise how many barns reported); a card per barn, newest sale first,
+  with the narrative and the link to USDA's report; a quiet line for each barn without a fresh sale.
+- **Rules:** head counts are neutral (more cattle isn't good or bad), so their arrows are never red; USDA's internal
+  markers ("*** Add Close ***") are dropped, its words aren't changed; a preliminary report says so.
+- **Reached from Barn Prices** (Scott, 2026-10-13): a "This Week's Markets" list above the barns. No new header link.
+- Tests: `tests/test_markets.py`, on Herd Planner's real answer of 2026-10-14 (`tests/data/suite-barns-2026-10-14.json`).
 
 ## The app tiles row
 

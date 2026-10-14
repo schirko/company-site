@@ -295,7 +295,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     return title, desc, body
 
 
-def index_page(all_barns: dict, nice_date) -> str:
+def index_page(all_barns: dict, nice_date, markets_html: str = "") -> str:
     by_state: dict[str, list] = {}
     for slug, barn in all_barns.items():
         by_state.setdefault(barn.get("state") or "Other", []).append((slug, barn))
@@ -323,6 +323,6 @@ def index_page(all_barns: dict, nice_date) -> str:
     <h1>Sale Barn Prices</h1>
     <p class="lede">What feeder cattle are bringing at each sale barn Herd Planner follows, worked out every Friday
       from USDA auction reports, with the range real sales fall in.</p>
-{body}
+{markets_html}{body}
   </div>
 </section>"""
