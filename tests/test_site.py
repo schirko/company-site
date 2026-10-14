@@ -1121,7 +1121,8 @@ def test_the_privacy_page_says_what_your_fields_keeps(site):
     item = page.split('id="your-fields"', 1)[1].split("</li>", 1)[0]
     for words in ("if you tick the box to keep it", "never the single readings", "seen only by you",
                   "Delete removes them for good",
-                  "its outline (with no name or account) is sent to USDA's Soil Data Access"):   # v0.31.0, soils
+                  "its outline (with no name or account) is sent to USDA's Soil Data Access",    # v0.31.0, soils
+                  "the yields you type into a field's history are seen only by you"):              # v0.32.0, history
         assert words in " ".join(item.split()), words
 
 
