@@ -23,6 +23,13 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 .site-nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .site-nav > a { text-decoration: none; font-weight: 600; }
 .site-nav > a[aria-current="page"] { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }
+/* Suite version 12 (2026-10-15): every green bar is 68 px tall from 641 px up (suite.css), so on a narrow tablet the
+   links sit a little closer and smaller to stay on the logo's line. */
+@media (max-width: 899px) and (min-width: 641px) { .header-row { gap: 10px 12px; } .site-nav { gap: 10px; }
+  .site-nav > a, .site-nav .mega > summary { font-size: .85rem; } .site-nav .nav-signin { padding: 3px 10px; } }
+/* Below 800 px How We Test leaves the bar (it is in the Our Farm Apps menu and the footer too), so the rest still fits. */
+@media (max-width: 799px) and (min-width: 641px) { .site-nav > a.nav-methods { display: none; } }
+@media (max-width: 719px) and (min-width: 641px) { .header-row > .wordmark img { height: 30px }   /* (a narrow tablet; the phone's own rule is below) */ .header-row, .site-nav { flex-wrap: nowrap; } .site-nav > a, .site-nav .mega > summary { white-space: nowrap; } }
 
 /* Our Farm Apps menu (chosen 2026-09-30, option C): apps sorted by operation, the free tools, How We Test.
    A <details> element; static/menu.js closes it on a click elsewhere, Escape or a chosen link. */
