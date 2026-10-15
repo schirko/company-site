@@ -58,6 +58,8 @@ APP_PAGE = "{}.html"
 # herd-planner/brand/suite-apps.json (then copied here).
 # The menu's groups come from "groups" in static/suite/suite-apps.json (suite version 7, 2026-10-11), the same list
 # every app's Farm Apps menu uses, so the site's menu and the apps' menus can't drift apart.
+# Suite version 10: each group's apps still being built ("soon" in suite-apps.json), shown greyed as Coming Soon.
+SOON = {g["title"]: g.get("soon", []) for g in json.loads((STATIC / "suite" / "suite-apps.json").read_text(encoding="utf-8"))["groups"]}
 OPERATIONS = [(g["title"], g["lead"], g["apps"]) for g in
               json.loads((STATIC / "suite" / "suite-apps.json").read_text(encoding="utf-8"))["groups"]]
 HISTORY_WEEKS = 12  # weeks listed on each app page
@@ -111,9 +113,13 @@ def mega_menu(apps) -> str:
         return (f'          <a class="mega-app" href="{APP_PAGE.format(e(a["id"]))}">'
                 f'<img src="suite/suite-logos/{e(a["id"])}.svg" alt="" width="40" height="40">'
                 f'<span><b>{e(a["name"])}</b><small>{e(a["what"])}</small></span></a>')
+    def soon_row(a):   # suite version 10 (Scott chose A of notes/coming-soon-options-2026-10-14.png): nothing to open
+        return (f'          <div class="mega-app soon">'
+                f'<img src="soon/{e(a["id"])}.svg" alt="" width="40" height="40">'
+                f'<span><b>{e(a["name"])}</b><small>{e(a["what"])}</small></span><em>Coming Soon</em></div>')
     groups = []
     for title, lead, ids in OPERATIONS:
-        links = "\n".join(app_link(by_id[i]) for i in ids if i in by_id)
+        links = "\n".join([app_link(by_id[i]) for i in ids if i in by_id] + [soon_row(a) for a in SOON.get(title, [])])
         if links:
             groups.append(f'        <div class="mega-op">\n          <div class="mega-op-head"><p class="mega-op-title">{e(title)}</p>'
                           f'<p class="mega-op-lead">{e(lead)}</p></div>\n{links}\n        </div>')

@@ -34,17 +34,19 @@
     return node;
   }
 
-  // One app's row: its logo, name and one line, and where you stand (You're here, Open, Coming soon).
+  // One app's row: its logo, name and one line, and where you stand (You're here, Open, Coming Soon).
+  // Suite version 10: an app still being built ("soon" in its group) gets a greyed row that opens nothing.
   function appRow(app, here, base) {
     const isHere = app.id === here;
     const row = app.url && !isHere ? el("a", { class: "suite-app", href: app.url }) : el("div", { class: "suite-app" });
     if (isHere) row.classList.add("here");
+    if (!app.url && !isHere) row.classList.add("soon");
     row.appendChild(el("img", { src: `${base}/suite-logos/${app.id}.svg`, alt: "", width: "40", height: "40" }));
     const words = el("span", { class: "suite-app-words" });
     words.appendChild(el("strong", {}, app.name));
     words.appendChild(el("span", {}, app.what));
     row.appendChild(words);
-    row.appendChild(el("span", { class: "suite-app-status" }, isHere ? "You're here" : app.url ? "Open" : "Coming soon"));
+    row.appendChild(el("span", { class: "suite-app-status" }, isHere ? "You're here" : app.url ? "Open" : "Coming Soon"));
     return row;
   }
 
@@ -64,9 +66,6 @@
     if (list.company && here !== "company-site") {
       top.appendChild(el("a", { class: "suite-apps-home", href: list.company.url }, `${list.company.name} home`));
     }
-    if (list.account && here !== "farm-account") {
-      top.appendChild(el("a", { class: "suite-apps-account", href: list.account.url }, `${list.account.name} \u2192`));
-    }
     if (top.children.length) panel.appendChild(top);
     const byId = Object.fromEntries(list.apps.map((a) => [a.id, a]));
     const ops = el("div", { class: "suite-ops" });
@@ -77,9 +76,18 @@
       if (group.lead) head.appendChild(el("p", { class: "suite-op-lead" }, group.lead));
       op.appendChild(head);
       for (const id of group.apps) if (byId[id]) op.appendChild(appRow(byId[id], here, base));
+      for (const soon of group.soon || []) op.appendChild(appRow({ ...soon, url: null }, here, base));
       ops.appendChild(op);
     }
     panel.appendChild(ops);
+    // Suite version 10 (Scott, 2026-10-14, of the company site's menu: "I like that it also has the My Farm link on
+    // the bottom"): My Farm on a line of its own at the bottom, as there. Not in My Farm itself.
+    if (list.account && here !== "farm-account") {
+      const foot = el("p", { class: "suite-apps-foot" });
+      foot.appendChild(el("span", {}, "Your apps in one place."));
+      foot.appendChild(el("a", { class: "suite-apps-account", href: list.account.url }, `${list.account.name} \u2192`));
+      panel.appendChild(foot);
+    }
     menu.appendChild(panel);
   }
 

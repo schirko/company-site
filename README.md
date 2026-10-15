@@ -319,6 +319,16 @@ pairs), the Yield Predictor's map and Hall County, the Equipment Planner's buy, 
 County. Retake them when an app's look changes: desktop at 1000 x 750, phone at 390 wide, both at 2x,
 then shrink to those widths as JPEG (quality about 84). A test keeps the set under 900 KB.
 
+## Coming Soon in Our Farm Apps (suite version 10, 2026-10-14)
+
+Scott, of this menu: "It looks like this popout card needs it too." He chose **A** of
+`notes/coming-soon-options-2026-10-14.png`: an app still being built shows in its group of the header's Our Farm Apps
+menu as a greyed row, the logo faded and **Coming Soon** where the others open, with nothing to click. The list is a
+group's `"soon"` in `static/suite/suite-apps.json` (copied from `herd-planner/brand`); `build.py` reads it as `SOON`
+and `mega_menu()` draws the rows, using the In development logo in `static/soon/`. The first is the Hay & Feed
+Planner, which keeps its home page tile and strip too. The apps' Farm Apps menus show the same rows, and now put My
+Farm on a line at the bottom, as this menu always has.
+
 ## The fuller app page (Herd Planner first, 2026-10-05)
 
 Scott: "I feel like we need more comprehensive landing page for each product. Showing cutoff lending reports

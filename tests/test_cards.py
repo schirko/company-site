@@ -26,6 +26,10 @@ def weeks_file(tmp_path, monkeypatch):
     monkeypatch.setattr(cards, "fetch_grass", lambda fips: (None, "not asked in tests"))
     monkeypatch.setattr(cards, "BARNS_FILE", tmp_path / "barns.json")
     monkeypatch.setattr(build, "OUT", tmp_path / "docs")  # never leave test numbers in the real docs/
+    # The pages are built "as of" the test's Friday, not the day the tests run: a steer price older than three
+    # weeks is dropped (cards.current), so on 2026-10-15 the Sep 23 sale here aged out and the home page lost it.
+    real_current = cards.current
+    monkeypatch.setattr(cards, "current", lambda today=None: real_current(today or FRIDAY))
     return tmp_path / "weeks.json"
 
 

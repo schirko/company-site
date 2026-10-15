@@ -156,15 +156,16 @@ def test_sign_in_is_in_every_page_menu(site):
 
 
 def test_apps_in_development_get_an_honest_tile_and_nothing_else(site):
-    """A tile on the home page (tag, Get Notified), but no app page, no Farm Apps menu entry, no footer link.
-    Scott, 2026-10-12: a fifth tile, "Coming Soon", not clickable itself, \"just makes the suite look stronger\"."""
+    """A tile on the home page (tag, Get Notified), but no app page and no footer link. Scott, 2026-10-12: a fifth
+    tile, "Coming Soon", not clickable itself, \"just makes the suite look stronger\". Since suite version 10
+    (2026-10-14) it is also a greyed Coming Soon row in the Our Farm Apps menu (test_the_menu_shows_coming_soon_apps)."""
     copy = json.loads((ROOT / "content/apps.json").read_text(encoding="utf-8"))
     suite_ids = {a["id"] for a in build.load_apps()}
     home = (site / "index.html").read_text(encoding="utf-8")
     for app in copy["in_development"]:
         assert app["id"] not in suite_ids, f"{app['id']} is live: remove it from in_development"
         assert (site / "soon" / f"{app['id']}.svg").exists()
-        tile = home[home.index(f'soon/{app["id"]}.svg'):]
+        tile = home[home.index(f'soon/{app["id"]}.svg', home.index("<main")):]   # the tile, not the menu's row
         tile = tile[:tile.index("</div>")]
         assert "Coming Soon" in tile and 'href="#notify"' in tile and html.escape(app["name"]) in tile and "Get Notified" in tile
         assert not (site / build.APP_PAGE.format(app["id"])).exists()
@@ -1137,3 +1138,20 @@ def test_every_page_has_the_ask_a_question_button_hidden_until_it_is_on(site):
         html = (site / page).read_text(encoding="utf-8")
         assert button in html and html.index(button) < html.index('<script src="suite/suite.js'), page
 
+
+
+
+def test_the_menu_shows_coming_soon_apps(tmp_path, monkeypatch):
+    """Suite version 10 (Scott chose A of notes/coming-soon-options-2026-10-14.png; "It looks like this popout card
+    needs it too"): an app still being built ("soon" in a group of suite-apps.json) shows greyed in Our Farm Apps,
+    with Coming Soon and nothing to click, the same rows as the apps' Farm Apps menus."""
+    html = build.mega_menu(build.load_apps())
+    soon = [a for g in json.loads((ROOT / "static/suite/suite-apps.json").read_text(encoding="utf-8"))["groups"] for a in g.get("soon", [])]
+    assert soon, "nothing is coming soon: this test can go"
+    for app in soon:
+        row = html[html.index(f'<div class="mega-app soon"><img src="soon/{app["id"]}.svg"'):]
+        row = row[:row.index("</div>")]
+        assert f"<b>{build.e(app['name'])}</b>" in row and "<em>Coming Soon</em>" in row and "href" not in row
+        assert (ROOT / "static/soon" / f"{app['id']}.svg").exists()
+    ranches = html[html.index("For Ranches"):html.index("For Farms")]
+    assert ranches.index("Grazing Planner") < ranches.index("Hay &amp; Feed Planner")   # after the open apps

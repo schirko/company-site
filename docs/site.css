@@ -56,6 +56,12 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
   border-radius: 10px; color: var(--suite-ink); }
 .mega-panel a.mega-app:hover, .mega-panel a.mega-app:focus-visible { background: var(--suite-gold-tint); }
 .mega-app img { flex: none; width: 40px; height: 40px; }
+/* Suite version 10 (Scott chose A of notes/coming-soon-options-2026-10-14.png): an app still being built, greyed, with
+   Coming Soon where the others open; nothing to click. The same rows the apps' Farm Apps menus show. */
+.mega-panel .mega-op div.mega-app { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: 0 8px 2px; }
+.mega-app.soon img { opacity: .6; }
+.mega-app.soon > span { flex: 1; }
+.mega-app.soon em { font-style: normal; font-size: .75rem; font-weight: 600; color: var(--suite-muted); white-space: nowrap; margin-top: 2px; }
 .mega-app b { display: block; font-size: 1rem; }
 .mega-panel small { display: block; font-size: .84rem; font-weight: 400; color: var(--suite-muted); line-height: 1.35; }
 .mega-head { margin: 4px 0 8px; font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--suite-muted); }
