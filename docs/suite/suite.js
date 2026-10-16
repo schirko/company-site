@@ -23,7 +23,9 @@
    class suite-ask-hidden and is shown only once My Farm says the assistant is on (GET /ask/status), so a page
    never offers a button that only says it's off. Where to ask: data-suite-ask-url on the element (My Farm itself
    uses "/ask"), else My Farm's address from "account" in suite-apps.json. Every word from the server is put in
-   with textContent, never as HTML. */
+   with textContent, never as HTML.
+
+   Suite version 11 (2026-10-15): an eye in every password box that shows and hides the password (see addEye). */
 (function () {
   "use strict";
 
@@ -271,6 +273,56 @@
         .then((done) => { form.remove(); b.appendChild(el("p", { class: "suite-ask-done" }, done.message)); })
         .catch(() => { go.disabled = false; b.appendChild(el("p", { class: "suite-ask-done" }, ASK_WORDS.trouble)); });
     });
+  }
+
+  // Suite version 11 (Scott, 2026-10-15: "We need an eyeball" in the password box): every password box in every app
+  // gets an eye at its right end that shows what was typed, and hides it again. My Farm and the Grazing Planner each
+  // had their own copy of this (same look); it moved here so Herd Planner and the Equipment Planner have it too. The box is wrapped in
+  // <span class="suite-pw"> so the eye can sit inside it. Sending the form always hides it first, so a browser never
+  // saves or shows the password as plain text. Boxes drawn later (a dialog, a page drawn by script) get one too.
+  const SVG = "http://www.w3.org/2000/svg";
+  function eyeIcon(open) {                         // the drawing My Farm and the Grazing Planner had used since 2026-09
+    const svg = document.createElementNS(SVG, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    const paths = ["M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z", "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"];
+    if (!open) paths.push("M4 4l16 16");               // crossed out: the password is showing, click to hide it
+    for (const d of paths) {
+      const path = document.createElementNS(SVG, "path");
+      path.setAttribute("d", d);
+      svg.appendChild(path);
+    }
+    return svg;
+  }
+  function addEye(input) {
+    if (input.dataset.suiteEye !== undefined || !input.parentNode) return;
+    input.dataset.suiteEye = "";
+    const wrap = el("span", { class: "suite-pw" });
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(input);
+    const eye = el("button", { type: "button", class: "suite-eye", "aria-label": "Show password", title: "Show password", "aria-pressed": "false" });
+    eye.appendChild(eyeIcon(true));
+    wrap.appendChild(eye);
+    function show(on) {
+      input.type = on ? "text" : "password";
+      eye.setAttribute("aria-pressed", String(on));
+      eye.setAttribute("aria-label", on ? "Hide password" : "Show password");
+      eye.title = on ? "Hide password" : "Show password";
+      eye.replaceChildren(eyeIcon(!on));
+    }
+    eye.addEventListener("click", () => { show(input.type === "password"); input.focus(); });
+    if (input.form) input.form.addEventListener("submit", () => show(false), true);
+  }
+  function addEyes(root) {
+    if (root.matches && root.matches('input[type="password"]')) addEye(root);
+    if (root.querySelectorAll) for (const input of root.querySelectorAll('input[type="password"]')) addEye(input);
+  }
+  addEyes(document);
+  if (typeof MutationObserver === "function") {
+    new MutationObserver((changes) => {
+      for (const change of changes) for (const node of change.addedNodes) if (node.nodeType === 1) addEyes(node);
+    }).observe(document.body || document.documentElement, { childList: true, subtree: true });
   }
 
   const askers = document.querySelectorAll("[data-suite-ask]");
