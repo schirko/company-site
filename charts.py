@@ -341,3 +341,41 @@ def best_months_table(season: dict) -> str:
     body = "".join("<tr>" + "".join(f"<td>{e(c)}</td>" for c in row) + "</tr>" for row in rows)
     return (f'<details class="numbers"><summary>Show the numbers</summary><div class="table-scroll">'
             f'<table class="results"><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div></details>')
+
+
+# --- Why We Built This: the beef herd through the drought (content/drought.json, 2026-10-16) -------------------
+
+HERD_DARK, HERD_MID = "#243b2f", "#5d7a68"   # the suite's deep green; the same hue lighter for the years between
+DROUGHT_BAND, DROUGHT_WORDS = "#f6ead0", "#6b4e10"
+
+
+def herd_size(chart: dict) -> str:
+    """U.S. beef cows each January as bars from zero (so the 13% drop isn't drawn bigger than it is), the drought
+    years shaded behind them, the first and last year darker. Every bar is labeled: there are only eight."""
+    years, cows = chart["years"], [v / 1000 for v in chart["beef_cows_thousand"]]
+    w, h, left, bottom, top = 520, 250, 34, 34, 46
+    f = Frame(0, 35, [0, 10, 20, 30])
+    f.x0, f.x1, f.y0, f.y1 = left, w - 8, top, h - bottom
+    step = (f.x1 - f.x0) / len(years)
+    first, last = chart["drought_years"]
+    i0, i1 = years.index(first), years.index(last)
+    bx0, bx1 = f.x0 + step * i0, f.x0 + step * (i1 + 1)
+    out = [f'<rect x="{bx0:.1f}" y="{top - 40}" width="{bx1 - bx0:.1f}" height="{f.y1 - top + 40:.1f}" fill="{DROUGHT_BAND}"/>',
+           f'<text x="{(bx0 + bx1) / 2:.1f}" y="{top - 26}" text-anchor="middle" class="band-label" fill="{DROUGHT_WORDS}">'
+           f'Drought years, {first} to {last}</text>', f.grid()]
+    for i, (yr, v) in enumerate(zip(years, cows)):
+        x, bw = f.x0 + step * i + 6, step - 12
+        ends = i in (0, len(years) - 1)
+        out.append(bar(x, bw, f.y(0), f.y(v), HERD_DARK if ends else HERD_MID, f"{yr}: {v:.1f} million beef cows"))
+        out.append(f'<text x="{x + bw / 2:.1f}" y="{f.y(v) - 5:.1f}" text-anchor="middle" class="val{" strong" if ends else ""}">{v:.1f}</text>')
+        out.append(f'<text x="{x + bw / 2:.1f}" y="{h - bottom + 16}" text-anchor="middle" class="tick">{yr}</text>')
+    label = "U.S. beef cows on January 1, in millions: " + ", ".join(f"{y} {v:.1f}" for y, v in zip(years, cows))
+    return (f'<svg class="chart herd-chart" viewBox="0 0 {w} {h}" role="img" aria-label="{e(label)}" '
+            f'preserveAspectRatio="xMidYMid meet">{"".join(out)}</svg>')
+
+
+def herd_size_table(chart: dict) -> str:
+    rows = "".join(f"<tr><td>{y}</td><td>{v:,.1f}</td></tr>" for y, v in zip(chart["years"], chart["beef_cows_thousand"]))
+    return (f'<details class="numbers"><summary>Show the numbers</summary><div class="table-scroll">'
+            f'<table class="results"><thead><tr><th>January 1</th><th>Beef cows (thousand head)</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div></details>')

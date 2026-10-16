@@ -407,6 +407,38 @@ svg.chart path:hover, svg.chart circle:hover { opacity: .8; }
 details.numbers { margin-top: 10px; font-size: .9rem; }
 details.numbers summary { cursor: pointer; color: var(--suite-link, #2a78d6); }
 @media (max-width: 900px) { .stories { grid-template-columns: 1fr; } }
+/* Why We Built This, the drought story (2026-10-16; content/drought.json, build.drought_block) */
+.dr-top { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: start; }
+.dr-story { font-size: 1.06rem; line-height: 1.6; margin: 0 0 12px; }
+.dr-tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: #fbf3e2;
+  color: #6b4e10; border: 1px dashed #b8862b; border-radius: 999px; padding: 1px 8px; margin-right: 6px; vertical-align: 2px; }
+.dr-top .note { font-size: .88rem; }
+.dr-chart-card { margin: 0; background: #fff; border: 1px solid var(--suite-line); border-radius: 12px; padding: 14px 16px 10px; }
+.dr-sub { margin: 0 0 4px; font-size: .85rem; color: var(--suite-muted); }
+.dr-chart-card .source, .dr-steps .source { font-size: .8rem; color: var(--suite-muted); margin: 6px 0 0; }
+svg.herd-chart .val { font-size: 12px; fill: var(--suite-ink); }
+svg.herd-chart .val.strong { font-weight: 700; }
+svg.herd-chart .band-label { font-size: 12px; font-weight: 700; }
+svg.herd-chart .tick { font-size: 12px; }
+.dr-steps { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; counter-reset: dr; }
+.dr-steps li { position: relative; background: #fff; border: 1px solid var(--suite-line); border-top: 4px solid #b8862b; border-radius: 10px;
+  padding: 12px 12px 10px; counter-increment: dr; }
+.dr-steps li:last-child { border-top-color: var(--suite-deep-green); }
+.dr-steps h3 { font-size: .98rem; margin: 0 0 6px; display: flex; gap: 8px; align-items: center; }
+.dr-steps h3::before { content: counter(dr); display: inline-grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--suite-deep-green); color: #fff; font-size: .8rem; }
+.dr-steps p { margin: 0; font-size: .92rem; line-height: 1.45; }
+.dr-steps li:not(:last-child)::after { content: "\2192"; position: absolute; right: -12px; top: 44%; font-weight: 700; color: #b8862b; }
+.dr-help { margin-top: 28px; }
+.dr-help h3 { margin: 0 0 10px; }
+.dr-help ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 24px; }
+.dr-help li { padding-left: 16px; border-left: 3px solid #5d7a68; }
+@media (max-width: 900px) {
+  .dr-top { grid-template-columns: 1fr; }
+  .dr-steps { grid-template-columns: 1fr; gap: 16px; }
+  .dr-steps li:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -18px; }
+  .dr-help ul { grid-template-columns: 1fr; }
+}
 
 /* The live panel in the hero (hero.py): this week's real numbers, drawn like a small dashboard */
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }

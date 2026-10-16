@@ -928,6 +928,62 @@ def story_block(story, apps_by_id, heading="h3", link=True, how=False, split=Fal
       </figure>"""
 
 
+def load_drought():
+    return json.loads((CONTENT / "drought.json").read_text(encoding="utf-8"))
+
+
+def bold(text: str) -> str:
+    """**words** in content files become <strong>words</strong>; everything else is escaped."""
+    parts = e(text).split("**")
+    return "".join(f"<strong>{p}</strong>" if i % 2 else p for i, p in enumerate(parts))
+
+
+def drought_block(d, apps_by_id) -> str:
+    """Why We Built This (2026-10-16; Scott: "The 2020ish draughts caused crop and feed growing issues which led to
+    cattle numbers issues. That's how herd planner started... Our apps help with draught planning"). His choice A
+    of notes/site-why-we-built-this-2026-10-16.png: the whole story on the home page, every number with its source
+    under it (content/drought.json; the research is the project's claude/drought-plan.md)."""
+    ch = d["chart"]
+    draft = '<span class="dr-tag">Draft for Scott to rewrite</span> ' if d.get("draft") else ""
+    steps = "\n".join(f"""        <li><h3>{e(s["title"])}</h3><p>{bold(s["text"])}</p><p class="source">{e(s["source"])}</p></li>"""
+                      for s in d["steps"])
+
+    def helper(h):
+        app = apps_by_id.get(h["app"])
+        name = e(h.get("name") or (app["name"] if app else h["app"]))
+        link = f'<a href="{APP_PAGE.format(e(app["id"]))}">{name}</a>' if app else name
+        return f"        <li><strong>{link}</strong>: {e(h['text'])}</li>"
+    helps = "\n".join(helper(h) for h in d["help"])
+    return f"""<section class="quiet-top dr" id="why-we-built-this">
+  <div class="wrap">
+    <p class="eyebrow">{e(d["eyebrow"])}</p>
+    <h2>{e(d["title"])}</h2>
+    <div class="dr-top">
+      <div>
+        <p class="dr-story">{draft}{e(d["story"])}</p>
+        <p class="note">{e(d["caution"])}</p>
+      </div>
+      <figure class="dr-chart-card">
+        <p class="chart-title">{e(ch["title"])}</p>
+        <p class="dr-sub">{e(ch["change"])}</p>
+        {charts.herd_size(ch)}
+        <p class="source">Source: {e(ch["source"])}</p>
+        {charts.herd_size_table(ch)}
+      </figure>
+    </div>
+    <ol class="dr-steps">
+{steps}
+    </ol>
+    <div class="dr-help">
+      <h3>{e(d["help_title"])}</h3>
+      <ul>
+{helps}
+      </ul>
+    </div>
+  </div>
+</section>"""
+
+
 def contact_sentence():
     if config.EMAIL:
         return f'Write to us at <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.'
@@ -1003,6 +1059,7 @@ def build():
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
         "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
+        "drought": drought_block(load_drought(), apps_by_id),
         "live_panel": hero.panel(week, stories, nice_date, barn_href, steer_tile,
                                  cards.load_static(cards.EQUIP).get("years")),
         "pins": hero.pins(week, barn_href, steer_pin),

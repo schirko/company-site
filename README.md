@@ -41,6 +41,7 @@ company-site/
 │                      an app's fuller page, and "in_development": apps being built (a tile with Get
 │                      notified, nothing else)
 ├── content/stories.json  the "Why Use Our Apps" findings: numbers, words and sources
+├── content/drought.json  Why We Built This: the drought story, its chart numbers and sources
 ├── content/cards/     the county card files from the Yield Predictor and Equipment Planner,
 │                      and weeks.json (every week shown so far, newest first)
 ├── .github/workflows/ weekly-cards.yml: the Friday refresh
@@ -521,6 +522,27 @@ until Scott picks one (`.founder-badge`).
 - **Add a story:** add an entry to `stories.json`. A new chart shape needs a new function in
   `charts.py` and a line in its `KINDS` table.
 - Hovering a bar or point shows its value; **Show the numbers** opens the same numbers as a table.
+
+## Why We Built This: the drought story (2026-10-16)
+
+On the home page between Our Promises and Built in Centennial, Colorado: why the apps exist. Scott: "The 2020ish
+draughts caused crop and feed growing issues which led to cattle numbers issues. That's how herd planner started."
+He chose A of `notes/site-why-we-built-this-2026-10-16.png` (the whole story on the home page).
+
+- **Everything is in `content/drought.json`:** the paragraph (`"draft": true` shows a "Draft for Scott to rewrite"
+  tag; set it to false once the words are his), five steps from drought to a smaller herd, the chart's numbers
+  and "How Our Apps Help in a Dry Year". `**words**` in the step text are shown bold.
+- **Every number names its source**, under it on the page: the U.S. Drought Monitor (via *Drovers*), USDA NASS
+  (via UNL CropWatch), Oklahoma State University Extension (Derrell Peel) and the NASS *Cattle* reports. The
+  research and the full list are in the Cornerpost Logic project's `claude/drought-plan.md`.
+- **The chart** (`charts.herd_size`): U.S. beef cows each January 1, 2019 to 2026, each year as revised the
+  following January (2026 is the first estimate). Bars start at zero so the drop (4.1 million, 13%) isn't drawn
+  bigger than it is; the drought years are shaded; Show the numbers has the table.
+- **Each January**, when NASS publishes the new *Cattle* report: add the year and put last year's revised count in
+  place of its first estimate, then update the last step's words and the chart's "fewer" line (a test checks
+  they agree with the numbers).
+- `tests/test_drought.py`: every step sourced; the words match the numbers; no "lowest since" claim without a
+  primary source; the chart and its table; the section's place on the page.
 
 ## The weekly stat cards
 
