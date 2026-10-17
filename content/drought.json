@@ -1,5 +1,5 @@
 {
-  "_about": "Why We Built This (2026-10-16): the drought story on the home page, Scott's choice A of notes/site-why-we-built-this-2026-10-16.png. Every number names its source (a test checks). The research and the full source list are in the Cornerpost Logic project, claude/drought-plan.md. \"draft\" was set to false on 2026-10-16: Scott kept the paragraph as written (\"I like it\").",
+  "_about": "Why We Built This (2026-10-16): the drought story on the home page, Scott's choice A of notes/site-why-we-built-this-2026-10-16.png. Every number names its source (a test checks). The research and the full source list are in the Cornerpost Logic project, claude/drought-plan.md. \"draft\" was set to false on 2026-10-16: Scott kept the paragraph as written (\"I like it\"). The Equipment Planner joined the help list on 2026-10-17, once its In a Short Year card (v0.36.0) gave it something true to say about drought.",
   "eyebrow": "Why We Built This",
   "title": "Drought Is Why These Apps Exist",
   "draft": false,
@@ -35,6 +35,7 @@
     {"app": "grazing-planner", "text": "How many head your grass can carry this season, and how often a season like it runs short."},
     {"app": "hay-feed-planner", "name": "Hay & Feed Planner", "text": "Coming: how much hay you will need, and how short you are."},
     {"app": "herd-planner", "text": "Which cattle to keep and which to sell, and what they bring at your barn this week."},
-    {"app": "corn-yield-predictor", "text": "What your county's corn and soybeans are likely to yield this season."}
+    {"app": "corn-yield-predictor", "text": "What your county's corn and soybeans are likely to yield this season."},
+    {"app": "farm-equipment-planner", "text": "What your combine costs per bushel in a short year, and whether to hire this fall and buy later."}
   ]
 }

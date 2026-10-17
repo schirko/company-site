@@ -65,6 +65,8 @@ def test_the_story_sits_above_built_in_with_links_to_the_apps(home):
     section = home[at:home.index("</section>", at)]
     assert "<h2>Drought Is Why These Apps Exist</h2>" in section
     assert '<a href="grazing-planner.html">' in section and '<a href="herd-planner.html">' in section
+    assert '<a href="farm-equipment-planner.html">Farm Equipment Planner</a></strong>: What your combine costs per bushel' \
+        in section                                                    # v0.36.0's In a Short Year (2026-10-17)
     assert "Hay &amp; Feed Planner</strong>: Coming" in section     # not built yet: named, not linked
     assert "<strong>61%</strong>" in section and "<li><h3>" in section
     assert ("Draft for Scott to rewrite" in section) == bool(D["draft"])
