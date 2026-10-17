@@ -540,7 +540,8 @@ He chose A of `notes/site-why-we-built-this-2026-10-16.png` (the whole story on 
   bigger than it is; the drought years are shaded; Show the numbers has the table.
 - **Each January**, when NASS publishes the new *Cattle* report: add the year and put last year's revised count in
   place of its first estimate, then update the last step's words and the chart's "fewer" line (a test checks
-  they agree with the numbers).
+  they agree with the numbers). Herd Planner's About has the same "fewer" number in its Why we built it box
+  (herd-planner `index.html`); its test fails until that box is updated too.
 - `tests/test_drought.py`: every step sourced; the words match the numbers; no "lowest since" claim without a
   primary source; the chart and its table; the section's place on the page.
 
