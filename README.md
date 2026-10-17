@@ -545,6 +545,15 @@ He chose A of `notes/site-why-we-built-this-2026-10-16.png` (the whole story on 
 - `tests/test_drought.py`: every step sourced; the words match the numbers; no "lowest since" claim without a
   primary source; the chart and its table; the section's place on the page.
 
+## How It Works on the Herd Planner page: the ranch year (2026-10-16)
+
+Scott: the five steps made Herd Planner "sound like all it does is selling and growing, but that's more of what it
+was when we started, not what it is now." He chose B of `notes/site-herd-planner-how-it-works-2026-10-16.png`: in
+`content/apps.json`, the Herd Planner page's `"steps_kind": "year"` and `"steps_sub"` turn How It Works into five
+seasons (Calving, Summer, Fall, Sale Day, Winter), each card with a season name instead of a number. The line under
+it no longer says Step 1 is picking the barn (Step 1 is your ranch; the barn is part B of it). An app page without
+`"steps_kind"` keeps numbered steps. `tests/test_how_it_works.py`.
+
 ## The weekly stat cards
 
 A GitHub Action (`.github/workflows/weekly-cards.yml`) runs every Friday morning: tests, then

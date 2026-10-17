@@ -844,8 +844,13 @@ def full_page_values(app, copy, day=None):
       <p class="steps-cta-line"><strong>{e(lead)}</strong> {e(rest)}</p>
       <p>{start_buttons(app, copy)}</p>
     </div>""" if lead and app.get("url") else "")
-        steps = f"""    <h2>How It Works</h2>
-    <ol class="lp-steps">
+        # 2026-10-16 (Scott: the five steps made Herd Planner "sound like all it does is selling and growing"; his B of
+        # notes/site-herd-planner-how-it-works-2026-10-16.png): "steps_kind": "year" tells the ranch year instead,
+        # a season name on each card in place of a number.
+        year = page.get("steps_kind") == "year"
+        sub = f'\n    <p class="lp-steps-sub">{e(page["steps_sub"])}</p>' if page.get("steps_sub") else ""
+        steps = f"""    <h2>How It Works</h2>{sub}
+    <ol class="lp-steps{' lp-year' if year else ''}">
 {rows}
     </ol>{cta}"""
     # The top: for someone new, the way in; for a browser that has used the app, straight into it.

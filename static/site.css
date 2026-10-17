@@ -702,6 +702,12 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .lp-steps li::before { content: counter(lp-step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--suite-deep-green); color: #fff; font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
 .lp-steps b { display: block; }
 .lp-steps span { font-size: .92rem; color: var(--suite-muted); }
+/* How It Works as the ranch year (2026-10-16, apps.json "steps_kind": "year"): a season on each card, no number */
+.lp-steps-sub { margin: -2px 0 0; color: var(--suite-muted); }
+.lp-steps.lp-year li::before { content: none; display: none; }
+.lp-steps.lp-year b { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #fff;
+  background: var(--suite-deep-green); border-radius: 999px; padding: 2px 9px; margin-bottom: 6px; }
+.lp-steps.lp-year span { display: block; }
 .lp-weekly h2 { margin: 0 0 8px; }
 .lp-weekly-eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #8a6418; }
 .lp-weekly-lede { max-width: 46rem; margin: 0 0 18px; }
@@ -721,6 +727,7 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
   .lp-steps { grid-template-columns: 1fr; gap: 8px; margin-bottom: 26px; }
   .lp-steps li { display: grid; grid-template-columns: 34px 1fr; column-gap: 8px; align-items: start; }
   .lp-steps li::before { grid-row: span 2; margin: 0; }
+  .lp-steps.lp-year li { display: block; }
   /* On a phone the whole page would be too small to read, so the paper keeps a readable size and runs off
      the right edge as well as the bottom. */
   .lp-paper { max-height: 400px; }

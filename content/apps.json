@@ -140,31 +140,33 @@
     "Everything is open for your first 30 days.",
     "After that your records stay open, and nothing you saved is lost."
    ],
+   "steps_kind": "year",
+   "steps_sub": "A year with Herd Planner",
    "steps": [
     [
-     "Your ranch",
-     "Pick the barn you sell at"
+     "Calving",
+     "Each calf tagged with its dam, birth weight and any treatment"
     ],
     [
-     "Your cattle",
-     "Upload the spreadsheet you already keep"
+     "Summer",
+     "Weights at the chute, even with no signal; This Week shows what's due"
     ],
     [
-     "What they're worth",
-     "Every animal, this week, at your barn"
+     "Fall",
+     "What each calf is worth at your barn, and keep or sell, with the reasons"
     ],
     [
-     "Keep or sell",
-     "For any animal, with the reasons"
+     "Sale Day",
+     "A Sale Sheet for your buyer, then the settlement recorded as it reads"
     ],
     [
-     "Grow my herd",
-     "How many heifers to keep"
+     "Winter",
+     "A Lender Report with your logo, and how many heifers to keep"
     ]
    ],
    "steps_cta": [
     "Ready for your own herd?",
-    "Step 1 is picking the barn you sell at."
+    "Start with your ranch and the barn you sell at."
    ],
    "weekly_eyebrow": "Free Every Friday",
    "weekly_title": "This Week at the Sale Barn",
