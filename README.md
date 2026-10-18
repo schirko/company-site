@@ -489,7 +489,7 @@ what the pages do in a browser is that script's job. Not checked: Safari and a r
   cut-off axis; "Show the numbers" has the table). Swipe, or the arrows under the card, with dots for which card is
   showing (`slider.js`, shared with the home page's tiles; `data-dots`). A photo card can join as a slide once there
   are licensed photos.
-- **What the Numbers Show** on every app page: a one-line intro, the charts in a compact grid (two side by side
+- **What We Found** (called What the Numbers Show until 2026-10-18) on every app page: a one-line intro, the charts in a compact grid (two side by side
   when an app has two, one at most 640 px wide otherwise, stacked on phones), and a **How to read it** line on each
   chart (`how_to_read` in `content/stories.json`; a test requires one for every story). Scott: the charts were
   "way too big" and unexplained. The home page's Why Use Our Apps is unchanged.

@@ -55,7 +55,7 @@ def test_home_shows_every_story_and_app_pages_show_their_own(site):
         title = build.e(s["title"])  # as written into the HTML (an apostrophe becomes &#x27;)
         assert title in home
         page = (site / build.APP_PAGE.format(s["app"])).read_text(encoding="utf-8")
-        assert title in page and "What the Numbers Show" in page
+        assert title in page and "What We Found" in page
 
 
 def test_every_story_says_how_to_read_its_chart():
@@ -93,7 +93,7 @@ def test_herd_planners_this_week_shows_both_cards_side_by_side(site):
     page = (site / "herd-planner.html").read_text(encoding="utf-8")
     if 'class="stat-card week-card"' not in page:
         pytest.skip("no fresh steer price this week")
-    week = page[page.index('<div class="lp-weekly">'):page.index("<h2>What the Numbers Show</h2>")]
+    week = page[page.index('<div class="lp-weekly">'):page.index("<h2>What We Found</h2>")]
     assert '<div class="week-pair">' in week and week.count('class="week-pair-item"') == 2
     assert "data-slider" not in page and "slider.js" not in page
     assert "<h2>This Week at the Sale Barn: " in week and "Free on This Site Every Week" not in page

@@ -66,8 +66,8 @@ def test_the_cards_are_on_each_page_above_the_findings(site):
         assert part.count('class="how-badge"') == 1 and f"Tested: {build.e(how['tested'])}" in part
         assert part.index('class="how-badge"') > part.index("</small> The Answer</p>") > 0
         assert f'href="methods.html#{app["id"]}"' in part
-        if "<h2>What the Numbers Show</h2>" in page:
-            assert at < page.index("<h2>What the Numbers Show</h2>")
+        if "<h2>What We Found</h2>" in page:
+            assert at < page.index("<h2>What We Found</h2>")
     hp = (site / "herd-planner.html").read_text(encoding="utf-8")
     assert 'id="how-it-works"' not in hp and hp.count("How It Works</h2>") == 1
 

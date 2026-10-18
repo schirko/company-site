@@ -1134,9 +1134,10 @@ def build():
         v["how_block"] = how_block(app, copy[app["id"]])
         own = [st for st in stories if st["app"] == app["id"]]
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
-        # read it" line on each chart (stories.json "how_to_read").
-        v["stories"] = (f"""    <h2>What the Numbers Show</h2>
-    <p class="section-lede">{"Findings from the work behind " + e(app["name"]) + ", each with its source and its limits." if len(own) > 1 else "A finding from the work behind " + e(app["name"]) + ", with its source and its limits."}</p>
+        # read it" line on each chart (stories.json "how_to_read"). Named What We Found since 2026-10-18 (Scott: "I'm not
+        # sure what the area ... is saying"; it was What the Numbers Show / "A finding from the work behind ...").
+        v["stories"] = (f"""    <h2>What We Found</h2>
+    <p class="section-lede">What testing the {e(app["name"])} taught us, with where the numbers come from and where they fall short.</p>
     <div class="stories-compact{' pair' if len(own) > 1 else ''}">
 """ + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True, split=len(own) == 1) for st in own)
                       + "\n    </div>") if own else ""
