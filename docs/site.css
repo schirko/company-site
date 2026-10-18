@@ -661,6 +661,10 @@ table.barns-table td .note { white-space: normal; }
 @media (max-width: 640px) { .how-cards { grid-template-columns: 1fr; gap: 44px; }
   .how-card + .how-card::before { content: "\2193"; content: "\2193" / ""; left: 50%; top: -38px; transform: translateX(-50%); } }
 
+/* What We Found on an app page (2026-10-18, Scott's C): the heading sits on its card(s), which open with a gold label. */
+.found-h { margin: 56px 0 12px; }
+.found-label { margin: 0 0 6px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--suite-gold-line); }
 .stories-compact { display: grid; gap: 18px; align-items: start; margin-bottom: 8px; }
 .stories-compact.pair { grid-template-columns: 1fr 1fr; }
 .stories-compact:not(.pair) .story { max-width: 640px; }

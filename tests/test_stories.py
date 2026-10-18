@@ -93,7 +93,7 @@ def test_herd_planners_this_week_shows_both_cards_side_by_side(site):
     page = (site / "herd-planner.html").read_text(encoding="utf-8")
     if 'class="stat-card week-card"' not in page:
         pytest.skip("no fresh steer price this week")
-    week = page[page.index('<div class="lp-weekly">'):page.index("<h2>What We Found</h2>")]
+    week = page[page.index('<div class="lp-weekly">'):page.index('<h2 class="found-h">What We Found</h2>')]
     assert '<div class="week-pair">' in week and week.count('class="week-pair-item"') == 2
     assert "data-slider" not in page and "slider.js" not in page
     assert "<h2>This Week at the Sale Barn: " in week and "Free on This Site Every Week" not in page
@@ -121,3 +121,22 @@ def test_the_findings_heading_is_a_band_with_one_headline(site):
     # yellow-greens, 2026-10-07): one accent on the band, not two.
     assert ".why-lede a { color: var(--suite-gold);" in css and ".why-eyebrow {" in css
     assert "color: var(--suite-gold); }" in css[css.index(".why-eyebrow {"):css.index(".why-band h2")]
+
+
+def test_on_an_app_page_a_finding_opens_with_what_testing_taught_us(tmp_path, monkeypatch):
+    """Scott, 2026-10-18 (C of notes/found-C-computer-2026-10-18.png: "It makes it really look like something worth
+    reading"): on an app's own page the heading sits on the card(s), with no line under it, and each card opens with a
+    gold label instead of the app's logo and name, which the page already says. The home page keeps them."""
+    import build
+    monkeypatch.setattr(build, "OUT", tmp_path / "docs")
+    site = build.build()
+    for app in build.load_apps():
+        page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        if '<h2 class="found-h">What We Found</h2>' not in page:
+            continue
+        part = page[page.index('<h2 class="found-h">What We Found</h2>'):]
+        part = part[:part.index("</figure>")]
+        assert '<p class="found-label">What testing taught us</p>' in part and 'class="stat-app"' not in part, app["id"]
+        assert "section-lede" not in part[:part.index("<div")], app["id"]
+    home = (site / "index.html").read_text(encoding="utf-8")
+    assert 'class="stat-app"' in home and "found-label" not in home

@@ -412,7 +412,7 @@ def test_the_fuller_page_runs_headline_sample_what_you_get_steps_then_this_week(
     assert f'<p class="lp-name">{build.e(app["name"])}</p>' in page          # the app is still named, above the headline
     sample = copy["page"]["sample"]
     order = [page.index(mark) for mark in ("<h1>", f'id="{sample["id"]}"', 'id="what-you-get"', "<h2>How It Works</h2>",
-                                           "lp-weekly", "<h2>What We Found</h2>", "<h2>Where the Number Comes From</h2>")]
+                                           "lp-weekly", '<h2 class="found-h">What We Found</h2>', "<h2>Where the Number Comes From</h2>")]
     assert order == sorted(order)
     # Two buttons: the way in for someone new (or, for a browser that has used the app, straight into it), and
     # down to the sample (a link on this page, which the link test follows).

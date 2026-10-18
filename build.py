@@ -920,10 +920,12 @@ def load_stories():
     return json.loads((CONTENT / "stories.json").read_text(encoding="utf-8"))["stories"]
 
 
-def story_block(story, apps_by_id, heading="h3", link=True, how=False, split=False):
+def story_block(story, apps_by_id, heading="h3", link=True, how=False, split=False, label=None):
     """One finding as a card. `split` (an app's page with a single finding, 2026-10-08): the words and the chart
     in two wrappers, side by side on a wide screen so the card fills the row; on a phone the wrappers step aside
-    (display: contents) and the card reads in its usual order, headline, chart, then the explanation."""
+    (display: contents) and the card reads in its usual order, headline, chart, then the explanation. `label`
+    (an app's own page, 2026-10-18, Scott's C of notes/found-C-computer-2026-10-18.png): a small gold label in place
+    of the app's logo and name, which the page already says."""
     app = apps_by_id[story["app"]]
     # On the home page each finding leads two ways: to the app it came from, and to how that app is tested
     # (methods.html has a section per app, named by the app's id).
@@ -934,7 +936,9 @@ def story_block(story, apps_by_id, heading="h3", link=True, how=False, split=Fal
     if split:
         words_open, words_close = '<div class="story-words">', "</div>"
         chart_open, chart_close = '<div class="story-chart">', "</div>"
-    head = f"""<p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="36" height="36"> {e(app["name"])}</p>
+    tag = (f'<p class="found-label">{e(label)}</p>' if label else
+           f'<p class="stat-app"><img src="suite/suite-logos/{e(app["id"])}.svg" alt="" width="36" height="36"> {e(app["name"])}</p>')
+    head = f"""{tag}
         <{heading}>{e(story["title"])}</{heading}>
         <p class="story-headline">{e(story["headline"])}</p>"""
     chart = f"""<p class="chart-title">{e(story["chart_title"])}</p>
@@ -1142,10 +1146,12 @@ def build():
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
         # read it" line on each chart (stories.json "how_to_read"). Named What We Found since 2026-10-18 (Scott: "I'm not
         # sure what the area ... is saying"; it was What the Numbers Show / "A finding from the work behind ...").
-        v["stories"] = (f"""    <h2>What We Found</h2>
-    <p class="section-lede">What testing the {e(app["name"])} taught us, with where the numbers come from and where they fall short.</p>
+        # Scott's C (2026-10-18, notes/found-C-computer-2026-10-18.png: "It makes it really look like something worth
+        # reading"): the heading sits on the card(s), and each card opens with a gold "What testing taught us".
+        v["stories"] = (f"""    <h2 class="found-h">What We Found</h2>
     <div class="stories-compact{' pair' if len(own) > 1 else ''}">
-""" + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True, split=len(own) == 1) for st in own)
+""" + "\n".join(story_block(st, apps_by_id, heading="h3", link=False, how=True, split=len(own) == 1,
+                                          label="What testing taught us") for st in own)
                       + "\n    </div>") if own else ""
         card = week["cards"].get(app["id"])
         lead = f' This week, {week["place"]["county"]}, {week["place"]["state_name"]}: {card["headline"]}.' if card else ""
