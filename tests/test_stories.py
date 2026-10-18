@@ -155,3 +155,20 @@ def test_on_an_app_page_a_finding_opens_with_what_testing_taught_us(tmp_path, mo
         assert "section-lede" not in part[:part.index("<div")], app["id"]
     home = (site / "index.html").read_text(encoding="utf-8")
     assert 'class="stat-app"' in home and "found-label" not in home
+
+
+def test_the_grazing_planners_second_finding_matches_how_we_test(site):
+    """2026-10-18 (Scott: "1, 2, then 3 is good"): How Many Head Your Grass Will Carry, on the Grazing Planner's page
+    only, and its tile in the home page's tested row. Its numbers are the ones How We Test gives for the replay."""
+    s = next(x for x in build.load_stories() if x["id"] == "head-the-grass-carries")
+    assert s["app"] == "grazing-planner" and s["home"] is False
+    assert s["short_pct"][0] == 48 and s["short_pct"][-1] == 10 and round(1 - s["head_vs_normal"][-1], 2) == 0.12
+    methods = (build.TEMPLATES / "methods.html").read_text(encoding="utf-8")
+    part = methods[methods.index('id="grazing-planner"'):]
+    assert "ran short 48% of the time" in part and "ran short 10% of the time" in part and "12% fewer head" in part
+    assert "<td>July 1</td><td>6.3%</td>" in part                    # the tile's figure: the July 1 typical miss
+    home = (site / "index.html").read_text(encoding="utf-8")
+    band = home[home.index('<div class="why-band">'):home.index('<div class="stories">')]
+    assert '<a href="methods.html#grazing-planner">' in band and "<strong>6.3%</strong>" in band
+    page = (site / "grazing-planner.html").read_text(encoding="utf-8")
+    assert build.e(s["title"]) in page and build.e(s["title"]) not in home[home.index('<div class="stories">'):]

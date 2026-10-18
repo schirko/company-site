@@ -958,7 +958,7 @@ def test_the_test_figures_sit_in_answers_you_can_check_and_the_apps_row_has_a_he
     week = home[home.index('<section class="week"'):home.index('<section class="tiles-band"')]
     assert "proof" not in week and "Tested before we trust it" not in home
     band = home[home.index('<div class="why-band">'):home.index('<div class="stories">')]
-    assert band.count('<a href="methods.html#') == 3 and 'class="proof-stats why-proof"' in band
+    assert band.count('<a href="methods.html#') == 4 and 'class="proof-stats why-proof"' in band   # four apps since 2026-10-18
     tiles = home[home.index('<section class="tiles-band"'):home.index('<section class="why"')]
     assert tiles.index("<h2>Try the Apps</h2>") < tiles.index('class="tiles"')
     assert home.count("<h2>Our Farm Apps</h2>") == 1                  # the full section further down keeps its name
@@ -1064,7 +1064,7 @@ def test_the_equipment_planner_page_fixes(site):
     card = page[page.index('<div class="stat-card">'):]
     card = card[:card.index("</div>")]
     assert "What it means:" in card and 'href="#own-or-hire"' in card
-    for name in ("corn-yield-predictor.html", "grazing-planner.html"):          # every single-finding page
+    for name in ("corn-yield-predictor.html",):          # every single-finding page (the Grazing Planner has two since 2026-10-18)
         other = (site / name).read_text(encoding="utf-8")
         assert '<figure class="story split"' in other and "What it means:" not in other
     home = (site / "index.html").read_text(encoding="utf-8")

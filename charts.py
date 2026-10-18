@@ -201,7 +201,23 @@ def skill_by_date(s: dict) -> str:
     return svg("".join(parts), s["chart_title"])
 
 
-KINDS = {"seasonal": seasonal, "keep_rate": keep_rate, "ladder": ladder, "hire_wait": hire_wait,
+def ran_short(s: dict) -> str:
+    """Columns: % of county-seasons the grass ran short of the herd, by stocking rule."""
+    f = Frame(0, 60, [0, 20, 40, 60], "%")
+    n = len(s["rules"])
+    band = (f.x1 - f.x0) / n
+    bw = min(34, band - 18)
+    parts = [f.grid()]
+    for i, (r, v, k) in enumerate(zip(s["rules"], s["short_pct"], s["head_vs_normal"])):
+        cx = f.x0 + band * (i + 0.5)
+        parts.append(bar(cx - bw / 2, bw, f.y(0), f.y(v), BLUE, f"{r}: ran short in {v:.0f}% of seasons, {k:.2f} of a normal year's head"))
+        parts.append(f'<text x="{cx:.1f}" y="{f.y(v) - 6:.1f}" text-anchor="middle" class="value">{v:.0f}%</text>')
+        parts.append(f'<text x="{cx:.1f}" y="{H - BOTTOM + 18}" text-anchor="middle" class="tick">{e(r)}</text>')
+    parts.append(f'<text x="{(f.x0 + f.x1) / 2:.1f}" y="{H - 4}" text-anchor="middle" class="axis">How the herd was stocked</text>')
+    return svg("".join(parts), s["chart_title"])
+
+
+KINDS = {"ran_short": ran_short, "seasonal": seasonal, "keep_rate": keep_rate, "ladder": ladder, "hire_wait": hire_wait,
          "skill_by_date": skill_by_date}
 
 
@@ -226,6 +242,9 @@ def table(story: dict) -> str:
         head = ["Forecast made on", "Skill (0 = normal, 1 = perfect)", "Typical miss, % of normal"]
         rows = [[d, "none" if v is None else f"{v:.2f}", f"{m:.1f}%"]
                 for d, v, m in zip(story["dates"], story["skill"], story["typical_miss_pct"])]
+    elif k == "ran_short":
+        head = ["Stocked for", "Grass ran short, % of seasons", "Head vs a normal year"]
+        rows = [[a, f"{b:.0f}%", f"{c:.2f}"] for a, b, c in zip(story["rules"], story["short_pct"], story["head_vs_normal"])]
     else:
         head = ["Days the crew arrives later", "Custom hire cheaper in"]
         rows = [[str(a), f"{b:g}%"] for a, b in zip(story["delay_days"], story["custom_cheapest_pct"])]

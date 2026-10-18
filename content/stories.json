@@ -211,6 +211,37 @@
    "caution": "Each season was forecast only from the seasons before it, 2011-2025, on county averages of satellite estimates, not a single pasture. In the big years it gets the direction right but the size too small: 2022 ended 20% below normal; the June 15 forecast said 11% below.",
    "source": "Rangeland Analysis Platform (USDA ARS) county forage production and NASA POWER weather; next-season tests 2011-2025, weather plus grass grown so far (Grazing Planner README, Results: Forecasting This Season's Grass).",
    "how_to_read": "Each column is a date the forecast is made. 0 means no better than assuming a normal year, 1 would be perfect. The later in the season, the more grass has already grown and the better the forecast."
+  },
+  {
+   "id": "head-the-grass-carries",
+   "app": "grazing-planner",
+   "home": false,
+   "title": "How Many Head Your Grass Will Carry",
+   "headline": "Stocked for a normal year, a Nebraska county's grass ran short of the herd in 48% of seasons. Stocked the Grazing Planner's 9-in-10 way, it ran short in 10%, for 12% fewer head.",
+   "chart": "ran_short",
+   "chart_title": "How often the grass ran short of the herd, by how it was stocked (June 15 forecast, % of county-seasons)",
+   "rules": [
+    "A normal year",
+    "The forecast",
+    "1-in-10 miss",
+    "9 in 10"
+   ],
+   "short_pct": [
+    48,
+    50,
+    15,
+    10
+   ],
+   "head_vs_normal": [
+    1.0,
+    1.01,
+    0.9,
+    0.88
+   ],
+   "takeaway": "A normal year is an average, so stocking for it runs short about half the time, and a bad year hits most of the region at once. So the Grazing Planner stocks for its own worst misses, then checks again July 1 and August 1.",
+   "caution": "Every Nebraska county and season 2011-2025 replayed, each forecast only from the seasons before it, on county averages of satellite estimates, not a single pasture. The 9-in-10 level was chosen on this same replay, so it is provisional and rechecked each new season.",
+   "source": "Rangeland Analysis Platform (USDA ARS) county forage production and NASA POWER weather; replay of every county-season 2011-2025 (Grazing Planner README, Milestone 2: How Many Head, and How Sure?).",
+   "how_to_read": "Each column is a way to decide how many head to run. Its height is how often the grass that grew fell short of the herd. Lower is safer; the price is running fewer head."
   }
  ]
 }

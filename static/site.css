@@ -371,7 +371,12 @@ section.quiet-top { padding-top: 56px; border-top: 6px solid var(--suite-deep-gr
    tested, so a bare "2.5%" never stands alone. Gold figures (#e0ac45 on the box, about 5.4 to 1); white on hover. */
 .why-proof-head { margin: 26px 0 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .2); font-size: .8rem;
   font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #d5e0d7; }
-.why-proof { margin-top: 12px; max-width: 900px; gap: 12px; }
+.why-proof { margin-top: 12px; gap: 12px; }
+/* Four apps, four across (2026-10-18); two by two on a tablet; one a row on a phone (.proof-stats' 520 px rule).
+   ".why-band" in front so it outranks the plain .proof-stats rule that comes later. */
+.why-band .why-proof { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 960px) { .why-band .why-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .why-band .why-proof { grid-template-columns: 1fr; } }
 .why-band .why-proof a { display: block; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .18);
   border-radius: 10px; padding: 14px 16px; }
 .why-band .why-proof strong { color: var(--suite-gold); font-size: 1.7rem; }
