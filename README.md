@@ -370,7 +370,8 @@ An app without the block keeps `templates/app.html`. Top to bottom:
    Subscription") whenever either changes.
 4. **The year** (`year`): four seasons, each with what a subscription is for then; the season being
    published is framed and marked Now.
-5. **How It Works** (`steps`): the app's own five steps.
+5. **How It Works**: the app's four How It Works cards (`how`), then its way in (`steps_cta`). An app page
+   without cards shows its own steps (`steps`) here instead.
 6. Then what the page had before: this week's card (with a few words on the left that it is free on this
    site every week), What the Numbers Show, Recent Weeks, and Where the Number Comes From.
 7. **A closing band** with the sign-up button once more.
@@ -556,6 +557,14 @@ was when we started, not what it is now." He chose B of `notes/site-herd-planner
 seasons (Calving, Summer, Fall, Sale Day, Winter), each card with a season name instead of a number. The line under
 it no longer says Step 1 is picking the barn (Step 1 is your ranch; the barn is part B of it). An app page without
 `"steps_kind"` keeps numbered steps. `tests/test_how_it_works.py`.
+
+**2026-10-18: the four cards took the five seasons' place.** Scott chose B of `notes/hp-how-B-desk-2026-10-18.png`
+("B is good"): Herd Planner got the same How It Works cards as the other app pages (`"how"` in `content/apps.json`,
+tested line "Typical miss 2.52% on 26 sales it never saw", from How We Test), and on a fuller page they sit where the
+steps were, right after "Herd Planner Through the Ranch Year", which already tells the year season by season. The
+five-season strip (`"steps"`, `"steps_kind"`, `"steps_sub"`) was removed from Herd Planner; the code for it stays for
+an app that has steps and no cards. The cards leave out their own button there (`how_block(..., button=False)`),
+since "Ready for your own herd?" and Join the Waitlist follow them.
 
 ## The weekly stat cards
 

@@ -1,7 +1,9 @@
-"""How It Works on the Herd Planner page as the ranch year (2026-10-16).
+"""How It Works on the Herd Planner page.
 
-Scott: the five steps made Herd Planner "sound like all it does is selling and growing, but that's more of what it
-was when we started, not what it is now." He chose B of notes/site-herd-planner-how-it-works-2026-10-16.png."""
+2026-10-16: the five steps became the ranch year (Scott: the steps made Herd Planner "sound like all it does is selling
+and growing"; B of notes/site-herd-planner-how-it-works-2026-10-16.png). 2026-10-18: the four How It Works cards took
+that strip's place (Scott: "B is good", notes/hp-how-B-desk-2026-10-18.png), because "Herd Planner Through the Ranch
+Year" just above already tells the year, season by season."""
 
 import pytest
 
@@ -15,16 +17,16 @@ def page(tmp_path, monkeypatch):
     return (tmp_path / "docs" / "herd-planner.html").read_text(encoding="utf-8")
 
 
-def test_the_herd_planner_page_tells_the_ranch_year(page):
-    at = page.index("<h2>How It Works</h2>")
-    part = page[at:page.index("</ol>", at)]
-    assert '<p class="lp-steps-sub">A year with Herd Planner</p>' in part and 'class="lp-steps lp-year"' in part
-    seasons = [part.index(f"<li><b>{s}</b>") for s in ("Calving", "Summer", "Fall", "Sale Day", "Winter")]
-    assert seasons == sorted(seasons)
-    for feature in ("Sale Sheet", "Lender Report", "This Week", "keep or sell"):
-        assert feature in part, feature
+def test_the_cards_follow_the_ranch_year_in_the_strips_place(page):
+    year = page.index("Herd Planner Through the Ranch Year</h2>")
+    cards = page.index('<h2 id="how-h">How Herd Planner Works</h2>')
+    way_in = page.index('<div class="steps-cta">')
+    assert year < cards < way_in < page.index('<h2 class="found-h">What We Found</h2>')
+    assert 'class="lp-steps lp-year"' not in page and "lp-steps-sub" not in page   # the five-season strip is gone
 
 
-def test_the_way_in_no_longer_says_step_1_is_the_barn(page):
+def test_the_way_in_comes_once_after_the_cards(page):
+    at = page.index('<section class="how" id="how-it-works"')
+    assert 'class="how-go"' not in page[at:page.index("</section>", at)]   # no second Join the Waitlist right above it
     assert "Step 1 is picking the barn" not in page
     assert "<strong>Ready for your own herd?</strong> Start with your ranch and the barn you sell at." in page

@@ -140,30 +140,6 @@
     "Everything is open for your first 30 days.",
     "After that your records stay open, and nothing you saved is lost."
    ],
-   "steps_kind": "year",
-   "steps_sub": "A year with Herd Planner",
-   "steps": [
-    [
-     "Calving",
-     "Each calf tagged with its dam, birth weight and any treatment"
-    ],
-    [
-     "Summer",
-     "Weights at the chute, even with no signal; This Week shows what's due"
-    ],
-    [
-     "Fall",
-     "What each calf is worth at your barn, and keep or sell, with the reasons"
-    ],
-    [
-     "Sale Day",
-     "A Sale Sheet for your buyer, then the settlement recorded as it reads"
-    ],
-    [
-     "Winter",
-     "A Lender Report with your logo, and how many heifers to keep"
-    ]
-   ],
    "steps_cta": [
     "Ready for your own herd?",
     "Start with your ranch and the barn you sell at."
@@ -175,7 +151,16 @@
     "Herd Planner does this for every animal you own,",
     "at the barn you sell at, every week."
    ]
-  }
+  },
+    "how": {
+      "steps": [
+        {"name": "The Data", "what": "What it reads", "items": ["Your herd: weights, calvings and sales", "USDA Market News auction reports", "Your own sale barn's reports"]},
+        {"name": "The Method", "what": "How it works it out", "items": ["A price model learned from past sales", "Your barn's usual premium or discount", "Ranges from its own real misses"]},
+        {"name": "The Answer", "what": "What you get", "items": ["Each animal's worth at your barn", "An 80% range, checked against real sales", "Keep or sell, with the reasons"]},
+        {"name": "Your Decision", "what": "What it helps you choose", "items": ["Sell now or keep growing", "Which heifers to keep", "A report for your lender"]}
+      ],
+      "tested": "Typical miss 2.52% on 26 sales it never saw"
+    }
   },
   "corn-yield-predictor": {
     "question": "What will this county's corn and soybeans yield, and why?",

@@ -1,7 +1,7 @@
 """How It Works as four cards on an app's page (2026-10-18; Scott liked a four-step card graphic, chose A of
 notes/how-it-works-2026-10-18.png, and "Only the app pages"): The Data, The Method, The Answer, Your Decision, with a
-tested result on The Answer that must come from How We Test. Herd Planner keeps its own How It Works (the ranch year,
-tests/test_how_it_works.py), so it has no cards."""
+tested result on The Answer that must come from How We Test. Herd Planner's cards (2026-10-18, Scott chose B of
+notes/hp-how-B-desk-2026-10-18.png) take the place of its five-season strip, tests/test_how_it_works.py."""
 
 import html
 import re
@@ -36,11 +36,9 @@ def with_cards():
     return [(a, copy[a["id"]]["how"]) for a in build.load_apps() if "how" in copy[a["id"]]]
 
 
-def test_every_app_but_herd_planner_has_four_steps_in_order():
-    copy = build.load_copy()
+def test_every_app_has_four_steps_in_order():
     have = {a["id"] for a, _ in with_cards()}
-    assert have == {a["id"] for a in build.load_apps()} - {"herd-planner"}
-    assert "how" not in copy["herd-planner"]
+    assert have == {a["id"] for a in build.load_apps()}
     for app, how in with_cards():
         assert [s["name"] for s in how["steps"]] == STEPS, app["id"]
         for step in how["steps"]:
@@ -69,7 +67,7 @@ def test_the_cards_are_on_each_page_above_the_findings(site):
         if '<h2 class="found-h">What We Found</h2>' in page:
             assert at < page.index('<h2 class="found-h">What We Found</h2>')
     hp = (site / "herd-planner.html").read_text(encoding="utf-8")
-    assert 'id="how-it-works"' not in hp and hp.count("How It Works</h2>") == 1
+    assert hp.count('id="how-it-works"') == 1 and "How It Works</h2>" not in hp
 
 
 def test_the_cards_stack_on_a_phone():
@@ -83,6 +81,8 @@ def test_your_decision_ends_with_the_way_in(site):
     """Scott, 2026-10-18: "should we copy the Open Yield Predictor button and put it in the Your Decision card?" The
     same button as the top of the page, once, at the foot of the last card."""
     for app, how in with_cards():
+        if app["id"] == "herd-planner":       # its way in follows the cards instead (tests/test_how_it_works.py)
+            continue
         page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
         at = page.index('<section class="how" id="how-it-works"')
         part = page[at:page.index("</section>", at)]

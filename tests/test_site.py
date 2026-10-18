@@ -411,7 +411,7 @@ def test_the_fuller_page_runs_headline_sample_what_you_get_steps_then_this_week(
     assert page.count("<h1>") == 1 and f'<h1>{build.e(copy["page"]["headline"])}</h1>' in page
     assert f'<p class="lp-name">{build.e(app["name"])}</p>' in page          # the app is still named, above the headline
     sample = copy["page"]["sample"]
-    order = [page.index(mark) for mark in ("<h1>", f'id="{sample["id"]}"', 'id="what-you-get"', "<h2>How It Works</h2>",
+    order = [page.index(mark) for mark in ("<h1>", f'id="{sample["id"]}"', 'id="what-you-get"', 'id="how-it-works"',
                                            "lp-weekly", '<h2 class="found-h">What We Found</h2>', "<h2>Where the Number Comes From</h2>")]
     assert order == sorted(order)
     # Two buttons: the way in for someone new (or, for a browser that has used the app, straight into it), and
@@ -421,9 +421,10 @@ def test_the_fuller_page_runs_headline_sample_what_you_get_steps_then_this_week(
     assert f'<a class="btn visitor-only" data-app="{app["id"]}" href="{su["url"]}">{su["button"]}</a>' in top
     assert f'<a class="btn member-only" data-app="{app["id"]}" href="{build.e(app["url"])}">Open {build.e(app["name"])}</a>' in top
     assert f'<a class="btn ghost" href="#{sample["id"]}">{build.e(sample["button"])}</a>' in top
-    order = [page.index(mark) for mark in ('id="what-you-get"', 'id="year"', "<h2>How It Works</h2>")]
+    order = [page.index(mark) for mark in ('id="what-you-get"', 'id="year"', 'id="how-it-works"')]
     assert order == sorted(order)
-    assert len(copy["page"]["steps"]) == page.count("<li><b>") == 5
+    # 2026-10-18: the four How It Works cards took the five-season strip's place (Scott chose B).
+    assert "steps" not in copy["page"] and page.count('<li class="how-card">') == 4
 
 
 @pytest.mark.parametrize("app", FULL, ids=lambda a: a["id"])

@@ -248,10 +248,11 @@ def member_css(apps, copy):
         for a in member_apps(apps, copy))
 
 
-def how_block(app, copy):
+def how_block(app, copy, button=True):
     """How It Works (2026-10-18; Scott liked a four-step card graphic and chose A of notes/how-it-works-2026-10-18.png):
     four green-headed cards from the data to the decision, with a tested result from How We Test on The Answer and a
-    link to that app's part of How We Test. From the app's "how" block in content/apps.json; none, no section."""
+    link to that app's part of How We Test. From the app's "how" block in content/apps.json; none, no section.
+    `button=False` leaves out the button on the last card, for a page whose own way in follows the cards (Herd Planner)."""
     how = copy.get("how")
     if not how:
         return ""
@@ -263,7 +264,7 @@ def how_block(app, copy):
         # Its words: "go" in the app's "how" block (Scott: "Or Try it for free"; only where that's true), else Open <app>.
         words = e(how["go"]) if how.get("go") else f'Open {e(app["name"])}'
         go = (f'\n          <p class="how-go"><a class="btn" href="{e(app["url"])}">{words} &#8594;</a></p>'
-              if i == len(how["steps"]) and app.get("url") else "")
+              if button and i == len(how["steps"]) and app.get("url") else "")
         items = "".join(f"<li>{e(t)}</li>" for t in step["items"])
         cards_html.append(f"""      <li class="how-card">
         <p class="how-card-head"><small>Step {i}</small> {e(step["name"])}</p>
@@ -862,7 +863,18 @@ def full_page_values(app, copy, day=None):
       <p class="lp-trial{" lp-trial-cta" if trial_button else ""}"><span><strong>{e(lead)}</strong> {e(rest)}</span>{trial_button}</p>
     </div>"""
     steps = ""
-    if page.get("steps"):
+    # 2026-10-18 (Scott chose B of notes/hp-how-B-desk-2026-10-18.png, "B is good"): an app with How It Works cards
+    # shows them here, in the steps' place and before their "Ready for your own herd?" line, which is its way in, so
+    # the cards leave out their own button. Herd Planner's five-season strip went: the ranch year above tells it.
+    if copy.get("how"):
+        lead, rest = page.get("steps_cta") or ("", "")
+        cta = (f"""
+    <div class="steps-cta">
+      <p class="steps-cta-line"><strong>{e(lead)}</strong> {e(rest)}</p>
+      <p>{start_buttons(app, copy)}</p>
+    </div>""" if lead and app.get("url") else "")
+        steps = how_block(app, copy, button=not cta).rstrip("\n") + cta
+    elif page.get("steps"):
         rows = "\n".join(f"      <li><b>{e(title)}</b><span>{e(words)}</span></li>" for title, words in page["steps"])
         # After reading the steps the natural move is to start (Scott, 2026-10-08), so they end with the way in.
         lead, rest = page.get("steps_cta") or ("", "")
@@ -1141,7 +1153,8 @@ def build():
             # takes the card(s) without week_blocks' "This Week: <county>" line.
             v["week_card"] = v["week_block"].split("</h2>\n", 1)[1]
             v["week_place"] = e(f'{week["place"]["county"]}, {week["place"]["state_name"]}')
-        v["how_block"] = how_block(app, copy[app["id"]])
+        # A fuller page with cards has them in its steps' place (full_page_values), not here as well.
+        v["how_block"] = "" if full and "how" in copy[app["id"]] else how_block(app, copy[app["id"]])
         own = [st for st in stories if st["app"] == app["id"]]
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
         # read it" line on each chart (stories.json "how_to_read"). Named What We Found since 2026-10-18 (Scott: "I'm not

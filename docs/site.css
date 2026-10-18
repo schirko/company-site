@@ -758,6 +758,8 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .lp-weekly-cta p:first-child { flex: 1 1 320px; }
 /* After the five steps: the same way in (the margin keeps it apart from This Week below) */
 .app-full .steps-cta { margin: -10px 0 48px; }
+/* After the How It Works cards (Herd Planner, 2026-10-18) the line needs room below their source line. */
+.app-full .how + .steps-cta { margin-top: 24px; }
 .steps-cta a.more { white-space: normal; }
 @media (max-width: 760px) { .lp-weekly-cta .btn { display: block; text-align: center; } .lp-weekly-cta p { flex-basis: 100%; } }
 @media (max-width: 860px) {
