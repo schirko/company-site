@@ -634,7 +634,8 @@ table.barns-table td .note { white-space: normal; }
 /* What the Numbers Show: smaller charts, side by side, each with How to read it */
 /* How It Works (2026-10-18, Scott's A of notes/how-it-works-2026-10-18.png): four green-headed cards from the data to
    the decision, a gold arrow between them, the tested result on The Answer. On a phone they stack, the arrows pointing down. */
-.how { margin: 8px 0 40px; }
+.how { margin: 32px 0 8px; padding: 0; }   /* not the 48 px every section gets: it sits inside the page's own section */
+.how h2 { margin-top: 0; }
 .how-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .how-card { position: relative; background: #fff; border: 1px solid var(--suite-line); border-radius: 12px; }
 .how-card-head { margin: 0; padding: 12px 14px 10px; border-radius: 11px 11px 0 0; background: var(--suite-deep-green); color: #fff;
