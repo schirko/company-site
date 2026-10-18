@@ -1106,7 +1106,9 @@ def build():
         "footer_apps": "\n".join(f'      <a href="{APP_PAGE.format(e(a["id"]))}">{e(a["name"])}</a>' for a in apps),
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
         "week_date": nice_date(week["date"]),
-        "stories": "\n".join(story_block(st, apps_by_id) for st in stories),
+        # One card per app on the home page (Scott, 2026-10-18: "four looks better", notes/home-cards-four-desk-
+        # 2026-10-18.png): a story with "home": false shows only on its app's page.
+        "stories": "\n".join(story_block(st, apps_by_id) for st in stories if st.get("home", True)),
         "drought": drought_block(load_drought(), apps_by_id),
         "live_panel": hero.panel(week, stories, nice_date, barn_href, steer_tile,
                                  cards.load_static(cards.EQUIP).get("years")),

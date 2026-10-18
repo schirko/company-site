@@ -1,5 +1,5 @@
 {
- "about": "The 'Why Use Our Apps' stories: one real finding each, drawn as a chart by charts.py, in the order the home page shows them. Every number is copied from the app's own notebook or README, named in 'source'; never add a number without one. 'app' is an app id from static/suite/suite-apps.json; each app page shows its own stories.",
+ "about": "The 'Why Use Our Apps' stories: one real finding each, drawn as a chart by charts.py, in the order the home page shows them. Every number is copied from the app's own notebook or README, named in 'source'; never add a number without one. 'app' is an app id from static/suite/suite-apps.json; each app page shows its own stories. 'home': false keeps a story off the home page (one card per app there, Scott 2026-10-18); it still shows on its app's page.",
  "stories": [
   {
    "id": "calf-season",
@@ -66,6 +66,7 @@
   {
    "id": "heifers-to-keep",
    "app": "herd-planner",
+   "home": false,
    "title": "How Many Heifers to Keep",
    "headline": "To grow a 40-cow herd to 60 head in five years, keeping 80% of the heifer calves is a coin flip. Keeping 90% gets there in 81 of 100 futures.",
    "chart": "keep_rate",

@@ -27,6 +27,21 @@ def test_every_app_has_a_story():
     assert {a["id"] for a in build.load_apps()} <= have
 
 
+def test_the_home_page_has_one_card_per_app_and_the_app_pages_keep_all(site):
+    """Scott, 2026-10-18: five cards left an odd one at the bottom; "four looks better" (one per app). How Many Heifers
+    to Keep left the home page and stays on Herd Planner's page."""
+    home = (site / "index.html").read_text(encoding="utf-8")
+    cards = home[home.index('<div class="stories">'):]
+    on_home = [s for s in build.load_stories() if s.get("home", True)]
+    assert sorted(s["app"] for s in on_home) == sorted(a["id"] for a in build.load_apps())
+    for s in build.load_stories():
+        title = f"<h3>{build.e(s['title'])}</h3>"
+        assert (title in cards) == s.get("home", True), s["id"]
+        app_page = (site / build.APP_PAGE.format(s["app"])).read_text(encoding="utf-8")
+        assert build.e(s["title"]) in app_page, s["id"]
+    assert "How Many Heifers to Keep" not in cards
+
+
 def test_charts_are_drawn_with_a_table_of_the_same_numbers():
     for s in build.load_stories():
         svg = charts.draw(s)
@@ -48,12 +63,12 @@ def test_series_line_up():
             assert len(s["delay_days"]) == len(s["custom_cheapest_pct"])
 
 
-def test_home_shows_every_story_and_app_pages_show_their_own(site):
+def test_home_shows_its_stories_and_app_pages_show_their_own(site):
     home = (site / "index.html").read_text(encoding="utf-8")
     assert "Why Use Our Apps" in home
     for s in build.load_stories():
         title = build.e(s["title"])  # as written into the HTML (an apostrophe becomes &#x27;)
-        assert title in home
+        assert (title in home) == s.get("home", True), s["id"]   # "home": false: its app's page only (2026-10-18)
         page = (site / build.APP_PAGE.format(s["app"])).read_text(encoding="utf-8")
         assert title in page and "What We Found" in page
 

@@ -50,6 +50,13 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
 .mega > summary:hover, .mega[open] > summary { color: #fff; }
 .mega > summary:focus-visible { outline: 2px solid var(--suite-gold); outline-offset: 3px; border-radius: 2px; }
 .mega-wrap[data-current] .mega > summary { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }   /* on an app's page */
+/* 2026-10-18 (Scott: on the home page "the yellow lines do not appear under the menu options with mouse overs"): on a
+   computer the header's links and the Farm Apps menu show the same gold line as the page you're on while you point at
+   them (or the menu is open), as the apps' headers do. Sign In and Sign Up are buttons with their own hover. */
+@media (min-width: 641px) {
+  .site-nav > a:not(.nav-signin):not(.nav-signup):hover, .site-nav > a:not(.nav-signin):not(.nav-signup):focus-visible,
+  .mega > summary:hover, .mega[open] > summary { color: #fff; box-shadow: 0 2px 0 var(--suite-gold); }
+}
 .mega-panel { position: absolute; z-index: 60; top: calc(100% - 4px); left: 50%; transform: translateX(-50%);
   width: min(1040px, calc(100vw - 32px)); box-sizing: border-box; padding: 22px 26px 16px;
   display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px 24px;

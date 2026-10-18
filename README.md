@@ -512,6 +512,11 @@ October 2026): "Why Use Our Apps" as a small gold line, the headline "Answers Yo
 sentence saying every finding shows where its numbers came from and where it can be wrong. That
 sentence is a promise the cards keep: the test below fails a story with no source or no caution.
 
+**One card per app on the home page (2026-10-18).** With the Grazing Planner's card there were five, one left alone
+at the bottom. Scott: "four looks better" (`notes/home-cards-four-desk-2026-10-18.png`, against a six-card version).
+A story with `"home": false` in `content/stories.json` shows only on its app's page: How Many Heifers to Keep stays
+under What We Found on Herd Planner's page. A test checks the home page has exactly one story per app.
+
 The page's other main headings follow one order. **Our Farm Apps** opens on the same green band (`.head-band`).
 **How It Works** and **Our Promises** are lighter: the heading on the page's own background between thin
 deep-green lines (`section.quiet-top`), because three green bands in a row were too much. The three steps
