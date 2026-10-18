@@ -639,11 +639,14 @@ table.barns-table td .note { white-space: normal; }
 .how { margin: 32px 0 8px; padding: 0; }   /* not the 48 px every section gets: it sits inside the page's own section */
 .how h2 { margin-top: 0; }
 .how-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px; }
-.how-card { position: relative; background: #fff; border: 1px solid var(--suite-line); border-radius: 12px; }
+.how-card { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--suite-line); border-radius: 12px; }
 .how-card-head { margin: 0; padding: 12px 14px 10px; border-radius: 11px 11px 0 0; background: var(--suite-deep-green); color: #fff;
   font-size: 1.1rem; font-weight: 700; }
 .how-card-head small { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #e9bf68; }
-.how-card-body { padding: 12px 14px 14px; }
+.how-card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+/* The way in, at the foot of Your Decision (2026-10-18): pinned to the bottom, so it lines up with the cards' ends. */
+.how-go { margin: auto 0 0; padding-top: 14px; }
+.how-go .btn { display: block; text-align: center; }
 .how-what { margin: 0 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--suite-line); font-size: .88rem; color: var(--suite-muted); }
 .how-card-body ul { margin: 0; padding-left: 18px; list-style: disc; font-size: .94rem; line-height: 1.45; }
 .how-card-body li { margin: 0 0 4px; }

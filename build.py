@@ -258,12 +258,18 @@ def how_block(app, copy):
     cards_html = []
     for i, step in enumerate(how["steps"], 1):
         badge = (f'\n          <p class="how-badge">Tested: {e(how["tested"])}</p>' if i == 3 else "")
+        # The way in at the end of the steps (Scott, 2026-10-18: "should we copy the Open Yield Predictor button and
+        # put it in the Your Decision card?"): the same button as the top of the page, at the foot of the last card.
+        # Its words: "go" in the app's "how" block (Scott: "Or Try it for free"; only where that's true), else Open <app>.
+        words = e(how["go"]) if how.get("go") else f'Open {e(app["name"])}'
+        go = (f'\n          <p class="how-go"><a class="btn" href="{e(app["url"])}">{words} &#8594;</a></p>'
+              if i == len(how["steps"]) and app.get("url") else "")
         items = "".join(f"<li>{e(t)}</li>" for t in step["items"])
         cards_html.append(f"""      <li class="how-card">
         <p class="how-card-head"><small>Step {i}</small> {e(step["name"])}</p>
         <div class="how-card-body">
           <p class="how-what">{e(step["what"])}</p>{badge}
-          <ul>{items}</ul>
+          <ul>{items}</ul>{go}
         </div>
       </li>""")
     return f"""    <section class="how" id="how-it-works" aria-labelledby="how-h">

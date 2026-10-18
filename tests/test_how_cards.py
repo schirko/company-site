@@ -77,3 +77,21 @@ def test_the_cards_stack_on_a_phone():
     assert ".how-cards { list-style: none;" in css and "grid-template-columns: repeat(4, 1fr)" in css
     phone = css[css.index("@media (max-width: 640px) { .how-cards"):]
     assert "grid-template-columns: 1fr;" in phone.split("}")[0]
+
+
+def test_your_decision_ends_with_the_way_in(site):
+    """Scott, 2026-10-18: "should we copy the Open Yield Predictor button and put it in the Your Decision card?" The
+    same button as the top of the page, once, at the foot of the last card."""
+    for app, how in with_cards():
+        page = (site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8")
+        at = page.index('<section class="how" id="how-it-works"')
+        part = page[at:page.index("</section>", at)]
+        words = how.get("go") or f'Open {app["name"]}'
+        button = f'<a class="btn" href="{build.e(app["url"])}">{build.e(words)} &#8594;</a>'
+        assert part.count('class="how-go"') == 1 and button in part, app["id"]
+        assert part.index(button) > part.index("</small> Your Decision</p>")
+    copy = build.load_copy()
+    for app_id in ("corn-yield-predictor", "grazing-planner"):          # free to try: no account or no sign-in
+        assert copy[app_id]["how"]["go"] == "Try It Free"
+        assert "No account needed" in copy[app_id]["note"] or "No sign-in needed" in copy[app_id]["note"]
+    assert "Free" not in copy["farm-equipment-planner"]["how"]["go"]   # needs a My Farm account: never "Try It Free"
