@@ -144,13 +144,13 @@ def site_nav(page):
 
 
 def test_sign_in_is_in_every_page_menu(site):
-    """Sign In goes to the suite account, except on the page of an app with sign-up links, where it goes to
-    that app's own sign-in card (a Herd Planner account is not a Your Account sign-in)."""
+    """Sign In goes to My Farm on every page (2026-10-18: one sign-in for every app; before, on the page of an app
+    with sign-up links it went to that app's own sign-in card)."""
     copy = build.load_copy()
     own = {build.APP_PAGE.format(a["id"]): build.signup(a, copy[a["id"]]) for a in build.load_apps()}
     for name in all_pages():
         nav = site_nav((site / name).read_text(encoding="utf-8"))
-        where = own[name]["signin"] if own.get(name) else config.ACCOUNT_URL
+        where = config.ACCOUNT_URL
         assert f'href="{where}">Sign In</a>' in nav and nav.count(">Sign In</a>") == 1, name
         assert "<summary>Our Farm Apps</summary>" in nav, name
 
@@ -200,7 +200,7 @@ def test_every_page_has_the_phone_bar_and_menu(site):
     for name in all_pages():
         page = (site / name).read_text(encoding="utf-8")
         head = page[page.index("<header"):page.index("</header>")]
-        bar = head.index('<div class="bar-account"><a class="nav-signin nav-visitor" href=')
+        bar = head.index(f'<div class="bar-account"><a class="nav-signin" href="{config.ACCOUNT_URL}">Sign In</a>')
         menu = head.index('<button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav">')
         assert bar < menu < head.index('id="site-nav"'), name
         for note, words in (("Every barn", "Barn Prices"), ("Who we are", "About"), ("How we check it", "How We Test")):
@@ -209,7 +209,7 @@ def test_every_page_has_the_phone_bar_and_menu(site):
     styles = (ROOT / "static/site.css").read_text(encoding="utf-8")
     phone = styles[styles.index(".menu-btn, .bar-account { display: none; }"):]
     assert "@media (max-width: 640px)" in phone and ".site-header.menu-open .site-nav { display: flex;" in phone
-    assert "html[data-uses] .bar-account .nav-visitor { display: none; }" in phone
+    assert "nav-visitor" not in phone                                  # 2026-10-18: Sign In never hides
     js = (ROOT / "static/menu.js").read_text(encoding="utf-8")
     assert 'matchMedia("(max-width: 640px)")' in js and "if (flat) { setMenu(false); btn.focus(); return; }" in js
 
@@ -677,7 +677,7 @@ def test_one_setting_words_every_sign_up_link_on_the_page(state, button, card, o
     assert sum(c["text"] == button for c in controls(parts)) >= 4
     assert "$" not in words(parts)   # still no price
     nav = controls(build.nav_account(build.load_apps(), {**build.load_copy(), app["id"]: copy}, app))
-    assert [(c["href"], c["for"]) for c in nav if c["for"] != "member-only"] == [(base + "#signin", None), (base + card, "visitor-only")]
+    assert [(c["href"], c["for"]) for c in nav] == [(config.ACCOUNT_URL, None), (base + card, "visitor-only")]   # Sign In: My Farm
 
 
 def test_on_the_waitlist_nothing_beside_a_button_promises_what_only_an_account_gives():
@@ -758,8 +758,8 @@ def test_the_built_pages_carry_every_sign_up_spot_and_hide_them_from_a_browser_t
         assert len(ways_in) == 8 and all(c["for"] == "visitor-only" for c in ways_in)
         into_app = [c for c in found if c["href"] == app["url"]]
         assert {c["for"] for c in into_app} == {"member-only", "visitor-only"}   # Open for one; "Have an invite?" for the other
-        # the menu, the main button, the steps, this week, and (2026-10-13) the phone's bar beside Menu
-        assert sum(c["for"] == "member-only" for c in into_app) == 5
+        # the main button, the steps, this week (2026-10-18: no longer the menu or the phone's bar, where Sign In stays)
+        assert sum(c["for"] == "member-only" for c in into_app) == 3
         forget = [c for c in found if c["tag"] == "button" and c["text"] == "Forget this"]
         assert len(forget) == 1 and forget[0]["for"] == "member-only"
         home = controls((site / "index.html").read_text(encoding="utf-8"))
@@ -787,7 +787,7 @@ def test_the_header_makes_room_for_the_extra_button_below_a_wide_screen(site):
     styles = (site / "site.css").read_text(encoding="utf-8")
     block = styles[styles.index("@media (max-width: 1100px) {\n  .site-nav.has-signup"):]
     block = block[:block.index("\n}\n")]
-    assert ".site-nav.has-signup > .nav-methods, html[data-uses] .site-nav > .nav-methods { display: none; }" in block
+    assert ".site-nav.has-signup > .nav-methods { display: none; }" in block
     assert ".nav-signup .wide, .nav-member .wide { display: none; }" in block
     assert ".nav-signup .narrow, .nav-member .narrow { display: inline; }" in block
     assert ".nav-signup .narrow, .nav-member .narrow { display: none; }" in styles[:styles.index(block)]
@@ -798,8 +798,7 @@ def test_the_header_makes_room_for_the_extra_button_below_a_wide_screen(site):
     for app in SIGNED:   # both labels are in the page for the styles to choose between
         nav = site_nav((site / build.APP_PAGE.format(app["id"])).read_text(encoding="utf-8"))
         assert '<span class="wide">Join the Waitlist</span><span class="narrow">Waitlist</span>' in nav
-        assert (f'<span class="wide">Open {app["name"]} &#8594;</span><span class="narrow">'
-                f'{copy[app["id"]]["member_short"]} &#8594;</span>') in nav
+        assert f'Open {app["name"]} &#8594;' not in nav   # 2026-10-18: the menu keeps Sign In, never an Open link
 
 
 # --- The panel beside the headline, and the year ----------------------------------------------------
@@ -872,20 +871,21 @@ def test_the_built_page_follows_the_week_it_publishes_not_the_day_it_is_built(mo
 
 # --- A browser that has used an app ------------------------------------------------------------------
 
-def test_every_page_can_offer_the_app_in_place_of_sign_in(site):
-    """Scott, 2026-10-05: "when I'm logged in on herd planner and then go to the home page ... the link up top
-    says Sign In as if I am not already logged in." The site can't see an app's sign-in, so member.js remembers
-    the browser. In every page: the script in the head (not deferred, so it runs before anything is drawn),
-    the app's Open link in the menu, and the rule that swaps them."""
+def test_sign_in_is_on_every_page_for_everyone(site):
+    """Scott, 2026-10-18: "what if you are someone like me that is on this page reading, then decides to sign-in?
+    There is no link to sign in even on the menu bar." His A of notes/site-signin-2026-10-18.png: Sign In on every
+    page for everyone, to My Farm (the one sign-in for every app), never swapped for an app's Open link. member.js
+    still swaps the sign-up buttons in a page's body for an Open button: the script in the head (not deferred, so
+    it runs before anything is drawn) and the rule that swaps them."""
     ids = " ".join(a["id"] for a in SIGNED)
     for path in sorted(site.glob("*.html")):
         page = path.read_text(encoding="utf-8")
         head = page[:page.index("</head>")]
         assert re.search(r'<script src="member\.js\?v=\w+" data-apps="%s"></script>' % re.escape(ids), head), path.name
         nav = site_nav(page)
+        assert f'<a class="nav-signin" href="{config.ACCOUNT_URL}">Sign In</a>' in nav, path.name
+        assert "nav-member" not in page and "nav-visitor" not in page, path.name
         for app in SIGNED:
-            assert (f'<a class="nav-signin nav-member member-only" data-app="{app["id"]}" href="{app["url"]}">'
-                    in nav), path.name
             rule = (f'html[data-uses="{app["id"]}"] .visitor-only[data-app="{app["id"]}"], '
                     f'html:not([data-uses="{app["id"]}"]) .member-only[data-app="{app["id"]}"] {{ display: none !important; }}')
             assert rule in head, path.name
@@ -898,7 +898,7 @@ def test_without_the_script_a_page_is_what_a_new_visitor_sees(site):
         page = (site / name).read_text(encoding="utf-8")
         assert re.search(r'<html lang="en">', page) and "data-uses" not in page[page.index("<body"):], name
     styles = (site / "site.css").read_text(encoding="utf-8")
-    assert "html[data-uses] .site-nav .nav-visitor { display: none; }" in styles
+    assert "html[data-uses] .site-nav .nav-visitor" not in styles             # 2026-10-18: Sign In never hides
 
 
 def test_the_script_keeps_one_word_in_the_browser_and_sends_nothing():

@@ -249,32 +249,24 @@ def member_css(apps, copy):
 
 
 def nav_account(apps, copy, page_app=None):
-    """The end of the header menu. Everywhere: Sign In (the suite account). On the page of an app with sign-up
-    links: Sign In goes to that app, with its sign-up button beside it. And for each such app, the link a
-    browser that has used it sees instead of both ("Open Herd Planner"): the site can't see an app's sign-in
-    (different domains), so it remembers the browser, and the words stay true signed in or not."""
+    """The end of the header menu: Sign In, on every page and for everyone, to My Farm (the one sign-in for every
+    app; already signed in there, it opens My Farm's home with every app). On the page of an app with sign-up links,
+    a new visitor also gets its sign-up button beside it.
+    Scott, 2026-10-18 ("what if you are someone like me that is on this page reading, then decides to sign-in? There
+    is no link to sign in even on the menu bar"), A of notes/site-signin-2026-10-18.png: before, a browser that had
+    used Herd Planner saw "Open Herd Planner" here in place of Sign In, and no way to sign in to anything else."""
     su = signup(page_app, copy[page_app["id"]]) if page_app else None
-    parts = [f'<a class="nav-signin nav-visitor" href="{e(su["signin"] if su else config.ACCOUNT_URL)}">Sign In</a>']
+    parts = [f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>']
     if su:
         parts.append(f'<a {visitor(page_app, "nav-signup")} href="{e(su["url"])}"><span class="wide">{e(su["nav"])}</span>'
                      f'<span class="narrow">{e(su["nav_short"])}</span></a>')
-    for a in member_apps(apps, copy):
-        short = copy[a["id"]].get("member_short", "Open")
-        parts.append(f'<a {member(a, "nav-signin nav-member")} href="{e(a["url"])}"><span class="wide">Open {e(a["name"])} &#8594;</span>'
-                     f'<span class="narrow">{e(short)} &#8594;</span></a>')
     return "\n      ".join(parts)
 
 
 def nav_bar(apps, copy, page_app=None):
-    """The phone's bar (2026-10-13): what nav_account ends with, minus the sign-up button (that goes in the Menu):
-    Sign In, or for a browser that has used an app its short Open link. The same classes as in the menu, so
-    member.js and member_css show and hide them the same way."""
-    su = signup(page_app, copy[page_app["id"]]) if page_app else None
-    parts = [f'<a class="nav-signin nav-visitor" href="{e(su["signin"] if su else config.ACCOUNT_URL)}">Sign In</a>']
-    for a in member_apps(apps, copy):
-        short = copy[a["id"]].get("member_short", "Open")
-        parts.append(f'<a {member(a, "nav-signin nav-member")} href="{e(a["url"])}">{e(short)} &#8594;</a>')
-    return "".join(parts)
+    """The phone's bar (2026-10-13): Sign In, the same as the menu's (2026-10-18: for everyone, to My Farm); the
+    sign-up button goes in the Menu."""
+    return f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>'
 
 
 SEASON_OF = {12: "winter", 1: "winter", 2: "winter", 3: "spring", 4: "spring", 5: "spring",

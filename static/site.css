@@ -748,19 +748,19 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .site-nav .nav-signup { background: var(--suite-gold); border: 2px solid var(--suite-gold); border-radius: 8px; padding: 4px 12px; color: var(--suite-deep-green); font-weight: 700; margin-left: -8px; }
 .site-nav .nav-signup:hover { background: #e9bf68; border-color: #e9bf68; }
 .nav-signup .narrow, .nav-member .narrow { display: none; }
-/* A browser that has used an app (member.js): its Open link takes the place of Sign In. */
-html[data-uses] .site-nav .nav-visitor { display: none; }
-/* Below a wide screen the extra button, or the longer Open link, would push the header onto another row
+/* Sign In stays for everyone (2026-10-18, Scott's A of notes/site-signin-2026-10-18.png): a browser that has used an
+   app no longer swaps it for that app's Open link. */
+/* Below a wide screen the extra button would push the header onto another row
    (measured at every width from 320 to 1,240 px: it is never taller than it was before these links). So the
    labels shorten (Waitlist, My Herd) and How We Test leaves the row: it stays in the Our Farm Apps menu and
    the footer. Pages without a sign-up button, in a browser that has used no app, are untouched. */
 @media (max-width: 1100px) {
-  .site-nav.has-signup > .nav-methods, html[data-uses] .site-nav > .nav-methods { display: none; }
+  .site-nav.has-signup > .nav-methods { display: none; }
   .nav-signup .wide, .nav-member .wide { display: none; }
   .nav-signup .narrow, .nav-member .narrow { display: inline; }
 }
 @media (max-width: 600px) {
-  .site-nav.has-signup > .nav-signin, html[data-uses] .site-nav > .nav-signin { margin-left: auto; }
+  .site-nav.has-signup > .nav-signin { margin-left: auto; }
   .site-nav .nav-signup { margin-left: 0; order: 2; font-size: .95rem; }
 }
 /* The home page tiles: the name and question lead to the app's page; Open and one way in sit at the bottom. */
@@ -857,7 +857,6 @@ html[data-uses] .site-nav .nav-visitor { display: none; }
   .suite-bar .bar-account .nav-signin { display: inline-flex; align-items: center; min-height: 40px; box-sizing: border-box;
     padding: 8px 12px; border: 2px solid var(--suite-gold); border-radius: 8px; color: #fff; font-size: .9rem;
     font-weight: 700; text-decoration: none; white-space: nowrap; }
-  html[data-uses] .bar-account .nav-visitor { display: none; }
   .menu-btn { display: inline-flex; align-items: center; gap: 6px; grid-column: 3; grid-row: 1; min-height: 40px;
     padding: 8px 12px; background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, .6); border-radius: 8px;
     font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
