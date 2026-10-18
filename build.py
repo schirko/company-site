@@ -1131,6 +1131,10 @@ def build():
                              cards.STATE_NAMES, barn_href, barns_now if by_barn else None, near_of,
                              cards.hub_of(barns_now), cards.FRESH_DAYS)
     (OUT / "panel-data.json").write_text(json.dumps(picker, separators=(",", ":")), encoding="utf-8")
+    # The week for My Farm's sign-in page (2026-10-17; Scott chose B of farm-account/notes/signin-B-desk-2026-10-17.png):
+    # the county of the week as this site shows it, so both say the same county and the same numbers. My Farm reads
+    # it from its server, once an hour. A steer price older than FRESH_DAYS is already dropped (cards.current).
+    (OUT / "week.json").write_text(json.dumps({"format": 1, **week}, separators=(",", ":")), encoding="utf-8")
     # One page per sale barn, and the index of them all
     for slug, barn in all_barns.items():
         title, desc, body = barn_pages.barn_page(slug, barn, all_barns, barn_data, nice_date)

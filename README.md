@@ -145,6 +145,9 @@ picked county's middle pin shows its fall field days.
 - **How:** `build.py` writes `docs/panel-data.json`: every county's tiles, drawn in advance by the same
   `hero.py` functions as the page, so a picked county looks exactly like the county of the week.
   `static/panel.js` loads it only when someone uses the picker (or has used it before).
+- **The week for My Farm (2026-10-17):** `build.py` also writes `docs/week.json`, the county of the week with its
+  cards exactly as this site shows them (a stale steer price already dropped). My Farm's sign-in page reads it
+  from its server once an hour for its This Week card, so both always name the same county and numbers.
 - **Which counties:** all 191 that either the Yield Predictor or the Equipment Planner covers
   (Nebraska and Iowa). A county only one app covers says so in the other tile.
 - **The steer price by barn (October 2026, `panel-data.json` format 3):** a county's steer tile names the
