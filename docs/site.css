@@ -633,10 +633,12 @@ table.barns-table td .note { white-space: normal; }
 .week-card .week-link { font-weight: 600; }
 /* What the Numbers Show: smaller charts, side by side, each with How to read it */
 /* How It Works (2026-10-18, Scott's A of notes/how-it-works-2026-10-18.png): four green-headed cards from the data to
-   the decision, a gold arrow between them, the tested result on The Answer. On a phone they stack, the arrows pointing down. */
+   the decision, the tested result on The Answer. Between them a round gold arrow badge (Scott's C of
+   notes/how-it-works-flow-2026-10-18.png: "I did almost miss the arrows"; round and suite gold, like the rest of the
+   site). On a phone they stack, the arrows pointing down. */
 .how { margin: 32px 0 8px; padding: 0; }   /* not the 48 px every section gets: it sits inside the page's own section */
 .how h2 { margin-top: 0; }
-.how-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.how-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px; }
 .how-card { position: relative; background: #fff; border: 1px solid var(--suite-line); border-radius: 12px; }
 .how-card-head { margin: 0; padding: 12px 14px 10px; border-radius: 11px 11px 0 0; background: var(--suite-deep-green); color: #fff;
   font-size: 1.1rem; font-weight: 700; }
@@ -647,13 +649,14 @@ table.barns-table td .note { white-space: normal; }
 .how-card-body li { margin: 0 0 4px; }
 .how-badge { margin: 0 0 10px; padding: 5px 10px; border: 1px solid var(--suite-gold-line); border-radius: 12px; background: #fff7e3;
   color: var(--suite-deep-green); font-size: .82rem; font-weight: 700; line-height: 1.35; }
-.how-card + .how-card::before { content: ""; position: absolute; left: -16px; top: 50%; transform: translateY(-50%);
-  border: 7px solid transparent; border-left: 9px solid var(--suite-gold-line); }
+.how-card + .how-card::before { content: "\2192"; content: "\2192" / ""; position: absolute; left: -38px; top: 50%;
+  transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: var(--suite-gold);
+  color: var(--suite-deep-green); font: 700 20px/32px system-ui, sans-serif; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); }
 .how-src { margin: 12px 0 0; font-size: .86rem; color: var(--suite-muted); }
-@media (max-width: 900px) and (min-width: 641px) { .how-cards { grid-template-columns: repeat(2, 1fr); gap: 24px 22px; }
+@media (max-width: 900px) and (min-width: 641px) { .how-cards { grid-template-columns: repeat(2, 1fr); gap: 24px 44px; }
   .how-card:nth-child(3)::before { display: none; } }
-@media (max-width: 640px) { .how-cards { grid-template-columns: 1fr; gap: 24px; }
-  .how-card + .how-card::before { left: 50%; top: -20px; transform: translateX(-50%); border: 8px solid transparent; border-top: 10px solid var(--suite-gold-line); } }
+@media (max-width: 640px) { .how-cards { grid-template-columns: 1fr; gap: 44px; }
+  .how-card + .how-card::before { content: "\2193"; content: "\2193" / ""; left: 50%; top: -38px; transform: translateX(-50%); } }
 
 .stories-compact { display: grid; gap: 18px; align-items: start; margin-bottom: 8px; }
 .stories-compact.pair { grid-template-columns: 1fr 1fr; }
