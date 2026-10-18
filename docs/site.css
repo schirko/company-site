@@ -12,6 +12,13 @@ h1, h2, h3 { line-height: 1.2; color: var(--suite-ink); }
    menu at the right; the page content keeps its column. */
 .site-header > .wrap { max-width: none; padding: 0 clamp(20px, 2.5vw, 32px); }
 .header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; }
+/* Scott, 2026-10-17: the logo and menu sat at the top of the green bar, not in the middle. Suite version 12 makes every bar
+   68 px tall and centres with align-items, which only works on a flex box; the apps' bars are flex, this one was a
+   plain block, so its row sat at the top. As a flex column it centres the row; the row still fills the width. */
+@media (min-width: 641px) {
+  .site-header { display: flex; flex-direction: column; justify-content: center; }
+  .site-header > .wrap { width: 100%; }
+}
 .wordmark { font-size: 1.3rem; letter-spacing: .01em; }
 /* The logo (static/brand/): the C-sun and the name, drawn as shapes so it looks the same on every
    computer. Height sets the size; the width follows. */
