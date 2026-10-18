@@ -1,5 +1,5 @@
 {
-  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens. \"price_from\" is the lowest monthly subscription price, shown on the tiles only when config.SHOW_PRICES is True (after billing exists). \"shot_alt\" describes the app's computer and phone pictures (static/shots/<id>-computer.jpg and -phone.jpg) for people who can't see them. An app with a \"page\" block gets the fuller page (templates/app_full.html): a headline, a sample cut off partway (\"sample\"), what is free and what comes with a subscription, the steps, then the weekly card and findings. An app without one keeps the shorter page (templates/app.html). Every claim in \"free\" and \"subscription\" must match what the app really locks and opens. \"signup\" says how a new person gets into the app today: \"waitlist\" (the app is invite-only, so every sign-up link on this site reads Join the Waitlist and opens the app's waitlist card) or \"open\" (anyone can make an account: Sign Up Free). Change it the same day the app's own sign-up setting changes. An app with no \"signup\" gets no sign-up links; its home page tile shows \"tile_note\" beside Open instead. \"tile_waitlist\" is one line shown above the tile's buttons, to new visitors only, while \"signup\" is \"waitlist\" (Free account. By invite for now.): it must say only what is true while the app is invite-only, so no 30 days and no \"try\". \"member_short\" is the short header label on phones for a browser that has used the app. In \"page\": \"second_sample\" puts a second page from the app beside \"sample\" in one band headed \"samples_title\" (the first sample's \"points\" are then not shown); the same rules hold for it: a real page from the app with made-up cattle, marked as such, cut off, never blurred. \"signup\" holds the page's own words for each state (on the waitlist nothing may promise what only an account gives, so \"trial_lead\" says With an account, and the closing headline asks rather than offers); \"panel\" is the subscription feature shown beside the headline; \"year\" is the strip of four seasons, and a season with its own \"panel\" takes over the one beside the headline while it lasts. A panel's words must describe its own picture (\"showcase\": the app's computer and phone pictures; \"sample\": the page's sample), which is why a season without a picture of its own has no panel yet. Every line in \"year\" must be something the app does today.",
+  "about": "The website's longer description of each app (the home page tiles and app sections). Keys are app ids from static/suite/suite-apps.json; every app there needs an entry here. The short one-line 'what' in suite-apps.json is for the Farm Apps menu. 'in_development' lists apps being built that aren't in the suite list yet: they get a tile on the home page (tagged In development, with Get notified) and nothing else. Move one into suite-apps.json when it opens. \"price_from\" is the lowest monthly subscription price, shown on the tiles only when config.SHOW_PRICES is True (after billing exists). \"shot_alt\" describes the app's computer and phone pictures (static/shots/<id>-computer.jpg and -phone.jpg) for people who can't see them. An app with a \"page\" block gets the fuller page (templates/app_full.html): a headline, a sample cut off partway (\"sample\"), what is free and what comes with a subscription, the steps, then the weekly card and findings. An app without one keeps the shorter page (templates/app.html). Every claim in \"free\" and \"subscription\" must match what the app really locks and opens. \"signup\" says how a new person gets into the app today: \"waitlist\" (the app is invite-only, so every sign-up link on this site reads Join the Waitlist and opens the app's waitlist card) or \"open\" (anyone can make an account: Sign Up Free). Change it the same day the app's own sign-up setting changes. An app with no \"signup\" gets no sign-up links; its home page tile shows \"tile_note\" beside Open instead. \"tile_waitlist\" is one line shown above the tile's buttons, to new visitors only, while \"signup\" is \"waitlist\" (Free account. By invite for now.): it must say only what is true while the app is invite-only, so no 30 days and no \"try\". \"member_short\" is the short header label on phones for a browser that has used the app. In \"page\": \"second_sample\" puts a second page from the app beside \"sample\" in one band headed \"samples_title\" (the first sample's \"points\" are then not shown); the same rules hold for it: a real page from the app with made-up cattle, marked as such, cut off, never blurred. \"signup\" holds the page's own words for each state (on the waitlist nothing may promise what only an account gives, so \"trial_lead\" says With an account, and the closing headline asks rather than offers); \"panel\" is the subscription feature shown beside the headline; \"year\" is the strip of four seasons, and a season with its own \"panel\" takes over the one beside the headline while it lasts. A panel's words must describe its own picture (\"showcase\": the app's computer and phone pictures; \"sample\": the page's sample), which is why a season without a picture of its own has no panel yet. Every line in \"year\" must be something the app does today. \"how\" (2026-10-18, Scott's A of notes/how-it-works-2026-10-18.png) is the How It Works section on the app's page: four steps (The Data, The Method, The Answer, Your Decision), each with a \"what\" line and its items, and \"tested\", a result from How We Test shown on The Answer: every number in it must appear in that app's section of templates/methods.html (a test checks). Herd Planner has none: its fuller page already has How It Works as the ranch year (2026-10-16), and two would compete.",
   "herd-planner": {
     "question": "Which calves do I sell, which heifers do I keep, and how fast can my herd grow?",
     "audience": "For cow-calf ranches",
@@ -187,6 +187,15 @@
       "Shows which weather matters for which crop, and where: August rain decides soybeans, and a long dry spell hurts Nebraska corn but not Iowa's"
     ],
     "note": "No account needed. Corn and soybeans, Nebraska and Iowa.",
+    "how": {
+      "steps": [
+        {"name": "The Data", "what": "What it reads", "items": ["USDA county yields and acres since 2000", "NASA weather, USDA soils, USGS elevation", "The share of acres irrigated"]},
+        {"name": "The Method", "what": "How it works it out", "items": ["The long-run trend first", "Then weather, soils and irrigation", "Tested on counties it never saw"]},
+        {"name": "The Answer", "what": "What you get", "items": ["A county's expected corn yield", "What pushed a season up or down", "Its typical miss, said plainly"]},
+        {"name": "Your Decision", "what": "What it helps you choose", "items": ["What a normal year looks like for you", "How much irrigation is worth", "Where your county stands"]}
+      ],
+      "tested": "Typical miss about 14 bushels an acre on Nebraska counties it never saw"
+    },
     "tile_note": "Free, no account",
     "price_from": "$10",
     "shot_alt": "Yield Predictor on a computer, showing a map of average corn yield by Nebraska county, 2000 to 2025, and on a phone, Hall County's yield history, actual against predicted, with the 80% range around each prediction."
@@ -201,6 +210,15 @@
       "Finds the harvest bottleneck: the combine, carts, trucks, pit or dryer"
     ],
     "note": "Sign in with My Farm: one account for every Cornerpost Logic app. The first visit can take a minute to wake up.",
+    "how": {
+      "steps": [
+        {"name": "The Data", "what": "What it reads", "items": ["Your machines, acres and crops", "Your county's real falls since 2000 (NASA rainfall)", "ASABE and Iowa State machinery costs"]},
+        {"name": "The Method", "what": "How it works it out", "items": ["Cost to own and run, by the published method", "Each fall replayed day by day", "Thousands of simulated seasons"]},
+        {"name": "The Answer", "what": "What you get", "items": ["Cost per acre and per bushel", "Own, lease or hire, side by side", "The harvest bottleneck"]},
+        {"name": "Your Decision", "what": "What it helps you choose", "items": ["Buy new, buy used or hire custom", "The right size of machine", "Keep or trade"]}
+      ],
+      "tested": "Matches all 64 rows of Iowa State's field capacity table"
+    },
     "tile_note": "By invite for now",
     "price_from": "$10",
     "shot_alt": "Farm Equipment Planner on a computer and a phone, comparing ways to get a combine for 1,200 acres of corn in Hall County, Nebraska: hiring custom harvesting costs the least, about $64.58 an acre a year."
@@ -215,6 +233,15 @@
       "Tested season by season on 2011-2025, and against Grass-Cast, the public forecast from USDA and partners"
     ],
     "note": "No sign-in needed to try it. Nebraska counties for now; drawing your own pasture comes later.",
+    "how": {
+      "steps": [
+        {"name": "The Data", "what": "What it reads", "items": ["Satellite grass measurements (RAP)", "NASA weather to date", "Your county's last 10 seasons"]},
+        {"name": "The Method", "what": "How it works it out", "items": ["This season against normal", "Only seasons before it, never after", "Ranges from its own real misses"]},
+        {"name": "The Answer", "what": "What you get", "items": ["This season's grass for your county", "Head your pasture carries, 9 years in 10", "Too early to tell, before June"]},
+        {"name": "Your Decision", "what": "What it helps you choose", "items": ["Keep them", "Move or sell some", "Room for more"]}
+      ],
+      "tested": "July 1 forecast: typical miss 6.3%"
+    },
     "tile_note": "Free, no sign-in",
     "price_from": "$9",
     "shot_alt": "Grazing Planner on a computer and a phone, showing the August 1 check for 120 pairs on 2,000 acres of Frontier County, Nebraska native range: keep your 120 pairs; this year's grass is 8% below normal."

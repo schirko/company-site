@@ -248,6 +248,35 @@ def member_css(apps, copy):
         for a in member_apps(apps, copy))
 
 
+def how_block(app, copy):
+    """How It Works (2026-10-18; Scott liked a four-step card graphic and chose A of notes/how-it-works-2026-10-18.png):
+    four green-headed cards from the data to the decision, with a tested result from How We Test on The Answer and a
+    link to that app's part of How We Test. From the app's "how" block in content/apps.json; none, no section."""
+    how = copy.get("how")
+    if not how:
+        return ""
+    cards_html = []
+    for i, step in enumerate(how["steps"], 1):
+        badge = (f'\n          <p class="how-badge">Tested: {e(how["tested"])}</p>' if i == 3 else "")
+        items = "".join(f"<li>{e(t)}</li>" for t in step["items"])
+        cards_html.append(f"""      <li class="how-card">
+        <p class="how-card-head"><small>Step {i}</small> {e(step["name"])}</p>
+        <div class="how-card-body">
+          <p class="how-what">{e(step["what"])}</p>{badge}
+          <ul>{items}</ul>
+        </div>
+      </li>""")
+    return f"""    <section class="how" id="how-it-works" aria-labelledby="how-h">
+    <h2 id="how-h">How {e(app["name"])} Works</h2>
+    <p class="section-lede">From the data to your decision, in four steps.</p>
+    <ol class="how-cards">
+{chr(10).join(cards_html)}
+    </ol>
+    <p class="how-src">Every tested result is from our own testing, with its limits: <a href="methods.html#{e(app["id"])}">How We Test {e(app["name"])}</a>.</p>
+    </section>
+"""
+
+
 def nav_account(apps, copy, page_app=None):
     """The end of the header menu: Sign In, on every page and for everyone, to My Farm (the one sign-in for every
     app; already signed in there, it opens My Farm's home with every app). On the page of an app with sign-up links,
@@ -1102,6 +1131,7 @@ def build():
             # takes the card(s) without week_blocks' "This Week: <county>" line.
             v["week_card"] = v["week_block"].split("</h2>\n", 1)[1]
             v["week_place"] = e(f'{week["place"]["county"]}, {week["place"]["state_name"]}')
+        v["how_block"] = how_block(app, copy[app["id"]])
         own = [st for st in stories if st["app"] == app["id"]]
         # Smaller and explained (Scott, 2026-09-30): side by side on a computer, a one-line intro, and a "How to
         # read it" line on each chart (stories.json "how_to_read").
