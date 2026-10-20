@@ -882,7 +882,8 @@ def test_sign_in_is_on_every_page_for_everyone(site):
     for path in sorted(site.glob("*.html")):
         page = path.read_text(encoding="utf-8")
         head = page[:page.index("</head>")]
-        assert re.search(r'<script src="member\.js\?v=\w+" data-apps="%s"></script>' % re.escape(ids), head), path.name
+        assert re.search(r'<script src="member\.js\?v=\w+" data-apps="%s" data-open-apps="%s"></script>'
+                         % (re.escape(ids), re.escape(" ".join(a["id"] for a in build.load_apps() if build.open_url(a)))), head), path.name
         nav = site_nav(page)
         assert f'<a class="nav-signin" href="{config.ACCOUNT_URL}">Sign In</a>' in nav, path.name
         assert "nav-member" not in page and "nav-visitor" not in page, path.name
@@ -910,18 +911,20 @@ def test_the_script_keeps_one_word_in_the_browser_and_sends_nothing():
     code = re.sub(r"//[^\n]*", "", script)
     for sends in ("fetch(", "XMLHttpRequest", "sendBeacon", "document.cookie", "new Image", ".src =", "WebSocket", "postMessage"):
         assert sends not in code
-    assert code.count("localStorage.") == 3 and "sessionStorage" not in code   # read, write, remove: one key
-    assert 'var KEY = "cpl.uses";' in code
+    # read, write, remove for each of two keys: "cpl.uses" (one app id) and, since 2026-10-20, "cpl.open" (app ids)
+    assert code.count("localStorage.") == 6 and "sessionStorage" not in code
+    assert 'var KEY = "cpl.uses", OPEN = "cpl.open";' in code
     # Only a mark for an app this site lists is acted on, and it is then taken out of the address, keeping the
     # page and anything after "?".
     assert r"var mark = /^#(uses|left)=([a-z0-9-]{1,40})$/.exec(location.hash);" in code
-    assert "if (mark && apps.indexOf(mark[2]) > -1) {" in code
+    assert "if (mark && (apps.indexOf(mark[2]) > -1 || menuApps.indexOf(mark[2]) > -1)) {" in code
     assert 'if (mark[1] === "uses") write(mark[2]); else if (read() === mark[2]) write(null);' in code
+    assert 'keep(mark[1] === "uses" ? list.concat(mark[2]) : list);' in code   # #left takes the app off the menu list
     assert 'history.replaceState(null, "", location.pathname + location.search);' in code
     assert 'if (id && apps.indexOf(id) > -1) root.setAttribute("data-uses", id); else root.removeAttribute("data-uses");' in code
     # Forget this: forgets, redraws, and hands the keyboard on if its own line has gone.
     forget = code[code.index('closest("[data-forget-app]")'):]
-    assert forget.index("write(null);") < forget.index("show();") < forget.index("next.focus()")
+    assert forget.index("write(null);") < forget.index("keep([]);") < forget.index("redraw();") < forget.index("next.focus()")
 
 
 def test_the_privacy_page_says_what_the_browser_keeps(site):
@@ -1156,3 +1159,39 @@ def test_the_menu_shows_coming_soon_apps(tmp_path, monkeypatch):
         assert (ROOT / "static/soon" / f"{app['id']}.svg").exists()
     ranches = html[html.index("For Ranches"):html.index("For Farms")]
     assert ranches.index("Grazing Planner") < ranches.index("Hay &amp; Feed Planner")   # after the open apps
+
+
+def test_the_menu_goes_through_the_app_s_sign_in_check_once_this_browser_has_used_it(site):
+    """Scott, 2026-10-20: signed in on Herd Planner, then the company site, then the menu back to Herd Planner: "Herd
+    planner doesn't see me as signed in." The menu opened this site's Herd Planner page, which shows Sign In to
+    everyone. Then: "a sign in check needs to be done and then send the user to the actual app if signed in, or the
+    splash page for herd planner if not." Each app's row keeps its page here as the link (what a new visitor, no
+    JavaScript, or Copy Link gets) and carries the app's /open, which member.js uses once the app has sent this
+    browser back with #uses=. How the rows switch in a browser is checked with Playwright (see the README)."""
+    page = (site / "index.html").read_text(encoding="utf-8")
+    menu = page[page.index('<details class="mega"'):page.index("</details>", page.index('<details class="mega"'))]
+    rows = re.findall(r'<a class="mega-app" href="([^"]+)"([^>]*)>', menu)
+    by_page = {href: rest for href, rest in rows}
+    for app_id, path in build.OPENS.items():
+        app = next(a for a in build.load_apps() if a["id"] == app_id)
+        assert f' data-app="{app_id}" data-open="{app["url"].rstrip("/")}/{path}"' == by_page[f"{app_id}.html"]
+    assert by_page["corn-yield-predictor.html"] == ""            # no sign-in there: always its page
+    script = (build.STATIC / "member.js").read_text(encoding="utf-8")
+    assert 'document.querySelectorAll("a[data-open][data-app]")' in script
+    assert 'a.setAttribute("href", used.indexOf(a.getAttribute("data-app")) > -1 ? a.getAttribute("data-open") : page);' in script
+    assert 'document.addEventListener("DOMContentLoaded", rows);' in script   # the menu comes after the script
+
+
+@pytest.mark.skipif(not MASTER.exists(), reason="the apps aren't checked out next to this project")
+def test_every_app_the_menu_opens_answers_open_and_sends_the_marks():
+    """The other side of the menu: each app has the /open route and sends #uses=/#left= on its way back here."""
+    apps = MASTER.parents[1]
+    assert '@app.get("/open"' in (apps / "herd-planner" / "src" / "herd_planner" / "main.py").read_text(encoding="utf-8")
+    gp = apps / "grazing-planner" / "src" / "grazeplan"
+    if gp.exists():
+        assert '@app.get("/open"' in (gp / "app.py").read_text(encoding="utf-8")
+        assert '"uses" : "left"}=grazing-planner' in (gp / "web" / "session.js").read_text(encoding="utf-8")
+    ep = apps / "farm-equipment-planner"
+    if ep.exists():
+        assert 'path("open/", views.open_from_site' in (ep / "core" / "urls.py").read_text(encoding="utf-8")
+        assert '"=farm-equipment-planner"' in (ep / "static" / "js" / "menus.js").read_text(encoding="utf-8")

@@ -104,13 +104,30 @@ def e(text):
     return html.escape(text, quote=True)
 
 
+# The apps whose server answers /open (2026-10-20). Scott: "a sign in check needs to be done and then send the user to
+# the actual app if signed in, or the splash page for herd planner if not." This site can't see an app's sign-in (another
+# domain), so the app checks it: signed in, into the app; anyone else, back to the app's page here. The menu only goes
+# there in a browser that has used the app (member.js, the #uses= mark), so a new visitor never waits for a sleeping
+# server. The path is the app's own (Django's addresses end in "/"). The Yield Predictor has no sign-in.
+OPENS = {"herd-planner": "open", "grazing-planner": "open", "farm-equipment-planner": "open/"}
+
+
+def open_url(app) -> str | None:
+    """The app's /open address, or None for an app without one (or not online yet)."""
+    if app["id"] not in OPENS or not app.get("url"):
+        return None
+    return app["url"].rstrip("/") + "/" + OPENS[app["id"]]
+
+
 def mega_menu(apps) -> str:
     """The header's Our Farm Apps menu: a <details> element (opens without JavaScript; static/menu.js closes it on
     a click elsewhere, Escape or a chosen link). Each app links to its page here, with its logo and one line."""
     by_id = {a["id"]: a for a in apps}
 
     def app_link(a):
-        return (f'          <a class="mega-app" href="{APP_PAGE.format(e(a["id"]))}">'
+        opens = open_url(a)   # 2026-10-20: the app's own sign-in check, used by member.js once this browser used the app
+        more = f' data-app="{e(a["id"])}" data-open="{e(opens)}"' if opens else ""
+        return (f'          <a class="mega-app" href="{APP_PAGE.format(e(a["id"]))}"{more}>'
                 f'<img src="suite/suite-logos/{e(a["id"])}.svg" alt="" width="40" height="40">'
                 f'<span><b>{e(a["name"])}</b><small>{e(a["what"])}</small></span></a>')
     def soon_row(a):   # suite version 10 (Scott chose A of notes/coming-soon-options-2026-10-14.png): nothing to open
@@ -1097,6 +1114,7 @@ def build():
         "account_url": e(config.ACCOUNT_URL),
         "member_css": member_css(apps, copy),
         "member_apps": e(" ".join(a["id"] for a in member_apps(apps, copy))),
+        "open_apps": e(" ".join(a["id"] for a in apps if open_url(a))),
         "app_rows": "\n".join([app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)]
                                + [dev_strip(d) for d in copy.get("in_development", [])]),
         "app_list": "\n".join(app_line(a) for a in apps),

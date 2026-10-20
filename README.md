@@ -33,7 +33,8 @@ company-site/
 ├── static/panel.js    "See your county": swaps the pins and the panel's tiles to a visitor's county
 ├── static/slider.js   the app tiles row: arrow buttons for the sideways-scrolling row
 ├── static/menu.js     the header's Our Farm Apps menu: closes on a click elsewhere, Escape or a chosen link
-├── static/member.js   remembers a browser that has used an app, so the menu offers "Open Herd Planner"
+├── static/member.js   remembers a browser that has used an app, so the menu offers "Open Herd Planner" and
+│                      the Our Farm Apps menu goes through the app's sign-in check (/open)
 │                      in place of "Sign In" (see "Sign-up links")
 ├── templates/         the pages, with ${placeholders} for the name and the app list. An app's own page is
 │                      app.html, or app_full.html when the app has a "page" block in apps.json
@@ -479,6 +480,20 @@ goes, not to the link itself, so "Copy link address" in the app gives the plain 
 that could send). No JavaScript or no storage: the page stays as a new visitor sees it. The Privacy page says
 all this in a sentence and has its own Forget button. The real fix is still one sign-in for every app, which
 needs the apps on subdomains of cornerpostlogic.com.
+
+**The Our Farm Apps menu checks the app's sign-in** (2026-10-20). Scott: signed in on Herd Planner, then this site,
+then the menu back to Herd Planner, and "Herd planner doesn't see me as signed in". The menu opened this site's Herd
+Planner page, which shows Sign In to everyone. He asked: "a sign in check needs to be done and then send the user to
+the actual app if signed in, or the splash page for herd planner if not." This site can't do that check, so each app
+does it at its own `/open` (Herd Planner v0.70.0, Grazing Planner v0.27.0, Equipment Planner v0.38.0 at `/open/`):
+signed in, into the app; anyone else, back to the app's page here. `build.OPENS` lists them.
+
+1. Each app's menu row links to the app's page here, and carries `data-app` and `data-open` (the app's `/open`).
+2. Grazing Planner and the Equipment Planner now send `#uses=` / `#left=` marks on their way back here too. `member.js`
+   keeps the ids of the apps that sent `#uses=` (localStorage `cpl.open`, a space-separated list; `#left=` takes one
+   off; Herd Planner's older `cpl.uses` counts as well), and once the menu is drawn it points those rows at `/open`.
+3. A new visitor's menu never touches an app, so nobody waits up to a minute for a sleeping Render server only to be
+   sent back here. Forget this clears both notes.
 
 Checked in a real browser with the app beside it: `herd-planner/tests/browser/site_links.js` (at 1,200 and
 390 px, with the site on the waitlist and with sign-up open). The pytest tests read what the build writes;
