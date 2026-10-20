@@ -678,7 +678,9 @@ def test_one_setting_words_every_sign_up_link_on_the_page(state, button, card, o
     assert sum(c["text"] == button for c in controls(parts)) >= 4
     assert "$" not in words(parts)   # still no price
     nav = controls(build.nav_account(build.load_apps(), {**build.load_copy(), app["id"]: copy}, app))
-    assert [(c["href"], c["for"]) for c in nav] == [(config.ACCOUNT_URL, None), (base + card, "visitor-only")]   # Sign In: My Farm
+    # Sign In: My Farm (and, drawn hidden for account.js since 2026-10-20, the signed-in My Farm link before it)
+    assert [(c["href"], c["for"]) for c in nav] == [(build.MY_FARM_HOME, None), (config.ACCOUNT_URL, None), (None, None),   # Sign Out: a button
+                                                       (base + card, "visitor-only")]
 
 
 def test_on_the_waitlist_nothing_beside_a_button_promises_what_only_an_account_gives():
@@ -1195,3 +1197,37 @@ def test_every_app_the_menu_opens_answers_open_and_sends_the_marks():
     if ep.exists():
         assert 'path("open/", views.open_from_site' in (ep / "core" / "urls.py").read_text(encoding="utf-8")
         assert '"=farm-equipment-planner"' in (ep / "static" / "js" / "menus.js").read_text(encoding="utf-8")
+
+
+def test_signed_in_the_header_says_my_farm_and_sign_out(site):
+    """Scott, 2026-10-20: "no matter which app I sign in to, when I go to the company home page it says Sign In as if I
+    am not already. Maybe it should say Sign Out if I'm logged in?" He chose A of notes/site-signout-sheet-*: My Farm and
+    Sign Out. Every page is drawn as a visitor sees it, with the two signed-in controls hidden; account.js asks My Farm
+    and swaps them in only on a yes. Walked through in Chromium against a local My Farm (see the README)."""
+    for path in sorted(site.glob("*.html")):
+        page = path.read_text(encoding="utf-8")
+        header = page[page.index('<header class="suite-bar site-header">'):page.index("</header>")]
+        assert header.count('<a class="nav-signin" href="%s">Sign In</a>' % build.e(config.ACCOUNT_URL)) == 2, path.name
+        assert header.count('<button type="button" class="nav-signin nav-signout" hidden>Sign Out</button>') == 2, path.name
+        assert header.count('<a class="nav-farm" href="%s" data-note="Your apps" hidden>My Farm</a>' % build.MY_FARM_HOME) == 1, path.name
+        assert re.search(r'<script src="account\.js\?v=\w+" data-account="%s" defer></script>' % re.escape(config.ACCOUNT_ORIGIN), page), path.name
+    css = (site / "site.css").read_text(encoding="utf-8")
+    assert ".site-header .nav-farm[hidden], .site-header .nav-signin[hidden] { display: none !important; }" in css
+
+
+def test_the_header_script_asks_my_farm_yes_or_no_and_starts_as_a_visitor():
+    script = (build.STATIC / "account.js").read_text(encoding="utf-8")
+    code = re.sub(r"//[^\n]*", "", script)
+    assert 'fetch(origin + "/site/status", { credentials: "include", cache: "no-store"' in code
+    assert "draw(!!(answer && answer.signed_in === true));" in code          # only a plain yes swaps
+    assert 'fetch(origin + "/site/sign-out", { method: "POST", credentials: "include", cache: "no-store" })' in code
+    assert "localStorage" not in code and "document.cookie" not in code and "innerHTML" not in code
+    assert code.count("fetch(") == 2                                          # those two, and nothing else
+
+
+@pytest.mark.skipif(not (ROOT.parent / "farm-account").exists(), reason="My Farm isn't checked out next to this project")
+def test_my_farm_answers_this_site_and_only_this_site():
+    router = (ROOT.parent / "farm-account" / "src" / "farm_account" / "routers" / "site_sign_in.py").read_text(encoding="utf-8")
+    assert '@router.get("/status"' in router and '@router.post("/sign-out"' in router
+    assert 'SITE_ORIGINS = {"https://cornerpostlogic.com", "https://www.cornerpostlogic.com"}' in router
+    assert config.SITE_URL.rstrip("/") in router

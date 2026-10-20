@@ -629,6 +629,12 @@ table.barns-table td .note { white-space: normal; }
 /* "Sign In" in the menu: the suite account, set apart from the page links. */
 .site-nav .nav-signin { border: 2px solid var(--suite-gold); border-radius: 8px; padding: 4px 12px; color: #fff; }
 .site-nav .nav-signin:hover { background: var(--suite-gold); color: var(--suite-deep-green); }
+/* Signed in (2026-10-20, Scott's A): My Farm and Sign Out in place of Sign In, swapped by account.js only after My Farm
+   says yes. Drawn hidden; [hidden] must win over the menu's display rules. Sign Out is a button (it does something),
+   dressed like Sign In. */
+.site-header .nav-farm[hidden], .site-header .nav-signin[hidden] { display: none !important; }
+button.nav-signin { font: inherit; font-weight: 700; line-height: inherit; background: transparent; cursor: pointer; }
+button.nav-signin:disabled { opacity: .6; cursor: progress; }
 
 /* How We Test: the Honest Ranges section (what an 80% range means, and its record) */
 .honest { padding: 8px 0 36px; }

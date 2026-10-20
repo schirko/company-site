@@ -21,7 +21,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=f86a385d80">
+  <link rel="stylesheet" href="site.css?v=02bbf02fdc">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -34,7 +34,7 @@
     <!-- On a phone (Scott, 2026-10-13: one phone header for every app and the site, Herd Planner's, from
          herd-planner/notes/phone-headers-now-and-proposed-2026-10-13.png): Sign In (or a returning browser's Open
          link) stays on the bar and the rest is behind Menu. Both are hidden on wider screens. -->
-    <div class="bar-account"><a class="nav-signin" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a></div>
+    <div class="bar-account"><a class="nav-signin" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a><button type="button" class="nav-signin nav-signout" hidden>Sign Out</button></div>
     <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav"><span aria-hidden="true">&#9776;</span> Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="Site">
       <div class="mega-wrap"><details class="mega" data-mega>
@@ -64,7 +64,9 @@
       <a href="barns.html" data-note="Every barn">Barn Prices</a>
       <a href="about.html" data-note="Who we are">About</a>
       <a class="nav-methods" href="methods.html" data-note="How we check it" aria-current="page">How We Test</a>
+      <a class="nav-farm" href="https://apps.cornerpostlogic.com/app/" data-note="Your apps" hidden>My Farm</a>
       <a class="nav-signin" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a>
+      <button type="button" class="nav-signin nav-signout" hidden>Sign Out</button>
     </nav>
   </div>
 </header>
@@ -359,5 +361,6 @@
 <button type="button" class="suite-ask-fab suite-ask-hidden" data-suite-ask="site" data-suite-base="suite">Ask a Question</button>
 <script src="suite/suite.js?v=df5d09b6c0" defer></script>
 <script src="menu.js?v=e153a3ec91" defer></script>
+<script src="account.js?v=f2e3800f70" data-account="https://apps.cornerpostlogic.com" defer></script>
 </body>
 </html>

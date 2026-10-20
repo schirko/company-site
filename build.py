@@ -309,7 +309,7 @@ def nav_account(apps, copy, page_app=None):
     is no link to sign in even on the menu bar"), A of notes/site-signin-2026-10-18.png: before, a browser that had
     used Herd Planner saw "Open Herd Planner" here in place of Sign In, and no way to sign in to anything else."""
     su = signup(page_app, copy[page_app["id"]]) if page_app else None
-    parts = [f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>']
+    parts = [signed_in_links(), f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>', sign_out_button()]
     if su:
         parts.append(f'<a {visitor(page_app, "nav-signup")} href="{e(su["url"])}"><span class="wide">{e(su["nav"])}</span>'
                      f'<span class="narrow">{e(su["nav_short"])}</span></a>')
@@ -318,8 +318,25 @@ def nav_account(apps, copy, page_app=None):
 
 def nav_bar(apps, copy, page_app=None):
     """The phone's bar (2026-10-13): Sign In, the same as the menu's (2026-10-18: for everyone, to My Farm); the
-    sign-up button goes in the Menu."""
-    return f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>'
+    sign-up button goes in the Menu. Signed in (2026-10-20), Sign Out; My Farm is in the Menu."""
+    return f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>' + sign_out_button()
+
+
+# Signed in, the header says so (2026-10-20). Scott: "no matter which app I sign in to, when I go to the company home
+# page it says Sign In as if I am not already. Maybe it should say Sign Out if I'm logged in?" He chose A of
+# notes/site-signout-sheet-*-2026-10-20.png: My Farm and Sign Out. This site and My Farm (apps.) are the same site to a
+# browser, so static/account.js asks My Farm (GET /site/status, with its cookie) and, only on a yes, hides Sign In and
+# shows these two, drawn here hidden. Sign Out asks My Farm to end the sign-in (POST /site/sign-out). No JavaScript,
+# My Farm asleep or no answer: Sign In stays, which is never wrong, only late.
+MY_FARM_HOME = config.ACCOUNT_ORIGIN + "/app/"
+
+
+def signed_in_links() -> str:
+    return f'<a class="nav-farm" href="{e(MY_FARM_HOME)}" data-note="Your apps" hidden>My Farm</a>'
+
+
+def sign_out_button() -> str:
+    return '<button type="button" class="nav-signin nav-signout" hidden>Sign Out</button>'
 
 
 SEASON_OF = {12: "winter", 1: "winter", 2: "winter", 3: "spring", 4: "spring", 5: "spring",
@@ -1070,7 +1087,7 @@ def hero_photo() -> tuple[str, str, str]:
             f'  <p class="photo-credit">{e(credit)}</p>')
 
 
-VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js", "barn-notice.js")
+VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js", "barn-notice.js", "account.js")
 
 
 def versioned(page: str) -> str:
@@ -1115,6 +1132,7 @@ def build():
         "member_css": member_css(apps, copy),
         "member_apps": e(" ".join(a["id"] for a in member_apps(apps, copy))),
         "open_apps": e(" ".join(a["id"] for a in apps if open_url(a))),
+        "account_origin": e(config.ACCOUNT_ORIGIN),
         "app_rows": "\n".join([app_row(a, copy[a["id"]], i % 2 == 1) for i, a in enumerate(apps)]
                                + [dev_strip(d) for d in copy.get("in_development", [])]),
         "app_list": "\n".join(app_line(a) for a in apps),
