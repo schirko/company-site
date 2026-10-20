@@ -482,17 +482,17 @@ all this in a sentence and has its own Forget button. The real fix is still one 
 needs the apps on subdomains of cornerpostlogic.com.
 
 **Signed in, the header says so** (2026-10-20). Scott: "no matter which app I sign in to, when I go to the company
-home page it says Sign In as if I am not already. Maybe it should say Sign Out if I'm logged in?" He chose A of
-`notes/site-signout-sheet-*-2026-10-20.png`: My Farm and Sign Out. This site (cornerpostlogic.com) and My Farm
-(apps.cornerpostlogic.com) are the same *site* to a browser, so a fetch from here with `credentials: "include"` carries
-My Farm's own sign-in cookie, and third-party-cookie blocking doesn't apply. Every app signs in through My Farm, so its
-answer covers them all.
+home page it says Sign In as if I am not already. Maybe it should say Sign Out if I'm logged in?" He chose B of
+`notes/site-signout-sheet-*-2026-10-20.png` (A was built first by a slip): a menu under your first name with My Farm
+and Sign Out, as inside the apps. This site (cornerpostlogic.com) and My Farm (apps.cornerpostlogic.com) are the same
+*site* to a browser, so a fetch from here with `credentials: "include"` carries My Farm's own sign-in cookie, and
+third-party-cookie blocking doesn't apply. Every app signs in through My Farm, so its answer covers them all.
 
-- Every page is drawn as a visitor sees it: Sign In, plus a hidden My Farm link and hidden Sign Out button
-  (`build.signed_in_links`, `build.sign_out_button`).
-- `static/account.js` asks My Farm `GET /site/status` (farm-account v0.56.0; answers only `{"signed_in": true|false}`
-  and only to this site's addresses) and, on a yes, hides Sign In and shows the other two. On a phone the bar shows
-  Sign Out and My Farm is in the Menu.
+- Every page is drawn as a visitor sees it: Sign In, plus the name menu hidden (`build.me_menu`, a `<details>` like
+  Our Farm Apps), once in the menu bar and once on the phone's bar.
+- `static/account.js` asks My Farm `GET /site/status` (farm-account v0.56.1; answers only this site's addresses, with
+  `{"signed_in": true|false, "label": "Scott"}`, the first name and never the email) and, on a yes, hides Sign In,
+  shows the menu and puts the name in it as text. One menu open at a time; a click elsewhere or Escape closes it.
 - Sign Out is `POST /site/sign-out`: it ends the My Farm sign-in, so every app follows at its next check with My Farm
   (within 5 minutes of use), the same as signing out inside an app.
 - No JavaScript, My Farm asleep, or no answer: Sign In stays. Never wrong, only late. The Privacy page says this.

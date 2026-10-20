@@ -629,12 +629,21 @@ table.barns-table td .note { white-space: normal; }
 /* "Sign In" in the menu: the suite account, set apart from the page links. */
 .site-nav .nav-signin { border: 2px solid var(--suite-gold); border-radius: 8px; padding: 4px 12px; color: #fff; }
 .site-nav .nav-signin:hover { background: var(--suite-gold); color: var(--suite-deep-green); }
-/* Signed in (2026-10-20, Scott's A): My Farm and Sign Out in place of Sign In, swapped by account.js only after My Farm
-   says yes. Drawn hidden; [hidden] must win over the menu's display rules. Sign Out is a button (it does something),
-   dressed like Sign In. */
-.site-header .nav-farm[hidden], .site-header .nav-signin[hidden] { display: none !important; }
-button.nav-signin { font: inherit; font-weight: 700; line-height: inherit; background: transparent; cursor: pointer; }
-button.nav-signin:disabled { opacity: .6; cursor: progress; }
+/* Signed in (2026-10-20, Scott's B): a menu under your first name with My Farm and Sign Out, as in the apps, swapped in
+   by account.js only after My Farm says yes. Drawn hidden; [hidden] must win over the menu's display rules. */
+.site-header .nav-me[hidden], .site-header .nav-signin[hidden] { display: none !important; }
+.nav-me { position: relative; }
+.nav-me > summary { list-style: none; cursor: pointer; border: 2px solid var(--suite-gold); border-radius: 8px; padding: 4px 12px;
+  color: #fff; font-weight: 700; white-space: nowrap; }
+.nav-me > summary::-webkit-details-marker { display: none; }
+.nav-me > summary::after { content: "\25BE"; margin-left: 6px; }
+.nav-me > summary:hover, .nav-me[open] > summary { background: var(--suite-gold); color: var(--suite-deep-green); }
+.nav-me-panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 60; display: flex; flex-direction: column;
+  min-width: 170px; padding: 6px 0; background: #fff; border-radius: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, .28); }
+.nav-me-panel a, .nav-me-panel button { display: block; padding: 10px 16px; border: 0; background: transparent; text-align: left;
+  color: var(--suite-deep-green) !important; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
+.nav-me-panel a:hover, .nav-me-panel button:hover, .nav-me-panel a:focus-visible, .nav-me-panel button:focus-visible { background: var(--band); }
+.nav-me-panel button:disabled { opacity: .6; cursor: progress; }
 
 /* How We Test: the Honest Ranges section (what an 80% range means, and its record) */
 .honest { padding: 8px 0 36px; }
@@ -928,6 +937,9 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
   .suite-bar .site-nav > a:active, .site-nav .mega > summary:active { background: var(--band); }
   /* Sign In and Open are on the bar; How We Test comes back (wider screens drop it from a crowded row). */
   .suite-bar .site-nav > .nav-signin { display: none !important; }
+  .suite-bar .site-nav > .nav-me { display: none !important; }   /* the bar has its own */
+  .suite-bar .bar-account .nav-me > summary { display: inline-flex; align-items: center; min-height: 40px; box-sizing: border-box;
+    padding: 8px 12px; font-size: .9rem; }
   .suite-bar .site-nav > .nav-methods { display: flex !important; }
   .suite-bar .site-nav > .nav-signup { color: var(--suite-deep-green) !important; font-weight: 700; border-bottom: 0; }
   .site-nav .nav-signup .wide { display: inline; }

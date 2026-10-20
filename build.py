@@ -309,7 +309,7 @@ def nav_account(apps, copy, page_app=None):
     is no link to sign in even on the menu bar"), A of notes/site-signin-2026-10-18.png: before, a browser that had
     used Herd Planner saw "Open Herd Planner" here in place of Sign In, and no way to sign in to anything else."""
     su = signup(page_app, copy[page_app["id"]]) if page_app else None
-    parts = [signed_in_links(), f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>', sign_out_button()]
+    parts = [f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>', me_menu()]
     if su:
         parts.append(f'<a {visitor(page_app, "nav-signup")} href="{e(su["url"])}"><span class="wide">{e(su["nav"])}</span>'
                      f'<span class="narrow">{e(su["nav_short"])}</span></a>')
@@ -318,25 +318,24 @@ def nav_account(apps, copy, page_app=None):
 
 def nav_bar(apps, copy, page_app=None):
     """The phone's bar (2026-10-13): Sign In, the same as the menu's (2026-10-18: for everyone, to My Farm); the
-    sign-up button goes in the Menu. Signed in (2026-10-20), Sign Out; My Farm is in the Menu."""
-    return f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>' + sign_out_button()
+    sign-up button goes in the Menu. Signed in (2026-10-20), the menu under your name."""
+    return f'<a class="nav-signin" href="{e(config.ACCOUNT_URL)}">Sign In</a>' + me_menu()
 
 
 # Signed in, the header says so (2026-10-20). Scott: "no matter which app I sign in to, when I go to the company home
-# page it says Sign In as if I am not already. Maybe it should say Sign Out if I'm logged in?" He chose A of
-# notes/site-signout-sheet-*-2026-10-20.png: My Farm and Sign Out. This site and My Farm (apps.) are the same site to a
-# browser, so static/account.js asks My Farm (GET /site/status, with its cookie) and, only on a yes, hides Sign In and
-# shows these two, drawn here hidden. Sign Out asks My Farm to end the sign-in (POST /site/sign-out). No JavaScript,
-# My Farm asleep or no answer: Sign In stays, which is never wrong, only late.
+# page it says Sign In as if I am not already. Maybe it should say Sign Out if I'm logged in?" He chose B of
+# notes/site-signout-sheet-*-2026-10-20.png (A was built first by a slip): a menu under your first name with My Farm and
+# Sign Out, as inside the apps. This site and My Farm (apps.) are the same site to a browser, so static/account.js asks
+# My Farm (GET /site/status, with its cookie) and, only on a yes, hides Sign In and shows this menu, drawn here hidden,
+# with the name My Farm gives. Sign Out asks My Farm to end the sign-in (POST /site/sign-out). No JavaScript, My Farm
+# asleep or no answer: Sign In stays, which is never wrong, only late. A <details>, like Our Farm Apps.
 MY_FARM_HOME = config.ACCOUNT_ORIGIN + "/app/"
 
 
-def signed_in_links() -> str:
-    return f'<a class="nav-farm" href="{e(MY_FARM_HOME)}" data-note="Your apps" hidden>My Farm</a>'
-
-
-def sign_out_button() -> str:
-    return '<button type="button" class="nav-signin nav-signout" hidden>Sign Out</button>'
+def me_menu() -> str:
+    return ('<details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary>'
+            f'<div class="nav-me-panel"><a href="{e(MY_FARM_HOME)}">My Farm</a>'
+            '<button type="button" class="nav-signout">Sign Out</button></div></details>')
 
 
 SEASON_OF = {12: "winter", 1: "winter", 2: "winter", 3: "spring", 4: "spring", 5: "spring",
