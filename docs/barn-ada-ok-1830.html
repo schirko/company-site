@@ -22,7 +22,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=9c06eda98e">
+  <link rel="stylesheet" href="site.css?v=2fe9be6aaa">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -78,6 +78,22 @@
     <h1>Southern Oklahoma Livestock</h1>
     <p class="lede">Ada, OK &middot; Feeder Cattle Auction. Feeder cattle prices,
       worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
+    <!-- 2026-10-20 (claude/barn-plan.md Part 2; Scott chose A of farm-account/notes/barn-alerts-1-follow-button-*.png):
+         Follow This Barn. A plain link to My Farm, which signs you in and asks; signed in, barn-follow.js asks here
+         instead, in a small box whose email box starts unticked, and once you follow it says Following. -->
+    <div class="barn-follow" id="barn-follow" data-account="https://apps.cornerpostlogic.com" data-barn="1830">
+      <a class="btn-follow" id="bf-button" href="https://apps.cornerpostlogic.com/#follow/1830"><span aria-hidden="true">&#9734;</span> Follow This Barn</a>
+      <span class="follow-note" id="bf-note">Get its notices by email: sale times, special sales, closings.</span>
+      <div class="follow-panel" id="bf-panel" hidden>
+        <h2 class="follow-title">Follow Southern Oklahoma Livestock</h2>
+        <label class="follow-check"><input type="checkbox" id="bf-email"> Email me this barn's notices at the address on my account</label>
+        <p class="follow-small">Usually a few a month. Every email has a Stop These link. We never give your name or email to the barn.</p>
+        <div class="follow-acts"><button type="button" class="btn" id="bf-yes">Follow</button>
+          <button type="button" class="btn secondary" id="bf-no">Cancel</button></div>
+        <p class="follow-small" id="bf-said" role="status"></p>
+      </div>
+    </div>
+    <script src="barn-follow.js?v=cc08af2a67" defer></script>
     <!-- 2026-10-20 (Scott: barns "post a current message"; notes/site-claim-page-desk-2026-10-20.png): the barn's own
          notice, read from My Farm when the page opens (barn-notice.js). Hidden until there is one. -->
     <div class="barn-notice" id="barn-notice" role="note" hidden data-src="https://apps.cornerpostlogic.com/barns/1830/notice"></div>

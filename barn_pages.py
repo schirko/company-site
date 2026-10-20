@@ -274,6 +274,22 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <h1>{e(barn['name'])}</h1>
     <p class="lede">{e(where)}{" &middot; " + e(barn['sale']) if barn.get('sale') else ""}. Feeder cattle prices,
       worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
+    <!-- 2026-10-20 (claude/barn-plan.md Part 2; Scott chose A of farm-account/notes/barn-alerts-1-follow-button-*.png):
+         Follow This Barn. A plain link to My Farm, which signs you in and asks; signed in, barn-follow.js asks here
+         instead, in a small box whose email box starts unticked, and once you follow it says Following. -->
+    <div class="barn-follow" id="barn-follow" data-account="{e(config.ACCOUNT_ORIGIN)}" data-barn="{e(slug)}">
+      <a class="btn-follow" id="bf-button" href="{e(config.ACCOUNT_ORIGIN)}/#follow/{e(slug)}"><span aria-hidden="true">&#9734;</span> Follow This Barn</a>
+      <span class="follow-note" id="bf-note">Get its notices by email: sale times, special sales, closings.</span>
+      <div class="follow-panel" id="bf-panel" hidden>
+        <h2 class="follow-title">Follow {e(barn['name'])}</h2>
+        <label class="follow-check"><input type="checkbox" id="bf-email"> Email me this barn's notices at the address on my account</label>
+        <p class="follow-small">Usually a few a month. Every email has a Stop These link. We never give your name or email to the barn.</p>
+        <div class="follow-acts"><button type="button" class="btn" id="bf-yes">Follow</button>
+          <button type="button" class="btn secondary" id="bf-no">Cancel</button></div>
+        <p class="follow-small" id="bf-said" role="status"></p>
+      </div>
+    </div>
+    <script src="barn-follow.js" defer></script>
     <!-- 2026-10-20 (Scott: barns "post a current message"; notes/site-claim-page-desk-2026-10-20.png): the barn's own
          notice, read from My Farm when the page opens (barn-notice.js). Hidden until there is one. -->
     <div class="barn-notice" id="barn-notice" role="note" hidden data-src="{e(config.ACCOUNT_ORIGIN)}/barns/{e(slug)}/notice"></div>

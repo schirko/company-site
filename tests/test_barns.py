@@ -199,3 +199,24 @@ def test_barns_can_post_a_notice_and_ask_to_update_their_page(barns_file):
     assert "innerHTML" not in js and 'credentials: "omit"' in js
     privacy = (site / "privacy.html").read_text(encoding="utf-8")
     assert 'id="barn-requests"' in privacy
+
+
+def test_barn_pages_have_follow_this_barn(barns_file):
+    """2026-10-20 (claude/barn-plan.md Part 2; Scott chose A of farm-account/notes/barn-alerts-*): Follow This Barn under
+    the top line. Without JavaScript or signed out it is a link to My Farm (#follow/<barn>), which signs you in and asks;
+    signed in, a box here asks, its email box unticked."""
+    import re
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    site = build.build()
+    page = next(site.glob("barn-*.html")).read_text(encoding="utf-8")
+    slug = re.search(r'data-barn="(\d+)"', page).group(1)
+    assert f'<a class="btn-follow" id="bf-button" href="https://apps.cornerpostlogic.com/#follow/{slug}">' in page
+    assert page.index('id="barn-follow"') < page.index('id="barn-notice"')        # under the lede, above the notice
+    assert '<input type="checkbox" id="bf-email"> Email me this barn\'s notices' in page
+    assert "We never give your name or email to the barn." in page and '<script src="barn-follow.js?v=' in page
+    js = (Path(build.__file__).parent / "static" / "barn-follow.js").read_text(encoding="utf-8")
+    assert "innerHTML" not in js and 'credentials: "include"' in js and "email.checked = false;" in js
+    assert '"/site/barns/" + encodeURIComponent(barn) + "/follow"' in js and 'method: "POST"' in js
+    assert "headers:" not in js                                                     # a simple request: no preflight
+    privacy = (site / "privacy.html").read_text(encoding="utf-8")
+    assert 'id="barn-follows"' in privacy and "never sees who follows it" in privacy

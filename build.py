@@ -1086,7 +1086,7 @@ def hero_photo() -> tuple[str, str, str]:
             f'  <p class="photo-credit">{e(credit)}</p>')
 
 
-VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js", "barn-notice.js", "account.js")
+VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js", "barn-notice.js", "account.js", "barn-follow.js")
 
 
 def versioned(page: str) -> str:

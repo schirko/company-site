@@ -996,3 +996,21 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .barn-notice p { margin: 3px 0 0; font-size: 1.05rem; }
 .barn-notice .who { font-size: .82rem; color: #5d5c58; margin-top: 6px; }
 .claim-line { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed #d9d6cc; font-size: .95rem; }
+
+/* Follow This Barn (2026-10-20; farm-account/notes/barn-alerts-1-follow-button-2026-10-20.png, A) */
+.barn-follow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 4px 0 14px; }
+.btn-follow { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 2px solid #e0ac45; border-radius: 8px;
+  background: #fff; color: #243b2f; font-weight: 700; font-size: .95rem; text-decoration: none; cursor: pointer; }
+.btn-follow:hover { background: #fdf3dc; color: #243b2f; }
+.btn-follow.on { background: #243b2f; border-color: #243b2f; color: #fff; }
+.btn-follow.on:hover { background: #33503f; color: #fff; }
+.follow-note { color: #5b6158; font-size: .9rem; }
+.follow-panel { flex-basis: 100%; max-width: 560px; box-sizing: border-box; border: 1px solid #dcd8cc; border-radius: 12px;
+  background: #fff; padding: 14px 16px; box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
+.follow-panel[hidden] { display: none; }
+.follow-panel .follow-title { margin: 0 0 6px; font-size: 1.05rem; }
+.follow-check { display: flex; gap: 8px; align-items: flex-start; margin: 8px 0; font-size: .95rem; }
+.follow-check input { margin-top: 3px; }
+.follow-small { color: #5b6158; font-size: .85rem; margin: 6px 0; }
+.follow-small:empty { display: none; }
+.follow-acts { display: flex; gap: 10px; margin-top: 10px; }
