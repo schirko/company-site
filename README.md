@@ -232,6 +232,13 @@ and description carry the week ("North Platte Stockyards, North Platte, NE: Feed
 ("550 lb steer, week of Oct 9 ... Last sale there Sep 22"). Oklahoma City's own page and tile keep "sale of
 Oct 5": its price comes from its own sale. Mockup: `notes/barn-wording-*-2026-10-12.png`.
 
+**A barn's own notice, and Update This Page (2026-10-20).** Scott: "a 'Claim this Barn' kind of link so that they can
+actually modify their profile and maybe post a current message." Every barn page ends its Contact the Barn box with
+"Run this barn? ... Update This Page", which opens My Farm's form (config.ACCOUNT_ORIGIN). Under the top line, a hidden
+box (`#barn-notice`) is filled by `static/barn-notice.js` from My Farm's `/barns/<report id>/notice` when there is a
+live notice (no cookie sent; nothing shown if My Farm is asleep or there is none). The build writes `docs/barn-list.json`
+(name, town, listed office phone, page) for My Farm, which takes requests only for barns on it. Privacy: `#barn-requests`.
+
 **Contact the Barn (2026-10-12, Scott: "add contact information to each barn on their page").** Every barn page
 has a map link (the barn's name and town, or its checked address) and USDA's own MyMarketNews page for the sale.
 A barn's business address, phone and website show only once checked, from the barn's own website or a public

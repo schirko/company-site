@@ -1053,7 +1053,7 @@ def hero_photo() -> tuple[str, str, str]:
             f'  <p class="photo-credit">{e(credit)}</p>')
 
 
-VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js")
+VERSIONED = ("suite/suite.css", "site.css", "suite/suite.js", "slider.js", "panel.js", "menu.js", "member.js", "barn-notice.js")
 
 
 def versioned(page: str) -> str:
@@ -1185,6 +1185,13 @@ def build():
     # the county of the week as this site shows it, so both say the same county and the same numbers. My Farm reads
     # it from its server, once an hour. A steer price older than FRESH_DAYS is already dropped (cards.current).
     (OUT / "week.json").write_text(json.dumps({"format": 1, **week}, separators=(",", ":")), encoding="utf-8")
+    # The barns for My Farm (2026-10-20): Update This Page takes a request only for a barn on this list, and Admin shows
+    # the office phone listed here (checked from the barn's own website), never one typed into the form.
+    contacts = barn_pages.load_contacts()
+    (OUT / "barn-list.json").write_text(json.dumps({"format": 1, "barns": {
+        slug: {"name": b["name"], "place": barn_pages.place(b), "phone": (contacts.get(slug) or {}).get("phone", ""),
+               "page": config.SITE_URL + barn_pages.page_name(slug, b)} for slug, b in all_barns.items()}},
+        separators=(",", ":")), encoding="utf-8")
     # One page per sale barn, and the index of them all
     for slug, barn in all_barns.items():
         title, desc, body = barn_pages.barn_page(slug, barn, all_barns, barn_data, nice_date)

@@ -24,6 +24,7 @@ from html import escape
 from pathlib import Path
 
 import charts
+import config
 import hero
 
 WEIGHT = 550
@@ -196,7 +197,9 @@ def contact_section(slug: str, barn: dict, contacts: dict) -> str:
     {('<ul class="plain barn-contact">' + "".join(lines) + "</ul>") if lines else ""}
     <p class="barn-links">{" &middot; ".join(links)}</p>
     <p class="note">We aren't connected with {e(barn['name'])}. Sale days and times change: call the barn before you
-      haul.{source}</p>"""
+      haul.{source}</p>
+    <p class="claim-line"><b>Run this barn?</b> Keep this page current: fix your details, add your sale days, or post a
+      notice for the top of this page. Free. <a href="{e(config.ACCOUNT_ORIGIN)}/barn-update.html?barn={e(slug)}" rel="noopener">Update This Page &rsaquo;</a></p>"""
 
 
 def short_date(iso: str) -> str:
@@ -271,6 +274,10 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <h1>{e(barn['name'])}</h1>
     <p class="lede">{e(where)}{" &middot; " + e(barn['sale']) if barn.get('sale') else ""}. Feeder cattle prices,
       worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
+    <!-- 2026-10-20 (Scott: barns "post a current message"; notes/site-claim-page-desk-2026-10-20.png): the barn's own
+         notice, read from My Farm when the page opens (barn-notice.js). Hidden until there is one. -->
+    <div class="barn-notice" id="barn-notice" role="note" hidden data-src="{e(config.ACCOUNT_ORIGIN)}/barns/{e(slug)}/notice"></div>
+    <script src="barn-notice.js" defer></script>
     <div class="barn-grid">
       {headline}
       <div class="barn-cta card">

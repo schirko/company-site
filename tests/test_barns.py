@@ -179,3 +179,23 @@ def test_contact_the_barn_is_at_the_bottom():
     src = Path(barn_pages.__file__).read_text(encoding="utf-8")
     body = src[src.index('<h2>Where the Numbers Come From</h2>'):]
     assert '<div class="barn-contact-box card">{contact_section(slug, barn, load_contacts())}</div>\n  </div>\n</section>' in body
+
+
+def test_barns_can_post_a_notice_and_ask_to_update_their_page(barns_file):
+    """2026-10-20, Scott: barns "modify their profile and maybe post a current message"; the small start he chose
+    (notes/site-claim-*-2026-10-20.png, "looks great"). The page reads the notice from My Farm; the form is My Farm's."""
+    import json
+    import config
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    site = build.build()
+    page = next(site.glob("barn-*.html")).read_text(encoding="utf-8")
+    assert '<div class="barn-notice" id="barn-notice" role="note" hidden data-src="https://apps.cornerpostlogic.com/barns/' in page
+    assert '<script src="barn-notice.js?v=' in page and "/barn-update.html?barn=" in page and "Update This Page &rsaquo;" in page
+    listed = json.loads((site / "barn-list.json").read_text(encoding="utf-8"))
+    assert listed["format"] == 1 and listed["barns"]
+    for slug, b in listed["barns"].items():
+        assert b["name"] and b["page"].startswith(config.SITE_URL) and set(b) == {"name", "place", "phone", "page"}
+    js = (Path(build.__file__).parent / "static" / "barn-notice.js").read_text(encoding="utf-8")
+    assert "innerHTML" not in js and 'credentials: "omit"' in js
+    privacy = (site / "privacy.html").read_text(encoding="utf-8")
+    assert 'id="barn-requests"' in privacy

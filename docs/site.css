@@ -968,3 +968,13 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 #contact { scroll-margin-top: 16px; }
 .barn-contact-box { margin-top: 28px; padding: 18px 22px; }
 .barn-contact-box h2 { margin-top: 0; }
+
+/* 2026-10-20: a barn's own notice under the top line, and the "Run this barn?" line (notes/site-claim-*-2026-10-20.png) */
+.barn-notice { display: flex; gap: 14px; align-items: flex-start; background: #fdf8ec; border: 2px solid #e0ac45;
+  border-left-width: 8px; border-radius: 10px; padding: 12px 16px; margin: 4px 0 22px; max-width: 900px; }
+.barn-notice[hidden] { display: none; }
+.barn-notice-ic { font-size: 1.4rem; line-height: 1; }
+.barn-notice small { display: block; font-weight: 700; font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: #6b4e12; }
+.barn-notice p { margin: 3px 0 0; font-size: 1.05rem; }
+.barn-notice .who { font-size: .82rem; color: #5d5c58; margin-top: 6px; }
+.claim-line { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed #d9d6cc; font-size: .95rem; }
