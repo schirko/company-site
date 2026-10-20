@@ -962,3 +962,7 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
   .bn-figs { grid-template-columns: minmax(0, 1fr); }
   .market-page .big { font-size: 1.7rem; }
 }
+
+/* 2026-10-20: the barn page lede ends with a plain link to Contact the Barn */
+.lede-link { white-space: nowrap; }
+#contact { scroll-margin-top: 16px; }

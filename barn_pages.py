@@ -176,7 +176,8 @@ def contact_section(slug: str, barn: dict, contacts: dict) -> str:
     """Contact the Barn (Scott, 2026-10-12): the barn's business details where we've checked them
     (content/barn_contacts.json, each with its source and date), and on every page a map of the barn's town and
     USDA's own page for the sale. Sale days and times change, so it says to call before hauling, and that we
-    aren't the barn."""
+    aren't the barn. 2026-10-20, Scott: the link belongs "up top after the text ... Just a simple" link: the lede
+    ends with Contact the Barn, which jumps here (worded for the barn, since this page is ours, not the barn's)."""
     c = contacts.get(slug) or {}
     lines = []
     if c.get("address"):
@@ -191,7 +192,7 @@ def contact_section(slug: str, barn: dict, contacts: dict) -> str:
              f'<a href="https://mymarketnews.ams.usda.gov/viewReport/{e(slug)}" rel="noopener">USDA&rsquo;s report for this sale</a>']
     source = (f' Details from <a href="{e(c["source_url"])}" rel="noopener">{e(c["source"])}</a>, checked '
               f'{e(short_date(c["checked"]))}.' if c.get("source") else "")
-    return f"""<h2>Contact the Barn</h2>
+    return f"""<h2 id="contact">Contact the Barn</h2>
     {('<ul class="plain barn-contact">' + "".join(lines) + "</ul>") if lines else ""}
     <p class="barn-links">{" &middot; ".join(links)}</p>
     <p class="note">We aren't connected with {e(barn['name'])}. Sale days and times change: call the barn before you
@@ -269,7 +270,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <p class="eyebrow"><a href="barns.html">Barn Prices</a> &rsaquo; {e(state_name)}</p>
     <h1>{e(barn['name'])}</h1>
     <p class="lede">{e(where)}{" &middot; " + e(barn['sale']) if barn.get('sale') else ""}. Feeder cattle prices,
-      worked out every Friday from USDA auction reports.</p>
+      worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
     <div class="barn-grid">
       {headline}
       <div class="barn-cta card">

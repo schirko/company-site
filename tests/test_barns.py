@@ -1,6 +1,7 @@
 """One page per sale barn: saved weekly from Herd Planner, one page each, an index, honest when stale."""
 
 import json
+from pathlib import Path
 from datetime import date, timedelta
 
 import pytest
@@ -143,7 +144,7 @@ def test_every_barn_page_says_how_to_reach_the_barn(barns_file):
     site = build.build()
     for page in site.glob("barn-*.html"):
         html = page.read_text(encoding="utf-8")
-        assert "<h2>Contact the Barn</h2>" in html and "google.com/maps/search/?api=1&amp;query=" in html, page.name
+        assert '<h2 id="contact">Contact the Barn</h2>' in html and 'href="#contact">Contact the Barn</a>' in html and "google.com/maps/search/?api=1&amp;query=" in html, page.name
         assert "mymarketnews.ams.usda.gov/viewReport/" in html and "call the barn before you" in html, page.name
     listed = json.loads(barn_pages.CONTACTS.read_text(encoding="utf-8"))["barns"]
     for slug, c in listed.items():
@@ -160,3 +161,12 @@ def test_checked_details_show_with_their_source():
     assert 'Details from <a href="https://example.com/x" rel="noopener">A listing</a>, checked Oct 12.' in html
     bare = barn_pages.contact_section("1851", {"name": "Burwell Livestock Market", "city": "Burwell", "state": "NE"}, {})
     assert "Address" not in bare and "Phone" not in bare and "viewReport/1851" in bare
+
+
+def test_contact_link_sits_in_the_lede():
+    """2026-10-20, Scott: the contact link should be "up top after the text: 'Brush, CO · Cattle Auction. Feeder cattle
+    prices, worked out every Friday from USDA auction reports.' Just a simple" link."""
+    import barn_pages
+    src = Path(barn_pages.__file__).read_text(encoding="utf-8")
+    assert 'worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>' in src
+    assert '<h2 id="contact">Contact the Barn</h2>' in src
