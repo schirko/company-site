@@ -170,3 +170,12 @@ def test_contact_link_sits_in_the_lede():
     src = Path(barn_pages.__file__).read_text(encoding="utf-8")
     assert 'worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>' in src
     assert '<h2 id="contact">Contact the Barn</h2>' in src
+
+
+def test_contact_the_barn_is_at_the_bottom():
+    """2026-10-20, Scott: the quick link up top "should just link to the bottom of the page where all the contact info
+    lives"."""
+    import barn_pages
+    src = Path(barn_pages.__file__).read_text(encoding="utf-8")
+    body = src[src.index('<h2>Where the Numbers Come From</h2>'):]
+    assert '<div class="barn-contact-box card">{contact_section(slug, barn, load_contacts())}</div>\n  </div>\n</section>' in body

@@ -285,12 +285,14 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <p class="chart-title">550 lb steer, $/cwt: the dot is the price, the bar the range 8 in 10 sales fell in</p>
     {history_chart(barn, nice_date)}
     {seasons_section(barn)}
-    {contact_section(slug, barn, load_contacts())}
     {others_html}
     <h2>Where the Numbers Come From</h2>
     <p>{e(data.get('method', ''))}{hub_note} Medium and large frame, muscle grade 1 cattle.</p>
     <p class="meta">Source: {e(data.get('source', 'USDA AMS auction reports'))}. Estimates, not quotes:
       check with the barn before you sell. <a href="methods.html#herd-planner">How we test Herd Planner</a>.</p>
+    <!-- 2026-10-20, Scott: the quick link up top "should just link to the bottom of the page where all the contact
+         info lives": Contact the Barn is the page's last section, in its own box -->
+    <div class="barn-contact-box card">{contact_section(slug, barn, load_contacts())}</div>
   </div>
 </section>"""
     return title, desc, body

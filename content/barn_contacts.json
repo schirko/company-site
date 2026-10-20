@@ -1,8 +1,69 @@
 {
-  "about": "Each barn's own business contact details, added one at a time (Scott, 2026-10-12: \"add contact information to each barn on their page\"). Only from the barn's own website or a public business listing, never a person's own phone, each with its source and the day it was checked. A barn not listed here still gets its map and USDA report links. Recheck once a year: barns change hands and numbers.",
+  "about": "Each barn's own business contact details, added one at a time (Scott, 2026-10-12: \"add contact information to each barn on their page\"). Only from the barn's own website or a public business listing, never a person's own phone, each with its source and the day it was checked. A barn not listed here still gets its map and USDA report links. Recheck once a year: barns change hands and numbers. 2026-10-20: all eight barns filled in from each barn's own website (the office number and address only, never a person's cell).",
   "barns": {
-    "3653": {"address": "2200 E 8th Street, North Platte, NE 69101",
-             "source": "KRVN Rural Radio business listing", "source_url": "https://ruralradio.com/krvn/business/north-platte-stockyards/",
-             "checked": "2026-10-12"}
+    "1280": {
+      "address": "2501 Exchange Ave., Suite 107, Oklahoma City, OK 73108",
+      "phone": "(405) 235-8675",
+      "website": "https://www.oknationalstockyards.com/",
+      "source": "Oklahoma National Stockyards' website",
+      "source_url": "https://www.oknationalstockyards.com/contact-us",
+      "checked": "2026-10-20"
+    },
+    "3653": {
+      "address": "2200 E 8th Street, North Platte, NE 69101",
+      "phone": "(308) 534-1200",
+      "website": "https://northplattestockyards.com/",
+      "source": "North Platte Stockyards' website",
+      "source_url": "https://northplattestockyards.com/",
+      "checked": "2026-10-20"
+    },
+    "3090": {
+      "address": "28601 Highway 34, Brush, CO 80723",
+      "phone": "(970) 842-5115",
+      "website": "http://www.livestockexchange.org/",
+      "source": "Livestock Exchange's website",
+      "source_url": "https://www.livestockexchange.org/contact-us.html",
+      "checked": "2026-10-20"
+    },
+    "1851": {
+      "address": "401 11th Avenue, Burwell, NE 68823",
+      "phone": "(308) 346-4257",
+      "website": "https://www.burwelllivestock.com/",
+      "source": "Burwell Livestock Market's website",
+      "source_url": "https://www.burwelllivestock.com/contact.html",
+      "checked": "2026-10-20"
+    },
+    "1852": {
+      "address": "105 W. 4th St., Bassett, NE 68714",
+      "phone": "(402) 684-2361",
+      "website": "https://bassettlivestock.com/",
+      "source": "Bassett Livestock Auction's website",
+      "source_url": "https://bassettlivestock.com/contact-us/",
+      "checked": "2026-10-20"
+    },
+    "1830": {
+      "address": "14020 County Rd 3530, Ada, OK 74820",
+      "phone": "(580) 436-5033",
+      "website": "https://solallc.com/",
+      "source": "Southern Oklahoma Livestock Auction's website",
+      "source_url": "https://solallc.com/contact-us/",
+      "checked": "2026-10-20"
+    },
+    "1902": {
+      "address": "30425 Hwy 50, La Junta, CO 81050",
+      "phone": "(719) 384-4491",
+      "website": "https://www.winterlivestock.com/",
+      "source": "Winter Livestock's website (La Junta)",
+      "source_url": "https://www.winterlivestock.com/lajunta-saleinfo",
+      "checked": "2026-10-20"
+    },
+    "3801": {
+      "address": "108 Foch Street, Gordon, NE 69343",
+      "phone": "(308) 282-1171",
+      "website": "https://www.gordonlivestock.com/",
+      "source": "Gordon Livestock Market's website",
+      "source_url": "https://www.gordonlivestock.com/",
+      "checked": "2026-10-20"
+    }
   }
 }
