@@ -237,3 +237,12 @@ def test_barn_logos_show_beside_the_name_once_approved(barns_file):
     assert re.search(r'<a href="barn-[a-z-]+-\d+\.html" data-barn="\d+">', listing) and '<script src="barn-logo.js?v=' in listing
     js = (Path(build.__file__).parent / "static" / "barn-logo.js").read_text(encoding="utf-8")
     assert "innerHTML" not in js and 'credentials: "omit"' in js and '"/barn-logos"' in js
+
+
+
+def test_privacy_says_barn_pages_are_counted(barns_file):
+    """2026-10-21 (barn plan step 3): barn page views are a count per day, nothing about the visitor."""
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    site = build.build()
+    privacy = (site / "privacy.html").read_text(encoding="utf-8")
+    assert 'id="barn-views"' in privacy and "Only the" in privacy and "never who" in privacy
