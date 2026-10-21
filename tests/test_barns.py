@@ -275,6 +275,7 @@ def test_add_to_my_phones_calendar(barns_file):
     js = (Path(build.__file__).parent / "static" / "barn-calendar.js").read_text(encoding="utf-8")
     assert 'src + ".ics"' in js and 'replace(/^https?:/, "webcal:")' in js
     assert "calendar.google.com/calendar/r?cid=" in js and "Add to My Phone" in js and "innerHTML" not in js
+    assert "choose Other calendars, then + and From URL" in js        # the Android app can't add one from a link
     cards.record_barns(answer(400), date(2026, 9, 25))
     privacy = (build.build() / "privacy.html").read_text(encoding="utf-8")
     assert "Add to My Phone&rsquo;s Calendar" in privacy and "nothing\n        about you or your phone is kept or counted" in privacy

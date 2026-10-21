@@ -111,11 +111,14 @@
     panel.appendChild(make("p", "cal-small", "Your phone keeps them up to date by itself: new sales and closings show up as the barn adds them. Nothing about you is sent to us or the barn."));
     var opts = make("div", "cal-phone-opts");
     var apple = make("a", "cal-phone-main", "iPhone or Mac"); apple.href = webcal;
-    var google = make("a", "cal-phone-main", "Google Calendar (Android)");
+    var google = make("a", "cal-phone-main", "Google Calendar");
     google.href = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(webcal);
     google.target = "_blank"; google.rel = "noopener";
     opts.appendChild(apple); opts.appendChild(google);
     panel.appendChild(opts);
+    // Scott's live try (2026-10-21): on a phone the Google link opens the Calendar app, which can't add a calendar from
+    // a link. Google only adds one on its website, so say how.
+    panel.appendChild(make("p", "cal-small", "On an Android phone the Google Calendar app can\u2019t add it from a link. Open calendar.google.com in your browser (on the phone or a computer), choose Other calendars, then + and From URL, and paste the address below. It then shows in the app."));
     panel.appendChild(make("p", "cal-small", "Another calendar? Copy this address into its \u201cAdd calendar from URL\u201d or \u201cSubscribe\u201d:"));
     var copyRow = make("div", "cal-phone-copy");
     var addr = make("input", "");
