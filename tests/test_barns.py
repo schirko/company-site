@@ -190,7 +190,7 @@ def test_barns_can_post_a_notice_and_ask_to_update_their_page(barns_file):
     site = build.build()
     page = next(site.glob("barn-*.html")).read_text(encoding="utf-8")
     assert '<div class="barn-notice" id="barn-notice" role="note" hidden data-src="https://apps.cornerpostlogic.com/barns/' in page
-    assert '<script src="barn-notice.js?v=' in page and "/barn-update.html?barn=" in page and "Update This Page &rsaquo;" in page
+    assert '<script src="barn-notice.js?v=' in page and "/barn-update.html?barn=" in page and ">Update This Page</a>" in page
     listed = json.loads((site / "barn-list.json").read_text(encoding="utf-8"))
     assert listed["format"] == 1 and listed["barns"]
     for slug, b in listed["barns"].items():
@@ -246,3 +246,24 @@ def test_privacy_says_barn_pages_are_counted(barns_file):
     site = build.build()
     privacy = (site / "privacy.html").read_text(encoding="utf-8")
     assert 'id="barn-views"' in privacy and "Only the" in privacy and "never who" in privacy
+
+
+def test_the_sale_calendar_and_the_two_ways_card(barns_file):
+    """2026-10-21, Scott: "B is good" (the month grid, farm-account/notes/barn-cal-2-B-*) and, of the barn version of the
+    plans card, "Looks good" (barn-two-ways-*). The calendar is read from My Farm when the page opens; the card says what
+    a barn gets free and what a barn account adds, and never offers a better price."""
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    site = build.build()
+    page = next(site.glob("barn-*.html")).read_text(encoding="utf-8")
+    assert 'id="barn-calendar"' in page and 'data-src="https://apps.cornerpostlogic.com/barns/' in page and "/calendar\"" in page
+    assert '<script src="barn-calendar.js?v=' in page
+    assert page.index('id="barn-notice"') < page.index('id="barn-calendar"') < page.index("<h2>The Last 12 Weeks</h2>")
+    card = page[page.index('<section class="two-ways"'):]
+    assert "Two Ways to Run Your Barn&rsquo;s Page" in card and "Free During the Pilot" in card
+    assert "&amp;account=1" in card and "Ask for a Barn Account" in card and "Run this barn?" not in page
+    assert "no barn can pay for a better price" in card
+    assert card.count('aria-label="Yes"') == 2 * 4 + 6 and card.count('aria-label="No"') == 6
+    js = (Path(build.__file__).parent / "static" / "barn-calendar.js").read_text(encoding="utf-8")
+    assert "innerHTML" not in js and 'credentials: "omit"' in js
+    privacy = (site / "privacy.html").read_text(encoding="utf-8")
+    assert 'id="barn-calendar"' in privacy and "Barn sale calendars and reminders" in privacy

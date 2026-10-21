@@ -217,7 +217,14 @@ by town, the USDA report number so two sales in one town never collide). A barn 
   plain sentence on the best and worst month and how this season compares. Months the barn never sells are
   greyed; a fall-only sale says it has no pattern of its own. `charts.best_months` draws it; the numbers come
   in `seasons` from `GET /suite/barns` and only the latest is kept in `barns.json`,
-- the other barns in the same state, and how the numbers are worked out.
+- the other barns in the same state, and how the numbers are worked out,
+- **the barn's sale calendar** (2026-10-21; Scott chose B, a month grid, of `farm-account/notes/barn-cal-*`): kept by
+  the barn in My Farm (regular sale days, special sales, closings) and read when the page opens from
+  `GET /barns/{id}/calendar` by `static/barn-calendar.js`, one month at a time with Previous and Next (last month to
+  a year ahead), a list for screen readers, "From the barn" and "call the barn to be sure". Hidden until the barn has one,
+- **Two Ways to Run Your Barn's Page** (2026-10-21, `farm-account/notes/barn-two-ways-*`): what any barn gets free
+  and what a barn account adds, with Update This Page and Ask for a Barn Account (My Farm's form with `&account=1`).
+  It replaced the "Run this barn?" line. Its rows are `barn_pages.TWO_WAYS_ROWS`; keep them true.
 
 Every Friday `cards.py refresh` asks Herd Planner's public `GET /suite/barns` and adds the week to
 `content/cards/barns.json` (two years kept per barn). A barn that hasn't sold in three weeks keeps its page

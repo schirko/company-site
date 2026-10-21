@@ -995,6 +995,68 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .barn-notice small { display: block; font-weight: 700; font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: #6b4e12; }
 .barn-notice p { margin: 3px 0 0; font-size: 1.05rem; }
 .barn-notice .who { font-size: .82rem; color: #5d5c58; margin-top: 6px; }
+/* The barn's sale calendar (2026-10-21; Scott: "B is good", farm-account/notes/barn-cal-2-B-*-2026-10-21.png) */
+.barn-calendar { max-width: 900px; margin: 4px 0 22px; border: 1px solid #dcd8cc; border-radius: 10px; background: #fff; padding: 14px 18px; }
+.barn-calendar[hidden] { display: none; }
+.barn-calendar .cal-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 12px; }
+.barn-calendar h2 { margin: 0; font-size: 1.2rem; }
+.barn-calendar .cal-navs { display: flex; gap: 6px; }
+.barn-calendar .cal-nav { border: 1.5px solid #b8862b; background: #fff; color: #243b2f; border-radius: 7px; padding: 4px 10px; font: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }
+.barn-calendar .cal-nav:disabled { opacity: .4; cursor: default; }
+.barn-calendar .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin: 10px 0 8px; }
+.barn-calendar .cal-dow { font-size: .75rem; font-weight: 700; text-align: center; color: #5d5c58; }
+.barn-calendar .cal-cell { min-height: 58px; border: 1px solid #ece9df; border-radius: 6px; padding: 3px 5px; font-size: .74rem; line-height: 1.25; background: #fff; overflow: hidden; }
+.barn-calendar .cal-cell b { display: block; font-size: .8rem; color: #5d5c58; }
+.barn-calendar .cal-cell.sale { background: #eef1ec; }
+.barn-calendar .cal-cell.special { background: #fdf3dc; border-color: #e0ac45; }
+.barn-calendar .cal-cell.closed { background: #f8e9e6; color: #9b2c1f; }
+.barn-calendar .cal-cell.today { outline: 2px solid #243b2f; outline-offset: -2px; }
+.barn-calendar .cal-cell.out { visibility: hidden; }
+.barn-calendar .cal-what { display: block; }
+.barn-calendar .cal-note { margin: 4px 0 0; font-size: .9rem; }
+.barn-calendar .cal-who { margin: 6px 0 0; font-size: .82rem; color: #5d5c58; }
+@media (max-width: 640px) {
+  .barn-calendar { padding: 12px 10px; }
+  .barn-calendar .cal-cell { min-height: 46px; font-size: .6rem; padding: 2px 3px; }
+}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Two Ways to Run Your Barn's Page (2026-10-21; Scott: "Looks good", farm-account/notes/barn-two-ways-*-2026-10-21.png) */
+.two-ways { max-width: 1020px; margin: 22px 0 8px; border: 1px solid #dcd8cc; border-radius: 14px; background: #fff; overflow: hidden; }
+.two-ways table { width: 100%; border-collapse: collapse; }
+.two-ways th, .two-ways td { padding: 10px 22px; border-bottom: 1px solid #ece9df; font-size: .95rem; text-align: center; vertical-align: middle; font-weight: 400; }
+.two-ways tbody th, .two-ways .tw-lead { text-align: left; }
+.two-ways thead th:not(.tw-lead), .two-ways tbody td { width: 27%; }
+.two-ways .tw-paid { background: #fdf1d8; }
+.two-ways thead th { border-bottom: 2px solid #dcd8cc; padding-top: 18px; padding-bottom: 18px; }
+.two-ways thead th.tw-paid { background: linear-gradient(#e2ad48, #eec15e); }
+.two-ways .tw-title { font-size: 1.35rem; font-weight: 800; color: #243b2f; margin: 0; }
+.two-ways .tw-lede { font-size: .9rem; color: #5d5c58; margin: 4px 0 0; }
+.two-ways .tw-eb { display: block; font-size: .72rem; font-weight: 800; letter-spacing: .08em; color: #5d5c58; text-transform: uppercase; }
+.two-ways .tw-pill { display: inline-block; background: #243b2f; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.two-ways .tw-col { display: block; font-size: 1.1rem; font-weight: 800; color: #243b2f; margin-top: 4px; }
+.two-ways thead th.tw-paid .tw-col { font-size: 1.35rem; }
+.two-ways .tw-colsub { display: block; font-size: .82rem; color: #243b2f; }
+.two-ways .tw-sub { display: block; font-size: .8rem; color: #5d5c58; }
+.two-ways .tw-ok { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #2f5d46; color: #fff; font-size: .75rem; font-weight: 900; }
+.two-ways .tw-paid .tw-ok { background: #243b2f; }
+.two-ways .tw-no { color: #a3a09a; }
+.two-ways tfoot td { border-bottom: 0; padding-top: 16px; padding-bottom: 16px; font-size: .85rem; color: #5d5c58; }
+.two-ways .tw-btn { display: inline-block; border: 1.5px solid #b8862b; border-radius: 7px; padding: 6px 12px; color: #243b2f; font-weight: 700; font-size: .9rem; text-decoration: none; background: #fff; }
+.two-ways .tw-btn-main { display: inline-block; background: #243b2f; color: #fff; border-radius: 8px; padding: 11px 22px; font-weight: 800; text-decoration: none; }
+.two-ways .tw-btn-main:hover { background: #2f5d46; color: #fff; }
+.two-ways .tw-foot { background: #f7f6f2; border-top: 1px solid #ece9df; padding: 12px 22px; font-size: .85rem; color: #5d5c58; margin: 0; }
+.two-ways .tw-phone-title { display: none; }
+@media (max-width: 640px) {
+  .two-ways th, .two-ways td { padding: 8px 8px; font-size: .84rem; }
+  .two-ways thead th:not(.tw-lead), .two-ways tbody td { width: 21%; padding-left: 4px; padding-right: 4px; }
+  .two-ways thead th.tw-lead > * { display: none; }
+  .two-ways .tw-col, .two-ways thead th.tw-paid .tw-col { font-size: .92rem; }
+  .two-ways .tw-colsub, .two-ways .tw-pill { font-size: .62rem; } .two-ways .tw-pill { padding: 2px 6px; }
+  .two-ways .tw-phone-title { display: block; padding: 14px 12px 6px; }
+  .two-ways tfoot td.tw-lead { font-size: 0; padding: 0; }
+  .two-ways .tw-btn-main { padding: 9px 10px; font-size: .82rem; } .two-ways .tw-btn { padding: 5px 6px; font-size: .78rem; }
+}
 .claim-line { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed #d9d6cc; font-size: .95rem; }
 
 /* Follow This Barn (2026-10-20; farm-account/notes/barn-alerts-1-follow-button-2026-10-20.png, A) */

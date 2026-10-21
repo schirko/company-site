@@ -22,7 +22,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=ef015b1b43">
+  <link rel="stylesheet" href="site.css?v=65f7311c1a">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -101,6 +101,11 @@
          notice, read from My Farm when the page opens (barn-notice.js). Hidden until there is one. -->
     <div class="barn-notice" id="barn-notice" role="note" hidden data-src="https://apps.cornerpostlogic.com/barns/3090/notice"></div>
     <script src="barn-notice.js?v=76f0a1b3c8" defer></script>
+    <!-- 2026-10-21 (Scott: "B is good", farm-account/notes/barn-cal-2-B-*-2026-10-21.png): the barn's own sale calendar,
+         kept by the barn in My Farm and drawn a month at a time (barn-calendar.js). Hidden until the barn has one. -->
+    <section class="barn-calendar" id="barn-calendar" aria-labelledby="barn-calendar-title" hidden
+      data-src="https://apps.cornerpostlogic.com/barns/3090/calendar" data-name="Livestock Exchange LLC"></section>
+    <script src="barn-calendar.js?v=4150f6a5b5" defer></script>
     <div class="barn-grid">
       <div class="barn-now">
         <p class="live-label">550 lb steer, estimate for the week of Oct 16</p>
@@ -158,8 +163,21 @@
     <p class="barn-links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Livestock%20Exchange%20LLC%2C%2028601%20Highway%2034%2C%20Brush%2C%20CO%2080723" rel="noopener">Map and directions</a> &middot; <a href="https://mymarketnews.ams.usda.gov/viewReport/3090" rel="noopener">USDA&rsquo;s report for this sale</a></p>
     <p class="note">We aren't connected with Livestock Exchange LLC. Sale days and times change: call the barn before you
       haul. Details from <a href="https://www.livestockexchange.org/contact-us.html" rel="noopener">Livestock Exchange&#x27;s website</a>, checked Oct 20.</p>
-    <p class="claim-line"><b>Run this barn?</b> Keep this page current: fix your details, add your sale days, or post a
-      notice for the top of this page. Free. <a href="https://apps.cornerpostlogic.com/barn-update.html?barn=3090" rel="noopener">Update This Page &rsaquo;</a></p></div>
+    <section class="two-ways" aria-label="Two ways to run your barn's page">
+      <div class="tw-phone-title"><p class="tw-title">Two Ways to Run Your Barn&rsquo;s Page</p><p class="tw-lede">Your page is free and stays free. A barn account lets you run it yourself.</p></div>
+      <table>
+        <thead><tr><th scope="col" class="tw-lead"><p class="tw-title">Two Ways to Run Your Barn&rsquo;s Page</p><p class="tw-lede">Your page is free and stays free. A barn account lets you run it yourself.</p></th>
+          <th scope="col"><span class="tw-eb">Free &middot; No Sign-In</span><span class="tw-col">Your Page as It Is</span></th>
+          <th scope="col" class="tw-paid"><span class="tw-pill">Free During the Pilot</span><span class="tw-col">Run Your Own Page</span><span class="tw-colsub">With a barn account</span></th></tr></thead>
+        <tbody><tr><th scope="row">Your prices from USDA reports: this week, the last 12 weeks, Best Months<span class="tw-sub">Always the same on both. Never for sale.</span></th><td><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Contact the Barn: your office phone, address and website</th><td><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">People can follow your barn</th><td><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">A notice at the top of your page (we call your office each time)</th><td><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Post notices yourself, any time, no call</th><td><span class="tw-no" role="img" aria-label="No">&ndash;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Your sale calendar: sale days, special sales, closings</th><td><span class="tw-no" role="img" aria-label="No">&ndash;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Sale reminders emailed to people who follow you</th><td><span class="tw-no" role="img" aria-label="No">&ndash;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Your logo on your page and on the Barn Prices list</th><td><span class="tw-no" role="img" aria-label="No">&ndash;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Your page&rsquo;s numbers: views and followers each week<span class="tw-sub">Counts only. We never tell you who.</span></th><td><span class="tw-no" role="img" aria-label="No">&ndash;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Your people: Owner, Managers and Staff, each with their own sign-in</th><td><span class="tw-no" role="img" aria-label="No">&ndash;</span></td><td class="tw-paid"><span class="tw-ok" role="img" aria-label="Yes">&#10003;</span></td></tr></tbody>
+        <tfoot><tr><td class="tw-lead">One call to your listed office to check you work there. After that, you post yourself.</td>
+          <td><a class="tw-btn" href="https://apps.cornerpostlogic.com/barn-update.html?barn=3090" rel="noopener">Update This Page</a></td>
+          <td class="tw-paid"><a class="tw-btn-main" href="https://apps.cornerpostlogic.com/barn-update.html?barn=3090&amp;account=1" rel="noopener">Ask for a Barn Account</a></td></tr></tfoot>
+      </table>
+      <p class="tw-foot">Every barn&rsquo;s prices come from USDA auction reports and are worked out the same way, whether or not
+        it has an account; no barn can pay for a better price or a better place in the list. We never sell rancher data or
+        share who follows a barn.</p>
+    </section></div>
   </div>
 </section>
 </main>

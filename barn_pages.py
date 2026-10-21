@@ -198,8 +198,49 @@ def contact_section(slug: str, barn: dict, contacts: dict) -> str:
     <p class="barn-links">{" &middot; ".join(links)}</p>
     <p class="note">We aren't connected with {e(barn['name'])}. Sale days and times change: call the barn before you
       haul.{source}</p>
-    <p class="claim-line"><b>Run this barn?</b> Keep this page current: fix your details, add your sale days, or post a
-      notice for the top of this page. Free. <a href="{e(config.ACCOUNT_ORIGIN)}/barn-update.html?barn={e(slug)}" rel="noopener">Update This Page &rsaquo;</a></p>"""
+    {two_ways(slug)}"""
+
+
+# 2026-10-21 (Scott: "something like [Grazing Planner's plans card] but for the Barns. Why to sign up", then "Looks good";
+# farm-account/notes/barn-two-ways-*-2026-10-21.png): in place of the "Run this barn?" line. Every row must stay true:
+# the free column is what any barn gets today, the other what a barn account adds (claude/subscription-benefits.md).
+TWO_WAYS_ROWS = (
+    ("Your prices from USDA reports: this week, the last 12 weeks, Best Months", True, "Always the same on both. Never for sale."),
+    ("Contact the Barn: your office phone, address and website", True, ""),
+    ("People can follow your barn", True, ""),
+    ("A notice at the top of your page (we call your office each time)", True, ""),
+    ("Post notices yourself, any time, no call", False, ""),
+    ("Your sale calendar: sale days, special sales, closings", False, ""),
+    ("Sale reminders emailed to people who follow you", False, ""),
+    ("Your logo on your page and on the Barn Prices list", False, ""),
+    ("Your page&rsquo;s numbers: views and followers each week", False, "Counts only. We never tell you who."),
+    ("Your people: Owner, Managers and Staff, each with their own sign-in", False, ""),
+)
+
+
+def two_ways(slug: str) -> str:
+    ok = '<span class="tw-ok" role="img" aria-label="Yes">&#10003;</span>'
+    no = '<span class="tw-no" role="img" aria-label="No">&ndash;</span>'
+    rows = "".join(f'<tr><th scope="row">{words}' + (f'<span class="tw-sub">{sub}</span>' if sub else "") +
+                   f'</th><td>{ok if free else no}</td><td class="tw-paid">{ok}</td></tr>' for words, free, sub in TWO_WAYS_ROWS)
+    form = f"{e(config.ACCOUNT_ORIGIN)}/barn-update.html?barn={e(slug)}"
+    title = ('<p class="tw-title">Two Ways to Run Your Barn&rsquo;s Page</p>'
+             '<p class="tw-lede">Your page is free and stays free. A barn account lets you run it yourself.</p>')
+    return f"""<section class="two-ways" aria-label="Two ways to run your barn's page">
+      <div class="tw-phone-title">{title}</div>
+      <table>
+        <thead><tr><th scope="col" class="tw-lead">{title}</th>
+          <th scope="col"><span class="tw-eb">Free &middot; No Sign-In</span><span class="tw-col">Your Page as It Is</span></th>
+          <th scope="col" class="tw-paid"><span class="tw-pill">Free During the Pilot</span><span class="tw-col">Run Your Own Page</span><span class="tw-colsub">With a barn account</span></th></tr></thead>
+        <tbody>{rows}</tbody>
+        <tfoot><tr><td class="tw-lead">One call to your listed office to check you work there. After that, you post yourself.</td>
+          <td><a class="tw-btn" href="{form}" rel="noopener">Update This Page</a></td>
+          <td class="tw-paid"><a class="tw-btn-main" href="{form}&amp;account=1" rel="noopener">Ask for a Barn Account</a></td></tr></tfoot>
+      </table>
+      <p class="tw-foot">Every barn&rsquo;s prices come from USDA auction reports and are worked out the same way, whether or not
+        it has an account; no barn can pay for a better price or a better place in the list. We never sell rancher data or
+        share who follows a barn.</p>
+    </section>"""
 
 
 def short_date(iso: str) -> str:
@@ -297,6 +338,11 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
          notice, read from My Farm when the page opens (barn-notice.js). Hidden until there is one. -->
     <div class="barn-notice" id="barn-notice" role="note" hidden data-src="{e(config.ACCOUNT_ORIGIN)}/barns/{e(slug)}/notice"></div>
     <script src="barn-notice.js" defer></script>
+    <!-- 2026-10-21 (Scott: "B is good", farm-account/notes/barn-cal-2-B-*-2026-10-21.png): the barn's own sale calendar,
+         kept by the barn in My Farm and drawn a month at a time (barn-calendar.js). Hidden until the barn has one. -->
+    <section class="barn-calendar" id="barn-calendar" aria-labelledby="barn-calendar-title" hidden
+      data-src="{e(config.ACCOUNT_ORIGIN)}/barns/{e(slug)}/calendar" data-name="{e(barn['name'])}"></section>
+    <script src="barn-calendar.js" defer></script>
     <div class="barn-grid">
       {headline}
       <div class="barn-cta card">
