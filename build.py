@@ -1222,10 +1222,14 @@ def build():
     (OUT / "week.json").write_text(json.dumps({"format": 1, **week}, separators=(",", ":")), encoding="utf-8")
     # The barns for My Farm (2026-10-20): Update This Page takes a request only for a barn on this list, and Admin shows
     # the office phone listed here (checked from the barn's own website), never one typed into the form.
+    # last_sale (2026-10-20; Scott: Your Barns should say "Prices: <barn>, sale of Oct 19, 2026" and link to the page,
+    # A of farm-account/notes/barn-price-links-*): the newest sale the barn's page shows, so the date matches the page.
     contacts = barn_pages.load_contacts()
     (OUT / "barn-list.json").write_text(json.dumps({"format": 1, "barns": {
         slug: {"name": b["name"], "place": barn_pages.place(b), "phone": (contacts.get(slug) or {}).get("phone", ""),
-               "page": config.SITE_URL + barn_pages.page_name(slug, b)} for slug, b in all_barns.items()}},
+               "page": config.SITE_URL + barn_pages.page_name(slug, b),
+               "last_sale": max((w.get("last_sale") or "" for w in b.get("weeks", [])), default="")}
+        for slug, b in all_barns.items()}},
         separators=(",", ":")), encoding="utf-8")
     # One page per sale barn, and the index of them all
     for slug, barn in all_barns.items():
