@@ -221,3 +221,19 @@ def test_barn_pages_have_follow_this_barn(barns_file):
     assert "headers:" not in js                                                     # a simple request: no preflight
     privacy = (site / "privacy.html").read_text(encoding="utf-8")
     assert 'id="barn-follows"' in privacy and "never sees who follows it" in privacy
+
+
+def test_barn_logos_show_beside_the_name_once_approved(barns_file):
+    """2026-10-21 (claude/barn-plan.md Part 1 step 2; Scott chose A of farm-account/notes/barn-logo-*): left of the name
+    on the barn's page and tiny on the Barn Prices list; read from My Farm (no cookie), hidden until there is one."""
+    import re
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    site = build.build()
+    page = next(site.glob("barn-*.html")).read_text(encoding="utf-8")
+    assert re.search(r'<div class="barn-title"><img class="barn-logo" id="barn-logo" data-barn="\d+" '
+                     r'data-barn-logos="https://apps.cornerpostlogic.com" alt="" width="56" height="56" hidden><h1>', page)
+    assert '<script src="barn-logo.js?v=' in page
+    listing = (site / "barns.html").read_text(encoding="utf-8")
+    assert re.search(r'<a href="barn-[a-z-]+-\d+\.html" data-barn="\d+">', listing) and '<script src="barn-logo.js?v=' in listing
+    js = (Path(build.__file__).parent / "static" / "barn-logo.js").read_text(encoding="utf-8")
+    assert "innerHTML" not in js and 'credentials: "omit"' in js and '"/barn-logos"' in js

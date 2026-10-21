@@ -271,7 +271,10 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     body = f"""<section class="page barn-page">
   <div class="wrap">
     <p class="eyebrow"><a href="barns.html">Barn Prices</a> &rsaquo; {e(state_name)}</p>
-    <h1>{e(barn['name'])}</h1>
+    <!-- 2026-10-21 (claude/barn-plan.md Part 1 step 2; Scott chose A of farm-account/notes/barn-logo-*): the barn's
+         logo, left of its name, once it has one approved in My Farm (barn-logo.js asks; hidden until then). -->
+    <div class="barn-title"><img class="barn-logo" id="barn-logo" data-barn="{e(slug)}" data-barn-logos="{e(config.ACCOUNT_ORIGIN)}" alt="" width="56" height="56" hidden><h1>{e(barn['name'])}</h1></div>
+    <script src="barn-logo.js" defer></script>
     <p class="lede">{e(where)}{" &middot; " + e(barn['sale']) if barn.get('sale') else ""}. Feeder cattle prices,
       worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
     <!-- 2026-10-20 (claude/barn-plan.md Part 2; Scott chose A of farm-account/notes/barn-alerts-1-follow-button-*.png):
@@ -337,7 +340,7 @@ def index_page(all_barns: dict, nice_date, markets_html: str = "") -> str:
             latest = (barn.get("weeks") or [None])[0]
             sold = nice_date(latest["last_sale"]) if latest else "&ndash;"
             town = f'<span class="barn-town">{e(barn["city"])}</span>' if barn.get("city") else ""
-            rows.append(f'<tr><td><a href="{page_name(slug, barn)}">{e(barn["name"])}</a>{town}</td>'
+            rows.append(f'<tr><td><a href="{page_name(slug, barn)}" data-barn="{e(slug)}">{e(barn["name"])}</a>{town}</td>'
                         f'<td>{sold}</td><td>{price}</td></tr>')
         sections.append(f"""    <h2>{e(STATE_NAMES.get(state, state))}</h2>
     <div class="table-scroll"><table class="results barns-table">
@@ -350,5 +353,6 @@ def index_page(all_barns: dict, nice_date, markets_html: str = "") -> str:
     <p class="lede">What feeder cattle are bringing at each sale barn Herd Planner follows, worked out every Friday
       from USDA auction reports, with the range real sales fall in.</p>
 {markets_html}{body}
+    <span hidden data-barn-logos="{e(config.ACCOUNT_ORIGIN)}"></span><script src="barn-logo.js" defer></script>
   </div>
 </section>"""

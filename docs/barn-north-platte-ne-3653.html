@@ -22,7 +22,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=2fe9be6aaa">
+  <link rel="stylesheet" href="site.css?v=ef015b1b43">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -75,7 +75,10 @@
 <section class="page barn-page">
   <div class="wrap">
     <p class="eyebrow"><a href="barns.html">Barn Prices</a> &rsaquo; Nebraska</p>
-    <h1>North Platte Stockyards</h1>
+    <!-- 2026-10-21 (claude/barn-plan.md Part 1 step 2; Scott chose A of farm-account/notes/barn-logo-*): the barn's
+         logo, left of its name, once it has one approved in My Farm (barn-logo.js asks; hidden until then). -->
+    <div class="barn-title"><img class="barn-logo" id="barn-logo" data-barn="3653" data-barn-logos="https://apps.cornerpostlogic.com" alt="" width="56" height="56" hidden><h1>North Platte Stockyards</h1></div>
+    <script src="barn-logo.js?v=9ea68e3715" defer></script>
     <p class="lede">North Platte, NE &middot; Feeder Cattle Auction. Feeder cattle prices,
       worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
     <!-- 2026-10-20 (claude/barn-plan.md Part 2; Scott chose A of farm-account/notes/barn-alerts-1-follow-button-*.png):
