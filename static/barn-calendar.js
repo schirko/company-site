@@ -90,7 +90,51 @@
     var up = new Date(cal.updated + "T12:00:00");
     box.appendChild(make("p", "cal-who", "From " + name + ", updated " + up.toLocaleDateString("en-US", { month: "short", day: "numeric" })
       + ". Sale days can change: call the barn to be sure."));
+    phone();
     box.hidden = false;
+  };
+  // Add to My Phone's Calendar (2026-10-21; Scott: "A looks good", farm-account/notes/barn-ics-*-2026-10-21.png): one
+  // button that opens the choices. The phone subscribes to My Farm's feed (calendar.ics) and keeps it current itself;
+  // nothing about the visitor goes anywhere until they choose, and then only to their own calendar app.
+  var panelOpen = false;
+  var feed = src + ".ics", webcal = feed.replace(/^https?:/, "webcal:");
+  var phone = function () {
+    var row = make("div", "cal-phone");
+    var btn = make("button", "cal-phone-btn", "\ud83d\udcc5 Add to My Phone\u2019s Calendar");
+    btn.type = "button";
+    btn.setAttribute("aria-expanded", panelOpen ? "true" : "false");
+    var panel = make("div", "cal-phone-panel");
+    panel.id = "cal-phone-panel";
+    btn.setAttribute("aria-controls", panel.id);
+    panel.hidden = !panelOpen;
+    panel.appendChild(make("h3", "", "Add " + name + "\u2019s Sales to Your Phone"));
+    panel.appendChild(make("p", "cal-small", "Your phone keeps them up to date by itself: new sales and closings show up as the barn adds them. Nothing about you is sent to us or the barn."));
+    var opts = make("div", "cal-phone-opts");
+    var apple = make("a", "cal-phone-main", "iPhone or Mac"); apple.href = webcal;
+    var google = make("a", "cal-phone-main", "Google Calendar (Android)");
+    google.href = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(webcal);
+    google.target = "_blank"; google.rel = "noopener";
+    opts.appendChild(apple); opts.appendChild(google);
+    panel.appendChild(opts);
+    panel.appendChild(make("p", "cal-small", "Another calendar? Copy this address into its \u201cAdd calendar from URL\u201d or \u201cSubscribe\u201d:"));
+    var copyRow = make("div", "cal-phone-copy");
+    var addr = make("input", "");
+    addr.value = feed; addr.readOnly = true; addr.setAttribute("aria-label", "The calendar's address");
+    var copy = make("button", "", "Copy"); copy.type = "button";
+    copy.addEventListener("click", function () {
+      var done = function () { copy.textContent = "Copied"; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(feed).then(done, function () { addr.select(); });
+      else { addr.select(); try { document.execCommand("copy"); done(); } catch (e) { /* the address stays selected to copy by hand */ } }
+    });
+    copyRow.appendChild(addr); copyRow.appendChild(copy);
+    panel.appendChild(copyRow);
+    panel.appendChild(make("p", "cal-small", "To stop, remove the calendar in your phone\u2019s calendar settings."));
+    btn.addEventListener("click", function () {
+      panelOpen = !panelOpen; panel.hidden = !panelOpen; btn.setAttribute("aria-expanded", panelOpen ? "true" : "false");
+    });
+    row.appendChild(btn);
+    box.appendChild(row);
+    box.appendChild(panel);
   };
   fetch(src, { credentials: "omit", signal: stop ? stop.signal : undefined })
     .then(function (r) { return r.status === 200 ? r.json() : null; })

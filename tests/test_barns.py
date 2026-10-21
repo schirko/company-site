@@ -267,3 +267,14 @@ def test_the_sale_calendar_and_the_two_ways_card(barns_file):
     assert "innerHTML" not in js and 'credentials: "omit"' in js
     privacy = (site / "privacy.html").read_text(encoding="utf-8")
     assert 'id="barn-calendar"' in privacy and "Barn sale calendars and reminders" in privacy
+
+
+def test_add_to_my_phones_calendar(barns_file):
+    """2026-10-21, Scott: "A looks good" (farm-account/notes/barn-ics-*): one button under the month grid that opens
+    iPhone or Mac (webcal), Google Calendar and the address to copy: a subscription to My Farm's calendar.ics."""
+    js = (Path(build.__file__).parent / "static" / "barn-calendar.js").read_text(encoding="utf-8")
+    assert 'src + ".ics"' in js and 'replace(/^https?:/, "webcal:")' in js
+    assert "calendar.google.com/calendar/r?cid=" in js and "Add to My Phone" in js and "innerHTML" not in js
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    privacy = (build.build() / "privacy.html").read_text(encoding="utf-8")
+    assert "Add to My Phone&rsquo;s Calendar" in privacy and "nothing\n        about you or your phone is kept or counted" in privacy
