@@ -265,7 +265,8 @@ actually modify their profile and maybe post a current message." Every barn page
 box (`#barn-notice`) is filled by `static/barn-notice.js` from My Farm's `/barns/<report id>/notice` when there is a
 live notice (no cookie sent; nothing shown if My Farm is asleep or there is none). The build writes `docs/barn-list.json`
 (name, town, listed office phone, page, newest sale, and `steer`: this week's 550 lb steer price, range and change
-from last week, the same numbers the barn's page shows, or null for a barn without a sale in three weeks) for My Farm,
+from last week, the same numbers the barn's page shows, or null for a barn without a sale in three weeks; and `lat`/`lon`,
+the barn's town, for My Farm's driving times) for My Farm,
 which takes requests only for barns on it and shows the steer on its From Your Barns cards. Privacy: `#barn-requests`.
 
 **Contact the Barn (2026-10-12, Scott: "add contact information to each barn on their page").** Every barn page

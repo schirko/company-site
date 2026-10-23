@@ -194,7 +194,7 @@ def test_barns_can_post_a_notice_and_ask_to_update_their_page(barns_file):
     listed = json.loads((site / "barn-list.json").read_text(encoding="utf-8"))
     assert listed["format"] == 1 and listed["barns"]
     for slug, b in listed["barns"].items():
-        assert b["name"] and b["page"].startswith(config.SITE_URL) and set(b) == {"name", "place", "phone", "page", "last_sale", "steer"}
+        assert b["name"] and b["page"].startswith(config.SITE_URL) and set(b) == {"name", "place", "phone", "page", "last_sale", "steer", "lat", "lon"}
         assert b["last_sale"] == "" or date.fromisoformat(b["last_sale"]) <= date.today()   # the page's newest sale
     js = (Path(build.__file__).parent / "static" / "barn-notice.js").read_text(encoding="utf-8")
     assert "innerHTML" not in js and 'credentials: "omit"' in js
