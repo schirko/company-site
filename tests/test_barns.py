@@ -194,12 +194,29 @@ def test_barns_can_post_a_notice_and_ask_to_update_their_page(barns_file):
     listed = json.loads((site / "barn-list.json").read_text(encoding="utf-8"))
     assert listed["format"] == 1 and listed["barns"]
     for slug, b in listed["barns"].items():
-        assert b["name"] and b["page"].startswith(config.SITE_URL) and set(b) == {"name", "place", "phone", "page", "last_sale"}
+        assert b["name"] and b["page"].startswith(config.SITE_URL) and set(b) == {"name", "place", "phone", "page", "last_sale", "steer"}
         assert b["last_sale"] == "" or date.fromisoformat(b["last_sale"]) <= date.today()   # the page's newest sale
     js = (Path(build.__file__).parent / "static" / "barn-notice.js").read_text(encoding="utf-8")
     assert "innerHTML" not in js and 'credentials: "omit"' in js
     privacy = (site / "privacy.html").read_text(encoding="utf-8")
     assert 'id="barn-requests"' in privacy
+
+
+def test_the_barn_list_carries_this_weeks_steer_for_my_farm(barns_file):
+    """2026-10-23 (Scott chose farm-account/notes/from-barns-cards-*-2026-10-23.png): My Farm's From Your Barns shows
+    each barn's 550 lb steer when there are no notices. The same numbers the barn's page shows, with the change from
+    last week in whole dollars; nothing for a barn that hasn't sold in three weeks."""
+    cards.record_barns(answer(400), date(2026, 9, 18))
+    cards.record_barns(answer(395), date(2026, 9, 25))
+    site = build.build()
+    huss = json.loads((site / "barn-list.json").read_text(encoding="utf-8"))["barns"]["1848"]["steer"]
+    page = (site / "barn-kearney-ne-1848.html").read_text(encoding="utf-8")
+    assert f"{barn_pages.money(huss['price'])}/cwt" in page and barn_pages.money(huss["low"]) in page
+    assert (huss["change"], huss["hub"], huss["sale"]) == (-5, False, "2026-09-23")
+    assert huss["week"] == cards.load_barns()["barns"]["1848"]["weeks"][0]["date"]
+    cards.record_barns(answer(390, fresh=False), date(2026, 10, 2))
+    site = build.build()
+    assert json.loads((site / "barn-list.json").read_text(encoding="utf-8"))["barns"]["1848"]["steer"] is None
 
 
 def test_barn_pages_have_follow_this_barn(barns_file):

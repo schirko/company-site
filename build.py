@@ -1282,7 +1282,9 @@ def build():
     (OUT / "barn-list.json").write_text(json.dumps({"format": 1, "barns": {
         slug: {"name": b["name"], "place": barn_pages.place(b), "phone": (contacts.get(slug) or {}).get("phone", ""),
                "page": config.SITE_URL + barn_pages.page_name(slug, b),
-               "last_sale": max((w.get("last_sale") or "" for w in b.get("weeks", [])), default="")}
+               "last_sale": max((w.get("last_sale") or "" for w in b.get("weeks", [])), default=""),
+               # 2026-10-23 (From Your Barns cards, farm-account/notes/from-barns-cards-*): this week's 550 lb steer
+               "steer": barn_pages.steer_now(b)}
         for slug, b in all_barns.items()}},
         separators=(",", ":")), encoding="utf-8")
     # One page per sale barn, and the index of them all

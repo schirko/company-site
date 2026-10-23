@@ -62,15 +62,36 @@ def current(barn: dict) -> dict | None:
     return weeks[0] if weeks and weeks[0]["fresh"] else None
 
 
-def change_flag(barn: dict) -> str:
-    """The 550 lb steer price against last week's, at this same barn."""
+def steer_change(barn: dict) -> int | None:
+    """The 550 lb steer price against last week's at this same barn, in whole dollars per cwt; None when either week
+    is missing or stale."""
     weeks = barn.get("weeks") or []
     if len(weeks) < 2 or not weeks[0]["fresh"] or not weeks[1]["fresh"]:
-        return ""
+        return None
     now, before = price_at(weeks[0], "Steers", WEIGHT), price_at(weeks[1], "Steers", WEIGHT)
     if not now or not before:
+        return None
+    return round(now["price"]) - round(before["price"])
+
+
+def steer_now(barn: dict) -> dict | None:
+    """This week's 550 lb steer for My Farm's From Your Barns cards (2026-10-23; Scott chose
+    farm-account/notes/from-barns-cards-*-2026-10-23.png): the same numbers the barn's page shows. None when the barn
+    hasn't sold in three weeks. hub: the price is from this barn's own sale; otherwise it is the week's estimate."""
+    week = current(barn)
+    steer = week and price_at(week, "Steers", WEIGHT)
+    if not steer:
+        return None
+    return {"price": round(steer["price"], 2), "low": round(steer["low"], 2), "high": round(steer["high"], 2),
+            "week": week["date"], "sale": week["last_sale"], "hub": bool(barn.get("is_hub")),
+            "change": steer_change(barn)}
+
+
+def change_flag(barn: dict) -> str:
+    """The 550 lb steer price against last week's, at this same barn."""
+    diff = steer_change(barn)
+    if diff is None:
         return ""
-    diff = round(now["price"]) - round(before["price"])
     if diff == 0:
         return ' <span class="badge up">no change from last week</span>'
     return hero.badge(f"{money(abs(diff))} from last week", diff < 0)
