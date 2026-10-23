@@ -1,0 +1,42 @@
+# Every Sunday: open every page of the company site and every app online, follow every link, and fail if any is broken
+# (tools/check_links.py). A failed run sends you GitHub's usual "Run failed" email; the report is in the run's log and
+# attached to the run as link-report.json. Run it by hand any time: GitHub > Actions > Link check > Run workflow.
+# It only reads pages: it never signs in, and never follows sign-out, delete or remove links.
+# (Move this file to .github/workflows/link-check.yml: files in .github can't be written from Claude's workspace.)
+name: Link check
+
+on:
+  schedule:
+    - cron: "23 14 * * 0"  # Sundays 14:23 UTC = 8:23 am in Denver (7:23 am in winter)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5.0.0
+      - uses: actions/setup-python@v6.0.0
+        with:
+          python-version: "3.12"
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium
+      # The apps on Render's free plan sleep after 15 quiet minutes: wake them first, so a slow start isn't counted
+      # as a broken link.
+      - name: Wake the apps
+        run: |
+          for url in https://herd-planner.onrender.com/health https://grazing-planner.onrender.com/health \
+                     https://farm-equipment-planner.onrender.com/healthz/ https://farm-account.onrender.com/health \
+                     https://yield-predictor.onrender.com/health; do
+            curl -fsS --retry 8 --retry-delay 15 --retry-all-errors --max-time 90 -o /dev/null "$url" || echo "no answer yet: $url"
+          done
+      - run: python tools/check_links.py --out link-report.json
+      - if: always()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: link-report
+          path: link-report.json
+          if-no-files-found: ignore

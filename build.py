@@ -45,6 +45,7 @@ PAGES = [
     ("about.html", "about.html", "About", "Who builds the apps, and how.", "about"),
     ("methods.html", "methods.html", "How We Test", "How each app's models are tested, the results, and where each one falls short.", "methods"),
     ("privacy.html", "privacy.html", "Privacy", "How the apps handle your email and your records.", "privacy"),
+    ("plans.html", "plans.html", "Plans", "What every app does for free, and what a subscription adds.", "plans"),
     ("404.html", "404.html", "Page not found", "That page isn't here.", None),
 ]
 
@@ -299,6 +300,58 @@ def how_block(app, copy, button=True):
     <p class="how-src">Every tested result is from our own testing, with its limits: <a href="methods.html#{e(app["id"])}">How We Test {e(app["name"])}</a>.</p>
     </section>
 """
+
+
+# --- Free and Subscription (plans.html; Scott chose B of notes/suite-plans-B-desk-2026-10-22.png, 2026-10-22) ------
+# One card per app from content/plans.json: what's free, and a gold box of what a subscription adds (or what's coming,
+# or that every tool is free while it's tested). No prices until billing is built. The buttons are the ones every page
+# uses for that app (start_buttons): Sign Up makes a free account, never "Subscribe" (that waits for a pay page).
+PLANS = CONTENT / "plans.json"
+SOON_LI = ' class="soon"'
+
+
+def load_plans():
+    return json.loads(PLANS.read_text(encoding="utf-8"))
+
+
+def plans_cards(apps, copy, plans=None):
+    plans = plans or load_plans()
+    by_id = {a["id"]: a for a in apps}
+    tick = '<span class="plan-yes" role="img" aria-label="Included"></span>'
+    dash = '<span class="plan-dash" aria-hidden="true">&ndash;</span>'
+
+    def items(rows, mark, cls=""):
+        return "".join(f'<li{cls}>{mark}<span>{e(r)}</span></li>' for r in rows)
+
+    out = ['<div class="plan-grid">']
+    for p in plans["apps"]:
+        app = by_id[p["id"]]
+        if p.get("paid"):
+            pill = f' <span class="plan-pill">{e(p["pill"])}</span>' if p.get("pill") else ""
+            sub = f'<h3>With a subscription{pill}</h3><ul>{items(p["paid"], tick)}</ul>'
+        elif p.get("coming"):
+            sub = (f'<h3>With a subscription <span class="plan-pill soon">Coming</span></h3>'
+                   f'<ul>{items(p["coming"], dash, SOON_LI)}</ul>')
+        else:
+            sub = f'<h3>With a subscription</h3><ul><li class="soon">{dash}<span>{e(p["none"])}</span></li></ul>'
+        out.append(
+            f'<section class="plan-card" id="plan-{e(p["id"])}"><div class="plan-head">'
+            f'<img src="suite/suite-logos/{e(p["id"])}.svg" alt="" width="40" height="40">'
+            f'<div><h2>{e(app["name"])}</h2><p>{e(p["who"])}</p></div></div>'
+            f'<h3>Free</h3><ul>{items(p["free"], tick)}</ul>'
+            f'<div class="plan-sub">{sub}</div>'
+            f'<p class="plan-go">{start_buttons(app, copy[app["id"]], have=False)}'
+            f' <a href="{APP_PAGE.format(e(app["id"]))}">About {e(app["name"])} &rsaquo;</a></p></section>')
+    mf = plans["my_farm"]
+    out.append(
+        '<section class="plan-card plan-wide" id="plan-my-farm"><div class="plan-head">'
+        '<img src="brand/icon.svg" alt="" width="40" height="40"><div><h2>My Farm, Across Every App</h2>'
+        '<p>Your account</p></div></div><div class="plan-two">'
+        f'<div><h3>Free</h3><ul>{items(mf["free"], tick)}</ul></div>'
+        f'<div class="plan-sub"><h3>With a subscription to any app</h3><ul>{items(mf["paid"], tick)}</ul></div>'
+        '</div></section>')
+    out.append('</div>')
+    return "\n".join(out)
 
 
 def nav_account(apps, copy, page_app=None):
@@ -1151,6 +1204,7 @@ def build():
         **dict(zip(("hero_class", "hero_style", "hero_credit"), hero_photo())),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps if a["id"] in WEEKLY),
         "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
+        "plans_cards": plans_cards(apps, copy),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
     }
     layout = Template((TEMPLATES / "layout.html").read_text(encoding="utf-8"))
@@ -1171,7 +1225,7 @@ def build():
             canonical=e(url),
             social=social_tags(title or full_title, description, url),
             structured_data=structured_data(crumbs),
-            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy")},
+            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy", "plans")},
             nav_apps=(' data-current' if current == "apps" else ""),
         )
         (OUT / out_name).write_text(versioned(page), encoding="utf-8")

@@ -96,6 +96,25 @@ python -m http.server 8080 --directory docs
 
 Then open http://127.0.0.1:8080 in a browser.
 
+## Free and Subscription (2026-10-22)
+
+`plans.html`, "What's Free, and What a Subscription Adds": one card per app (Scott chose B of
+`notes/suite-plans-B-desk-2026-10-22.png`), each with what's free and a gold box of what a subscription adds, then My
+Farm's logo row. The words live in `content/plans.json`; `build.py`'s `plans_cards` draws them, with each app's usual
+buttons (`start_buttons`: Sign Up makes a free account, never "Subscribe"). Rules (Scott, 2026-10-22):
+
+- Pricing is per app, with each one costing less when someone takes two or more (decided 2026-09-29). **No amounts are
+  shown until billing is built.**
+- Only what exists goes under a subscription. The Yield Predictor's planned paid features are marked **Coming**; the
+  Equipment Planner says every tool is free while it's tested.
+- Herd Planner's and the Grazing Planner's cards are their own Two Ways cards, row for row: `tests/test_plans.py` reads
+  the apps' pages (when they sit beside this project) and fails if either changes without this page. Change a card in
+  the app, then copy its rows into `content/plans.json`.
+- In the main menu as **Plans**, right after Our Farm Apps (Scott chose A of `notes/site-nav-plans-2026-10-22.png`: not
+  "Subscribe", which waits for a pay page, and not "Pricing" until amounts are shown; then "Plans & Pricing"). Also in
+  every page's footer (Company), My Farm's Your Apps card, and under Herd Planner's and the Grazing Planner's Two Ways
+  cards.
+
 ## The top of the home page: numbers on the land
 
 The site should say two things at a glance: agriculture and livestock, and metrics (Scott, 2026-10-03;
@@ -639,6 +658,26 @@ GitHub, start every work session with `git pull` (see **Git in this project** be
 
 Search engines only see this once `PUBLIC = True` in `config.py` (it switches off `noindex` and points
 `robots.txt` at `sitemap.xml`). Set `SITE_URL` to the company domain when the site moves.
+
+## Checking every link (2026-10-22)
+
+Scott: "I also want to make sure none are broken." `tools/check_links.py` opens every page of the site and of every
+app in a real browser (Chromium, through Playwright, so links drawn by a page's script count too), follows every link
+and reports any that don't work: a page of ours that errors or isn't there, a jump link (`#part`) whose part isn't on
+the page, and (on the live sites) an outside link that errors. Outside sites that refuse robots are listed to check by
+hand, not as broken. It never signs in unless told to, and never follows sign-out, delete or remove links. My Farm's
+`#account`-style marks and the apps' `#waitlist`, `#go/...` marks are the apps' own pages, not parts to look for.
+
+- **Live, every Sunday:** `.github/workflows/link-check.yml` wakes the apps, runs the check from GitHub's servers and
+  fails (GitHub emails you "Run failed") if anything is broken; the report is in the log and attached as
+  `link-report.json`. Run it by hand: Actions > Link check > Run workflow.
+- **On your own computer or in Claude's workspace:** `python tools/check_links.py --map hosts.json` sends each live
+  address to a local copy (`{"https://cornerpostlogic.com": "http://127.0.0.1:8092", ...}`), and
+  `--login PATH JSON` signs a local test account in first. Claude runs it this way with each delivery.
+- Needs `pip install playwright` and `python -m playwright install chromium` (not part of the site's build).
+
+First run, 2026-10-22, local copies of the site and all four apps, signed out and signed in to My Farm: 182 pages,
+188 addresses, **0 broken**. The Yield Predictor (Streamlit) has no local copy, so it is checked in the live run.
 
 ## Git in this project
 

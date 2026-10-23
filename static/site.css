@@ -1096,3 +1096,42 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .barn-logo[hidden] { display: none; }
 .barn-logo-mini { width: 28px; height: 28px; object-fit: contain; vertical-align: middle; margin-right: 8px; border-radius: 4px; background: #fff; }
 @media (max-width: 640px) { .barn-logo { width: 44px; height: 44px; } }
+
+/* Plans in the main menu (2026-10-22; Scott chose A of notes/site-nav-plans-2026-10-22.png). One more item keeps the bar on
+   one line by letting How We Test (below 1,101 px) and Barn Prices (below 800 px) go from the bar on a tablet: both are
+   in Our Farm Apps, and in the footer. Phones have the Menu, which keeps every item. */
+@media (max-width: 1100px) and (min-width: 641px) { .site-nav > a.nav-methods { display: none; } }
+@media (max-width: 799px) and (min-width: 641px) { .site-nav > a.nav-barns { display: none; } }
+
+/* Free and Subscription (plans.html, 2026-10-22; Scott chose B of notes/suite-plans-B-desk-2026-10-22.png) */
+.plans-page h1 { margin: 0 0 6px; }
+.plans-page .lede { max-width: 70ch; color: var(--suite-muted); }
+.plan-bundle { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; background: #f3ead8; border: 1px solid #e2d3ac;
+  border-radius: 12px; padding: 12px 16px; margin: 0 0 18px; }
+.plan-bundle b { color: var(--suite-deep-green); }
+.plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.plan-card { background: #fff; border: 1px solid var(--suite-line); border-radius: 14px; padding: 16px 18px; display: flex;
+  flex-direction: column; }
+.plan-wide { grid-column: 1 / -1; }
+.plan-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.plan-head { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; }
+.plan-head img { width: 40px; height: 40px; flex: none; }
+.plan-head h2 { margin: 0; font-size: 1.2rem; color: var(--suite-deep-green); }
+.plan-head p { margin: 0; font-size: .86rem; color: var(--suite-muted); }
+.plan-card h3 { margin: 10px 0 6px; font-size: .74rem; text-transform: uppercase; letter-spacing: .07em; color: var(--suite-muted); }
+.plan-card ul { list-style: none; margin: 0; padding: 0; }
+.plan-card li { display: flex; gap: 9px; align-items: flex-start; margin: 5px 0; font-size: .94rem; }
+.plan-card li.soon { color: var(--suite-muted); }
+.plan-sub { background: #fdf3dc; border: 1px solid #f0dcaa; border-radius: 10px; padding: 2px 12px 10px; margin-top: 8px; }
+.plan-sub h3 { color: var(--suite-deep-green); }
+.plan-yes { display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--suite-deep-green);
+  position: relative; flex: none; margin-top: 2px; }
+.plan-yes::after { content: ""; position: absolute; left: 6px; top: 3px; width: 4px; height: 9px; border: solid #fff;
+  border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.plan-dash { color: #a9a69c; width: 18px; text-align: center; flex: none; }
+.plan-pill { display: inline-block; vertical-align: 1px; background: var(--suite-deep-green); color: #f3ead8; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase; font-size: .64rem; padding: 3px 9px; border-radius: 999px; }
+.plan-pill.soon { background: #6f737b; color: #fff; }
+.plan-go { margin: auto 0 0; padding-top: 14px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.plan-note { font-size: .88rem; color: var(--suite-muted); margin: 16px 0 0; }
+@media (max-width: 760px) { .plan-grid, .plan-two { grid-template-columns: 1fr; } }
