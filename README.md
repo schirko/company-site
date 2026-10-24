@@ -276,6 +276,21 @@ business listing (never a person's own phone), and each is kept in `content/barn
 and the day it was checked; the page names the source. Add barns there one at a time and recheck once a year.
 The page says we aren't connected with the barn and to call before hauling. Tests in `test_barns.py`.
 
+**See the Barn from the Air (2026-10-24).** Scott: "some sort of pin on the barn. The fly over isn't showing what
+building it is", then the pin on the street in front "is quite acceptable", and he chose
+`notes/barn-from-the-air-*-2026-10-24.png`. Each barn with a spot in `content/barn_spots.json` gets this section
+just above Contact the Barn: USGS's aerial photo (NAIP, public domain) centred on the barn as one still image, the
+gold pin, and **Fly Over the Barn**, which only then loads MapLibre (vendored in `static/maplibre/`, BSD licence in
+`LICENSE.txt`) and flies in the way the tested sample does (`notes/flyover-sample-roads-2026-10-23.html`): lands at
+zoom 14.5 tilted 60 (closer put the camera inside the ground), turns once the 3D ground has loaded, backs out if the
+camera comes within 250 m of the ground, and has Fly Again, Road Names (USGS transportation layer, faded with no
+transition because with 3D ground MapLibre 4 keeps the first moment of a fade) and Street View. `static/barn-air.js`.
+The spots come from each barn's premises address on USDA APHIS's list of Federally Approved Livestock Markets
+(public domain), placed by the US Census Geocoder, so they sit on the road in front; `"from": "checked"` marks one
+Scott dragged onto the barn on the photo (Brush, La Junta). A barn whose address didn't match (Ada's county road)
+has no spot, so no section, until someone places it. `barn-list.json` carries `"air"` so My Farm's From Your Barns
+cards link to the section (`#from-the-air`). Privacy: `#barn-air`. Tests in `test_barn_air.py`.
+
 **Link previews and structured data (2026-10-12).** Every page has Open Graph and Twitter tags (its title,
 description and address, and `static/brand/og-card.png`, 1200 x 630, the logo on the suite green), so a page
 shared by text or on Facebook shows a card. Every page also carries JSON-LD naming the publisher

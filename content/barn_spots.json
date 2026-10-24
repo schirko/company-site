@@ -1,0 +1,13 @@
+{
+  "about": "Where each barn's pin goes on its page's fly-over (2026-10-24; Scott: the pin on the street in front of the barn \"is quite acceptable\"). \"address\": the barn's premises address from USDA APHIS's list of Federally Approved Livestock Markets (public domain), placed by the US Census Geocoder, so it sits on the road in front. \"checked\": dragged onto the barn on the aerial photo by Scott. A barn missing here (its address didn't match) gets no pin and no fly-over until someone places it.",
+  "source": "USDA APHIS, Federally Approved Livestock Markets, https://www.aphis.usda.gov/livestock-poultry-disease/traceability/approved-livestock-markets; US Census Geocoder, https://geocoding.geo.census.gov/",
+  "barns": {
+    "1280": {"lat": 35.45288, "lon": -97.55706, "from": "address", "address": "2501 Exchange Avenue, Oklahoma City, OK", "checked": "2026-10-24"},
+    "1851": {"lat": 41.77688, "lon": -99.14028, "from": "address", "address": "401 South 11 Ave., Burwell, NE", "checked": "2026-10-24"},
+    "1852": {"lat": 42.58965, "lon": -99.53897, "from": "address", "address": "105 W 4th St, Bassett, NE", "checked": "2026-10-24"},
+    "3653": {"lat": 41.13887, "lon": -100.73600, "from": "address", "address": "2200 East 8th St., North Platte, NE", "checked": "2026-10-24"},
+    "3801": {"lat": 42.80306, "lon": -102.19783, "from": "address", "address": "108 Foch Street, Gordon, NE", "checked": "2026-10-24"},
+    "3090": {"lat": 40.25826, "lon": -103.61094, "from": "checked", "address": "28601 U.S. Highway 34, Brush, CO", "checked": "2026-10-24"},
+    "1902": {"lat": 37.98683, "lon": -103.51983, "from": "checked", "address": "30425 U.S. Highway 50, La Junta, CO", "checked": "2026-10-24"}
+  }
+}

@@ -1135,3 +1135,31 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .plan-go { margin: auto 0 0; padding-top: 14px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
 .plan-note { font-size: .88rem; color: var(--suite-muted); margin: 16px 0 0; }
 @media (max-width: 760px) { .plan-grid, .plan-two { grid-template-columns: 1fr; } }
+
+/* See the Barn from the Air (2026-10-24, notes/barn-from-the-air-*-2026-10-24.png): a still photo with the pin, then
+   the 3D fly-over (barn-air.js) in the same box */
+.barn-air { margin-top: 28px; padding: 18px 22px; }
+.barn-air h2 { margin-top: 0; }
+.air-map { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #6f7d45; margin: 8px 0; }
+.air-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.air-pin { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -100%); display: flex; flex-direction: column;
+  align-items: center; pointer-events: none; }
+.air-pin.on-map { left: 0; top: 0; }   /* on the 3D map MapLibre places it (its own transform, written on the element) */
+.air-pin span { background: var(--suite-deep-green); color: #fff; font-size: .8rem; font-weight: 700; padding: 3px 8px;
+  border-radius: 6px; white-space: nowrap; box-shadow: 0 1px 4px rgba(0, 0, 0, .35); }
+.air-pin svg { display: block; margin-top: -1px; }
+.air-go { position: absolute; left: 50%; top: 78%; transform: translate(-50%, -50%); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .35); }
+/* MapLibre's own CSS makes .maplibregl-map position: relative, which would give the map no height here */
+.air-map .air-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.air-chip { position: absolute; left: 10px; top: 10px; z-index: 2; background: rgba(36, 59, 47, .92); color: #fff;
+  font-size: .82rem; font-weight: 700; padding: 5px 10px; border-radius: 7px; }
+.air-bar { position: absolute; left: 10px; bottom: 10px; z-index: 2; display: flex; gap: 8px; flex-wrap: wrap; }
+.air-bar .btn { box-shadow: 0 2px 6px rgba(0, 0, 0, .3); }
+.air-error { position: absolute; left: 10px; right: 10px; bottom: 10px; margin: 0; background: #fff; padding: 6px 10px;
+  border-radius: 8px; font-size: .9rem; }
+@media (max-width: 600px) {
+  .air-map { aspect-ratio: 1 / 1; }
+  .air-bar .btn { font-size: .82rem; padding: 5px 9px; }
+  .air-chip { font-size: .75rem; right: 50px; }
+}

@@ -22,7 +22,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=3abd36580b">
+  <link rel="stylesheet" href="site.css?v=c59c7cb975">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -159,6 +159,17 @@
       check with the barn before you sell. <a href="methods.html#herd-planner">How we test Herd Planner</a>.</p>
     <!-- 2026-10-20, Scott: the quick link up top "should just link to the bottom of the page where all the contact
          info lives": Contact the Barn is the page's last section, in its own box -->
+    <div class="barn-air card" id="barn-air" data-lat="35.45288" data-lon="-97.55706" data-name="Oklahoma National Stockyards">
+      <h2 id="from-the-air">See the Barn from the Air</h2>
+      <div class="air-map" id="air-map">
+        <img class="air-photo" src="https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/export?bbox=-10860555,4225287,-10859450,4225908&amp;bboxSR=3857&amp;imageSR=3857&amp;size=1280,720&amp;format=jpg&amp;f=image" alt="Aerial photo around Oklahoma National Stockyards" width="1280" height="720" loading="lazy">
+        <div class="air-pin" aria-hidden="true"><span>Oklahoma National Stockyards</span><svg width="26" height="34" viewBox="0 0 26 34"><path d="M13 33C13 33 2 20 2 12.5a11 11 0 0 1 22 0C24 20 13 33 13 33z" fill="#e0ac45" stroke="#243b2f" stroke-width="2"/><circle cx="13" cy="12.5" r="4" fill="#243b2f"/></svg></div>
+        <button type="button" class="btn air-go" id="air-go">Fly Over the Barn</button>
+      </div>
+      <p class="note">The pin is at the barn's street address, from USDA's list of approved livestock markets, so it may sit on the road in front. Imagery: USDA NAIP via USGS The National Map &middot; Terrain: AWS Terrain Tiles &middot;
+        Roads: USGS The National Map.</p>
+      <script src="barn-air.js" defer></script>
+    </div>
     <div class="barn-contact-box card"><h2 id="contact">Contact the Barn</h2>
     <ul class="plain barn-contact"><li><b>Address:</b> 2501 Exchange Ave., Suite 107, Oklahoma City, OK 73108</li><li><b>Phone:</b> <a href="tel:4052358675">(405) 235-8675</a></li><li><b>Website:</b> <a href="https://www.oknationalstockyards.com/" rel="noopener">www.oknationalstockyards.com</a></li></ul>
     <p class="barn-links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Oklahoma%20National%20Stockyards%2C%202501%20Exchange%20Ave.%2C%20Suite%20107%2C%20Oklahoma%20City%2C%20OK%2073108" rel="noopener">Map and directions</a> &middot; <a href="https://mymarketnews.ams.usda.gov/viewReport/1280" rel="noopener">USDA&rsquo;s report for this sale</a></p>

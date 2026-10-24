@@ -1278,7 +1278,7 @@ def build():
     # the office phone listed here (checked from the barn's own website), never one typed into the form.
     # last_sale (2026-10-20; Scott: Your Barns should say "Prices: <barn>, sale of Oct 19, 2026" and link to the page,
     # A of farm-account/notes/barn-price-links-*): the newest sale the barn's page shows, so the date matches the page.
-    contacts = barn_pages.load_contacts()
+    contacts, spots = barn_pages.load_contacts(), barn_pages.load_spots()
     (OUT / "barn-list.json").write_text(json.dumps({"format": 1, "barns": {
         slug: {"name": b["name"], "place": barn_pages.place(b), "phone": (contacts.get(slug) or {}).get("phone", ""),
                "page": config.SITE_URL + barn_pages.page_name(slug, b),
@@ -1287,7 +1287,10 @@ def build():
                "steer": barn_pages.steer_now(b),
                # 2026-10-23 (driving times, B of farm-account/notes/barn-drive-*): the barn's town, as Herd Planner gives
                # it; My Farm asks for the drive to it. None when Herd Planner hasn't placed the barn.
-               "lat": b.get("lat"), "lon": b.get("lon")}
+               "lat": b.get("lat"), "lon": b.get("lon"),
+               # 2026-10-24 (A of farm-account/notes/from-barns-air-*-2026-10-24.png): the barn's page has See the Barn
+               # from the Air, so My Farm's card links to it
+               "air": slug in spots}
         for slug, b in all_barns.items()}},
         separators=(",", ":")), encoding="utf-8")
     # One page per sale barn, and the index of them all

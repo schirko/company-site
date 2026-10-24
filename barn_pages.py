@@ -17,6 +17,7 @@ showing a stale price as "this week".
 from __future__ import annotations
 
 import json
+import math
 import re
 import urllib.parse
 from datetime import date
@@ -185,6 +186,11 @@ def seasons_section(barn: dict) -> str:
 
 
 CONTACTS = Path(__file__).resolve().parent / "content" / "barn_contacts.json"
+# 2026-10-24 (Scott chose "Both" and A, company-site/notes/barn-from-the-air-*-2026-10-24.png): where each barn's pin
+# goes, from its premises address on USDA APHIS's list of approved markets (or checked on the photo by Scott)
+SPOTS = Path(__file__).resolve().parent / "content" / "barn_spots.json"
+PHOTO = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/export"
+PHOTO_W, PHOTO_H, PHOTO_M = 1280, 720, 900.0   # pixels, and the ground metres across the still photo
 
 
 def load_contacts(path: Path = CONTACTS) -> dict:
@@ -237,6 +243,47 @@ TWO_WAYS_ROWS = (
     ("Your page&rsquo;s numbers: views and followers each week", False, "Counts only. We never tell you who."),
     ("Your people: Owner, Managers and Staff, each with their own sign-in", False, ""),
 )
+
+
+def load_spots(path: Path = SPOTS) -> dict:
+    """{report id: {lat, lon, from, address, checked}}; a spot outside the lower 48 is left out."""
+    if not path.exists():
+        return {}
+    spots = json.loads(path.read_text(encoding="utf-8")).get("barns", {})
+    return {k: v for k, v in spots.items() if 24 <= v.get("lat", 0) <= 50 and -125 <= v.get("lon", 0) <= -66}
+
+
+def photo_url(lat: float, lon: float) -> str:
+    """USGS's aerial photo (NAIP, public domain) of a box PHOTO_M across centred on the spot, as one still image."""
+    x = lon * 20037508.342789244 / 180
+    y = math.log(math.tan((90 + lat) * math.pi / 360)) * 20037508.342789244 / math.pi
+    half_w = PHOTO_M / 2 / math.cos(math.radians(lat))     # ground metres to Web Mercator metres
+    half_h = half_w * PHOTO_H / PHOTO_W
+    bbox = f"{x - half_w:.0f},{y - half_h:.0f},{x + half_w:.0f},{y + half_h:.0f}"
+    return f"{PHOTO}?bbox={bbox}&bboxSR=3857&imageSR=3857&size={PHOTO_W},{PHOTO_H}&format=jpg&f=image"
+
+
+def air_section(slug: str, barn: dict, spots: dict) -> str:
+    """See the Barn from the Air: the still photo with the pin, and Fly Over the Barn, which loads the 3D map
+    (barn-air.js; nothing loads from MapLibre until it's pressed). No section for a barn without a spot."""
+    spot = spots.get(slug)
+    if not spot:
+        return ""
+    name = e(barn["name"])
+    where = ("The pin was placed on the barn on the aerial photo." if spot.get("from") == "checked" else
+             "The pin is at the barn's street address, from USDA's list of approved livestock markets, so it may "
+             "sit on the road in front.")
+    return f"""<div class="barn-air card" id="barn-air" data-lat="{spot['lat']}" data-lon="{spot['lon']}" data-name="{name}">
+      <h2 id="from-the-air">See the Barn from the Air</h2>
+      <div class="air-map" id="air-map">
+        <img class="air-photo" src="{e(photo_url(spot['lat'], spot['lon']))}" alt="Aerial photo around {name}" width="{PHOTO_W}" height="{PHOTO_H}" loading="lazy">
+        <div class="air-pin" aria-hidden="true"><span>{name}</span><svg width="26" height="34" viewBox="0 0 26 34"><path d="M13 33C13 33 2 20 2 12.5a11 11 0 0 1 22 0C24 20 13 33 13 33z" fill="#e0ac45" stroke="#243b2f" stroke-width="2"/><circle cx="13" cy="12.5" r="4" fill="#243b2f"/></svg></div>
+        <button type="button" class="btn air-go" id="air-go">Fly Over the Barn</button>
+      </div>
+      <p class="note">{where} Imagery: USDA NAIP via USGS The National Map &middot; Terrain: AWS Terrain Tiles &middot;
+        Roads: USGS The National Map.</p>
+      <script src="barn-air.js" defer></script>
+    </div>"""
 
 
 def two_ways(slug: str) -> str:
@@ -385,6 +432,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
       check with the barn before you sell. <a href="methods.html#herd-planner">How we test Herd Planner</a>.</p>
     <!-- 2026-10-20, Scott: the quick link up top "should just link to the bottom of the page where all the contact
          info lives": Contact the Barn is the page's last section, in its own box -->
+    {air_section(slug, barn, load_spots())}
     <div class="barn-contact-box card">{contact_section(slug, barn, load_contacts())}</div>
   </div>
 </section>"""
