@@ -20,7 +20,10 @@
         field's yield map if you tick the box to keep it (yields in 12 m squares, never the single readings), and
         the yields you type into a field's history are seen only by you. They're never shared, sold or shown on this site, and Delete removes them for good. To show a
         field's soils, its outline (with no name or account) is sent to USDA's Soil Data Access, the public soil
-        survey service, and to show what grew there each season, to USDA's Cropland Data Layer image service.</li>
+        survey service, and to show what grew there each season, to USDA's Cropland Data Layer image service. Fly Over
+        shows the same USDA photos in 3D (a pin you drop on your place for it is kept like your fields, seen only by you), with the hills from AWS Terrain Tiles: your browser asks those services for the
+        map squares around the spot, as any online map does. They see which squares are asked for, never your name or
+        account.</li>
       <li id="barn-requests"><strong>Requests from sale barns.</strong> If you run a sale barn and send Update This Page,
         we keep what you send (your name, role, how to reach you, an email if you give one, the notice and the
         corrections) so we can call your office to check it and keep a record of what was posted. Only the notice
@@ -34,8 +37,8 @@
         the same way the menu at the top asks whether you're signed in.</li>
       <li id="barn-drive"><strong>Driving times to your barns.</strong> To show how long the drive is to each barn you
         follow, My Farm sends openrouteservice (a routing service run by HeiGIT in Heidelberg, Germany) one point, rounded
-        to about half a mile: the middle of the pastures you've drawn in My Farm, else of your fields, else of your
-        county. It never sends your name, email, address or field outlines. The answer is kept with that rounded point so
+        to about half a mile: the pin on your place if you dropped one in My Farm, else the middle of the pastures you've
+        drawn there, else of your fields, else of your county. It never sends your name, email, address or field outlines. The answer is kept with that rounded point so
         it isn't asked again.</li>
       <li id="barn-views"><strong>Barn page views.</strong> When a barn's page opens, it asks My Farm for the barn's
         notice. We count those asks per barn per day so the barn can see how many times its page was opened. Only the
