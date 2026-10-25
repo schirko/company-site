@@ -54,3 +54,18 @@ HERO_CREDIT = "Photo courtesy of USDA ARS"
 
 # The year in the copyright line.
 YEAR = 2026
+
+# Street View inside the barn pages' map box (2026-10-25, Scott chose A of notes/street-view-in-page-2026-10-25.png):
+# Google's Maps Embed API key. It is a browser key, so it ends up in the built pages in docs/ (Google designs it to
+# be seen; what protects it is its limits in Google Cloud: only cornerpostlogic.com, www., apps. and
+# farm-account.onrender.com, and only the Maps Embed API). It is never written in this file: build.py reads it from
+# the CORNERPOST_GOOGLE_EMBED_KEY setting (the weekly job's GitHub secret) or from google_embed_key.txt beside this
+# file (Git-ignored; your PC). With neither, Street View opens in a smaller window as before.
+def google_embed_key() -> str:
+    import os
+    from pathlib import Path
+    key = os.environ.get("CORNERPOST_GOOGLE_EMBED_KEY", "").strip()
+    if not key:
+        f = Path(__file__).with_name("google_embed_key.txt")
+        key = f.read_text(encoding="utf-8").strip() if f.exists() else ""
+    return key

@@ -35,6 +35,10 @@ jobs:
       # Then start again from the newest commit: fetch it, redo the week, try again (up to 3 times).
       # Safe to repeat: cards.py replaces this week's numbers instead of adding a second copy.
       - name: Refresh, build and publish the new week
+        env:
+          # 2026-10-25: Street View in the barn pages' map box (config.google_embed_key). Without the secret the
+          # build still works and Street View opens in a smaller window, so add it in Settings > Secrets.
+          CORNERPOST_GOOGLE_EMBED_KEY: ${{ secrets.CORNERPOST_GOOGLE_EMBED_KEY }}
         run: |
           git config user.name "weekly-cards bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

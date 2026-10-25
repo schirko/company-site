@@ -13,6 +13,7 @@
   if (!box) return;
   const go = document.getElementById("air-go"), holder = document.getElementById("air-map");
   const lat = Number(box.dataset.lat), lon = Number(box.dataset.lon), name = box.dataset.name;
+  const svKey = box.dataset.svKey || "";     // 2026-10-25: Street View in the box (config.google_embed_key)
   let map = null, spinning = false, lifting = false;
 
   function el(tag, attrs, ...kids) {
@@ -56,14 +57,38 @@
 
   // Street View at the middle of what the map shows, facing its way, in a smaller window on a computer (Scott, for
   // My Farm's links: "I don't want them to lose sight of the fact that they are on my site")
-  function streetView(e) {
+  function svUrl() {
     const c = map.getCenter(), heading = Math.round((map.getBearing() + 360) % 360);
-    const url = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${c.lat.toFixed(5)},${c.lng.toFixed(5)}&heading=${heading}`;
+    return { c, heading, url: `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${c.lat.toFixed(5)},${c.lng.toFixed(5)}&heading=${heading}` };
+  }
+  function streetView(e) {
+    const { url } = svUrl();
     e.currentTarget.href = url;
     if (window.matchMedia("(min-width: 900px)").matches) {
       const w = window.open(url, "streetview", "popup,width=1000,height=700");
       if (w) e.preventDefault();
     }
+  }
+  // 2026-10-25, Scott: "Is it possible to launch streetview in the same window the map currently is so the user can
+  // still see our site around the map?" (A of notes/street-view-in-page-2026-10-25.png). Google's Street View (the
+  // Maps Embed API) takes the map's place in the box, at the middle of what the map shows and facing its way; Back to
+  // the Map brings the 3D map back as it was. Google loads only when Street View is pressed.
+  let svBox = null;
+  function streetViewHere(e) {
+    e.preventDefault();
+    const { c, heading, url } = svUrl();
+    stopSpin();
+    const src = `https://www.google.com/maps/embed/v1/streetview?key=${encodeURIComponent(svKey)}&location=${c.lat.toFixed(6)},${c.lng.toFixed(6)}&heading=${heading}&pitch=0&fov=90`;
+    const frame = el("iframe", { class: "air-sv", src, title: `Google Street View near ${name}`, allowfullscreen: "",
+                                  loading: "lazy", referrerpolicy: "strict-origin-when-cross-origin" });
+    const back = el("button", { type: "button", class: "btn small" }, "\u2039 Back to the Map");
+    const open = el("a", { class: "btn small secondary", href: url, target: "_blank", rel: "noopener" }, "Open in Google Maps \u203a");
+    open.addEventListener("click", streetView);
+    svBox = el("div", { class: "air-sv-box" }, frame, el("span", { class: "air-chip" }, `Street View near ${name}`),
+               el("div", { class: "air-bar" }, back, open));
+    holder.append(svBox);
+    holder.classList.add("street");
+    back.addEventListener("click", () => { svBox.remove(); svBox = null; holder.classList.remove("street"); map.resize(); });
   }
 
   function pin() {
@@ -115,7 +140,7 @@
       roads.textContent = on ? "✓ Road Names" : "Road Names";
       map.setPaintProperty("roads", "raster-opacity", on ? 0.85 : 0);
     });
-    sv.addEventListener("click", streetView);
+    sv.addEventListener("click", svKey ? streetViewHere : streetView);
   }
 
   go.addEventListener("click", async () => {

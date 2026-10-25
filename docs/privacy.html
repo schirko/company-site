@@ -21,7 +21,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=c3d1770fc4">
+  <link rel="stylesheet" href="site.css?v=1a33faeab3">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -97,8 +97,10 @@
         survey service, and to show what grew there each season, to USDA's Cropland Data Layer image service. Fly Over
         shows the same USDA photos in 3D (a pin you drop on your place for it is kept like your fields, seen only by you), with the hills from AWS Terrain Tiles, and Road Names draws roads from USGS The National Map: your browser asks those services for the
         map squares around the spot, as any online map does. They see which squares are asked for, never your name or
-        account. If you press Street View there, Google Maps opens at the middle of what the map shows, so Google gets
-        that spot; nothing else is sent.</li>
+        account. If you press Street View there, Google's Street View opens in the map's place (or in Google Maps) at
+        the middle of what the map shows. Google then gets that spot and, as with any site it shows content on, your
+        browser's usual details (its address and the page it's on), under Google's own privacy policy. Nothing of
+        Google's loads until you press it, and nothing else is sent.</li>
       <li id="barn-requests"><strong>Requests from sale barns.</strong> If you run a sale barn and send Update This Page,
         we keep what you send (your name, role, how to reach you, an email if you give one, the notice and the
         corrections) so we can call your office to check it and keep a record of what was posted. Only the notice
@@ -118,8 +120,9 @@
       <li id="barn-air"><strong>A barn from the air.</strong> A barn's page shows an aerial photo of the barn from USGS
         (USDA's NAIP photos), which your browser asks USGS for as the page opens. Fly Over the Barn then asks USGS for
         more photos and road names and AWS Terrain Tiles for the hills, as any online map does. They see which map
-        squares are asked for, near the barn, never anything about you. Street View opens Google Maps at the middle of
-        what the map shows. The barn's pin is placed from its street address on USDA's public list of approved
+        squares are asked for, near the barn, never anything about you. Street View shows Google's Street View in the
+        map's place at the middle of what the map shows (or opens Google Maps there); Google then gets that spot and your
+        browser's usual details, under Google's own privacy policy. Nothing of Google's loads until you press it. The barn's pin is placed from its street address on USDA's public list of approved
         livestock markets.</li>
       <li id="barn-views"><strong>Barn page views.</strong> When a barn's page opens, it asks My Farm for the barn's
         notice. We count those asks per barn per day so the barn can see how many times its page was opened. Only the

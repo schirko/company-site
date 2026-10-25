@@ -292,6 +292,19 @@ Scott dragged onto the barn on the photo (Brush, La Junta). A barn whose address
 has no spot, so no section, until someone places it. `barn-list.json` carries `"air"` so My Farm's From Your Barns
 cards link to the section (`#from-the-air`). Privacy: `#barn-air`. Tests in `test_barn_air.py`.
 
+**Street View in the box (2026-10-25).** Scott: "Is it possible to launch streetview in the same window the map
+currently is so the user can still see our site around the map?", then A of `notes/street-view-in-page-2026-10-25.png`
+(barn pages and My Farm). With a Google Maps Embed API key, Street View swaps the 3D map for Google's Street View in
+the same box (the Embed API's `streetview` mode at the middle of what the map shows, facing its way), with ‹ Back to
+the Map and Open in Google Maps ›; Google loads only when it's pressed. Without a key the page keeps the
+smaller-window Street View. **The key** is a browser key, limited in Google Cloud to our four addresses
+(cornerpostlogic.com, www., apps., farm-account.onrender.com) and the Maps Embed API only. It is never in the source:
+`config.google_embed_key()` reads the `CORNERPOST_GOOGLE_EMBED_KEY` setting (the weekly job's repository secret of the
+same name) or `google_embed_key.txt` in this folder (Git-ignored, for builds on your PC). Because it has to be in the
+page, it does end up in the built `docs/` pages: Google designs browser keys to be seen, and the limits are what
+protect it (Scott chose this knowingly). If the secret is missing, the weekly build quietly falls back to the smaller
+window, so keep both set. Privacy: `#your-fields` and `#barn-air` say Google loads only when Street View is pressed.
+
 **Link previews and structured data (2026-10-12).** Every page has Open Graph and Twitter tags (its title,
 description and address, and `static/brand/og-card.png`, 1200 x 630, the logo on the suite green), so a page
 shared by text or on Facebook shows a card. Every page also carries JSON-LD naming the publisher

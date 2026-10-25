@@ -3,4 +3,5 @@ __pycache__/
 .pytest_cache/
 .idea/
 notes/
+google_embed_key.txt
 Claude outputs/

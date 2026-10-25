@@ -71,3 +71,41 @@ def test_the_fly_over_is_the_tested_one():
     assert ".air-pin.on-map {" in css and ".live" not in css[css.index("/* See the Barn from the Air"):]
     privacy = (ROOT / "templates" / "privacy.html").read_text(encoding="utf-8")
     assert '<li id="barn-air"><strong>A barn from the air.</strong>' in privacy
+
+
+def test_street_view_shows_in_the_box_only_with_a_key(barns_file, tmp_path, monkeypatch):  # noqa: F811
+    """2026-10-25, A of notes/street-view-in-page-2026-10-25.png. The key comes from the CORNERPOST_GOOGLE_EMBED_KEY
+    setting or the Git-ignored google_embed_key.txt; without one the page keeps the smaller-window Street View."""
+    import config
+    spots = tmp_path / "spots.json"
+    spots.write_text(json.dumps({"barns": {"1848": {"lat": 40.70, "lon": -99.08, "from": "address"}}}), encoding="utf-8")
+    monkeypatch.setattr(barn_pages, "SPOTS", spots)
+    monkeypatch.setattr(barn_pages.load_spots, "__defaults__", (spots,))
+    cards.record_barns(answer(400), date(2026, 9, 25))
+    monkeypatch.setattr(config, "google_embed_key", lambda: "")
+    page = (build.build() / "barn-kearney-ne-1848.html").read_text(encoding="utf-8")
+    assert "data-sv-key" not in page and "Street View: Google." not in page
+    monkeypatch.setattr(config, "google_embed_key", lambda: "test-key-1")
+    page = (build.build() / "barn-kearney-ne-1848.html").read_text(encoding="utf-8")
+    assert 'data-sv-key="test-key-1"' in page and "Street View: Google." in page
+
+
+def test_the_key_is_read_from_the_setting_or_the_ignored_file(tmp_path, monkeypatch):
+    import config
+    monkeypatch.setenv("CORNERPOST_GOOGLE_EMBED_KEY", " from-env ")
+    assert config.google_embed_key() == "from-env"
+    monkeypatch.delenv("CORNERPOST_GOOGLE_EMBED_KEY")
+    assert "google_embed_key.txt" in (ROOT / ".gitignore").read_text(encoding="utf-8").split()
+    assert "AIza" not in (ROOT / "config.py").read_text(encoding="utf-8")          # never written in the source
+
+
+def test_the_page_script_swaps_the_map_for_street_view_and_back():
+    js = (ROOT / "static" / "barn-air.js").read_text(encoding="utf-8")
+    for words in ('const svKey = box.dataset.svKey || "";', "https://www.google.com/maps/embed/v1/streetview?key=",
+                  "\\u2039 Back to the Map", "Open in Google Maps \\u203a", 'sv.addEventListener("click", svKey ? streetViewHere : streetView);',
+                  "map.resize();"):
+        assert words in js, words
+    css = (ROOT / "static" / "site.css").read_text(encoding="utf-8")
+    assert ".air-sv-box {" in css and ".air-sv {" in css
+    privacy = (ROOT / "templates" / "privacy.html").read_text(encoding="utf-8")
+    assert " ".join(privacy.split()).count("Nothing of Google's loads until you press it") == 2

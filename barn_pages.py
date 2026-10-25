@@ -273,7 +273,10 @@ def air_section(slug: str, barn: dict, spots: dict) -> str:
     where = ("The pin was placed on the barn on the aerial photo." if spot.get("from") == "checked" else
              "The pin is at the barn's street address, from USDA's list of approved livestock markets, so it may "
              "sit on the road in front.")
-    return f"""<div class="barn-air card" id="barn-air" data-lat="{spot['lat']}" data-lon="{spot['lon']}" data-name="{name}">
+    key = config.google_embed_key()      # 2026-10-25: Street View in the box when there's a key (config.py)
+    sv = f' data-sv-key="{e(key)}"' if key else ""
+    sv_words = " Street View: Google." if key else ""
+    return f"""<div class="barn-air card" id="barn-air" data-lat="{spot['lat']}" data-lon="{spot['lon']}" data-name="{name}"{sv}>
       <h2 id="from-the-air">See the Barn from the Air</h2>
       <div class="air-map" id="air-map">
         <img class="air-photo" src="{e(photo_url(spot['lat'], spot['lon']))}" alt="Aerial photo around {name}" width="{PHOTO_W}" height="{PHOTO_H}" loading="lazy">
@@ -281,7 +284,7 @@ def air_section(slug: str, barn: dict, spots: dict) -> str:
         <button type="button" class="btn air-go" id="air-go">Fly Over the Barn</button>
       </div>
       <p class="note">{where} Imagery: USDA NAIP via USGS The National Map &middot; Terrain: AWS Terrain Tiles &middot;
-        Roads: USGS The National Map.</p>
+        Roads: USGS The National Map.{sv_words}</p>
       <script src="barn-air.js" defer></script>
     </div>"""
 
