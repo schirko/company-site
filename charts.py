@@ -398,3 +398,74 @@ def herd_size_table(chart: dict) -> str:
     return (f'<details class="numbers"><summary>Show the numbers</summary><div class="table-scroll">'
             f'<table class="results"><thead><tr><th>January 1</th><th>Beef cows (thousand head)</th></tr></thead>'
             f'<tbody>{rows}</tbody></table></div></details>')
+
+
+# --- Why We Built This: what hay cost in Nebraska (2026-10-24, Scott chose A of notes/hay-chart-*-2026-10-24.png) ----
+# Words in content/drought.json "hay_chart"; numbers in content/hay_prices.json (tools/hay_prices.py).
+
+def month_words(m: str) -> str:
+    """'2023-02' -> 'February 2023'."""
+    y, mo = m.split("-")
+    return f"{MONTH_NAMES[int(mo) - 1]} {y}"
+
+
+def hay_prices(chart: dict, prices: dict, w: int = 960, h: int = 300) -> str:
+    """Grass hay (blue) and alfalfa (orange), $ a ton, one point a month, as thin lines over the same months; the
+    2022 short-grass season shaded; the Grazing Planner's two warning numbers called out on the grass line, each with a
+    leader to words in open space (one below the lines, one above them). Drawn twice, wide and narrow (phones): the
+    narrow one labels every other year and puts only the price at the lines' ends."""
+    months, grass, alf = prices["months"], prices["grass"], prices["alfalfa"]
+    wide = w > 600
+    left, right, top, bottom = 44, (100 if wide else 40), 44, 30
+    f = Frame(50, 260, [50, 100, 150, 200, 250])
+    f.x0, f.x1, f.y0, f.y1 = left, w - right, top, h - bottom
+    n = len(months)
+
+    def x(i: int) -> float:
+        return f.x0 + (f.x1 - f.x0) * i / (n - 1)
+
+    out = []
+    a, b = chart["short_grass"]
+    if a in months and b in months:
+        bx0, bx1 = x(months.index(a)) - 3, x(months.index(b)) + 3
+        out.append(f'<rect x="{bx0:.1f}" y="{top - 30}" width="{bx1 - bx0:.1f}" height="{f.y1 - top + 30:.1f}" fill="{DROUGHT_BAND}"/>')
+        out.append(f'<text x="{(bx0 + bx1) / 2:.1f}" y="{top - 18}" text-anchor="middle" class="band-label" '
+                   f'fill="{DROUGHT_WORDS}">{e(chart["short_grass_label"])}</text>')
+    for t in f.ticks:
+        y = f.y(t)
+        out.append(f'<line x1="{f.x0}" x2="{f.x1}" y1="{y:.1f}" y2="{y:.1f}" class="grid"/>')
+        out.append(f'<text x="{f.x0 - 8}" y="{y + 4:.1f}" text-anchor="end" class="tick">${t}</text>')
+    for i, m in enumerate(months):
+        if m.endswith("-01") and (wide or int(m[:4]) % 2 == 1):
+            out.append(f'<text x="{x(i):.1f}" y="{h - bottom + 18}" text-anchor="middle" class="tick">{m[:4]}</text>')
+    for vals, color in ((alf, ORANGE), (grass, BLUE)):
+        pts = " ".join(f"{x(i):.1f},{f.y(v):.1f}" for i, v in enumerate(vals))
+        out.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="2" stroke-linejoin="round"/>')
+    for name, vals in (("Alfalfa", alf), ("Grass hay", grass)):     # words in ink at the lines' ends
+        out.append(f'<text x="{f.x1 + 6}" y="{f.y(vals[-1]) + 4:.1f}" class="val">{name + " " if wide else ""}${vals[-1]}</text>')
+    for k, c in enumerate(chart["callouts"]):
+        i = months.index(c["month"])
+        cx, cy = x(i), f.y(grass[i])
+        ty = f.y(112) if k == 0 else top - 2
+        out.append(f'<line x1="{cx:.1f}" x2="{cx:.1f}" y1="{cy + (6 if k == 0 else -6):.1f}" '
+                   f'y2="{ty + (-13 if k == 0 else 4):.1f}" class="leader"/>')
+        out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="4.5" fill="{BLUE}" stroke="#fff" stroke-width="2"/>')
+        anchor, tx = ("middle", cx) if k == 0 else ("start", cx - 14)
+        out.append(f'<text x="{tx:.1f}" y="{ty:.1f}" text-anchor="{anchor}" class="val strong halo">{e(c["words"])}</text>')
+    step = (f.x1 - f.x0) / (n - 1)
+    for i, m in enumerate(months):                                 # hover: one strip a month
+        tip = f"{month_words(m)}: grass hay ${grass[i]}, alfalfa ${alf[i]} a ton"
+        out.append(f'<rect x="{x(i) - step / 2:.1f}" y="{top}" width="{step:.1f}" height="{f.y1 - top:.1f}" '
+                   f'fill="transparent"><title>{e(tip)}</title></rect>')
+    label = (f'{chart["title"]}, each month from {month_words(months[0])} to {month_words(months[-1])}. '
+             f'{chart["change"]}. Latest: grass hay ${grass[-1]}, alfalfa ${alf[-1]}.')
+    return (f'<svg class="chart hay-chart" viewBox="0 0 {w} {h}" role="img" aria-label="{e(label)}" '
+            f'preserveAspectRatio="xMidYMid meet">{"".join(out)}</svg>')
+
+
+def hay_prices_table(prices: dict) -> str:
+    rows = "".join(f"<tr><td>{e(month_words(m))}</td><td>{g}</td><td>{a}</td></tr>"
+                   for m, g, a in zip(prices["months"], prices["grass"], prices["alfalfa"]))
+    return ('<details class="numbers"><summary>Show the numbers</summary><div class="table-scroll">'
+            '<table class="results"><thead><tr><th>Month</th><th>Grass hay ($ a ton)</th><th>Alfalfa ($ a ton)</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div></details>')

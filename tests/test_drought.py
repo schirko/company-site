@@ -70,3 +70,46 @@ def test_the_story_sits_above_built_in_with_links_to_the_apps(home):
     assert "Hay &amp; Feed Planner</strong>: Coming" in section     # not built yet: named, not linked
     assert "<strong>61%</strong>" in section and "<li><h3>" in section
     assert ("Draft for Scott to rewrite" in section) == bool(D["draft"])
+
+
+# --- What hay cost in Nebraska (2026-10-24; Scott chose A of notes/hay-chart-*-2026-10-24.png) ---------------------
+
+HC, PRICES = D["hay_chart"], build.load_hay_prices()
+
+
+def test_the_hay_numbers_line_up_and_name_their_source():
+    m, g, a = PRICES["months"], PRICES["grass"], PRICES["alfalfa"]
+    assert len(m) == len(g) == len(a) >= 60 and m == sorted(m)
+    assert all(20 < v < 1000 for v in g + a)
+    assert "Nebraska Direct Hay Report" in HC["source"] and "2935" in HC["source"]
+    assert HC["caution"].strip() and HC["method"].strip()
+
+
+def test_the_callouts_are_the_numbers_on_the_chart():
+    """The Grazing Planner's warning ($156 at the July 1, 2022 check, about $215 that winter) is what the chart shows."""
+    for c in HC["callouts"]:
+        assert PRICES["grass"][PRICES["months"].index(c["month"])] == c["price"]
+        assert f"${c['price']}" in c["words"] and f"${c['price']}" in HC["change"]
+
+
+def test_the_card_sits_under_the_steps_with_both_charts_and_the_numbers(home):
+    sec = home[home.index('id="why-we-built-this"'):]
+    assert sec.index('<ol class="dr-steps">') < sec.index('id="hay-prices"') < sec.index('class="dr-help"')
+    card = sec[sec.index('id="hay-prices"'):sec.index('class="dr-help"')]
+    assert card.count('<svg class="chart hay-chart"') == 2                  # wide, and narrow for phones
+    assert card.count("<tr>") == len(PRICES["months"]) + 1                  # Show the numbers: every month
+    assert "grazing-planner.html" in card and "hauling is extra" in card
+    assert "Grazing Planner</a></strong>: How many head your grass can carry this season, how often a season like it runs short, and what the hay would cost if it does." in sec
+
+
+def test_the_refresh_keeps_each_months_last_report():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("hay_prices", build.ROOT / "tools" / "hay_prices.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    p = lambda v: {"price": v}
+    hay = {"window_weeks": 8, "source": "USDA", "weeks": {
+        "2022-06-17": {"grass": p(150), "alfalfa": p(170)}, "2022-06-24": {"grass": p(156), "alfalfa": p(173)},
+        "2022-07-01": {"grass": p(160), "alfalfa": None}}}                  # no alfalfa: the month is left out
+    got = mod.monthly(hay)
+    assert (got["months"], got["grass"], got["alfalfa"]) == (["2022-06"], [156], [173])

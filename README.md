@@ -43,6 +43,7 @@ company-site/
 │                      notified, nothing else)
 ├── content/stories.json  the "Why Use Our Apps" findings: numbers, words and sources
 ├── content/drought.json  Why We Built This: the drought story, its chart numbers and sources
+├── content/hay_prices.json  the hay card's monthly prices (made by tools/hay_prices.py)
 ├── content/cards/     the county card files from the Yield Predictor and Equipment Planner,
 │                      and weeks.json (every week shown so far, newest first)
 ├── .github/workflows/ weekly-cards.yml: the Friday refresh
@@ -635,6 +636,15 @@ He chose A of `notes/site-why-we-built-this-2026-10-16.png` (the whole story on 
   (herd-planner `index.html`); its test fails until that box is updated too.
 - `tests/test_drought.py`: every step sourced; the words match the numbers; no "lowest since" claim without a
   primary source; the chart and its table; the section's place on the page.
+- **What hay cost in Nebraska** (2026-10-24; Scott asked for the Grazing Planner's hay chart "Somewhere with a card
+  that is draught related" and chose A of `notes/hay-chart-*-2026-10-24.png`): its own card under the five steps.
+  Grass hay and alfalfa, $ a ton, each month since July 2020: the price the Grazing Planner shows at that month's last
+  USDA report (Nebraska Direct Hay Report, real sales of the 8 weeks before, weighted by tons). The 2022 short-grass
+  season is shaded, and the two callouts are the Grazing Planner's own warning ($156 at the July 1, 2022 check, about
+  $215 that winter; a test checks them against the numbers). `charts.hay_prices` draws it twice, wide and narrow
+  (phones). Words in `drought.json` (`"hay_chart"`), numbers in `content/hay_prices.json`.
+- **To refresh the hay numbers** (any time; the weekly job doesn't): with the Grazing Planner beside this folder and
+  its `data/app/hay.json` current, run `python tools/hay_prices.py`, then `python build.py`.
 
 ## How It Works on the Herd Planner page: the ranch year (2026-10-16)
 

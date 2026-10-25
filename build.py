@@ -1072,6 +1072,33 @@ def bold(text: str) -> str:
     return "".join(f"<strong>{p}</strong>" if i % 2 else p for i, p in enumerate(parts))
 
 
+def load_hay_prices():
+    """The hay card's numbers (tools/hay_prices.py); None before the file exists, and the card is left out."""
+    path = CONTENT / "hay_prices.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+
+
+def hay_card(hc, prices) -> str:
+    """What hay cost in Nebraska: its own card under the five steps (2026-10-24; Scott: the hay chart "Somewhere with a
+    card that is draught related", then "I agree on A" of notes/hay-chart-*-2026-10-24.png). A wide chart and a
+    narrow one for phones (site.css shows one), one legend, the Grazing Planner link, how and where from."""
+    if not hc or not prices:
+        return ""
+    span = f"{charts.month_words(prices['months'][0])} to {charts.month_words(prices['months'][-1])}"
+    return f"""    <figure class="dr-hay" id="hay-prices">
+      <p class="chart-title">{e(hc["title"])}</p>
+      <p class="dr-sub">{e(hc["change"])}</p>
+      <div class="hay-wide">{charts.hay_prices(hc, prices)}</div>
+      <div class="hay-narrow">{charts.hay_prices(hc, prices, 440, 330)}</div>
+      {charts.legend(["Grass hay", "Alfalfa"])}
+      <p class="note">{e(hc["caution"])} <a href="{APP_PAGE.format("grazing-planner")}">The Grazing Planner</a> puts this week's price on its July 1 and August 1 checks.</p>
+      <p class="source">How: {e(hc["method"])}</p>
+      <p class="source">Source, {e(span)}: {e(hc["source"])}</p>
+      {charts.hay_prices_table(prices)}
+    </figure>
+"""
+
+
 def drought_block(d, apps_by_id) -> str:
     """Why We Built This (2026-10-16; Scott: "The 2020ish draughts caused crop and feed growing issues which led to
     cattle numbers issues. That's how herd planner started... Our apps help with draught planning"). His choice A
@@ -1108,7 +1135,7 @@ def drought_block(d, apps_by_id) -> str:
     <ol class="dr-steps">
 {steps}
     </ol>
-    <div class="dr-help">
+{hay_card(d.get("hay_chart"), load_hay_prices())}    <div class="dr-help">
       <h3>{e(d["help_title"])}</h3>
       <ul>
 {helps}

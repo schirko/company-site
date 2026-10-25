@@ -13,6 +13,20 @@
     "years": [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
     "beef_cows_thousand": [31690.7, 31338.7, 30843.6, 29983.1, 28939.3, 28013.0, 27892.0, 27607.2]
   },
+  "hay_chart": {
+    "_about": "The hay card under the five steps (Scott chose A of notes/hay-chart-*-2026-10-24.png). Its numbers are content/hay_prices.json (tools/hay_prices.py, from the Grazing Planner's USDA hay file); the two callouts are the Grazing Planner's own 2022 warning and a test checks them against the numbers.",
+    "title": "What hay cost in Nebraska ($ a ton)",
+    "change": "Grass hay went from $156 a ton at the July 1, 2022 check to about $215 that winter (Jan to Mar 2023)",
+    "short_grass": ["2022-05", "2022-10"],
+    "short_grass_label": "Nebraska's short grass, 2022",
+    "callouts": [
+      {"month": "2022-06", "price": 156, "words": "$156 at the July 1 check"},
+      {"month": "2023-02", "price": 215, "words": "$215 that winter"}
+    ],
+    "caution": "Hay also rose in 2021 and 2026, when Nebraska's grass was near or above normal: droughts in other states move the price here too.",
+    "method": "Each month: the price the Grazing Planner shows at that month's last USDA report, from real sales (not asking prices) of the 8 weeks before, weighted by tons. Large and medium bales; alfalfa fair to good. At the stack: hauling is extra.",
+    "source": "USDA AMS Market News, Nebraska Direct Hay Report (report 2935, with the Nebraska Department of Agriculture); our arithmetic in the Grazing Planner (scripts/build_hay.py)."
+  },
   "steps": [
     {"title": "Drought Spreads",
      "text": "By March 2022, **61%** of the lower 48 was in drought, covering about **80%** of the beef herd.",
@@ -32,7 +46,7 @@
   ],
   "help_title": "How Our Apps Help in a Dry Year",
   "help": [
-    {"app": "grazing-planner", "text": "How many head your grass can carry this season, and how often a season like it runs short."},
+    {"app": "grazing-planner", "text": "How many head your grass can carry this season, how often a season like it runs short, and what the hay would cost if it does."},
     {"app": "hay-feed-planner", "name": "Hay & Feed Planner", "text": "Coming: how much hay you will need, and how short you are."},
     {"app": "herd-planner", "text": "Which cattle to keep and which to sell, and what they bring at your barn this week."},
     {"app": "corn-yield-predictor", "text": "What your county's corn and soybeans are likely to yield this season."},

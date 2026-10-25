@@ -449,6 +449,19 @@ svg.herd-chart .tick { font-size: 12px; }
 .dr-steps p { margin: 0; font-size: .92rem; line-height: 1.45; }
 .dr-steps li:not(:last-child)::after { content: "\2192"; position: absolute; right: -12px; top: 44%; font-weight: 700; color: #b8862b; }
 .dr-help { margin-top: 28px; }
+/* What hay cost in Nebraska (2026-10-24, A of notes/hay-chart-*): its own card under the steps; a narrow chart on phones */
+.dr-hay { margin: 28px 0 0; background: #fff; border: 1px solid var(--suite-line); border-radius: 12px; padding: 14px 16px 10px; }
+.dr-hay .note { font-size: .88rem; margin: 6px 0 0; }
+.dr-hay .source { font-size: .8rem; color: var(--suite-muted); margin: 6px 0 0; }
+svg.hay-chart { width: 100%; height: auto; display: block; }
+svg.hay-chart .val { font-size: 12px; fill: var(--suite-ink); }
+svg.hay-chart .val.strong { font-weight: 700; }
+svg.hay-chart .band-label { font-size: 12px; font-weight: 700; }
+svg.hay-chart .tick { font-size: 12px; }
+svg.hay-chart .leader { stroke: var(--suite-ink); stroke-width: 1; }
+svg.hay-chart .halo { paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+.hay-narrow { display: none; }
+@media (max-width: 640px) { .hay-wide { display: none; } .hay-narrow { display: block; } }
 .dr-help h3 { margin: 0 0 10px; }
 .dr-help ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 24px; }
 .dr-help li { padding-left: 16px; border-left: 3px solid #5d7a68; }
