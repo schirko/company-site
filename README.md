@@ -288,8 +288,9 @@ camera comes within 250 m of the ground, and has Fly Again, Road Names (USGS tra
 transition because with 3D ground MapLibre 4 keeps the first moment of a fade) and Street View. `static/barn-air.js`.
 The spots come from each barn's premises address on USDA APHIS's list of Federally Approved Livestock Markets
 (public domain), placed by the US Census Geocoder, so they sit on the road in front; `"from": "checked"` marks one
-Scott dragged onto the barn on the photo (Brush, La Junta). A barn whose address didn't match (Ada's county road)
-has no spot, so no section, until someone places it. `barn-list.json` carries `"air"` so My Farm's From Your Barns
+Scott dragged onto the barn on the photo (Brush, La Junta) or placed on its roof in a satellite view (Ada, 2026-10-26:
+its county-road address didn't match the geocoder). A barn whose address doesn't match has no spot, so no section,
+until someone places it. `barn-list.json` carries `"air"` so My Farm's From Your Barns
 cards link to the section (`#from-the-air`). Privacy: `#barn-air`. Tests in `test_barn_air.py`.
 
 **Street View in the box (2026-10-25).** Scott: "Is it possible to launch streetview in the same window the map

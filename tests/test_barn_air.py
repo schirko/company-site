@@ -53,7 +53,9 @@ def test_the_spots_are_the_sites_barns_with_their_source():
         assert s["from"] in ("address", "checked") and s["address"] and date.fromisoformat(s["checked"])
         assert 24 <= s["lat"] <= 50 and -125 <= s["lon"] <= -66
     assert data["barns"]["3090"]["from"] == data["barns"]["1902"]["from"] == "checked"    # Scott dragged these two
-    assert "1830" not in data["barns"]          # Ada: its county-road address didn't match, so no pin until placed
+    # Ada: its county-road address didn't match the Census geocoder, so Scott placed it on the barn's roof in Google
+    # Maps' satellite view (2026-10-26); every barn now has a pin
+    assert data["barns"]["1830"]["from"] == "checked" and set(barns) <= set(data["barns"])
 
 
 def test_the_fly_over_is_the_tested_one():
