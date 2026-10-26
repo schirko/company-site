@@ -380,6 +380,10 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
                    if other_list else "")
     hub_note = (" This barn is the hub: its prices come straight from the model fitted on its own sales."
                 if barn.get("is_hub") else "")
+    # 2026-10-26 (Scott: "I'd like that"): a quiet text link up top to the fly-over, for a barn that has one. The
+    # section stays near the bottom: the fly-over is a once-per-barn thing, the prices are what people come back for.
+    air_link = (' &middot; <a class="lede-link" href="#from-the-air">See It from the Air</a>'
+                if slug in load_spots() else "")
     body = f"""<section class="page barn-page">
   <div class="wrap">
     <p class="eyebrow"><a href="barns.html">Barn Prices</a> &rsaquo; {e(state_name)}</p>
@@ -388,7 +392,7 @@ def barn_page(slug: str, barn: dict, all_barns: dict, data: dict, nice_date) -> 
     <div class="barn-title"><img class="barn-logo" id="barn-logo" data-barn="{e(slug)}" data-barn-logos="{e(config.ACCOUNT_ORIGIN)}" alt="" width="56" height="56" hidden><h1>{e(barn['name'])}</h1></div>
     <script src="barn-logo.js" defer></script>
     <p class="lede">{e(where)}{" &middot; " + e(barn['sale']) if barn.get('sale') else ""}. Feeder cattle prices,
-      worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>
+      worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a>{air_link}</p>
     <!-- 2026-10-20 (claude/barn-plan.md Part 2; Scott chose A of farm-account/notes/barn-alerts-1-follow-button-*.png):
          Follow This Barn. A plain link to My Farm, which signs you in and asks; signed in, barn-follow.js asks here
          instead, in a small box whose email box starts unticked, and once you follow it says Following. -->

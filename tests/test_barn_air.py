@@ -27,6 +27,8 @@ def test_a_barn_with_a_spot_gets_the_section_and_one_without_does_not(barns_file
     assert '<h2 id="from-the-air">See the Barn from the Air</h2>' in page and 'data-lat="40.7" data-lon="-99.08"' in page
     assert page.index('id="from-the-air"') < page.index('id="contact"')                 # just above Contact the Barn
     assert ">Fly Over the Barn</button>" in page and "so it may" in page and '<script src="barn-air.js' in page
+    link = '<a class="lede-link" href="#contact">Contact the Barn</a> &middot; <a class="lede-link" href="#from-the-air">See It from the Air</a></p>'
+    assert link in page                                  # 2026-10-26: up top, beside Contact the Barn
     assert "maplibre-gl" not in page                     # the 3D map loads only when Fly Over the Barn is pressed
     other = (site / "barn-lexington-ne-1849.html").read_text(encoding="utf-8")
     assert "from-the-air" not in other and "barn-air.js" not in other

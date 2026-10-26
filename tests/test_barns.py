@@ -168,7 +168,7 @@ def test_contact_link_sits_in_the_lede():
     prices, worked out every Friday from USDA auction reports.' Just a simple" link."""
     import barn_pages
     src = Path(barn_pages.__file__).read_text(encoding="utf-8")
-    assert 'worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a></p>' in src
+    assert 'worked out every Friday from USDA auction reports. <a class="lede-link" href="#contact">Contact the Barn</a>{air_link}</p>' in src
     assert '<h2 id="contact">Contact the Barn</h2>' in src
 
 
