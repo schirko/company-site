@@ -36,14 +36,13 @@ from urllib.parse import urldefrag, urljoin, urlsplit
 OURS = ["https://cornerpostlogic.com", "https://www.cornerpostlogic.com", "https://apps.cornerpostlogic.com",
         "https://herd-planner.onrender.com", "https://grazing-planner.onrender.com",
         "https://farm-equipment-planner.onrender.com", "https://farm-account.onrender.com",
-        "https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app",
-        "https://yield-predictor.onrender.com"]      # the Yield Predictor's web app (its v0.2.0, beside the Streamlit one)
+        "https://yield.cornerpostlogic.com"]      # the Yield Predictor's web app, off Streamlit since 2026-10-28
 START = ["https://cornerpostlogic.com/", "https://herd-planner.onrender.com/", "https://grazing-planner.onrender.com/app/",
          "https://farm-equipment-planner.onrender.com/", "https://apps.cornerpostlogic.com/app/",
-         "https://yield-predictor.onrender.com/"]
-# Streamlit draws everything with JavaScript inside its own frame and has no links of ours to follow: the address is
-# checked, not crawled.
-NOT_CRAWLED = ("https://nebraska-yield-predictor-izzr8x4rxcppkcfjmqmiej.streamlit.app",)
+         "https://yield.cornerpostlogic.com/"]
+# Addresses checked but not crawled (2026-10-28: none since the Yield Predictor left Streamlit, whose pages are drawn by
+# JavaScript inside its own frame with no links of ours to follow).
+NOT_CRAWLED: tuple[str, ...] = ()
 # Never followed: they change something, or are someone else's admin.
 SKIP = re.compile(r"(sign-?out|log-?out|/delete|/remove|/admin/|/close\b|/unsubscribe|calendar\.ics$)", re.I)
 # Pages that are only for files: checked (they must answer) but not opened as pages.
