@@ -52,7 +52,7 @@ SIBLINGS = {  # where each app's exported card file lives, next to this project
     EQUIP: ROOT.parent / "farm-equipment-planner" / "regional" / "data" / "suite_card.json",
 }
 HERD_PLANNER_URL = os.getenv("HERD_PLANNER_URL", "https://herd-planner.onrender.com")
-GRAZING_PLANNER_URL = os.getenv("GRAZING_PLANNER_URL", "https://grazing-planner.onrender.com")
+GRAZING_PLANNER_URL = os.getenv("GRAZING_PLANNER_URL", "https://grazing.cornerpostlogic.com")   # its own address since 2026-10-28
 WAKE_TRIES, WAKE_WAIT, TIMEOUT = 8, 30, 30  # seconds: Render's free plan takes up to a minute to wake
 FRESH_DAYS = 21  # an older steer price isn't "this week" and isn't shown
 KEEP_WEEKS = 520  # ten years of history; the pages show the latest few

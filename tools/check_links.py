@@ -34,10 +34,10 @@ from urllib.parse import urldefrag, urljoin, urlsplit
 
 # Our own addresses: every page under these is crawled and must work.
 OURS = ["https://cornerpostlogic.com", "https://www.cornerpostlogic.com", "https://apps.cornerpostlogic.com",
-        "https://herd-planner.onrender.com", "https://grazing-planner.onrender.com",
+        "https://herd-planner.onrender.com", "https://grazing-planner.onrender.com", "https://grazing.cornerpostlogic.com",
         "https://farm-equipment-planner.onrender.com", "https://farm-account.onrender.com",
         "https://yield.cornerpostlogic.com"]      # the Yield Predictor's web app, off Streamlit since 2026-10-28
-START = ["https://cornerpostlogic.com/", "https://herd-planner.onrender.com/", "https://grazing-planner.onrender.com/app/",
+START = ["https://cornerpostlogic.com/", "https://herd-planner.onrender.com/", "https://grazing.cornerpostlogic.com/app/",
          "https://farm-equipment-planner.onrender.com/", "https://apps.cornerpostlogic.com/app/",
          "https://yield.cornerpostlogic.com/"]
 # Addresses checked but not crawled (2026-10-28: none since the Yield Predictor left Streamlit, whose pages are drawn by
