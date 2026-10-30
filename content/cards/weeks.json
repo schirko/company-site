@@ -2,6 +2,80 @@
  "format": 1,
  "weeks": [
   {
+   "week": "2026-W44",
+   "date": "2026-10-30",
+   "place": {
+    "fips": "19029",
+    "state": "IA",
+    "county": "Cass County",
+    "state_name": "Iowa"
+   },
+   "cards": {
+    "corn-yield-predictor": {
+     "label": "Trend corn yield, 2026",
+     "headline": "206 bu/acre",
+     "detail": "Cass County, IA yields since 2000 rise about 2.5 bu/acre a year. In 1 year in 10 the county falls below 185.",
+     "value": 205.8,
+     "low": 185.3,
+     "unit": "bu/acre",
+     "source": "USDA NASS county corn yields (all practices), 2000 on",
+     "method": "Straight-line trend through the county's yields; the low end is the 10th percentile of each year's yield relative to its trend. County averages, not a forecast of this season."
+    },
+    "farm-equipment-planner": {
+     "label": "Fall field days, Oct 1 to Nov 30",
+     "headline": "48 of 61 days",
+     "detail": "Cass County, IA: workable days in a typical fall since 2000; in a wet fall (1 in 10) about 43. Wettest: 2017, with 42. Counts rain only, not snow or frozen ground.",
+     "value": 47.5,
+     "low": 43.0,
+     "unit": "days",
+     "source": "NASA POWER daily rainfall, 2000 on (via the Yield Predictor)",
+     "method": "Workable day = under 2.5 mm of rain that day and under 12.5 mm over the two days before. Typical = median fall; wet = 10th percentile."
+    },
+    "herd-planner": {
+     "label": "550 lb steer, this week",
+     "headline": "$419/cwt",
+     "detail": "About $2,304 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Oct 26). 8 in 10 sales land between $397 and $437/cwt.",
+     "value": 418.98,
+     "low": 397.44,
+     "high": 437.4,
+     "unit": "$/cwt",
+     "as_of": "2026-10-26",
+     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1280
+    },
+    "grazing-planner": null
+   },
+   "herd_by_state": {
+    "IA": {
+     "label": "550 lb steer, this week",
+     "headline": "$419/cwt",
+     "detail": "About $2,304 a head at Oklahoma National Stockyards, Oklahoma City OK (sale of Oct 26). 8 in 10 sales land between $397 and $437/cwt.",
+     "value": 418.98,
+     "low": 397.44,
+     "high": 437.4,
+     "unit": "$/cwt",
+     "as_of": "2026-10-26",
+     "market": "Oklahoma National Stockyards, Oklahoma City OK",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1280
+    },
+    "NE": {
+     "label": "550 lb steer, this week",
+     "headline": "$463/cwt",
+     "detail": "About $2,548 a head at Bassett Livestock Auction, Bassett NE (sale of Oct 28). 8 in 10 sales land between $444 and $487/cwt.",
+     "value": 463.18,
+     "low": 443.79,
+     "high": 487.31,
+     "unit": "$/cwt",
+     "as_of": "2026-10-28",
+     "market": "Bassett Livestock Auction, Bassett NE",
+     "source": "USDA AMS MyMarketNews auction reports",
+     "market_slug": 1852
+    }
+   }
+  },
+  {
    "week": "2026-W43",
    "date": "2026-10-23",
    "place": {

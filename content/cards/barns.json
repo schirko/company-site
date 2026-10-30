@@ -4,6 +4,109 @@
   "1280": {
    "weeks": [
     {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-26",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 503.27,
+       "low": 477.4,
+       "high": 525.39
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 448.01,
+       "low": 424.98,
+       "high": 467.71
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 418.98,
+       "low": 397.44,
+       "high": 437.4
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 391.83,
+       "low": 371.69,
+       "high": 409.05
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 372.65,
+       "low": 353.49,
+       "high": 389.02
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 358.13,
+       "low": 339.72,
+       "high": 373.87
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 435.01,
+       "low": 412.65,
+       "high": 454.13
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 391.24,
+       "low": 371.13,
+       "high": 408.44
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 378.93,
+       "low": 359.45,
+       "high": 395.58
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 367.01,
+       "low": 348.14,
+       "high": 383.14
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 348.73,
+       "low": 330.8,
+       "high": 364.06
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 326.77,
+       "low": 309.97,
+       "high": 341.13
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-26",
+      "section": "Feeder Cattle",
+      "head_sold": 5506,
+      "head_week_ago": 4538,
+      "head_year_ago": 3555,
+      "final": true,
+      "summary": "Compared to last week: Feeder steers 5.00-15.00 higher, 600-700 lbs 20.00-30.00 higher.",
+      "narrative": "Compared to last week: Feeder steers 5.00-15.00 higher, 600-700 lbs 20.00-30.00 higher. Feeder heifers 2.00-10.00 higher. Steer and heifer calves 15.00-30.00 higher. Demand very good for all classes. Quality improved from last week. Again, little to no discounts for un-weaned calves; if they are of quality.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1280"
+     }
+    },
+    {
      "week": "2026-W43",
      "date": "2026-10-23",
      "last_sale": "2026-10-19",
@@ -498,75 +601,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 7,
-       "index": 1.0206,
-       "low": 0.9825,
-       "high": 1.0586
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": true,
@@ -586,59 +689,59 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.869
+       "ratio": 0.8773
       },
       {
        "month": "2025-12",
-       "ratio": 0.9537
+       "ratio": 0.9609
       },
       {
        "month": "2026-01",
-       "ratio": 1.0184
+       "ratio": 1.0241
       },
       {
        "month": "2026-02",
-       "ratio": 1.0532
+       "ratio": 1.0571
       },
       {
        "month": "2026-03",
-       "ratio": 1.0603
+       "ratio": 1.0622
       },
       {
        "month": "2026-04",
-       "ratio": 1.0762
+       "ratio": 1.076
       },
       {
        "month": "2026-05",
-       "ratio": 1.0654
+       "ratio": 1.0632
       },
       {
        "month": "2026-06",
-       "ratio": 1.0537
+       "ratio": 1.0495
       },
       {
        "month": "2026-07",
-       "ratio": 1.0229
+       "ratio": 1.0168
       },
       {
        "month": "2026-08",
-       "ratio": 0.9587
+       "ratio": 0.9512
       },
       {
        "month": "2026-09",
-       "ratio": 0.9232
+       "ratio": 0.9142
       },
       {
        "month": "2026-10",
-       "ratio": 0.9644
+       "ratio": 0.9646
       }
      ],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -646,75 +749,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 5,
-       "index": 0.9575,
-       "low": 0.9174,
-       "high": 0.9975
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 10,
-       "index": 1.0238,
-       "low": 0.9752,
-       "high": 1.0724
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": true,
@@ -734,67 +837,170 @@
      ],
      "best": 7,
      "worst": 5,
-     "spread_pct": 9.3,
+     "spread_pct": 8.9,
      "clear": false,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.8931
+       "ratio": 0.8998
       },
       {
        "month": "2025-12",
-       "ratio": 0.9375
+       "ratio": 0.9431
       },
       {
        "month": "2026-01",
-       "ratio": 0.9739
+       "ratio": 0.9782
       },
       {
        "month": "2026-02",
-       "ratio": 1.0187
+       "ratio": 1.0217
       },
       {
        "month": "2026-03",
-       "ratio": 1.0014
+       "ratio": 1.0028
       },
       {
        "month": "2026-04",
-       "ratio": 1.0477
+       "ratio": 1.0475
       },
       {
        "month": "2026-05",
-       "ratio": 1.039
+       "ratio": 1.0372
       },
       {
        "month": "2026-06",
-       "ratio": 1.0333
+       "ratio": 1.0299
       },
       {
        "month": "2026-07",
-       "ratio": 1.0437
+       "ratio": 1.0387
       },
       {
        "month": "2026-08",
-       "ratio": 0.9879
+       "ratio": 0.9816
       },
       {
        "month": "2026-09",
-       "ratio": 1.0105
+       "ratio": 1.0025
       },
       {
        "month": "2026-10",
-       "ratio": 1.0182
+       "ratio": 1.0214
       }
      ],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 35.468,
    "lon": -97.516
   },
   "1851": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-23",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 552.36,
+       "low": 525.91,
+       "high": 582.23
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 497.09,
+       "low": 473.28,
+       "high": 523.97
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 465.04,
+       "low": 442.77,
+       "high": 490.19
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 435.07,
+       "low": 414.23,
+       "high": 458.59
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 393.86,
+       "low": 375.0,
+       "high": 415.16
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 381.13,
+       "low": 362.88,
+       "high": 401.74
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 481.87,
+       "low": 458.79,
+       "high": 507.92
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 439.63,
+       "low": 418.57,
+       "high": 463.4
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 418.9,
+       "low": 398.84,
+       "high": 441.55
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 399.15,
+       "low": 380.04,
+       "high": 420.74
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 370.22,
+       "low": 352.49,
+       "high": 390.24
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 342.66,
+       "low": 326.25,
+       "high": 361.19
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-23",
+      "section": "Feeder Cattle",
+      "head_sold": 3520,
+      "head_week_ago": 1245,
+      "head_year_ago": 2770,
+      "final": true,
+      "summary": "A limited number of comparable offerings from two weeks ago a trend for steers and heifers will not be given.",
+      "narrative": "A limited number of comparable offerings from two weeks ago a trend for steers and heifers will not be given. Overall market demand was good, supported by multiple active buyers and strong internet bidding. Next Auction dates Oct 30th Special Spring Calf & Feeder Auction",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1851"
+     }
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -1290,69 +1496,69 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": true,
@@ -1371,55 +1577,55 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.9036
+       "ratio": 0.9133
       },
       {
        "month": "2025-12",
-       "ratio": 0.9596
+       "ratio": 0.9675
       },
       {
        "month": "2026-01",
-       "ratio": 1.0279
+       "ratio": 1.0338
       },
       {
        "month": "2026-02",
-       "ratio": 1.0857
+       "ratio": 1.0892
       },
       {
        "month": "2026-03",
-       "ratio": 1.0664
+       "ratio": 1.0673
       },
       {
        "month": "2026-04",
-       "ratio": 1.0172
+       "ratio": 1.0156
       },
       {
        "month": "2026-05",
-       "ratio": 0.9637
+       "ratio": 0.9598
       },
       {
        "month": "2026-06",
-       "ratio": 0.9999
+       "ratio": 0.9934
       },
       {
        "month": "2026-08",
-       "ratio": 1.0425
+       "ratio": 1.0307
       },
       {
        "month": "2026-09",
-       "ratio": 0.952
+       "ratio": 0.9388
       },
       {
        "month": "2026-10",
-       "ratio": 0.9704
+       "ratio": 0.9739
       }
      ],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -1427,45 +1633,45 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       }
      ],
      "own_months": true,
@@ -1484,63 +1690,166 @@
      ],
      "best": 8,
      "worst": 11,
-     "spread_pct": 8.2,
+     "spread_pct": 7.8,
      "clear": false,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.889
+       "ratio": 0.8943
       },
       {
        "month": "2025-12",
-       "ratio": 0.9159
+       "ratio": 0.9203
       },
       {
        "month": "2026-01",
-       "ratio": 0.9961
+       "ratio": 0.9997
       },
       {
        "month": "2026-02",
-       "ratio": 1.027
+       "ratio": 1.0296
       },
       {
        "month": "2026-03",
-       "ratio": 1.0059
+       "ratio": 1.0072
       },
       {
        "month": "2026-04",
-       "ratio": 1.0168
+       "ratio": 1.017
       },
       {
        "month": "2026-05",
-       "ratio": 1.0305
+       "ratio": 1.0295
       },
       {
        "month": "2026-06",
-       "ratio": 1.0528
+       "ratio": 1.0507
       },
       {
        "month": "2026-08",
-       "ratio": 1.0664
+       "ratio": 1.0618
       },
       {
        "month": "2026-09",
-       "ratio": 0.9702
+       "ratio": 0.9649
       },
       {
        "month": "2026-10",
-       "ratio": 0.9884
+       "ratio": 0.9819
       }
      ],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 41.782,
    "lon": -99.133
   },
   "1852": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-28",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 570.7,
+       "low": 546.8,
+       "high": 600.42
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 493.03,
+       "low": 472.39,
+       "high": 518.71
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 463.18,
+       "low": 443.79,
+       "high": 487.31
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 435.14,
+       "low": 416.92,
+       "high": 457.8
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 405.58,
+       "low": 388.59,
+       "high": 426.7
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 378.63,
+       "low": 362.78,
+       "high": 398.35
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 496.71,
+       "low": 475.91,
+       "high": 522.58
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 437.41,
+       "low": 419.09,
+       "high": 460.19
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 418.65,
+       "low": 401.12,
+       "high": 440.45
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 400.7,
+       "low": 383.92,
+       "high": 421.56
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 370.38,
+       "low": 354.87,
+       "high": 389.66
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 347.96,
+       "low": 333.39,
+       "high": 366.08
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-28",
+      "section": "Feeder Cattle",
+      "head_sold": 1915,
+      "head_week_ago": 3130,
+      "head_year_ago": 2850,
+      "final": true,
+      "summary": "Compared with two weeks ago 500 to 600 lbs steers calves traded steady to as much as 25.0 higher and 900 to 950 lbs yearling steers traded 4.0 to 10.0 higher.",
+      "narrative": "Compared with two weeks ago 500 to 600 lbs steers calves traded steady to as much as 25.0 higher and 900 to 950 lbs yearling steers traded 4.0 to 10.0 higher. A limited number of comparable offerings for heifers with 450 to 500 lbs offerings trading steady. Demand was good with several buyers and active internet bidding. Next Auction Dates: Nov 4th & 11th Special Feeder Cattle Auction",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1852"
+     }
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -2036,75 +2345,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 7,
-       "index": 1.0206,
-       "low": 0.9825,
-       "high": 1.0586
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": true,
@@ -2124,51 +2433,51 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.9025
+       "ratio": 0.9087
       },
       {
        "month": "2025-12",
-       "ratio": 0.9656
+       "ratio": 0.971
       },
       {
        "month": "2026-01",
-       "ratio": 1.0094
+       "ratio": 1.0137
       },
       {
        "month": "2026-02",
-       "ratio": 1.0356
+       "ratio": 1.0387
       },
       {
        "month": "2026-04",
-       "ratio": 1.0422
+       "ratio": 1.0426
       },
       {
        "month": "2026-05",
-       "ratio": 1.0486
+       "ratio": 1.0477
       },
       {
        "month": "2026-06",
-       "ratio": 1.0841
+       "ratio": 1.0817
       },
       {
        "month": "2026-07",
-       "ratio": 1.0018
+       "ratio": 0.9983
       },
       {
        "month": "2026-08",
-       "ratio": 0.9343
+       "ratio": 0.9299
       },
       {
        "month": "2026-10",
-       "ratio": 0.9732
+       "ratio": 0.9633
       }
      ],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -2176,75 +2485,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 5,
-       "index": 0.9575,
-       "low": 0.9174,
-       "high": 0.9975
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 10,
-       "index": 1.0238,
-       "low": 0.9752,
-       "high": 1.0724
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": true,
@@ -2264,67 +2573,170 @@
      ],
      "best": 7,
      "worst": 5,
-     "spread_pct": 9.3,
+     "spread_pct": 8.9,
      "clear": false,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.9093
+       "ratio": 0.9143
       },
       {
        "month": "2025-12",
-       "ratio": 0.9476
+       "ratio": 0.952
       },
       {
        "month": "2026-01",
-       "ratio": 0.9853
+       "ratio": 0.9889
       },
       {
        "month": "2026-02",
-       "ratio": 1.0072
+       "ratio": 1.0099
       },
       {
        "month": "2026-03",
-       "ratio": 0.9405
+       "ratio": 0.9422
       },
       {
        "month": "2026-04",
-       "ratio": 1.0267
+       "ratio": 1.0275
       },
       {
        "month": "2026-05",
-       "ratio": 1.0375
+       "ratio": 1.0373
       },
       {
        "month": "2026-06",
-       "ratio": 1.0925
+       "ratio": 1.0913
       },
       {
        "month": "2026-07",
-       "ratio": 1.0441
+       "ratio": 1.0419
       },
       {
        "month": "2026-08",
-       "ratio": 1.0001
+       "ratio": 0.9971
       },
       {
        "month": "2026-09",
-       "ratio": 1.0103
+       "ratio": 1.0063
       },
       {
        "month": "2026-10",
-       "ratio": 1.0053
+       "ratio": 0.9974
       }
      ],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 42.586,
    "lon": -99.538
   },
   "1902": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-26",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 545.39,
+       "low": 495.9,
+       "high": 618.22
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 466.28,
+       "low": 423.97,
+       "high": 528.54
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 427.34,
+       "low": 388.56,
+       "high": 484.4
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 391.65,
+       "low": 356.11,
+       "high": 443.95
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 357.72,
+       "low": 325.26,
+       "high": 405.49
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 330.17,
+       "low": 300.21,
+       "high": 374.26
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 471.42,
+       "low": 428.64,
+       "high": 534.37
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 407.19,
+       "low": 370.24,
+       "high": 461.56
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 386.49,
+       "low": 351.42,
+       "high": 438.1
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 366.84,
+       "low": 333.55,
+       "high": 415.83
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 334.77,
+       "low": 304.39,
+       "high": 379.47
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 301.26,
+       "low": 273.92,
+       "high": 341.49
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-26",
+      "section": "Feeder Cattle",
+      "head_sold": 4385,
+      "head_week_ago": 3560,
+      "head_year_ago": 5123,
+      "final": true,
+      "summary": "Trade activity and demand was very good.",
+      "narrative": "Trade activity and demand was very good. Feeder steers sold 6.00 to 9.00 higher with most selling for sharply higher across all weight classes. Feeder heifers sold sharply higher across all weight classes. The next feeder calf special sale will be next Monday November 2, 2026.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1902"
+     }
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -2809,75 +3221,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 7,
-       "index": 1.0206,
-       "low": 0.9825,
-       "high": 1.0586
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": false,
@@ -2887,10 +3299,10 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -2898,75 +3310,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 5,
-       "index": 0.9575,
-       "low": 0.9174,
-       "high": 0.9975
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 10,
-       "index": 1.0238,
-       "low": 0.9752,
-       "high": 1.0724
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": false,
@@ -2976,18 +3388,121 @@
      ],
      "best": 7,
      "worst": 5,
-     "spread_pct": 9.3,
+     "spread_pct": 8.9,
      "clear": false,
      "this_season": [],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 37.985,
    "lon": -103.544
   },
   "3653": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-20",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 551.9,
+       "low": 528.79,
+       "high": 585.26
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 490.3,
+       "low": 469.77,
+       "high": 519.93
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 459.39,
+       "low": 440.15,
+       "high": 487.16
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 430.43,
+       "low": 412.41,
+       "high": 456.45
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 391.09,
+       "low": 374.72,
+       "high": 414.73
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 369.35,
+       "low": 353.88,
+       "high": 391.67
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 484.48,
+       "low": 464.19,
+       "high": 513.76
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 423.1,
+       "low": 405.38,
+       "high": 448.67
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 405.87,
+       "low": 388.88,
+       "high": 430.41
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 389.35,
+       "low": 373.05,
+       "high": 412.88
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 357.36,
+       "low": 342.4,
+       "high": 378.97
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 346.82,
+       "low": 332.3,
+       "high": 367.78
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-20",
+      "section": "Feeder Cattle",
+      "head_sold": 3258,
+      "head_week_ago": 951,
+      "head_year_ago": 2536,
+      "final": true,
+      "summary": "BBQ sale day.",
+      "narrative": "BBQ sale day. Compared to last week, steers were 10.00 - 20.00 higher and heifers were 5.00 - 20.00 higher. Demand was good to moderate on a nice selection offered. Lots of buyers on the seats and active internet..",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/3653"
+     }
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -3483,51 +3998,51 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": true,
@@ -3545,51 +4060,51 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.8861
+       "ratio": 0.8934
       },
       {
        "month": "2025-12",
-       "ratio": 0.9631
+       "ratio": 0.9694
       },
       {
        "month": "2026-01",
-       "ratio": 1.0244
+       "ratio": 1.0293
       },
       {
        "month": "2026-02",
-       "ratio": 1.0472
+       "ratio": 1.0504
       },
       {
        "month": "2026-03",
-       "ratio": 1.0579
+       "ratio": 1.0593
       },
       {
        "month": "2026-04",
-       "ratio": 1.0588
+       "ratio": 1.0584
       },
       {
        "month": "2026-05",
-       "ratio": 1.0153
+       "ratio": 1.0132
       },
       {
        "month": "2026-06",
-       "ratio": 1.0471
+       "ratio": 1.0432
       },
       {
        "month": "2026-09",
-       "ratio": 0.9019
+       "ratio": 0.8938
       },
       {
        "month": "2026-10",
-       "ratio": 0.9872
+       "ratio": 0.9767
       }
      ],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -3597,75 +4112,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 5,
-       "index": 0.9575,
-       "low": 0.9174,
-       "high": 0.9975
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 10,
-       "index": 1.0238,
-       "low": 0.9752,
-       "high": 1.0724
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": false,
@@ -3682,47 +4197,139 @@
      ],
      "best": 7,
      "worst": 5,
-     "spread_pct": 9.3,
+     "spread_pct": 8.9,
      "clear": false,
      "this_season": [
       {
        "month": "2025-12",
-       "ratio": 0.8931
+       "ratio": 0.9004
       },
       {
        "month": "2026-01",
-       "ratio": 0.9894
+       "ratio": 0.996
       },
       {
        "month": "2026-02",
-       "ratio": 1.0129
+       "ratio": 1.0181
       },
       {
        "month": "2026-03",
-       "ratio": 1.0196
+       "ratio": 1.0233
       },
       {
        "month": "2026-06",
-       "ratio": 1.0166
+       "ratio": 1.0157
       },
       {
        "month": "2026-09",
-       "ratio": 1.0243
+       "ratio": 1.0188
       },
       {
        "month": "2026-10",
-       "ratio": 1.0254
+       "ratio": 1.0183
       }
      ],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 41.124,
    "lon": -100.765
   },
   "3801": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2024-11-02",
+     "fresh": false,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 556.51,
+       "low": 547.15,
+       "high": 581.69
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 484.36,
+       "low": 476.22,
+       "high": 506.28
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 447.89,
+       "low": 440.36,
+       "high": 468.17
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 414.17,
+       "low": 407.21,
+       "high": 432.92
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 385.11,
+       "low": 378.64,
+       "high": 402.54
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 361.85,
+       "low": 355.77,
+       "high": 378.23
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 481.03,
+       "low": 472.94,
+       "high": 502.8
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 422.98,
+       "low": 415.87,
+       "high": 442.12
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 405.08,
+       "low": 398.27,
+       "high": 423.41
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 387.93,
+       "low": 381.41,
+       "high": 405.49
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 360.4,
+       "low": 354.34,
+       "high": 376.71
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 330.17,
+       "low": 324.62,
+       "high": 345.11
+      }
+     ]
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -4196,75 +4803,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 7,
-       "index": 1.0206,
-       "low": 0.9825,
-       "high": 1.0586
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": false,
@@ -4274,10 +4881,10 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -4285,75 +4892,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 5,
-       "index": 0.9575,
-       "low": 0.9174,
-       "high": 0.9975
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 10,
-       "index": 1.0238,
-       "low": 0.9752,
-       "high": 1.0724
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": false,
@@ -4362,18 +4969,121 @@
      ],
      "best": 7,
      "worst": 5,
-     "spread_pct": 9.3,
+     "spread_pct": 8.9,
      "clear": false,
      "this_season": [],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 42.805,
    "lon": -102.203
   },
   "1830": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-28",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 512.75,
+       "low": 475.74,
+       "high": 541.56
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 457.01,
+       "low": 424.02,
+       "high": 482.69
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 429.01,
+       "low": 398.05,
+       "high": 453.12
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 402.74,
+       "low": 373.66,
+       "high": 425.36
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 379.35,
+       "low": 351.97,
+       "high": 400.66
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 354.93,
+       "low": 329.31,
+       "high": 374.88
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 462.69,
+       "low": 429.29,
+       "high": 488.69
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 404.39,
+       "low": 375.2,
+       "high": 427.11
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 389.09,
+       "low": 361.01,
+       "high": 410.96
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 374.37,
+       "low": 347.35,
+       "high": 395.41
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 348.42,
+       "low": 323.27,
+       "high": 368.0
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 322.46,
+       "low": 299.18,
+       "high": 340.58
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-28",
+      "section": "Feeder Cattle",
+      "head_sold": 2527,
+      "head_week_ago": 2886,
+      "head_year_ago": 1522,
+      "final": true,
+      "summary": "Compared to last week.",
+      "narrative": "Compared to last week. Steers steady to 10.00 higher. Heifers steady to 10.00 lower. Quality was plain to average with an uneven trend.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1830"
+     }
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -4869,75 +5579,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 7,
-       "index": 1.0206,
-       "low": 0.9825,
-       "high": 1.0586
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": true,
@@ -4957,59 +5667,59 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.8604
+       "ratio": 0.8704
       },
       {
        "month": "2025-12",
-       "ratio": 0.9275
+       "ratio": 0.9358
       },
       {
        "month": "2026-01",
-       "ratio": 0.9566
+       "ratio": 0.9628
       },
       {
        "month": "2026-02",
-       "ratio": 1.1043
+       "ratio": 1.1086
       },
       {
        "month": "2026-03",
-       "ratio": 1.1017
+       "ratio": 1.1032
       },
       {
        "month": "2026-04",
-       "ratio": 1.1308
+       "ratio": 1.1294
       },
       {
        "month": "2026-05",
-       "ratio": 1.089
+       "ratio": 1.085
       },
       {
        "month": "2026-06",
-       "ratio": 1.0219
+       "ratio": 1.0156
       },
       {
        "month": "2026-07",
-       "ratio": 1.0236
+       "ratio": 1.0147
       },
       {
        "month": "2026-08",
-       "ratio": 0.9638
+       "ratio": 0.953
       },
       {
        "month": "2026-09",
-       "ratio": 0.9309
+       "ratio": 0.9181
       },
       {
        "month": "2026-10",
-       "ratio": 0.9264
+       "ratio": 0.9368
       }
      ],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -5017,75 +5727,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9716,
-       "low": 0.9309,
-       "high": 1.0122
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
       },
       {
        "month": 2,
-       "index": 0.9764,
-       "low": 0.9272,
-       "high": 1.0256
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
       },
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 5,
-       "index": 0.9575,
-       "low": 0.9174,
-       "high": 0.9975
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 9,
-       "index": 1.0431,
-       "low": 0.9764,
-       "high": 1.1097
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
       },
       {
        "month": 10,
-       "index": 1.0238,
-       "low": 0.9752,
-       "high": 1.0724
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
       },
       {
        "month": 11,
-       "index": 0.966,
-       "low": 0.9413,
-       "high": 0.9906
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": true,
@@ -5105,67 +5815,170 @@
      ],
      "best": 7,
      "worst": 5,
-     "spread_pct": 9.3,
+     "spread_pct": 8.9,
      "clear": false,
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.8709
+       "ratio": 0.8763
       },
       {
        "month": "2025-12",
-       "ratio": 0.9713
+       "ratio": 0.9763
       },
       {
        "month": "2026-01",
-       "ratio": 0.9596
+       "ratio": 0.9633
       },
       {
        "month": "2026-02",
-       "ratio": 1.0395
+       "ratio": 1.0423
       },
       {
        "month": "2026-03",
-       "ratio": 0.9749
+       "ratio": 0.9765
       },
       {
        "month": "2026-04",
-       "ratio": 1.0718
+       "ratio": 1.0722
       },
       {
        "month": "2026-05",
-       "ratio": 1.0496
+       "ratio": 1.0488
       },
       {
        "month": "2026-06",
-       "ratio": 0.9987
+       "ratio": 0.9968
       },
       {
        "month": "2026-07",
-       "ratio": 1.0438
+       "ratio": 1.0406
       },
       {
        "month": "2026-08",
-       "ratio": 1.0009
+       "ratio": 0.9967
       },
       {
        "month": "2026-09",
-       "ratio": 1.0151
+       "ratio": 1.0097
       },
       {
        "month": "2026-10",
-       "ratio": 1.0127
+       "ratio": 1.0088
       }
      ],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23",
+   "seasons_date": "2026-10-30",
    "lat": 34.775,
    "lon": -96.678
   },
   "3090": {
    "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-29",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 542.31,
+       "low": 501.16,
+       "high": 599.23
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 476.25,
+       "low": 440.11,
+       "high": 526.24
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 431.73,
+       "low": 398.98,
+       "high": 477.05
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 378.34,
+       "low": 349.64,
+       "high": 418.06
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 345.39,
+       "low": 319.18,
+       "high": 381.64
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 335.31,
+       "low": 309.87,
+       "high": 370.51
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 468.76,
+       "low": 433.19,
+       "high": 517.96
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 415.89,
+       "low": 384.34,
+       "high": 459.55
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 365.85,
+       "low": 338.09,
+       "high": 404.25
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 352.74,
+       "low": 325.98,
+       "high": 389.77
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 341.33,
+       "low": 315.43,
+       "high": 377.16
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 288.35,
+       "low": 266.48,
+       "high": 318.62
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-29",
+      "section": "Feeder Cattle",
+      "head_sold": 160,
+      "head_week_ago": 390,
+      "head_year_ago": 0,
+      "final": true,
+      "summary": "Trade activity and demand was good.",
+      "narrative": "Trade activity and demand was good. Dairy heifers traded mostly 1.00 to 3.00 lower, with heifers over 1200 pounds trading 4.00 to 6.00 lower. Average dress slaughter cows traded 1.00 to 2.00 lower, while average dress slaughter bulls traded steady. Next available report will be Thursday, November 5, 2026.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/3090"
+     }
+    },
     {
      "week": "2026-W43",
      "date": "2026-10-23",
@@ -5387,75 +6200,75 @@
      "typical": [
       {
        "month": 1,
-       "index": 0.9965,
-       "low": 0.9625,
-       "high": 1.0305
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
       },
       {
        "month": 2,
-       "index": 1.0158,
-       "low": 0.9723,
-       "high": 1.0594
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
       },
       {
        "month": 3,
-       "index": 1.0455,
-       "low": 1.0096,
-       "high": 1.0815
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
       },
       {
        "month": 4,
-       "index": 1.0391,
-       "low": 1.0068,
-       "high": 1.0715
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
       },
       {
        "month": 5,
-       "index": 1.0055,
-       "low": 0.9752,
-       "high": 1.0358
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
       },
       {
        "month": 6,
-       "index": 1.0231,
-       "low": 0.985,
-       "high": 1.0612
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
       },
       {
        "month": 7,
-       "index": 1.0206,
-       "low": 0.9825,
-       "high": 1.0586
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
       },
       {
        "month": 8,
-       "index": 1.0038,
-       "low": 0.9432,
-       "high": 1.0645
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
       },
       {
        "month": 9,
-       "index": 0.9674,
-       "low": 0.906,
-       "high": 1.0289
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
       },
       {
        "month": 10,
-       "index": 0.9691,
-       "low": 0.9163,
-       "high": 1.022
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
       },
       {
        "month": 11,
-       "index": 0.9402,
-       "low": 0.9207,
-       "high": 0.9596
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
       },
       {
        "month": 12,
-       "index": 0.9733,
-       "low": 0.9459,
-       "high": 1.0007
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
       }
      ],
      "own_months": false,
@@ -5474,47 +6287,47 @@
      ],
      "best": 3,
      "worst": 11,
-     "spread_pct": 10.5,
+     "spread_pct": 11.0,
      "clear": true,
      "this_season": [
       {
        "month": "2024-07",
-       "ratio": 1.0047
+       "ratio": 1.0023
       },
       {
        "month": "2024-08",
-       "ratio": 1.0113
+       "ratio": 1.0098
       },
       {
        "month": "2024-09",
-       "ratio": 0.9031
+       "ratio": 0.9026
       },
       {
        "month": "2024-11",
-       "ratio": 0.9342
+       "ratio": 0.9353
       },
       {
        "month": "2024-12",
-       "ratio": 1.0396
+       "ratio": 1.0418
       },
       {
        "month": "2025-01",
-       "ratio": 1.0504
+       "ratio": 1.0536
       },
       {
        "month": "2025-03",
-       "ratio": 1.1261
+       "ratio": 1.1316
       },
       {
        "month": "2025-04",
-       "ratio": 1.0285
+       "ratio": 1.0345
       },
       {
        "month": "2025-05",
-       "ratio": 0.9106
+       "ratio": 0.9168
       }
      ],
-     "markets": 5
+     "markets": 8
     },
     {
      "key": "feeders",
@@ -5522,39 +6335,39 @@
      "typical": [
       {
        "month": 3,
-       "index": 0.9732,
-       "low": 0.9362,
-       "high": 1.0102
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
       },
       {
        "month": 4,
-       "index": 1.0005,
-       "low": 0.9806,
-       "high": 1.0204
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
       },
       {
        "month": 6,
-       "index": 1.0308,
-       "low": 1.0054,
-       "high": 1.0562
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
       },
       {
        "month": 7,
-       "index": 1.0502,
-       "low": 0.9999,
-       "high": 1.1005
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
       },
       {
        "month": 8,
-       "index": 1.0483,
-       "low": 0.9889,
-       "high": 1.1077
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
       },
       {
        "month": 12,
-       "index": 0.9587,
-       "low": 0.9023,
-       "high": 1.0151
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
       }
      ],
      "own_months": true,
@@ -5572,13 +6385,1755 @@
      ],
      "best": 7,
      "worst": 12,
-     "spread_pct": 9.2,
+     "spread_pct": 8.7,
      "clear": false,
      "this_season": [],
-     "markets": 5
+     "markets": 8
     }
    ],
-   "seasons_date": "2026-10-23"
+   "seasons_date": "2026-10-30"
+  },
+  "1281": {
+   "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-27",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 504.09,
+       "low": 481.6,
+       "high": 520.05
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 449.03,
+       "low": 428.99,
+       "high": 463.25
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 420.06,
+       "low": 401.32,
+       "high": 433.37
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 392.97,
+       "low": 375.44,
+       "high": 405.42
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 373.97,
+       "low": 357.28,
+       "high": 385.81
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 359.63,
+       "low": 343.58,
+       "high": 371.02
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 435.72,
+       "low": 416.28,
+       "high": 449.52
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 392.13,
+       "low": 374.63,
+       "high": 404.54
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 379.91,
+       "low": 362.96,
+       "high": 391.94
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 368.07,
+       "low": 351.65,
+       "high": 379.73
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 349.97,
+       "low": 334.35,
+       "high": 361.05
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 328.14,
+       "low": 313.5,
+       "high": 338.53
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-27",
+      "section": "Feeder Cattle",
+      "head_sold": 7021,
+      "head_week_ago": 4727,
+      "head_year_ago": 4056,
+      "final": true,
+      "summary": "Compared to last week: Feeder steers 10.00-15.00 lower.",
+      "narrative": "Compared to last week: Feeder steers 10.00-15.00 lower. Steers weighing 700-750lbs were 15.00 higher on better quality and several buyers had a tight 7 weight order. Feeder heifers steady to 5.00 higher. Today's offering consisted of a large percentage of commodity-type cattle, along with several drafts of weaned steers that looked soft and calf-like in appearance. Steer calves over 500lbs unevenly steady, under 500lbs 10.00-15.00 higher. Heifer calves over 500lbs unevenly steady, under 500lbs 20.00-30.00 higher. Calf quality plain to attractive. Quality played a significant role in buyer participation, with buyers remaining highly selective throughout the sale. Overall calf quality improved as the sale progressed. CME futures closed in the red today.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1281"
+     }
+    }
+   ],
+   "name": "OKC West Livestock Market",
+   "city": "El Reno",
+   "state": "OK",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": false,
+   "lat": 35.532,
+   "lon": -97.955,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 3,
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
+      },
+      {
+       "month": 4,
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
+      },
+      {
+       "month": 6,
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
+      },
+      {
+       "month": 7,
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
+      },
+      {
+       "month": 8,
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
+      },
+      {
+       "month": 9,
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
+      },
+      {
+       "month": 10,
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 10,
+     "spread_pct": 10.6,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 3,
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
+      },
+      {
+       "month": 4,
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
+      },
+      {
+       "month": 5,
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
+      },
+      {
+       "month": 6,
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
+      },
+      {
+       "month": 7,
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
+      },
+      {
+       "month": 8,
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
+      },
+      {
+       "month": 9,
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
+      },
+      {
+       "month": 10,
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 8.9,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    }
+   ],
+   "seasons_date": "2026-10-30"
+  },
+  "1827": {
+   "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-27",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 444.11,
+       "low": 401.44,
+       "high": 470.81
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 401.52,
+       "low": 362.94,
+       "high": 425.65
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 378.42,
+       "low": 342.06,
+       "high": 401.16
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 356.65,
+       "low": 322.38,
+       "high": 378.08
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 344.47,
+       "low": 311.37,
+       "high": 365.18
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 336.22,
+       "low": 303.91,
+       "high": 356.43
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 383.88,
+       "low": 346.99,
+       "high": 406.95
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 350.64,
+       "low": 316.95,
+       "high": 371.71
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 342.24,
+       "low": 309.36,
+       "high": 362.82
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 334.05,
+       "low": 301.95,
+       "high": 354.13
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 322.37,
+       "low": 291.39,
+       "high": 341.75
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 306.78,
+       "low": 277.3,
+       "high": 325.22
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-27",
+      "section": "Feeder Cattle",
+      "head_sold": 500,
+      "head_week_ago": 725,
+      "head_year_ago": 900,
+      "final": true,
+      "summary": "Compared to last week; Steer calves under 450 lbs. 15.00 to 20.00 lower, above 450 lbs. 10.00 to 20.00 higher.",
+      "narrative": "Compared to last week; Steer calves under 450 lbs. 15.00 to 20.00 lower, above 450 lbs. 10.00 to 20.00 higher. Heifer calves 10.00 to 17.00 higher. Quality of steer calves under 450 lbs. plain above 450 lbs. average to attractive. Heifer calves mostly attractive. Demand was good. Slaughter cows; Breakers 2.00 higher. Boners and Leans 2.00 to 12.00 lower. Slaughter bulls steady.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1827"
+     }
+    }
+   ],
+   "name": "McAlester Union Stockyards",
+   "city": "McAlester",
+   "state": "OK",
+   "sale": "Cattle Auction",
+   "is_hub": false,
+   "lat": 34.933,
+   "lon": -95.77,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
+      },
+      {
+       "month": 2,
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
+      },
+      {
+       "month": 3,
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
+      },
+      {
+       "month": 4,
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
+      },
+      {
+       "month": 6,
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
+      },
+      {
+       "month": 7,
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
+      },
+      {
+       "month": 8,
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
+      },
+      {
+       "month": 9,
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
+      },
+      {
+       "month": 10,
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
+      },
+      {
+       "month": 11,
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
+      },
+      {
+       "month": 12,
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 11.0,
+     "clear": true,
+     "this_season": [],
+     "markets": 8
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
+      },
+      {
+       "month": 2,
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
+      },
+      {
+       "month": 3,
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
+      },
+      {
+       "month": 4,
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
+      },
+      {
+       "month": 5,
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
+      },
+      {
+       "month": 6,
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
+      },
+      {
+       "month": 7,
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
+      },
+      {
+       "month": 8,
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
+      },
+      {
+       "month": 9,
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
+      },
+      {
+       "month": 10,
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
+      },
+      {
+       "month": 11,
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
+      },
+      {
+       "month": 12,
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 8.9,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    }
+   ],
+   "seasons_date": "2026-10-30"
+  },
+  "1828": {
+   "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-29",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 506.22,
+       "low": 469.54,
+       "high": 521.87
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 450.26,
+       "low": 417.64,
+       "high": 464.19
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 420.91,
+       "low": 390.42,
+       "high": 433.93
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 393.47,
+       "low": 364.97,
+       "high": 405.64
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 373.89,
+       "low": 346.81,
+       "high": 385.46
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 359.03,
+       "low": 333.02,
+       "high": 370.13
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 437.56,
+       "low": 405.86,
+       "high": 451.09
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 393.2,
+       "low": 364.72,
+       "high": 405.36
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 380.67,
+       "low": 353.1,
+       "high": 392.45
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 368.54,
+       "low": 341.84,
+       "high": 379.94
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 349.9,
+       "low": 324.55,
+       "high": 360.72
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 327.59,
+       "low": 303.86,
+       "high": 337.72
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-29",
+      "section": "Feeder Cattle",
+      "head_sold": 1603,
+      "head_week_ago": 2605,
+      "head_year_ago": 788,
+      "final": true,
+      "summary": "Compared to last week: Feeder steers 5.00 to 10.00 lower.",
+      "narrative": "Compared to last week: Feeder steers 5.00 to 10.00 lower. Feeder heifers steady. Steer calves 5.00 to 15.00 lower. Heifer calves 10.00 to 20.00 lower. Demand was moderate. Quality average.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1828"
+     }
+    }
+   ],
+   "name": "Woodward Livestock Inc.",
+   "city": "Woodward",
+   "state": "OK",
+   "sale": "Feeder Cattle Auction",
+   "is_hub": false,
+   "lat": 36.434,
+   "lon": -99.39,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 3,
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
+      },
+      {
+       "month": 4,
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
+      },
+      {
+       "month": 6,
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
+      },
+      {
+       "month": 7,
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
+      },
+      {
+       "month": 8,
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
+      },
+      {
+       "month": 9,
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
+      },
+      {
+       "month": 10,
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 10,
+     "spread_pct": 10.6,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 3,
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
+      },
+      {
+       "month": 4,
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
+      },
+      {
+       "month": 5,
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
+      },
+      {
+       "month": 6,
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
+      },
+      {
+       "month": 7,
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
+      },
+      {
+       "month": 8,
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
+      },
+      {
+       "month": 9,
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
+      },
+      {
+       "month": 10,
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 8.9,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    }
+   ],
+   "seasons_date": "2026-10-30"
+  },
+  "1829": {
+   "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-29",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 515.18,
+       "low": 486.76,
+       "high": 545.46
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 453.84,
+       "low": 428.8,
+       "high": 480.51
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 422.22,
+       "low": 398.92,
+       "high": 447.02
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 392.79,
+       "low": 371.12,
+       "high": 415.87
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 369.67,
+       "low": 349.27,
+       "high": 391.39
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 351.56,
+       "low": 332.17,
+       "high": 372.22
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 445.31,
+       "low": 420.74,
+       "high": 471.48
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 396.33,
+       "low": 374.46,
+       "high": 419.62
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 381.85,
+       "low": 360.78,
+       "high": 404.29
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 367.91,
+       "low": 347.61,
+       "high": 389.53
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 345.95,
+       "low": 326.86,
+       "high": 366.27
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 320.78,
+       "low": 303.08,
+       "high": 339.63
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-29",
+      "section": "Feeder Cattle",
+      "head_sold": 2019,
+      "head_week_ago": 2645,
+      "head_year_ago": 1500,
+      "final": true,
+      "summary": "Compared to last week: Feeder steers and feeder heifers 5.00 to 10.00 lower.",
+      "narrative": "Compared to last week: Feeder steers and feeder heifers 5.00 to 10.00 lower. Steer calves and heifer calves under 500 lbs. 5.00 to 15.00 higher, over 500 lbs. 10.00 to 15.00 lower. Quality average to attractive with good demand. Slaughter cows 1.00 to 2.00 higher. Slaughter bulls 4.00 lower. A total of 441 cows and bulls sold with 53 percent going to packers.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1829"
+     }
+    }
+   ],
+   "name": "Apache Livestock Auction",
+   "city": "Apache",
+   "state": "OK",
+   "sale": "Cattle Auction",
+   "is_hub": false,
+   "lat": 34.894,
+   "lon": -98.366,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 3,
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
+      },
+      {
+       "month": 4,
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
+      },
+      {
+       "month": 6,
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
+      },
+      {
+       "month": 7,
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
+      },
+      {
+       "month": 8,
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
+      },
+      {
+       "month": 9,
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
+      },
+      {
+       "month": 10,
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 10,
+     "spread_pct": 10.6,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 3,
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
+      },
+      {
+       "month": 4,
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
+      },
+      {
+       "month": 5,
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
+      },
+      {
+       "month": 6,
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
+      },
+      {
+       "month": 7,
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
+      },
+      {
+       "month": 8,
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
+      },
+      {
+       "month": 9,
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
+      },
+      {
+       "month": 10,
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
+      }
+     ],
+     "own_months": true,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 8.9,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    }
+   ],
+   "seasons_date": "2026-10-30"
+  },
+  "1832": {
+   "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-26",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 500.44,
+       "low": 495.78,
+       "high": 545.56
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 441.57,
+       "low": 437.46,
+       "high": 481.38
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 411.13,
+       "low": 407.3,
+       "high": 448.2
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 382.79,
+       "low": 379.23,
+       "high": 417.3
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 360.84,
+       "low": 357.48,
+       "high": 393.37
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 343.73,
+       "low": 340.53,
+       "high": 374.72
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 432.57,
+       "low": 428.54,
+       "high": 471.57
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 385.61,
+       "low": 382.02,
+       "high": 420.38
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 371.83,
+       "low": 368.37,
+       "high": 405.35
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 358.54,
+       "low": 355.2,
+       "high": 390.87
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 337.69,
+       "low": 334.54,
+       "high": 368.13
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 313.63,
+       "low": 310.71,
+       "high": 341.91
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-26",
+      "section": "Feeder Cattle",
+      "head_sold": 2237,
+      "head_week_ago": 2077,
+      "head_year_ago": 1994,
+      "final": true,
+      "summary": "Compared to last week: Steers 10.00 to 20.00 higher.",
+      "narrative": "Compared to last week: Steers 10.00 to 20.00 higher. Heifers 5.00 to 10.00 higher. Quality was average to good with a great demand. Slaughter cow's steady to 2.00 lower. Slaughter bulls 5.00 lower.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1832"
+     }
+    }
+   ],
+   "name": "Tulsa Stockyards Inc.",
+   "city": "Tulsa",
+   "state": "OK",
+   "sale": "Cattle Auction",
+   "is_hub": false,
+   "lat": 36.154,
+   "lon": -95.993,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
+      },
+      {
+       "month": 2,
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
+      },
+      {
+       "month": 3,
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
+      },
+      {
+       "month": 4,
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
+      },
+      {
+       "month": 6,
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
+      },
+      {
+       "month": 7,
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
+      },
+      {
+       "month": 8,
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
+      },
+      {
+       "month": 9,
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
+      },
+      {
+       "month": 10,
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
+      },
+      {
+       "month": 11,
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
+      },
+      {
+       "month": 12,
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 11.0,
+     "clear": true,
+     "this_season": [],
+     "markets": 8
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
+      },
+      {
+       "month": 2,
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
+      },
+      {
+       "month": 3,
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
+      },
+      {
+       "month": 4,
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
+      },
+      {
+       "month": 5,
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
+      },
+      {
+       "month": 6,
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
+      },
+      {
+       "month": 7,
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
+      },
+      {
+       "month": 8,
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
+      },
+      {
+       "month": 9,
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
+      },
+      {
+       "month": 10,
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
+      },
+      {
+       "month": 11,
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
+      },
+      {
+       "month": 12,
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      5,
+      7,
+      8,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 8.9,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    }
+   ],
+   "seasons_date": "2026-10-30"
+  },
+  "3794": {
+   "weeks": [
+    {
+     "week": "2026-W44",
+     "date": "2026-10-30",
+     "last_sale": "2026-10-27",
+     "fresh": true,
+     "prices": [
+      {
+       "animal_class": "Steers",
+       "weight_lb": 400,
+       "price": 531.95,
+       "low": 508.7,
+       "high": 557.84
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 500,
+       "price": 471.46,
+       "low": 450.86,
+       "high": 494.4
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 550,
+       "price": 439.94,
+       "low": 420.71,
+       "high": 461.34
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 600,
+       "price": 410.52,
+       "low": 392.58,
+       "high": 430.5
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 700,
+       "price": 388.7,
+       "low": 371.71,
+       "high": 407.61
+      },
+      {
+       "animal_class": "Steers",
+       "weight_lb": 800,
+       "price": 371.91,
+       "low": 355.66,
+       "high": 390.01
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 400,
+       "price": 459.81,
+       "low": 439.71,
+       "high": 482.18
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 500,
+       "price": 411.72,
+       "low": 393.72,
+       "high": 431.75
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 550,
+       "price": 397.88,
+       "low": 380.49,
+       "high": 417.24
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 600,
+       "price": 384.51,
+       "low": 367.71,
+       "high": 403.22
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 700,
+       "price": 363.76,
+       "low": 347.86,
+       "high": 381.46
+      },
+      {
+       "animal_class": "Heifers",
+       "weight_lb": 800,
+       "price": 339.35,
+       "low": 324.51,
+       "high": 355.86
+      }
+     ],
+     "report": {
+      "sale_date": "2026-10-27",
+      "section": "Feeder Cattle",
+      "head_sold": 5286,
+      "head_week_ago": 5615,
+      "head_year_ago": 4696,
+      "final": true,
+      "summary": "Compared to last sale: Feeder steer over 600 lbs 5.00-15.00 lower. 800-1,000 lbs steady to 2.00 higher.",
+      "narrative": "Compared to last sale: Feeder steer over 600 lbs 5.00-15.00 lower. 800-1,000 lbs steady to 2.00 higher. Feeder heifers over 700 lbs 10.00-20.00 higher. 600-700 lbs 15.00 lower. Steer and heifer calves 5.00-15.00 higher conservatively. Demand strong. Quality ranged from plain to attractive, most of today's calves were unweaned. Several loads of weaned calves unable to make it to the barn as heavy rains have made treacherous road conditions to the ranch.",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/3794"
+     }
+    }
+   ],
+   "name": "Beaver Livestock Auction",
+   "city": "Beaver",
+   "state": "OK",
+   "sale": "Cattle Auction",
+   "is_hub": false,
+   "lat": 36.816,
+   "lon": -100.52,
+   "seasons": [
+    {
+     "key": "calves",
+     "label": "Steer calves, 500-600 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.999,
+       "low": 0.965,
+       "high": 1.0329
+      },
+      {
+       "month": 2,
+       "index": 1.0182,
+       "low": 0.9748,
+       "high": 1.0616
+      },
+      {
+       "month": 3,
+       "index": 1.0521,
+       "low": 1.0125,
+       "high": 1.0917
+      },
+      {
+       "month": 4,
+       "index": 1.0439,
+       "low": 1.019,
+       "high": 1.0687
+      },
+      {
+       "month": 5,
+       "index": 1.0134,
+       "low": 0.9837,
+       "high": 1.0432
+      },
+      {
+       "month": 6,
+       "index": 1.0236,
+       "low": 0.9975,
+       "high": 1.0498
+      },
+      {
+       "month": 7,
+       "index": 1.0242,
+       "low": 0.9862,
+       "high": 1.0621
+      },
+      {
+       "month": 8,
+       "index": 1.0004,
+       "low": 0.9354,
+       "high": 1.0655
+      },
+      {
+       "month": 9,
+       "index": 0.961,
+       "low": 0.8958,
+       "high": 1.0262
+      },
+      {
+       "month": 10,
+       "index": 0.9461,
+       "low": 0.8945,
+       "high": 0.9978
+      },
+      {
+       "month": 11,
+       "index": 0.9422,
+       "low": 0.9231,
+       "high": 0.9614
+      },
+      {
+       "month": 12,
+       "index": 0.9758,
+       "low": 0.9486,
+       "high": 1.0031
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 3,
+     "worst": 11,
+     "spread_pct": 11.0,
+     "clear": true,
+     "this_season": [],
+     "markets": 8
+    },
+    {
+     "key": "feeders",
+     "label": "Feeder steers, 800-900 lb",
+     "typical": [
+      {
+       "month": 1,
+       "index": 0.9783,
+       "low": 0.9374,
+       "high": 1.0192
+      },
+      {
+       "month": 2,
+       "index": 0.9832,
+       "low": 0.9337,
+       "high": 1.0327
+      },
+      {
+       "month": 3,
+       "index": 0.9758,
+       "low": 0.9344,
+       "high": 1.0172
+      },
+      {
+       "month": 4,
+       "index": 0.9744,
+       "low": 0.96,
+       "high": 0.9889
+      },
+      {
+       "month": 5,
+       "index": 0.963,
+       "low": 0.9199,
+       "high": 1.006
+      },
+      {
+       "month": 6,
+       "index": 1.0293,
+       "low": 1.0007,
+       "high": 1.0579
+      },
+      {
+       "month": 7,
+       "index": 1.0519,
+       "low": 1.0109,
+       "high": 1.093
+      },
+      {
+       "month": 8,
+       "index": 1.051,
+       "low": 0.9868,
+       "high": 1.1151
+      },
+      {
+       "month": 9,
+       "index": 1.0432,
+       "low": 0.971,
+       "high": 1.1153
+      },
+      {
+       "month": 10,
+       "index": 1.0119,
+       "low": 0.9656,
+       "high": 1.0582
+      },
+      {
+       "month": 11,
+       "index": 0.9727,
+       "low": 0.9479,
+       "high": 0.9975
+      },
+      {
+       "month": 12,
+       "index": 0.9653,
+       "low": 0.9086,
+       "high": 1.0221
+      }
+     ],
+     "own_months": false,
+     "sells_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "best": 7,
+     "worst": 5,
+     "spread_pct": 8.9,
+     "clear": false,
+     "this_season": [],
+     "markets": 8
+    }
+   ],
+   "seasons_date": "2026-10-30"
   }
  },
  "source": "USDA AMS MyMarketNews auction reports",
