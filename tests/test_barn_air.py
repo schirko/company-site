@@ -57,7 +57,10 @@ def test_the_spots_are_the_sites_barns_with_their_source():
     assert data["barns"]["3090"]["from"] == data["barns"]["1902"]["from"] == "checked"    # Scott dragged these two
     # Ada: its county-road address didn't match the Census geocoder, so Scott placed it on the barn's roof in Google
     # Maps' satellite view (2026-10-26); every barn now has a pin
-    assert data["barns"]["1830"]["from"] == "checked" and set(barns) <= set(data["barns"])
+    assert data["barns"]["1830"]["from"] == "checked"
+    # 2026-10-30: the weekly job brought six more Oklahoma barns (El Reno, McAlester, Woodward, Apache, Tulsa, Beaver).
+    # Until each is placed they show no pin and no fly-over, as the file's "about" says; the eight placed stay placed.
+    assert {"1280", "1851", "1852", "3653", "3801", "3090", "1902", "1830"} <= set(data["barns"])
 
 
 def test_the_fly_over_is_the_tested_one():

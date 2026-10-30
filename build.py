@@ -37,7 +37,7 @@ SHOTS = STATIC / "shots"  # each app on a computer and a phone (app_shot)
 CONTENT = ROOT / "content"
 OUT = ROOT / "docs"
 
-HERD_PLANNER_TERMS = "https://herd-planner.onrender.com/app/terms.html"
+HERD_PLANNER_TERMS = "https://herd.cornerpostlogic.com/app/terms.html"
 
 # Each page: output file, template, <title> suffix, description, and which nav link is current.
 PAGES = [

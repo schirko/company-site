@@ -14,10 +14,10 @@ TAGLINE = "Decision Tools for Ranchers and Farmers"
 # Where the company is based (About page and footer).
 LOCATION = "Centennial, Colorado"
 
-# Contact address shown on the site. Left empty until there's a company address;
-# the site then points people to each app's "Tell us" button instead. Don't put a
-# personal address here: the site is public.
-EMAIL = ""
+# Contact address shown on the site (footer, About, Privacy). The company's shared address since 2026-10-30
+# (Scott: "cornerpostlogic now has two email accounts - scott & contact"). Never a person's address here:
+# the site is public, and a test allows no other address on any page.
+EMAIL = "contact@cornerpostlogic.com"
 
 # Search engines. False (for now, Scott's choice, 2026-09-27): every page says "noindex" and robots.txt
 # disallows everything, so the site isn't listed or found by searching, though anyone given the

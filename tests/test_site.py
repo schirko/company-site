@@ -991,9 +991,9 @@ def test_how_it_works_and_our_promises_open_lighter_and_the_steps_end_with_herd_
     steps = home[home.index("<h2>How It Works</h2>"):home.index("<h2>Our Promises</h2>")]
     cta = steps[steps.index('class="steps-cta"'):]
     assert steps.index('class="steps"') < steps.index('class="steps-cta"')
-    assert 'href="https://herd-planner.onrender.com/">Open Herd Planner' in cta and 'href="#our-apps"' in cta
+    assert 'href="https://herd.cornerpostlogic.com/">Open Herd Planner' in cta and 'href="#our-apps"' in cta
     # Herd Planner is opening by invite: a new visitor gets Join the Waitlist, a browser that has used it Open
-    assert 'class="btn visitor-only" data-app="herd-planner" href="https://herd-planner.onrender.com/#waitlist"' in cta
+    assert 'class="btn visitor-only" data-app="herd-planner" href="https://herd.cornerpostlogic.com/#waitlist"' in cta
     assert 'class="btn member-only" data-app="herd-planner"' in cta
     assert "worth" not in cta        # the herd value is a paid tool after the trial (2026-09-29): promise only what's free
     css = (site / "site.css").read_text(encoding="utf-8")

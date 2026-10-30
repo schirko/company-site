@@ -114,7 +114,7 @@ def test_herd_planners_this_week_shows_both_cards_side_by_side(site):
     assert "<h2>This Week at the Sale Barn: " in week and "Free on This Site Every Week" not in page
     assert "The whole price sheet" in week and "<summary>Show the numbers</summary>" in week
     cta = week[week.index('class="lp-weekly-cta"'):]
-    assert cta.index('href="https://herd-planner.onrender.com/#waitlist"') < cta.index("Open Herd Planner")
+    assert cta.index('href="https://herd.cornerpostlogic.com/#waitlist"') < cta.index("Open Herd Planner")
 
 
 def test_the_findings_heading_is_a_band_with_one_headline(site):

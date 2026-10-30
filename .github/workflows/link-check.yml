@@ -28,7 +28,7 @@ jobs:
       # as a broken link.
       - name: Wake the apps
         run: |
-          for url in https://herd-planner.onrender.com/health https://grazing.cornerpostlogic.com/health \
+          for url in https://herd.cornerpostlogic.com/health https://grazing.cornerpostlogic.com/health \
                      https://farm-equipment-planner.onrender.com/healthz/ https://farm-account.onrender.com/health \
                      https://yield.cornerpostlogic.com/health; do
             curl -fsS --retry 8 --retry-delay 15 --retry-all-errors --max-time 90 -o /dev/null "$url" || echo "no answer yet: $url"
