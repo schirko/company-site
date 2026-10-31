@@ -46,6 +46,7 @@ PAGES = [
     ("methods.html", "methods.html", "How We Test", "How each app's models are tested, the results, and where each one falls short.", "methods"),
     ("privacy.html", "privacy.html", "Privacy", "How the apps handle your email and your records.", "privacy"),
     ("plans.html", "plans.html", "Plans", "What every app does for free, and what a subscription adds.", "plans"),
+    ("contact.html", "contact.html", "Contact Us", "Ask a question, report a problem or share an idea with the people who build the apps.", "contact"),
     ("404.html", "404.html", "Page not found", "That page isn't here.", None),
 ]
 
@@ -1147,8 +1148,41 @@ def drought_block(d, apps_by_id) -> str:
 
 def contact_sentence():
     if config.EMAIL:
-        return f'Write to us at <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.'
+        return (f'Write to us at <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>, or use the '
+                '<a href="contact.html">contact form</a>.')
     return "To reach us, use the Tell us button in Herd Planner. It comes straight to us."
+
+
+# What a message can be about on Contact Us (2026-10-30); the choice goes into the email's subject line.
+CONTACT_TOPICS = ["A question about an app", "Something isn't working", "An idea for an app", "A sale barn's page",
+                  "Something else"]
+
+
+def contact_form(key: str) -> str:
+    """Contact Us's form (2026-10-30, B of notes/site-contact-B-*-2026-10-30.png), sent through Web3Forms. Without its
+    key (config.web3forms_key: the GitHub secret or web3forms_key.txt) the page says to email instead, so a build
+    without the key never shows a form that can't send."""
+    if not key:
+        return ('      <div class="cf-off"><p>The contact form isn\'t switched on yet. Please write to us at '
+                f'<a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.</p></div>')
+    topics = "".join(f"<option>{e(t)}</option>" for t in CONTACT_TOPICS)
+    return f"""      <form class="cform" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="{e(key)}">
+        <input type="hidden" name="subject" value="Cornerpost Logic: a message from the website">
+        <input type="hidden" name="from_name" value="{e(config.NAME)} website">
+        <input type="checkbox" name="botcheck" class="cf-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="cf-row">
+          <label for="cf-name">Your name<input id="cf-name" name="name" autocomplete="name" maxlength="120" required></label>
+          <label for="cf-email">Your email<input id="cf-email" name="email" type="email" autocomplete="email" maxlength="200" required></label>
+        </div>
+        <label for="cf-about">What it's about<select id="cf-about" name="about">{topics}</select></label>
+        <label for="cf-msg">Message<textarea id="cf-msg" name="message" rows="6" maxlength="5000" required></textarea></label>
+        <p class="cf-status" id="cf-status" role="status" hidden></p>
+        <p class="cf-go"><button type="submit" class="btn">Send Message</button>
+          <span class="cf-note">We read every message and answer from {e(config.EMAIL)}.</span></p>
+        <p class="cf-small">Sent through Web3Forms, which emails it to us and deletes its copy after 30 days. We never
+          sell or rent your email address. <a href="privacy.html#contact-form">Privacy</a></p>
+      </form>"""
 
 
 def hero_photo() -> tuple[str, str, str]:
@@ -1217,6 +1251,8 @@ def build():
         "app_list": "\n".join(app_line(a) for a in apps),
         "terms_list": "\n".join(terms_line(a) for a in apps),
         "contact_sentence": contact_sentence(),
+        "contact_form": contact_form(config.web3forms_key()),
+        "contact_email": (f'<a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>' if config.EMAIL else ""),
         "mega_menu": mega_menu(apps),
         "footer_apps": "\n".join(f'      <a href="{APP_PAGE.format(e(a["id"]))}">{e(a["name"])}</a>' for a in apps),
         "week_place": e(f'{week["place"]["county"]}, {week["place"]["state_name"]}'),
@@ -1230,7 +1266,7 @@ def build():
         "pins": hero.pins(week, barn_href, steer_pin),
         **dict(zip(("hero_class", "hero_style", "hero_credit"), hero_photo())),
         "week_cards": "\n".join(stat_card(a, week["cards"].get(a["id"]), week) for a in apps if a["id"] in WEEKLY),
-        "footer_contact": (f'      <a href="mailto:{e(config.EMAIL)}">Contact</a>' if config.EMAIL else ""),
+        "footer_contact": '      <a href="contact.html">Contact</a>',   # Contact Us (2026-10-30), was a mailto: link
         "plans_cards": plans_cards(apps, copy),
         "robots": "" if config.PUBLIC else '<meta name="robots" content="noindex">',
     }
@@ -1252,7 +1288,7 @@ def build():
             canonical=e(url),
             social=social_tags(title or full_title, description, url),
             structured_data=structured_data(crumbs),
-            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy", "plans")},
+            **{f"nav_{n}": (' aria-current="page"' if current == n else "") for n in ("barns", "about", "methods", "privacy", "plans", "contact")},
             nav_apps=(' data-current' if current == "apps" else ""),
         )
         (OUT / out_name).write_text(versioned(page), encoding="utf-8")

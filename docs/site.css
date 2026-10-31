@@ -1180,3 +1180,25 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
   .air-bar .btn { font-size: .82rem; padding: 5px 9px; }
   .air-chip { font-size: .75rem; right: 50px; }
 }
+
+/* The Contact Us page (2026-10-30, B of notes/site-contact-B-*-2026-10-30.png): the form beside other ways to reach us. */
+.ct-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; margin-top: 18px; }
+.cform { display: grid; gap: 14px; padding: 22px; background: #fff; border: 1px solid var(--suite-line, #e2e0d9); border-radius: 12px; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cform label { display: grid; gap: 6px; font-weight: 600; font-size: .95rem; }
+.cform input, .cform select, .cform textarea { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid #cfd3cc;
+  border-radius: 8px; background: #fff; color: inherit; }
+.cform input:focus, .cform select:focus, .cform textarea:focus { outline: 2px solid var(--suite-gold, #e0ac45); outline-offset: 1px; }
+.cform textarea { resize: vertical; min-height: 140px; }
+.cf-trap { display: none; }
+.cf-go { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0; }
+.cf-note { color: var(--suite-muted, #5e5c57); font-size: .9rem; flex: 1; min-width: 220px; }
+.cf-small { margin: 0; color: var(--suite-muted, #5e5c57); font-size: .82rem; }
+.cf-status { margin: 0; padding: 10px 14px; border-radius: 8px; font-weight: 600; }
+.cf-status.ok { background: #e3efe5; color: #1d4a2c; }
+.cf-status.bad { background: #fbe9e4; color: #8a2d12; }
+.cf-off { padding: 22px; background: #fff; border: 1px solid var(--suite-line, #e2e0d9); border-radius: 12px; }
+.ct-side { padding: 20px; background: #f1f3ef; border-radius: 12px; }
+.ct-side h2 { margin: 0 0 10px; font-size: 1.1rem; }
+.ct-side p { margin: 0 0 12px; font-size: .95rem; }
+@media (max-width: 760px) { .cf-row, .ct-grid { grid-template-columns: 1fr; } }

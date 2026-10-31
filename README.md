@@ -97,6 +97,19 @@ python -m http.server 8080 --directory docs
 
 Then open http://127.0.0.1:8080 in a browser.
 
+## Contact Us (2026-10-30)
+
+`contact.html` (Scott chose B of `notes/site-contact-B-*-2026-10-30.png`): a form beside other ways to reach us (email,
+Ask a Question in the apps, Update This Page for barns). The footer's Contact and About's "contact form" link here.
+The form posts to [Web3Forms](https://web3forms.com/), which emails it to `config.EMAIL`; `static/contact.js` sends it
+and says how it went (without JavaScript, Web3Forms shows its own thank-you page). A hidden `botcheck` box catches
+robots. The free plan allows 250 messages a month and keeps each for 30 days (Privacy, `#contact-form`).
+
+**The access key.** Web3Forms calls it "not a secret API Key", and it has to sit in the built page, but it is never
+written in a file Git keeps: `config.web3forms_key()` reads the `CORNERPOST_WEB3FORMS_KEY` setting (the weekly job's
+GitHub secret) or `web3forms_key.txt` beside `config.py` (Git-ignored). Without either, the page shows the email
+address instead of a form that can't send. Tests: `tests/test_contact.py`.
+
 ## Free and Subscription (2026-10-22)
 
 `plans.html`, "What's Free, and What a Subscription Adds": one card per app (Scott chose B of
