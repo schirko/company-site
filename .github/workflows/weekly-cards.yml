@@ -39,6 +39,9 @@ jobs:
           # 2026-10-25: Street View in the barn pages' map box (config.google_embed_key). Without the secret the
           # build still works and Street View opens in a smaller window, so add it in Settings > Secrets.
           CORNERPOST_GOOGLE_EMBED_KEY: ${{ secrets.CORNERPOST_GOOGLE_EMBED_KEY }}
+          # 2026-10-30: the Contact Us form (config.web3forms_key). Without this secret the page shows the email
+          # address instead of the form, so add it in Settings > Secrets as well.
+          CORNERPOST_WEB3FORMS_KEY: ${{ secrets.CORNERPOST_WEB3FORMS_KEY }}
         run: |
           git config user.name "weekly-cards bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
