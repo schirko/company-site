@@ -41,19 +41,32 @@ def test_only_what_exists_is_under_a_subscription():
         assert p["free"], p["id"]
 
 
+def landing_lists(html: str) -> tuple[list[str], list[str]]:
+    """The Free and With a Subscription lists of an app's landing page (class="land-col" and "land-col paid"), as plain
+    words: links inside a line count as their words."""
+    card = html[html.index('class="land-get"'):]
+    paid_at = card.index('class="land-col paid"')
+    words = lambda part: [unescape(re.sub(r"<[^>]+>", "", li)).strip() for li in re.findall(r"<li>(.*?)</li>", part, re.S)]
+    return words(card[:paid_at]), words(card[paid_at:card.index("</ul>", paid_at)])
+
+
 def test_the_apps_cards_and_this_page_list_the_same_things():
-    """Herd Planner's and the Grazing Planner's Two Ways cards and this page say the same thing, row for row (when the
-    apps sit beside this project, as on Scott's computer)."""
+    """Herd Planner's Two Ways card, the Grazing Planner's landing page (its What You Get card, v0.35.0) and this page say the
+    same thing, row for row (when the apps sit beside this project, as on Scott's computer)."""
     checked = 0
     for p in build.load_plans()["apps"]:
         card = ROOT.parent / p["card"] if p.get("card") else None
         if card is None or not card.exists():
             continue
         html = text(card)
-        table = html[html.index('class="plans-table"'):html.index("</table>", html.index('class="plans-table"'))]
-        rows = re.findall(r'<th scope="row">(.*?)</th><td>(.*?)</td>', table)
-        free = [unescape(r) for r, cell in rows if "Included" in cell and "Not included" not in cell]
-        paid = [unescape(r) for r, cell in rows if "Not included" in cell]
+        if 'class="land-get"' in html:
+            # v0.35.0 of the Grazing Planner (2026-10-30): its landing page's What You Get card, two lists
+            free, paid = landing_lists(html)
+        else:
+            table = html[html.index('class="plans-table"'):html.index("</table>", html.index('class="plans-table"'))]
+            rows = re.findall(r'<th scope="row">(.*?)</th><td>(.*?)</td>', table)
+            free = [unescape(r) for r, cell in rows if "Included" in cell and "Not included" not in cell]
+            paid = [unescape(r) for r, cell in rows if "Not included" in cell]
         assert (free, paid) == (p["free"], p["paid"]), f'{p["id"]}: copy its Two Ways card here again'
         checked += 1
     if not checked:
