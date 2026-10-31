@@ -27,7 +27,7 @@
     {"id": "corn-yield-predictor", "who": "Corn and soybeans",
      "free": ["Your county's corn and soybean yields since 2000, with the model's 80% ranges",
               "This season so far, beside a normal year, 2012 and 2022",
-              "Maps of every Nebraska and Iowa county, every year"],
+              "A trend year for next season, labeled as a trend, not a forecast"],
      "coming": ["Your own fields: each one's expected yield and range",
                 "A Crop Report for your lender, and one for your landlord",
                 "Your fields against the county, from your yield maps"]},
