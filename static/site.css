@@ -1202,3 +1202,8 @@ svg.mini .tick.strong { font-weight: 700; fill: var(--suite-ink); }
 .ct-side h2 { margin: 0 0 10px; font-size: 1.1rem; }
 .ct-side p { margin: 0 0 12px; font-size: .95rem; }
 @media (max-width: 760px) { .cf-row, .ct-grid { grid-template-columns: 1fr; } }
+
+/* 2026-10-31: keep the footer at the bottom of the window on short pages
+   (Contact Us, 404): the page fills the window and main takes the spare room. */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+body > main { flex: 1 0 auto; min-width: 0; }
