@@ -77,7 +77,23 @@
     <h1>Contact Us</h1>
     <p class="lede">A question, an idea, or something that isn't working: tell us here and it reaches the people who build the apps.</p>
     <div class="ct-grid">
-      <div class="cf-off"><p>The contact form isn't switched on yet. Please write to us at <a href="mailto:contact@cornerpostlogic.com">contact@cornerpostlogic.com</a>.</p></div>
+      <form class="cform" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="c8e94f6a-684b-4670-b019-edd936740931">
+        <input type="hidden" name="subject" value="Cornerpost Logic: a message from the website">
+        <input type="hidden" name="from_name" value="Cornerpost Logic website">
+        <input type="checkbox" name="botcheck" class="cf-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="cf-row">
+          <label for="cf-name">Your name<input id="cf-name" name="name" autocomplete="name" maxlength="120" required></label>
+          <label for="cf-email">Your email<input id="cf-email" name="email" type="email" autocomplete="email" maxlength="200" required></label>
+        </div>
+        <label for="cf-about">What it's about<select id="cf-about" name="about"><option>A question about an app</option><option>Something isn&#x27;t working</option><option>An idea for an app</option><option>A sale barn&#x27;s page</option><option>Something else</option></select></label>
+        <label for="cf-msg">Message<textarea id="cf-msg" name="message" rows="6" maxlength="5000" required></textarea></label>
+        <p class="cf-status" id="cf-status" role="status" hidden></p>
+        <p class="cf-go"><button type="submit" class="btn">Send Message</button>
+          <span class="cf-note">We read every message and answer from <a href="mailto:contact@cornerpostlogic.com">contact@cornerpostlogic.com</a>.</span></p>
+        <p class="cf-small">Sent through Web3Forms, which emails it to us and deletes its copy after 30 days. We never
+          sell or rent your email address. <a href="privacy.html#contact-form">Privacy</a></p>
+      </form>
       <aside class="ct-side" aria-labelledby="ct-other">
         <h2 id="ct-other">Other Ways to Reach Us</h2>
         <p><b>Email:</b> <a href="mailto:contact@cornerpostlogic.com">contact@cornerpostlogic.com</a></p>
