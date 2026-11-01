@@ -9,7 +9,7 @@ updates. Nothing else in the site spells the name out. The name must match
 NAME = "Cornerpost Logic"
 
 # One line under the name on the home page.
-TAGLINE = "Decision Tools for Ranchers and Farmers"
+TAGLINE = "Ag Decision Analytics"   # chosen 2026-10-31 (was "Decision Tools for Ranchers and Farmers")
 
 # Where the company is based (About page and footer).
 LOCATION = "Centennial, Colorado"

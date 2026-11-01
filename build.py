@@ -1179,7 +1179,7 @@ def contact_form(key: str) -> str:
         <label for="cf-msg">Message<textarea id="cf-msg" name="message" rows="6" maxlength="5000" required></textarea></label>
         <p class="cf-status" id="cf-status" role="status" hidden></p>
         <p class="cf-go"><button type="submit" class="btn">Send Message</button>
-          <span class="cf-note">We read every message and answer from {e(config.EMAIL)}.</span></p>
+          <span class="cf-note">We read every message and answer from <a href="mailto:{e(config.EMAIL)}">{e(config.EMAIL)}</a>.</span></p>
         <p class="cf-small">Sent through Web3Forms, which emails it to us and deletes its copy after 30 days. We never
           sell or rent your email address. <a href="privacy.html#contact-form">Privacy</a></p>
       </form>"""

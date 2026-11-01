@@ -40,6 +40,15 @@ def test_with_a_key_the_form_sends_to_web3forms():
     assert 'href="privacy.html#contact-form"' in form and "deletes its copy after 30 days" in form
 
 
+def test_the_form_shows_only_the_company_address():
+    """test_site's address check reads text, so an address at the end of a sentence must not run into its full stop
+    (2026-10-31: the form's "answer from contact@...com." failed it on Scott's PC, where the key is set)."""
+    import re
+    for page in (build.contact_form("not-a-real-key"), build.contact_form("")):
+        for address in re.findall(r"[\w.+-]+@[\w-]+\.[\w.]+", page):
+            assert address == config.EMAIL, address
+
+
 def test_without_a_key_it_says_to_email_instead():
     off = build.contact_form("")
     assert "contact-form" not in off and f'mailto:{config.EMAIL}' in off
