@@ -5,7 +5,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-26",
      "fresh": true,
      "prices": [
@@ -892,7 +892,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 35.468,
    "lon": -97.516
   },
@@ -900,104 +900,104 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
-     "last_sale": "2026-10-23",
+     "date": "2026-11-01",
+     "last_sale": "2026-10-30",
      "fresh": true,
      "prices": [
       {
        "animal_class": "Steers",
        "weight_lb": 400,
-       "price": 552.36,
-       "low": 525.91,
-       "high": 582.23
+       "price": 543.75,
+       "low": 517.51,
+       "high": 572.73
       },
       {
        "animal_class": "Steers",
        "weight_lb": 500,
-       "price": 497.09,
-       "low": 473.28,
-       "high": 523.97
+       "price": 486.48,
+       "low": 463.0,
+       "high": 512.4
       },
       {
        "animal_class": "Steers",
        "weight_lb": 550,
-       "price": 465.04,
-       "low": 442.77,
-       "high": 490.19
+       "price": 454.68,
+       "low": 432.74,
+       "high": 478.91
       },
       {
        "animal_class": "Steers",
        "weight_lb": 600,
-       "price": 435.07,
-       "low": 414.23,
-       "high": 458.59
+       "price": 424.96,
+       "low": 404.46,
+       "high": 447.61
       },
       {
        "animal_class": "Steers",
        "weight_lb": 700,
-       "price": 393.86,
-       "low": 375.0,
-       "high": 415.16
+       "price": 383.68,
+       "low": 365.16,
+       "high": 404.13
       },
       {
        "animal_class": "Steers",
        "weight_lb": 800,
-       "price": 381.13,
-       "low": 362.88,
-       "high": 401.74
+       "price": 372.27,
+       "low": 354.31,
+       "high": 392.11
       },
       {
        "animal_class": "Heifers",
        "weight_lb": 400,
-       "price": 481.87,
-       "low": 458.79,
-       "high": 507.92
+       "price": 477.94,
+       "low": 454.88,
+       "high": 503.41
       },
       {
        "animal_class": "Heifers",
        "weight_lb": 500,
-       "price": 439.63,
-       "low": 418.57,
-       "high": 463.4
+       "price": 429.76,
+       "low": 409.03,
+       "high": 452.67
       },
       {
        "animal_class": "Heifers",
        "weight_lb": 550,
-       "price": 418.9,
-       "low": 398.84,
-       "high": 441.55
+       "price": 409.61,
+       "low": 389.84,
+       "high": 431.44
       },
       {
        "animal_class": "Heifers",
        "weight_lb": 600,
-       "price": 399.15,
-       "low": 380.04,
-       "high": 420.74
+       "price": 390.39,
+       "low": 371.56,
+       "high": 411.2
       },
       {
        "animal_class": "Heifers",
        "weight_lb": 700,
-       "price": 370.22,
-       "low": 352.49,
-       "high": 390.24
+       "price": 360.07,
+       "low": 342.7,
+       "high": 379.26
       },
       {
        "animal_class": "Heifers",
        "weight_lb": 800,
-       "price": 342.66,
-       "low": 326.25,
-       "high": 361.19
+       "price": 334.23,
+       "low": 318.11,
+       "high": 352.05
       }
      ],
      "report": {
-      "sale_date": "2026-10-23",
+      "sale_date": "2026-10-30",
       "section": "Feeder Cattle",
-      "head_sold": 3520,
-      "head_week_ago": 1245,
-      "head_year_ago": 2770,
+      "head_sold": 1300,
+      "head_week_ago": 3520,
+      "head_year_ago": 2340,
       "final": true,
-      "summary": "A limited number of comparable offerings from two weeks ago a trend for steers and heifers will not be given.",
-      "narrative": "A limited number of comparable offerings from two weeks ago a trend for steers and heifers will not be given. Overall market demand was good, supported by multiple active buyers and strong internet bidding. Next Auction dates Oct 30th Special Spring Calf & Feeder Auction",
+      "summary": "A limited number of comparable offerings were available from last week for steers and heifers, with prices trending significantly lower today.",
+      "narrative": "A limited number of comparable offerings were available from last week for steers and heifers, with prices trending significantly lower today. Demand was moderate to good, supported by active internet bidding. The next auction is scheduled for November 6th, featuring a Special Bred Cow and Heifer Auction.",
       "url": "https://mymarketnews.ams.usda.gov/viewReport/1851"
      }
     },
@@ -1582,15 +1582,15 @@
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.9133
+       "ratio": 0.9119
       },
       {
        "month": "2025-12",
-       "ratio": 0.9675
+       "ratio": 0.9665
       },
       {
        "month": "2026-01",
-       "ratio": 1.0338
+       "ratio": 1.0333
       },
       {
        "month": "2026-02",
@@ -1598,31 +1598,31 @@
       },
       {
        "month": "2026-03",
-       "ratio": 1.0673
+       "ratio": 1.0678
       },
       {
        "month": "2026-04",
-       "ratio": 1.0156
+       "ratio": 1.0165
       },
       {
        "month": "2026-05",
-       "ratio": 0.9598
+       "ratio": 0.9612
       },
       {
        "month": "2026-06",
-       "ratio": 0.9934
+       "ratio": 0.9953
       },
       {
        "month": "2026-08",
-       "ratio": 1.0307
+       "ratio": 1.0337
       },
       {
        "month": "2026-09",
-       "ratio": 0.9388
+       "ratio": 0.942
       },
       {
        "month": "2026-10",
-       "ratio": 0.9739
+       "ratio": 0.9663
       }
      ],
      "markets": 8
@@ -1695,15 +1695,15 @@
      "this_season": [
       {
        "month": "2025-11",
-       "ratio": 0.8943
+       "ratio": 0.894
       },
       {
        "month": "2025-12",
-       "ratio": 0.9203
+       "ratio": 0.9201
       },
       {
        "month": "2026-01",
-       "ratio": 0.9997
+       "ratio": 0.9996
       },
       {
        "month": "2026-02",
@@ -1711,37 +1711,37 @@
       },
       {
        "month": "2026-03",
-       "ratio": 1.0072
+       "ratio": 1.0074
       },
       {
        "month": "2026-04",
-       "ratio": 1.017
+       "ratio": 1.0172
       },
       {
        "month": "2026-05",
-       "ratio": 1.0295
+       "ratio": 1.0299
       },
       {
        "month": "2026-06",
-       "ratio": 1.0507
+       "ratio": 1.0511
       },
       {
        "month": "2026-08",
-       "ratio": 1.0618
+       "ratio": 1.0626
       },
       {
        "month": "2026-09",
-       "ratio": 0.9649
+       "ratio": 0.9656
       },
       {
        "month": "2026-10",
-       "ratio": 0.9819
+       "ratio": 0.9801
       }
      ],
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 41.782,
    "lon": -99.133
   },
@@ -1749,7 +1749,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-28",
      "fresh": true,
      "prices": [
@@ -2628,7 +2628,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 42.586,
    "lon": -99.538
   },
@@ -2636,7 +2636,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-26",
      "fresh": true,
      "prices": [
@@ -3394,7 +3394,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 37.985,
    "lon": -103.544
   },
@@ -3402,7 +3402,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-20",
      "fresh": true,
      "prices": [
@@ -4232,7 +4232,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 41.124,
    "lon": -100.765
   },
@@ -4240,7 +4240,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2024-11-02",
      "fresh": false,
      "prices": [
@@ -4975,7 +4975,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 42.805,
    "lon": -102.203
   },
@@ -4983,7 +4983,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-28",
      "fresh": true,
      "prices": [
@@ -5870,7 +5870,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30",
+   "seasons_date": "2026-11-01",
    "lat": 34.775,
    "lon": -96.678
   },
@@ -5878,7 +5878,7 @@
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-29",
      "fresh": true,
      "prices": [
@@ -6391,13 +6391,13 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   },
   "1281": {
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-27",
      "fresh": true,
      "prices": [
@@ -6658,13 +6658,13 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   },
   "1827": {
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-27",
      "fresh": true,
      "prices": [
@@ -6973,13 +6973,13 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   },
   "1828": {
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-29",
      "fresh": true,
      "prices": [
@@ -7240,13 +7240,13 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   },
   "1829": {
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-29",
      "fresh": true,
      "prices": [
@@ -7507,13 +7507,13 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   },
   "1832": {
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-26",
      "fresh": true,
      "prices": [
@@ -7818,13 +7818,13 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   },
   "3794": {
    "weeks": [
     {
      "week": "2026-W44",
-     "date": "2026-10-30",
+     "date": "2026-11-01",
      "last_sale": "2026-10-27",
      "fresh": true,
      "prices": [
@@ -8133,7 +8133,7 @@
      "markets": 8
     }
    ],
-   "seasons_date": "2026-10-30"
+   "seasons_date": "2026-11-01"
   }
  },
  "source": "USDA AMS MyMarketNews auction reports",

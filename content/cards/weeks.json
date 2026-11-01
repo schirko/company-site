@@ -3,7 +3,7 @@
  "weeks": [
   {
    "week": "2026-W44",
-   "date": "2026-10-30",
+   "date": "2026-11-01",
    "place": {
     "fips": "19029",
     "state": "IA",
@@ -62,16 +62,16 @@
     },
     "NE": {
      "label": "550 lb steer, this week",
-     "headline": "$463/cwt",
-     "detail": "About $2,548 a head at Bassett Livestock Auction, Bassett NE (sale of Oct 28). 8 in 10 sales land between $444 and $487/cwt.",
-     "value": 463.18,
-     "low": 443.79,
-     "high": 487.31,
+     "headline": "$455/cwt",
+     "detail": "About $2,501 a head at Burwell Livestock Market, Burwell NE (sale of Oct 30). 8 in 10 sales land between $433 and $479/cwt.",
+     "value": 454.68,
+     "low": 432.74,
+     "high": 478.91,
      "unit": "$/cwt",
-     "as_of": "2026-10-28",
-     "market": "Bassett Livestock Auction, Bassett NE",
+     "as_of": "2026-10-30",
+     "market": "Burwell Livestock Market, Burwell NE",
      "source": "USDA AMS MyMarketNews auction reports",
-     "market_slug": 1852
+     "market_slug": 1851
     }
    }
   },
