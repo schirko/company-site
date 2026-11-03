@@ -203,6 +203,29 @@
       in June and 9% by July 1, for about 12% fewer head than a normal year. Turning out 90% of a normal year and
       checking again on July 1 (sell, or add when there's room) ran short 9% of the time and grazed 91% of a normal year.</p>
 
+    <!-- 2026-11-03: Iowa in the Grazing Planner (v0.41.0). Every number is from the app's README ("Iowa: The Same Honest
+         Tests", "A Normal That Follows the Trend?") and its forage_scores_ia / forage_range_coverage_ia files. -->
+    <h3>Iowa: the same tests</h3>
+    <p>The planner covers Iowa's 99 counties too. Every Iowa county's season from 2011 to 2025 was replayed the same way,
+      from Iowa's own earlier seasons only, and an Iowa answer's ranges and odds come from Iowa's own misses, never
+      Nebraska's. Each cell gives the typical miss, then the skill.</p>
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th scope="col">Forecast made on</th><th scope="col">Iowa</th><th scope="col">Nebraska</th></tr></thead>
+        <tbody>
+          <tr><td>Assume a normal year (any date)</td><td>11.8%, 0</td><td>11.5%, 0</td></tr>
+          <tr class="ours"><td>June 1</td><td>8.6%, 0.47</td><td>9.4%, 0.32</td></tr>
+          <tr class="ours"><td>June 15</td><td>8.2%, 0.52</td><td>8.3%, 0.47</td></tr>
+          <tr class="ours"><td>July 1</td><td>6.8%, 0.67</td><td>6.3%, 0.70</td></tr>
+          <tr class="ours"><td>August 1</td><td>4.6%, 0.85</td><td>4.7%, 0.83</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Iowa's 80% ranges held 80 to 82% of the time from June 1 on. Turning out 90% of a normal year and checking again on
+      July 1 ran short 7% of the time (Nebraska 9%). The July 1 check's own odds were too hopeful in Iowa, though: when it
+      said a 10% chance or less of running short, herds ran short 37% of the time (106 cases). Most of those were 2012,
+      when a flash drought set in after July 1, so every Iowa check says so under its answer.</p>
+
     <h3>What the hay would cost</h3>
     <p>When a check says the grass will run short, the app prices the hay with USDA's Nebraska Direct Hay Report. It
       counts only real sales (not asking prices) of ranch hay by the ton: grass hay in large or medium bales, and
@@ -225,6 +248,12 @@
       <li>Hay is one statewide price: outside Central Nebraska, regions often go weeks without a grass hay sale. With
         one Nebraska drought (2022) in the hay history, the app can't say how much dearer hay gets for each 10% of grass
         short.</li>
+      <li>Iowa pastures get Nebraska's hay price, and are told so: Iowa's hay report isn't in the app yet.</li>
+      <li>The satellite estimate was made for rangeland, and much of Iowa's grazing is seeded pasture. The Iowa tests
+        compare the forecast with the satellite's own later reading; it hasn't been checked against clipped and weighed
+        Iowa pasture.</li>
+      <li>Iowa's grass fell about 16 lb an acre a year from 2006 to 2025, so the 10-season normal sits above most recent
+        seasons: 67% of Iowa's test seasons came in below it.</li>
     </ul>
   </div>
 </section>

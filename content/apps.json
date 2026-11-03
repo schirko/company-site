@@ -214,12 +214,12 @@
     "question": "How much grass will my pasture grow this season, and how many head can it carry?",
     "audience": "For ranches and anyone renting out grass",
     "points": [
-      "Forecasts this season's grass for every Nebraska county from satellite estimates and the weather so far, with an 80% range",
+      "Forecasts this season's grass for every Nebraska and Iowa county from satellite estimates and the weather so far, with an 80% range",
       "Head that can graze May to October with enough grass 9 years in 10, and the chance your own herd runs short",
       "Green-up date in spring, and a July 1 and August 1 check: keep, move or sell",
       "Tested season by season on 2011-2025, and against Grass-Cast, the public forecast from USDA and partners"
     ],
-    "note": "Sign in to plan a pasture: a free account takes about a minute, with everything free for the first 30 days. Nebraska counties for now.",
+    "note": "Sign in to plan a pasture: a free account takes about a minute, with everything free for the first 30 days. Nebraska and Iowa counties.",
     "how": {
       "steps": [
         {"name": "The Data", "what": "What it reads", "items": ["Satellite grass measurements (RAP)", "NASA weather to date", "Your county's last 10 seasons"]},
