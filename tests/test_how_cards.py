@@ -91,7 +91,9 @@ def test_your_decision_ends_with_the_way_in(site):
         assert part.count('class="how-go"') == 1 and button in part, app["id"]
         assert part.index(button) > part.index("</small> Your Decision</p>")
     copy = build.load_copy()
-    for app_id in ("corn-yield-predictor", "grazing-planner"):          # free to try: no account or no sign-in
+    for app_id in ("corn-yield-predictor", "grazing-planner"):          # free to try: no account, or 30 days free
         assert copy[app_id]["how"]["go"] == "Try It Free"
-        assert "No account needed" in copy[app_id]["note"] or "No sign-in needed" in copy[app_id]["note"]
+    assert "No account needed" in copy["corn-yield-predictor"]["note"]
+    # Grazing Planner v0.40.0 (Scott, 2026-11-02: "follow the Herd planner model"): sign in, everything free for 30 days
+    assert "free for the first 30 days" in copy["grazing-planner"]["note"]
     assert "Free" not in copy["farm-equipment-planner"]["how"]["go"]   # needs a My Farm account: never "Try It Free"

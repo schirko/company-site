@@ -219,7 +219,7 @@
       "Green-up date in spring, and a July 1 and August 1 check: keep, move or sell",
       "Tested season by season on 2011-2025, and against Grass-Cast, the public forecast from USDA and partners"
     ],
-    "note": "No sign-in needed to try it. Nebraska counties for now; drawing your own pasture comes later.",
+    "note": "Sign in to plan a pasture: a free account takes about a minute, with everything free for the first 30 days. Nebraska counties for now.",
     "how": {
       "steps": [
         {"name": "The Data", "what": "What it reads", "items": ["Satellite grass measurements (RAP)", "NASA weather to date", "Your county's last 10 seasons"]},
@@ -230,7 +230,7 @@
       "tested": "July 1 forecast: typical miss 6.3%",
       "go": "Try It Free"
     },
-    "tile_note": "Free, no sign-in",
+    "tile_note": "Free account, 30 days of everything",
     "price_from": "$9",
     "shot_alt": "Grazing Planner on a computer and a phone, showing the August 1 check for 120 pairs on 2,000 acres of Frontier County, Nebraska native range: keep your 120 pairs; this year's grass is 8% below normal."
   },
