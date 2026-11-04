@@ -657,6 +657,7 @@ table.barns-table td .note { white-space: normal; }
   color: var(--suite-deep-green) !important; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
 .nav-me-panel a:hover, .nav-me-panel button:hover, .nav-me-panel a:focus-visible, .nav-me-panel button:focus-visible { background: var(--band); }
 .nav-me-panel button:disabled { opacity: .6; cursor: progress; }
+.site-header .nav-me-panel a[hidden] { display: none !important; }   /* Post for <barn> and Admin, until My Farm says so */
 
 /* How We Test: the Honest Ranges section (what an 80% range means, and its record) */
 .honest { padding: 8px 0 36px; }

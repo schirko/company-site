@@ -565,6 +565,9 @@ third-party-cookie blocking doesn't apply. Every app signs in through My Farm, s
 - `static/account.js` asks My Farm `GET /site/status` (farm-account v0.56.1; answers only this site's addresses, with
   `{"signed_in": true|false, "label": "Scott"}`, the first name and never the email) and, on a yes, hides Sign In,
   shows the menu and puts the name in it as text. One menu open at a time; a click elsewhere or Escape closes it.
+- Since 2026-10-31 (Scott: "I should always have the admin links in the menu"; farm-account v0.82.2) the answer
+  also has `admin` and `barns` (names), and the menu shows Post for <barn> ("Post for Your Barns" for more than one)
+  and Admin, linking to My Farm's `#barn` and `#admin`, as My Farm's own menu does. Both start hidden.
 - Sign Out is `POST /site/sign-out`: it ends the My Farm sign-in, so every app follows at its next check with My Farm
   (within 5 minutes of use), the same as signing out inside an app.
 - No JavaScript, My Farm asleep, or no answer: Sign In stays. Never wrong, only late. The Privacy page says this.

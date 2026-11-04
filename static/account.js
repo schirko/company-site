@@ -3,7 +3,8 @@
 // notes/site-signout-sheet-*-2026-10-20.png: a menu under your first name with My Farm and Sign Out, as in the apps.
 // This site (cornerpostlogic.com) and My Farm (apps.cornerpostlogic.com) are the same site to a browser, so asking My
 // Farm with credentials sends its own sign-in cookie along; this site sets no cookie and reads none. My Farm answers
-// only this site's addresses, and only yes or no plus, on a yes, the first name for the menu (never the email).
+// only this site's addresses, and only yes or no plus, on a yes, the first name for the menu (never the email),
+// whether you are its administrator and the names of the barns you post for (2026-10-31).
 // Every app signs in through My Farm, so its answer speaks for all of them. The page starts as a visitor sees it
 // (Sign In); only a yes swaps in the menu, so no JavaScript, My Farm asleep or no answer leaves Sign In, which is
 // never wrong, only late.
@@ -14,10 +15,19 @@
   if (!origin || typeof fetch !== "function") return;
   var all = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
 
-  function draw(signedIn, label) {
+  // 2026-10-31 (Scott: "I should always have the admin links in the menu"): as in My Farm's own menu, Post for <barn>
+  // when you post for a barn ("Post for Your Barns" for more than one) and Admin for My Farm's administrator. They only
+  // open My Farm, which checks again; a missing or odd answer leaves them hidden.
+  function draw(signedIn, label, admin, barns) {
     all("a.nav-signin").forEach(function (a) { a.hidden = signedIn; });
     all("details.nav-me").forEach(function (menu) { menu.hidden = !signedIn; if (!signedIn) menu.open = false; });
     if (signedIn && label) all(".nav-me-name").forEach(function (span) { span.textContent = label; });
+    var names = signedIn && Array.isArray(barns) ? barns.filter(function (b) { return typeof b === "string" && b; }) : [];
+    all("a.nav-me-barn").forEach(function (a) {
+      a.hidden = !names.length;
+      a.textContent = names.length === 1 ? "Post for " + names[0].slice(0, 60) : "Post for Your Barns";
+    });
+    all("a.nav-me-admin").forEach(function (a) { a.hidden = !(signedIn && admin === true); });
   }
 
   function ask() {
@@ -27,7 +37,8 @@
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (answer) {
         var yes = !!(answer && answer.signed_in === true);
-        draw(yes, yes && typeof answer.label === "string" ? answer.label.slice(0, 24) : "");
+        draw(yes, yes && typeof answer.label === "string" ? answer.label.slice(0, 24) : "",
+          yes && answer.admin === true, yes ? answer.barns : []);
       })
       .catch(function () { /* no answer: Sign In stays */ })
       .then(function () { if (timer) clearTimeout(timer); });

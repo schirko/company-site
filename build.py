@@ -387,8 +387,13 @@ MY_FARM_HOME = config.ACCOUNT_ORIGIN + "/app/"
 
 
 def me_menu() -> str:
+    """The menu under your name, hidden until account.js hears yes from My Farm. 2026-10-31 (Scott: "I should always
+    have the admin links in the menu"): Post for <your barn> and Admin, as in My Farm's own menu, stay hidden unless My
+    Farm says you post for a barn or are its administrator. Both open My Farm, which checks again before showing a thing."""
     return ('<details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary>'
             f'<div class="nav-me-panel"><a href="{e(MY_FARM_HOME)}">My Farm</a>'
+            f'<a class="nav-me-barn" href="{e(MY_FARM_HOME)}#barn" hidden>Post for Your Barn</a>'
+            f'<a class="nav-me-admin" href="{e(MY_FARM_HOME)}#admin" hidden>Admin</a>'
             '<button type="button" class="nav-signout">Sign Out</button></div></details>')
 
 

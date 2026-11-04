@@ -678,9 +678,11 @@ def test_one_setting_words_every_sign_up_link_on_the_page(state, button, card, o
     assert sum(c["text"] == button for c in controls(parts)) >= 4
     assert "$" not in words(parts)   # still no price
     nav = controls(build.nav_account(build.load_apps(), {**build.load_copy(), app["id"]: copy}, app))
-    # Sign In: My Farm. Since 2026-10-20 also the hidden menu under your name (account.js): My Farm, Sign Out (a button)
-    assert [(c["href"], c["for"]) for c in nav] == [(config.ACCOUNT_URL, None), (build.MY_FARM_HOME, None), (None, None),
-                                                       (base + card, "visitor-only")]
+    # Sign In: My Farm. Since 2026-10-20 also the hidden menu under your name (account.js): My Farm, Sign Out (a button);
+    # since 2026-10-31 also its hidden Post for Your Barn and Admin, as in My Farm's own menu
+    assert [(c["href"], c["for"]) for c in nav] == [(config.ACCOUNT_URL, None), (build.MY_FARM_HOME, None),
+                                                       (build.MY_FARM_HOME + "#barn", None), (build.MY_FARM_HOME + "#admin", None),
+                                                       (None, None), (base + card, "visitor-only")]
 
 
 def test_on_the_waitlist_nothing_beside_a_button_promises_what_only_an_account_gives():
@@ -1206,8 +1208,11 @@ def test_signed_in_the_header_shows_the_menu_under_your_name(site):
     menu hidden; account.js asks My Farm and swaps it in only on a yes. Walked through in Chromium against a local My
     Farm (see the README)."""
     menu = ('<details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary>'
-            '<div class="nav-me-panel"><a href="%s">My Farm</a><button type="button" class="nav-signout">Sign Out</button>'
-            '</div></details>' % build.MY_FARM_HOME)
+            '<div class="nav-me-panel"><a href="%s">My Farm</a>'
+            '<a class="nav-me-barn" href="%s#barn" hidden>Post for Your Barn</a>'   # 2026-10-31: as in My Farm's menu
+            '<a class="nav-me-admin" href="%s#admin" hidden>Admin</a>'
+            '<button type="button" class="nav-signout">Sign Out</button>'
+            '</div></details>' % ((build.MY_FARM_HOME,) * 3))
     for path in sorted(site.glob("*.html")):
         page = path.read_text(encoding="utf-8")
         header = page[page.index('<header class="suite-bar site-header">'):page.index("</header>")]
@@ -1228,6 +1233,19 @@ def test_the_header_script_asks_my_farm_yes_or_no_and_starts_as_a_visitor():
     assert 'fetch(origin + "/site/sign-out", { method: "POST", credentials: "include", cache: "no-store" })' in code
     assert "localStorage" not in code and "document.cookie" not in code and "innerHTML" not in code
     assert code.count("fetch(") == 2                                          # those two, and nothing else
+
+
+def test_the_name_menu_shows_admin_and_your_barn_only_when_my_farm_says_so():
+    """Scott, 2026-10-31: "I should always have the admin links in the menu" (on the site they were never there). My
+    Farm's answer now says admin (true or false) and the barns you post for; the links start hidden and only a plain
+    true or a list of names shows them, with the barn's name as text."""
+    code = re.sub(r"//[^\n]*", "", (build.STATIC / "account.js").read_text(encoding="utf-8"))
+    assert 'a.hidden = !(signedIn && admin === true);' in code
+    assert 'yes && answer.admin === true, yes ? answer.barns : []' in code
+    assert 'names.length === 1 ? "Post for " + names[0].slice(0, 60) : "Post for Your Barns"' in code   # as My Farm
+    assert "a.textContent =" in code and "innerHTML" not in code
+    css = (build.STATIC / "site.css").read_text(encoding="utf-8")
+    assert ".site-header .nav-me-panel a[hidden] { display: none !important; }" in css
 
 
 @pytest.mark.skipif(not (ROOT.parent / "farm-account").exists(), reason="My Farm isn't checked out next to this project")
