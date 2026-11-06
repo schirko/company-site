@@ -21,7 +21,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="brand/icon-180.png">
   <link rel="stylesheet" href="suite/suite.css?v=0c03f3635d">
-  <link rel="stylesheet" href="site.css?v=57f1b3f05c">
+  <link rel="stylesheet" href="site.css?v=4d7259e185">
   <style>
     html[data-uses="herd-planner"] .visitor-only[data-app="herd-planner"], html:not([data-uses="herd-planner"]) .member-only[data-app="herd-planner"] { display: none !important; }
   </style>
@@ -34,7 +34,7 @@
     <!-- On a phone (Scott, 2026-10-13: one phone header for every app and the site, Herd Planner's, from
          herd-planner/notes/phone-headers-now-and-proposed-2026-10-13.png): Sign In (or a returning browser's Open
          link) stays on the bar and the rest is behind Menu. Both are hidden on wider screens. -->
-    <div class="bar-account"><a class="nav-signin" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a><details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary><div class="nav-me-panel"><a href="https://apps.cornerpostlogic.com/app/">My Farm</a><button type="button" class="nav-signout">Sign Out</button></div></details></div>
+    <div class="bar-account"><a class="nav-signin" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a><details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary><div class="nav-me-panel"><a href="https://apps.cornerpostlogic.com/app/">My Farm</a><a class="nav-me-barn" href="https://apps.cornerpostlogic.com/app/#barn" hidden>Post for Your Barn</a><a class="nav-me-admin" href="https://apps.cornerpostlogic.com/app/#admin" hidden>Admin</a><button type="button" class="nav-signout">Sign Out</button></div></details></div>
     <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav"><span aria-hidden="true">&#9776;</span> Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="Site">
       <div class="mega-wrap"><details class="mega" data-mega>
@@ -66,7 +66,7 @@
       <a href="about.html" data-note="Who we are">About</a>
       <a class="nav-methods" href="methods.html" data-note="How we check it">How We Test</a>
       <a class="nav-signin" href="https://apps.cornerpostlogic.com/app/#signin">Sign In</a>
-      <details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary><div class="nav-me-panel"><a href="https://apps.cornerpostlogic.com/app/">My Farm</a><button type="button" class="nav-signout">Sign Out</button></div></details>
+      <details class="nav-me" hidden><summary><span class="nav-me-name">My Farm</span></summary><div class="nav-me-panel"><a href="https://apps.cornerpostlogic.com/app/">My Farm</a><a class="nav-me-barn" href="https://apps.cornerpostlogic.com/app/#barn" hidden>Post for Your Barn</a><a class="nav-me-admin" href="https://apps.cornerpostlogic.com/app/#admin" hidden>Admin</a><button type="button" class="nav-signout">Sign Out</button></div></details>
     </nav>
   </div>
 </header>
@@ -78,19 +78,19 @@
     <p class="lede">What feeder cattle are bringing at each sale barn Herd Planner follows, worked out every Friday
       from USDA auction reports, with the range real sales fall in.</p>
     <h2>This Week&rsquo;s Markets</h2>
-    <ul class="plain market-links"><li><a href="markets-ne.html">Nebraska Cattle Markets</a>, week of Oct 26: head sold and USDA&rsquo;s market reports at each barn</li></ul>
+    <ul class="plain market-links"><li><a href="markets-ne.html">Nebraska Cattle Markets</a>, week of Nov 2: head sold and USDA&rsquo;s market reports at each barn</li></ul>
     <h2>Colorado</h2>
     <div class="table-scroll"><table class="results barns-table">
-      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Nov 1</th></tr></thead>
-      <tbody><tr><td><a href="barn-brush-co-3090.html" data-barn="3090">Livestock Exchange LLC</a><span class="barn-town">Brush</span></td><td>Oct 29, 2026</td><td>$432/cwt</td></tr><tr><td><a href="barn-la-junta-co-1902.html" data-barn="1902">Winter Livestock Inc.</a><span class="barn-town">La Junta</span></td><td>Oct 26, 2026</td><td>$427/cwt</td></tr></tbody></table></div>
+      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Nov 6</th></tr></thead>
+      <tbody><tr><td><a href="barn-brush-co-3090.html" data-barn="3090">Livestock Exchange LLC</a><span class="barn-town">Brush</span></td><td>Nov 5, 2026</td><td>$425/cwt</td></tr><tr><td><a href="barn-la-junta-co-1902.html" data-barn="1902">Winter Livestock Inc.</a><span class="barn-town">La Junta</span></td><td>Nov 2, 2026</td><td>$424/cwt</td></tr></tbody></table></div>
     <h2>Nebraska</h2>
     <div class="table-scroll"><table class="results barns-table">
-      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Nov 1</th></tr></thead>
-      <tbody><tr><td><a href="barn-bassett-ne-1852.html" data-barn="1852">Bassett Livestock Auction</a><span class="barn-town">Bassett</span></td><td>Oct 28, 2026</td><td>$463/cwt</td></tr><tr><td><a href="barn-burwell-ne-1851.html" data-barn="1851">Burwell Livestock Market</a><span class="barn-town">Burwell</span></td><td>Oct 30, 2026</td><td>$455/cwt</td></tr><tr><td><a href="barn-gordon-ne-3801.html" data-barn="3801">Gordon Livestock Market</a><span class="barn-town">Gordon</span></td><td>Nov 2, 2024</td><td><span class="note">no recent sale</span></td></tr><tr><td><a href="barn-north-platte-ne-3653.html" data-barn="3653">North Platte Stockyards</a><span class="barn-town">North Platte</span></td><td>Oct 20, 2026</td><td>$459/cwt</td></tr></tbody></table></div>
+      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Nov 6</th></tr></thead>
+      <tbody><tr><td><a href="barn-bassett-ne-1852.html" data-barn="1852">Bassett Livestock Auction</a><span class="barn-town">Bassett</span></td><td>Nov 4, 2026</td><td>$443/cwt</td></tr><tr><td><a href="barn-burwell-ne-1851.html" data-barn="1851">Burwell Livestock Market</a><span class="barn-town">Burwell</span></td><td>Oct 30, 2026</td><td>$449/cwt</td></tr><tr><td><a href="barn-gordon-ne-3801.html" data-barn="3801">Gordon Livestock Market</a><span class="barn-town">Gordon</span></td><td>Nov 2, 2024</td><td><span class="note">no recent sale</span></td></tr><tr><td><a href="barn-north-platte-ne-3653.html" data-barn="3653">North Platte Stockyards</a><span class="barn-town">North Platte</span></td><td>Nov 3, 2026</td><td>$444/cwt</td></tr></tbody></table></div>
     <h2>Oklahoma</h2>
     <div class="table-scroll"><table class="results barns-table">
-      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Nov 1</th></tr></thead>
-      <tbody><tr><td><a href="barn-ada-ok-1830.html" data-barn="1830">Southern Oklahoma Livestock</a><span class="barn-town">Ada</span></td><td>Oct 28, 2026</td><td>$429/cwt</td></tr><tr><td><a href="barn-apache-ok-1829.html" data-barn="1829">Apache Livestock Auction</a><span class="barn-town">Apache</span></td><td>Oct 29, 2026</td><td>$422/cwt</td></tr><tr><td><a href="barn-beaver-ok-3794.html" data-barn="3794">Beaver Livestock Auction</a><span class="barn-town">Beaver</span></td><td>Oct 27, 2026</td><td>$440/cwt</td></tr><tr><td><a href="barn-el-reno-ok-1281.html" data-barn="1281">OKC West Livestock Market</a><span class="barn-town">El Reno</span></td><td>Oct 27, 2026</td><td>$420/cwt</td></tr><tr><td><a href="barn-mcalester-ok-1827.html" data-barn="1827">McAlester Union Stockyards</a><span class="barn-town">McAlester</span></td><td>Oct 27, 2026</td><td>$378/cwt</td></tr><tr><td><a href="barn-oklahoma-city-ok-1280.html" data-barn="1280">Oklahoma National Stockyards</a><span class="barn-town">Oklahoma City</span></td><td>Oct 26, 2026</td><td>$419/cwt</td></tr><tr><td><a href="barn-tulsa-ok-1832.html" data-barn="1832">Tulsa Stockyards Inc.</a><span class="barn-town">Tulsa</span></td><td>Oct 26, 2026</td><td>$411/cwt</td></tr><tr><td><a href="barn-woodward-ok-1828.html" data-barn="1828">Woodward Livestock Inc.</a><span class="barn-town">Woodward</span></td><td>Oct 29, 2026</td><td>$421/cwt</td></tr></tbody></table></div>
+      <thead><tr><th>Sale barn</th><th>Last sale</th><th>550 lb steer, week of Nov 6</th></tr></thead>
+      <tbody><tr><td><a href="barn-ada-ok-1830.html" data-barn="1830">Southern Oklahoma Livestock</a><span class="barn-town">Ada</span></td><td>Nov 4, 2026</td><td>$417/cwt</td></tr><tr><td><a href="barn-apache-ok-1829.html" data-barn="1829">Apache Livestock Auction</a><span class="barn-town">Apache</span></td><td>Nov 5, 2026</td><td>$416/cwt</td></tr><tr><td><a href="barn-beaver-ok-3794.html" data-barn="3794">Beaver Livestock Auction</a><span class="barn-town">Beaver</span></td><td>Nov 3, 2026</td><td>$432/cwt</td></tr><tr><td><a href="barn-el-reno-ok-1281.html" data-barn="1281">OKC West Livestock Market</a><span class="barn-town">El Reno</span></td><td>Nov 3, 2026</td><td>$409/cwt</td></tr><tr><td><a href="barn-mcalester-ok-1827.html" data-barn="1827">McAlester Union Stockyards</a><span class="barn-town">McAlester</span></td><td>Nov 3, 2026</td><td>$366/cwt</td></tr><tr><td><a href="barn-oklahoma-city-ok-1280.html" data-barn="1280">Oklahoma National Stockyards</a><span class="barn-town">Oklahoma City</span></td><td>Nov 2, 2026</td><td>$409/cwt</td></tr><tr><td><a href="barn-tulsa-ok-1832.html" data-barn="1832">Tulsa Stockyards Inc.</a><span class="barn-town">Tulsa</span></td><td>Nov 2, 2026</td><td>$393/cwt</td></tr><tr><td><a href="barn-woodward-ok-1828.html" data-barn="1828">Woodward Livestock Inc.</a><span class="barn-town">Woodward</span></td><td>Nov 5, 2026</td><td>$410/cwt</td></tr></tbody></table></div>
     <span hidden data-barn-logos="https://apps.cornerpostlogic.com"></span><script src="barn-logo.js?v=9ea68e3715" defer></script>
   </div>
 </section>
@@ -127,6 +127,6 @@
 <button type="button" class="suite-ask-fab suite-ask-hidden" data-suite-ask="site" data-suite-base="suite">Ask a Question</button>
 <script src="suite/suite.js?v=0484ab4002" defer></script>
 <script src="menu.js?v=e153a3ec91" defer></script>
-<script src="account.js?v=c12983cfc4" data-account="https://apps.cornerpostlogic.com" defer></script>
+<script src="account.js?v=d38fca6716" data-account="https://apps.cornerpostlogic.com" defer></script>
 </body>
 </html>
